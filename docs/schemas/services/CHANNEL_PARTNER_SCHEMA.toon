@@ -1,0 +1,266 @@
+# Propmubi Channel Partner (CP) Network Schema
+# Format: TOON
+# Goal: Uber-like marketplace for RERA-certified Sales Agents serving as dedicated buyer assistants.
+
+# -----------------------------------------------------------------------------
+# 1. CHANNEL PARTNER PROFILE (The "Driver")
+# -----------------------------------------------------------------------------
+ChannelPartnerProfile[List]{cp_id, name, rera_reg_no, specialization, rating_avg, total_deals, status}:
+  CP-001 | Rajesh Kumar | RERA-TS-AG-12345 | Luxury_Apartments | 4.8 | 150 | Active
+  CP-002 | Sneha Reddy | RERA-TS-AG-67890 | Plots_Farmlands | 4.9 | 85 | Active
+  CP-003 | Amit Verma | RERA-TS-AG-11223 | Budget_Homes | 4.2 | 200 | Active
+
+  # VERIFICATION & COMPLIANCE
+  Verification{kyc_status, rera_validity, background_check, platform_training}:
+    Verified | Valid_Until_2026 | Clear | Completed
+
+  # COVERAGE & MICRO-MARKET PRESENCE
+  ServiceArea{primary_region, authorized_projects, languages}:
+    Hyderabad_Metropolitan | [P-SAYUK, P-MANGALA] | [English, Telugu, Hindi]
+
+  MicroMarketCoverage{region, sub_markets, coverage_type, reach_population}:
+    Telangana | [HITEC_City, Gachibowli, Madhapur, Hiranandani, Kondapur] | Primary | 250000
+    Telangana | [Banjara_Hills, Jubilee_Hills, Koramangala] | Secondary | 180000
+
+# -----------------------------------------------------------------------------
+# 2. LEAD ASSIGNMENT (The "Ride Request")
+# -----------------------------------------------------------------------------
+LeadAssignment[List]{assignment_id, lead_ref, cp_assigned, project_ref, status, assigned_date}:
+  ASGN-5501 | LEAD-001 | CP-001 | P-SAYUK | Active | 2025-12-10
+  ASGN-5502 | LEAD-045 | CP-002 | P-SAYUK-PLOTS | Completed | 2025-11-15
+
+  # ASSIGNMENT LOGIC (Smart Matching)
+  MatchingCriteria{lead_preference, cp_expertise, distance_km, availability}:
+    Luxury_3BHK | Luxury_Apartments | 5.2 | Available_Now
+
+  # BUYER NOTIFICATION
+  BuyerNotification{channel, message, cp_contact}:
+    WhatsApp | "Hi Rahul! Rajesh Kumar (4.8★) will assist you. Call: +91-98765..." | +91-98765-43210
+
+# -----------------------------------------------------------------------------
+# 3. SERVICE DELIVERY TRACKING (The "Trip")
+# -----------------------------------------------------------------------------
+ServiceLog[List]{assignment_ref, activity_type, date_time, location, notes}:
+  ASGN-5501 | Site_Visit_Scheduled | 2025-12-12_10:00 | P-SAYUK_SalesOffice | Tower A walkthrough
+  ASGN-5501 | Price_Negotiation | 2025-12-13_15:00 | Virtual_Call | Discussed 2% discount
+  ASGN-5501 | Documentation_Assist | 2025-12-15_11:00 | Bank_Branch | Loan application support
+
+# -----------------------------------------------------------------------------
+# 4. BUYER FEEDBACK & REPLACEMENT (The "Rating")
+# -----------------------------------------------------------------------------
+BuyerFeedback[List]{assignment_ref, rating_stars, review_text, sentiment, flagged}:
+  ASGN-5501 | 5 | "Rajesh was very professional and patient!" | Positive | false
+  ASGN-5503 | 2 | "Agent was pushy, didn't listen to my budget." | Negative | true
+
+  # REPLACEMENT TRIGGER
+  ReplacementRequest{assignment_ref, reason, new_cp_assigned, status}:
+    ASGN-5503 | Poor_Service_Quality | CP-003 | Reassigned
+
+# -----------------------------------------------------------------------------
+# 5. COMMISSION & PAYOUT (The "Earnings")
+# -----------------------------------------------------------------------------
+CommissionStructure[List]{project_ref, deal_type, commission_pct, payout_trigger}:
+  P-SAYUK | Sale_Closed | 1.0% | Registration_Complete
+  P-SAYUK | Site_Visit_Only | 500_INR | Flat_Fee_Per_Visit
+
+CPEarnings[List]{cp_ref, assignment_ref, deal_value, commission_earned, payout_status}:
+  CP-001 | ASGN-5501 | 1.65Cr | 1,65,000 | Pending_Registration
+  CP-002 | ASGN-5502 | 1.95Cr | 1,95,000 | Paid
+
+# ============================================================================
+# MICRO-MARKET RESEARCH & BUSINESS INTELLIGENCE (SEPARATE SCHEMA)
+# ============================================================================
+# Referenced from: MICRO_MARKET_INTELLIGENCE_SCHEMA.toon
+# Contains: Micro-market profiles, competitor analysis, banking ecosystem,
+# commercial establishments, market research, stakeholder networks,
+# regulatory environment, and customer demographics by micro-market
+#
+# CP Market Coverage Links:
+# MicroMarketCoverage{region, sub_markets, coverage_type, reach_population}:
+#   Telangana | [HITEC_City, Gachibowli, Madhapur, Hiranandani, Kondapur] | Primary | 250000
+#   Telangana | [Banjara_Hills, Jubilee_Hills, Koramangala] | Secondary | 180000
+
+# ============================================================================
+# 6. CUSTOMER PORTFOLIO & PROJECT MANAGEMENT
+# ============================================================================
+
+CustomerPortfolio[List]{portfolio_id, cp_ref, customer_id, project_ref, status, acquisition_date}:
+  PORT-001 | CP-001 | CUST-145 | P-SAYUK | Active | 2025-10-15
+  PORT-002 | CP-001 | CUST-146 | P-SAYUK | Active | 2025-11-20
+  PORT-003 | CP-002 | CUST-147 | P-MANGALA | In_Negotiation | 2025-12-01
+
+  # CUSTOMER LIFECYCLE TRACKING
+  LifecycleStage{stage, duration_months, target_action, next_milestone}:
+    Lead | 1 | Schedule_Site_Visit | Proposal_Presentation
+    Active_Buyer | 3 | Price_Negotiation | Registration_Ready
+    Post_Sale | 12 | Referral_Generation | Repeat_Business
+
+  # CUSTOMER METADATA
+  CustomerMetadata{age_group, budget_range, property_type_preference, location_preference}:
+    30-45 | 1.5Cr-2.5Cr | 3BHK_Apartment | Hyderabad_CBD
+    25-35 | 75L-1.5Cr | 2BHK_Apartment | Emerging_Areas
+    40-55 | 2Cr-5Cr | Luxury_Villa | Premium_Locations
+
+  # CUSTOMER INTERACTION HISTORY
+  InteractionLog[List]{portfolio_ref, interaction_date, channel, agent_notes}:
+    PORT-001 | 2025-12-10 | WhatsApp | Customer interested in 3BHK Tower A
+    PORT-001 | 2025-12-15 | In_Person | Site visit completed, positive response
+    PORT-002 | 2025-12-12 | Phone_Call | Budget confirmation, ready for proposal
+
+# ============================================================================
+# 7. PORTFOLIO ENRICHMENT & LEAD INTELLIGENCE
+# ============================================================================
+
+LeadEnrichmentData[List]{lead_id, source, demographic_data, financial_score, engagement_level}:
+  LEAD-001 | Property_Website | {age: 32, occupation: IT_Professional, experience: 8yrs} | High_Financials_Score | Active
+  LEAD-002 | Referral | {age: 45, occupation: Business_Owner, experience: 15yrs} | Very_High_Score | Very_Active
+  LEAD-003 | Cold_Lead | {age: 28, occupation: Corporate_Employee, experience: 3yrs} | Medium_Score | Dormant
+
+  # BEHAVIORAL ENRICHMENT
+  BehavioralProfile{lead_ref, search_patterns, visit_frequency, property_interests, price_sensitivity}:
+    LEAD-001 | {luxury_units: High, plot_searches: Low} | 8_visits_30days | 3BHK_4BHK | Medium_Sensitive
+    LEAD-002 | {premium_villas: High, commercial: Medium} | 12_visits_30days | Villa_Penthouse | Low_Sensitive
+
+  # FIRMOGRAPHIC DATA (For B2B/Corporate Buyers)
+  FirmographicData{lead_id, company_name, industry, employee_count, annual_revenue}:
+    LEAD-004 | TechCorp_India | IT_Services | 500 | 50Cr_Annually
+    LEAD-005 | BuildTech_Solutions | Construction_Tech | 150 | 15Cr_Annually
+
+  # ENGAGEMENT SCORE CALCULATION
+  LeadScoringModel{recency_days, frequency_interactions, monetary_intent, engagement_score}:
+    5 | 4 | High | 85
+    2 | 8 | Very_High | 95
+    30 | 1 | Low | 35
+
+# ============================================================================
+# 8. CONTENT MANAGEMENT & POSTING STRATEGY
+# ============================================================================
+
+ContentCalendar[List]{content_id, cp_ref, title, type, platforms, publish_date, status}:
+  CONT-001 | CP-001 | "Tower A Virtual Walkthrough" | Video | YouTube_Instagram | 2025-12-25 | Published
+  CONT-002 | CP-001 | "Investment Returns in SAYUK Projects" | Blog_Post | LinkedIn_Website | 2026-01-05 | Scheduled
+  CONT-003 | CP-002 | "Plot Investment Guide 2026" | Infographic | Instagram_Twitter_X | 2025-12-28 | Draft
+
+  # CONTENT METADATA
+  ContentMetadata{content_id, description, keywords, target_audience, content_length_minutes}:
+    CONT-001 | High-resolution property tour showcasing amenities | {luxury_apt, virtual_tour, SAYUK} | 25-45_age | 8.5
+    CONT-002 | ROI analysis for buyers investing in residential projects | {investment, real_estate, returns} | 35-55_age | 12
+
+  # CONTENT PERFORMANCE METRICS
+  ContentPerformance[List]{content_id, platform, impressions, clicks, engagement_rate, conversion_rate}:
+    CONT-001 | YouTube | 15000 | 1200 | 8.0% | 2.1%
+    CONT-001 | Instagram | 8500 | 680 | 8.0% | 1.8%
+    CONT-002 | LinkedIn | 5200 | 420 | 8.1% | 3.2%
+
+  # CONTENT DISTRIBUTION SCHEDULE
+  DistributionSchedule{platform, posting_frequency, optimal_time, audience_timezone}:
+    YouTube | Weekly | Wednesday_6PM | IST
+    Instagram | 3x_Per_Week | Monday_Wednesday_Friday_6PM | IST
+    LinkedIn | 2x_Per_Week | Tuesday_Thursday_9AM | IST
+    Twitter_X | Daily | 8AM_1PM_6PM | IST
+    Meta_Facebook | 2x_Per_Week | Thursday_Saturday_7PM | IST
+    WhatsApp_Business | Real_Time | Personalized | IST
+
+# ============================================================================
+# 9. COLD CALLING & LEAD OUTREACH CAMPAIGN
+# ============================================================================
+
+ColdCallingCampaign[List]{campaign_id, cp_ref, target_segment, start_date, end_date, daily_target, status}:
+  CAMP-001 | CP-001 | HNI_Luxury_Buyers | 2025-12-16 | 2026-01-31 | 15_calls_per_day | Active
+  CAMP-002 | CP-002 | First_Time_Plot_Buyers | 2025-12-20 | 2026-02-28 | 20_calls_per_day | Scheduled
+  CAMP-003 | CP-003 | Mid_Budget_Apartment | 2025-12-10 | 2025-12-31 | 25_calls_per_day | Completed
+
+  # OUTREACH SCRIPT & MESSAGING
+  OutreachScript{campaign_ref, opening_line, value_proposition, call_to_action, objection_handling}:
+    CAMP-001 | "Hi [Name], calling from Propmubi to discuss exclusive luxury properties..." | "Premium locations with assured returns" | "Schedule a 15-min call?" | Handle_Budget_Concern
+
+  # CALL TRACKING & DISPOSITION
+  CallLog[List]{call_id, campaign_ref, lead_id, call_date, duration_seconds, disposition, notes}:
+    CALL-5001 | CAMP-001 | LEAD-101 | 2025-12-16_10:15 | 180 | Interested | Interested in 4BHK, follow-up in 2 days
+    CALL-5002 | CAMP-001 | LEAD-102 | 2025-12-16_10:45 | 45 | Not_Interested | Budget too low for luxury segment
+    CALL-5003 | CAMP-001 | LEAD-103 | 2025-12-16_11:20 | 240 | Call_Back_Later | Not right time, call next week
+    CALL-5004 | CAMP-002 | LEAD-104 | 2025-12-20_09:30 | 360 | Qualified_Lead | Interested in plot, needs site visit
+
+  # DISPOSITION OUTCOMES
+  DispositionMapping{disposition_code, follow_up_required, lead_score_adjustment, next_action}:
+    Interested | Yes | +15 | Schedule_Site_Visit
+    Not_Interested | No | 0 | Archive
+    Call_Back_Later | Yes | +5 | Recontact_After_3Days
+    Qualified_Lead | Yes | +20 | Fast_Track_To_Sales
+    Do_Not_Call | No | -100 | Blacklist_Lead
+
+  # CAMPAIGN PERFORMANCE SUMMARY
+  CampaignMetrics{campaign_ref, total_calls, connection_rate, interest_rate, qualified_rate, conversion_rate}:
+    CAMP-001 | 300 | 78% | 45% | 28% | 8.5%
+    CAMP-002 | 420 | 82% | 52% | 35% | 11.2%
+    CAMP-003 | 500 | 75% | 40% | 24% | 6.8%
+
+# ============================================================================
+# 10. SOCIAL MEDIA MANAGEMENT & ENGAGEMENT
+# ============================================================================
+
+SocialMediaProfile[List]{profile_id, cp_ref, platform, handle, followers, verification_status, posting_rights}:
+  SOCM-001 | CP-001 | YouTube | @RajeshKumar_RealEstate | 45000 | Verified | Auto_Approval
+  SOCM-002 | CP-001 | Instagram | @rajeshkumar_propmubi | 28000 | Verified | Auto_Approval
+  SOCM-003 | CP-001 | Twitter_X | @RajeshKumarRE | 12500 | Not_Verified | Manual_Review
+  SOCM-004 | CP-001 | LinkedIn | Rajesh Kumar | 8300 | Verified | Auto_Approval
+  SOCM-005 | CP-001 | Meta_Facebook | Rajesh Kumar Real Estate | 32000 | Verified | Auto_Approval
+  SOCM-006 | CP-001 | WhatsApp_Business | +91-98765-43210 | 3500_contacts | Verified | Direct_Messaging
+
+  # PLATFORM-SPECIFIC STRATEGIES
+  PlatformStrategy{platform, content_pillars, engagement_tactics, posting_cadence, growth_target_monthly}:
+    YouTube | {Virtual_Tours, Investment_Analysis, Client_Testimonials} | {Comments_Response, Community_Posts, Shorts} | 1_video_week | 500_new_subscribers
+    Instagram | {Property_Photos, Behind_the_Scenes, Reels} | {Story_Polls, Comment_Engagement, Hashtag_Strategy} | 3_posts_week | 1000_new_followers
+    Twitter_X | {Market_Updates, Industry_News, Quick_Tips} | {Retweets, Quote_Tweets, Thread_Building} | 5_posts_day | 300_new_followers
+    LinkedIn | {Thought_Leadership, Company_News, Industry_Insights} | {Connection_Requests, Article_Engagement, Comment_Discussions} | 2_posts_week | 200_new_connections
+    Meta_Facebook | {Community_Building, Event_Promotion, Customer_Stories} | {Group_Discussions, Event_RSVPs, Share_Boosting} | 3_posts_week | 800_new_followers
+    WhatsApp_Business | {Personalized_Updates, Exclusive_Offers, Quick_Support} | {Direct_Messaging, Status_Updates, Catalog_Sharing} | Real_Time | 100_new_contacts_weekly
+
+  # ENGAGEMENT TRACKING PER PLATFORM
+  PlatformEngagement[List]{profile_id, platform, post_count_month, avg_likes, avg_comments, avg_shares, reach, impressions}:
+    SOCM-001 | YouTube | 4 | N/A | 150_avg | 45_avg | 42000_views_month | 85000_impressions
+    SOCM-002 | Instagram | 12 | 780_avg | 45_avg | 12_avg | 28000_reach | 65000_impressions
+    SOCM-003 | Twitter_X | 120 | 120_avg | 25_avg | 8_avg | 15000_reach | 42000_impressions
+    SOCM-004 | LinkedIn | 8 | 250_avg | 35_avg | 18_avg | 8500_reach | 22000_impressions
+    SOCM-005 | Meta_Facebook | 12 | 450_avg | 52_avg | 22_avg | 32000_reach | 72000_impressions
+    SOCM-006 | WhatsApp_Business | N/A | N/A | Direct_Messaging | Direct_Messaging | 3500_active | Direct_Engagement
+
+  # COMMUNITY MANAGEMENT & RESPONSES
+  CommunityInteraction[List]{interaction_id, profile_id, interaction_type, responder, response_time_hours, sentiment}:
+    INTER-001 | SOCM-001 | Question_On_Video | CP-001 | 2 | Positive_Resolution
+    INTER-002 | SOCM-002 | DM_Inquiry | Social_Manager_001 | 1 | High_Satisfaction
+    INTER-003 | SOCM-005 | Comment_Inquiry | CP-001 | 3 | Positive_Resolution
+
+  # INFLUENCER COLLABORATION & PARTNERSHIPS
+  InfluencerCampaign[List]{campaign_id, cp_ref, influencer_handle, platform, content_type, posting_date, reach_expected}:
+    INFL-001 | CP-001 | @PropertyTuber_IN | YouTube | Property_Review_Video | 2026-01-10 | 150000
+    INFL-002 | CP-001 | @RealEstate_Coach | Instagram | Sponsored_Reel | 2026-01-15 | 85000
+    INFL-003 | CP-002 | @PropertyLinkedIn_Expert | LinkedIn | Thought_Leadership_Article | 2026-01-20 | 45000
+
+# ============================================================================
+# 11. WHATSAPP BUSINESS & DIRECT MESSAGING
+# ============================================================================
+
+WhatsAppBusiness[List]{wa_profile_id, cp_ref, phone_number, template_approval, message_queue_pending}:
+  WA-001 | CP-001 | +91-98765-43210 | 8_templates_approved | 150_messages
+  WA-002 | CP-002 | +91-87654-32109 | 6_templates_approved | 200_messages
+
+  # WHATSAPP MESSAGE TEMPLATES
+  MessageTemplate[List]{template_id, cp_ref, template_name, category, approval_status}:
+    TMPL-001 | CP-001 | Lead_Follow_Up | Marketing | Approved
+    TMPL-002 | CP-001 | Site_Visit_Reminder | Transactional | Approved
+    TMPL-003 | CP-001 | Exclusive_Offer | Marketing | Approved
+    TMPL-004 | CP-001 | Customer_Testimonial | Marketing | Pending_Review
+
+  # WHATSAPP BROADCAST CAMPAIGNS
+  BroadcastCampaign[List]{broadcast_id, cp_ref, template_ref, recipient_count, delivery_date, open_rate, click_rate}:
+    BC-001 | CP-001 | TMPL-001 | 1250 | 2025-12-20 | 78% | 12.5%
+    BC-002 | CP-001 | TMPL-002 | 450 | 2025-12-15 | 92% | 8.2%
+    BC-003 | CP-002 | TMPL-003 | 2100 | 2025-12-18 | 85% | 15.3%
+
+  # WHATSAPP CUSTOMER SUPPORT CONVERSATIONS
+  ConversationLog[List]{conv_id, wa_profile_ref, customer_name, start_time, duration_minutes, resolution_status}:
+    WCONV-001 | WA-001 | Rajesh Patel | 2025-12-20_14:30 | 8 | Resolved
+    WCONV-002 | WA-001 | Priya Sharma | 2025-12-20_16:45 | 5 | Pending
+    WCONV-003 | WA-002 | Amit Singh | 2025-12-20_10:15 | 12 | Resolved
+

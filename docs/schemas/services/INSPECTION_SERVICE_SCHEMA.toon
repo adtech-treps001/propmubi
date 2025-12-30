@@ -1,0 +1,50 @@
+# Propmubi Property Inspection Service (Home Inspection)
+# Format: TOON
+# Goal: Standardized Quality Audit during construction (Staged) and Final Handover.
+
+# -----------------------------------------------------------------------------
+# 1. INSPECTION PARTNERS (Aggregators)
+# -----------------------------------------------------------------------------
+InspectionPartnerEnum = [
+  "PropCheck",
+  "Nemmadi",
+  "HomeInspektor",
+  "MacJ_Home_Inspection",
+  "Meazurement",
+  "QwikSpec_Audit",
+  "Propmubi_Certified_Auditor"
+]
+
+# -----------------------------------------------------------------------------
+# 2. STAGED INSPECTION WORKFLOW (Push to Builder)
+# Conducting audits *during* construction to prevent rework.
+# -----------------------------------------------------------------------------
+ConstructionAuditSchedule[List]{unit_ref, stage_name, partner_ref, status, report_url}:
+  U-A-101 | Brick_Work_Completion | PropCheck | Passed | .../rpt_brick.pdf
+  U-A-101 | Concealed_Electrical | PropCheck | FLAGGED_ISSUES | .../rpt_elec_fail.pdf
+  U-A-101 | Waterproofing_Testing | Nemmadi | Pending | -
+
+  # DATA SHARING (Traceability)
+  # Sharing "As-Built" data with Auditor so they know what to check against.
+  AuditContextData{unit_ref}:
+     Floor_Plan: FLOOR_SCHEMA.toon#LAY-TYP-A
+     Material_Specs: FINISHES_SCHEMA.toon#FL-01 (Italian Marble)
+     Plumbing_Map: PLUMBING_SCHEMA.toon (Check pipe pressure here)
+
+# -----------------------------------------------------------------------------
+# 3. DEFECT TRACKING & REWORK LOOP
+# -----------------------------------------------------------------------------
+DefectLog[List]{audit_ref, location, severity, description, photo_url, rework_status}:
+  AUDIT-99 | MasterBed_NorthWall | High | "Conduit pipe exposed, plaster depth insufficient" | img1.jpg | Fixed_Verified
+  AUDIT-99 | Kitchen_Sink | Medium | "Drain slope < 1:100, risk of stagnation" | img2.jpg | Pending_Builder_Action
+
+# -----------------------------------------------------------------------------
+# 4. BUYER HANDOVER INSPECTION (Push to Buyer)
+# The final "Snag List" before taking possession.
+# -----------------------------------------------------------------------------
+HandoverSnagList{unit_ref, buyer_ref, auditor_ref, snout_count, final_score}:
+  U-A-101 | LEAD-001 | HomeInspektor | 15 | 8.5/10 (Good)
+
+  SnagItems[List]{category, item, defect}:
+     Finishes | Floor_Tile | Hollow sound in 2 tiles near door
+     Electrical | Switch_Board | Earthing leak detected

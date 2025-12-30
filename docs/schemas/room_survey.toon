@@ -1,0 +1,61 @@
+# Propmubi As-Built Measurement Schema
+# Format: TOON
+# Goal: Capture precise architectural survey measurements ("As-Built") for interior design automation.
+# Coordinates: 2D Cartesian on the WALL FACE (X = Horizontal Distance from Left Corner, Y = Height from Floor)
+# Structural Z: Depth/Protrusion into the room.
+
+SurveyMetadata{surveyor_id, survey_date, device_type, unit_id}:
+  SURV-001 | 2025-12-12 | LiDAR_iPad_Pro | UNIT-A-101
+
+RoomSurvey[List]{room_id, name_code, wall_count, ceiling_height_mm}:
+  ROOM-001 | M_BED | 4 | 3050
+
+  # INTERIOR DESIGNER CONTEXT: Materiality, Defects, and Constraints
+  # Designers need to know: Is the wall flat? Is it damp? Can it hold screw weight?
+  
+  # WALL 1: NORTH (Bed Back Wall)
+  Wall[0]{id, orientation, dims_w_h, finish_substrate, condition}:
+     W-N-01 | North | 4500x3050 | Brick_Plastered_Gypsum | Good_Level
+     
+     # MATERIAL & LOAD CAPACITY
+     SubstrateProperties[List]{material, screw_holding_capacity, drill_bit_type}:
+       Red_Brick_4Inch | Medium_25kg | Masonry_6mm
+       # Designer Note: Use fisher plugs. Avoid heavy cantilever shelves without studs.
+
+     # SURFACE DEFECTS (For False Paneling Corrections)
+     SurfaceDefect[List]{type, location_x_y, severity, description}:
+       Wall_Undulation | 2200, 1500 | 8mm_Bulge | Needs_ply_packing_for_paneling
+       Dampness_Patch | 200, 100 | Mild | Near skirting, check external sealant
+       
+     # SKIRTING & CORNICE
+     ExistingMoulding[List]{type, height_mm, material, instruction}:
+       Floor_Skirting | 100 | vitrified_tile | Remove_before_wardrobe_install
+       Ceiling_Cornice | 0 | None | -
+
+     # UTILITIES (Electrical - Design View)
+     ElectricalPoint[List]{id, type, center_x, center_y, module_size}:
+       SB-01 | SwitchBoard_Main | 1250 | 1200 | 4_Module_Square
+       SKTX-01 | PowerSocket_TV | 3200 | 450 | 2_Module
+
+     ElectricalConduitMap[List]{path_desc}:
+       Vertical_Drop_from_Ceiling_to_SB-01
+
+     # OPENINGS & DAYLIGHT
+     Opening[List]{type, id, start_x, start_y, w_h}:
+       Window | W1 | 2500 | 900 | 1800x1500
+       # Designer Context: Curtain Pelmet required? Yes.
+       Clearance_Above_Lintel_mm: 650 
+       # (Space for curtain rod/blind mechanism)
+
+  # CEILING GRID (For False Ceiling Design)
+  CeilingSurvey[List]{overall_level_check, beam_drops}:
+     Level_Variance_Span | 1mm_per_meter | Good
+     Beam_Drop | 0,0 to 4500,230 | Depth: 450mm
+     # Designer Note: Max FALSE CEILING height possible = 3050 - 100 (min plenum) = 2950mm
+     # BUT under beam = 3050 - 450 - 50 = 2550mm
+     # Design Constraint: Cove lighting must clear the beam bottom.
+
+  # FLOORING
+  FloorSurvey[List]{material, finish_level_mm, protection_needed}:
+     Vitrified_Tile_600x600 | +0 | High_Protection_Sheet_Required
+

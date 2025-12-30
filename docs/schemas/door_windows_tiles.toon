@@ -1,0 +1,44 @@
+# Format: TOON
+# Goal: Define material specifications, installation details, and precise sizing for finish elements.
+
+# -----------------------------------------------------------------------------
+# 1. FLOORING SPECIFICATIONS
+# -----------------------------------------------------------------------------
+FlooringSpec[List]{id, type, material, size_mm, thickness_mm, finish_surface, grout_color}:
+  FL-01 | Main_Living | Italian_Marble | Random_Slab | 18 | High_Gloss_Polish | Resin_Match
+  FL-02 | Bedrooms | Vitrified_Tile | 600x1200 | 10 | Satin_Matte | Epoxy_Light_Grey
+  FL-03 | Master_Bed | Engineered_Wood | 190x1200_Plank | 14 | Oiled_Oak | -
+  FL-04 | Bath_Wet | Anti_Skid_Tile | 600x600 | 10 | Rustic/R11_Rating | Epoxy_Dark
+
+  InstallationDetail[List]{flooring_ref, skirting_height_mm, skirting_type_mm}:
+    FL-01 | 100 | Flush_Skirting (Groove at top)
+    FL-03 | 75 | Wooden_Beading_Profile
+
+# -----------------------------------------------------------------------------
+# 2. DOOR SCHEDULE (Joinery)
+# -----------------------------------------------------------------------------
+DoorType[List]{id, category, operation, material_core, finish_skin, frame_material}:
+  D-Main | Entrance | Single_Leaf_Pivot | Solid_Teak_Wood | PU_Polish_Walnut | Teak_Wood_100x75
+  D-Bed | Internal | Hinged_Single | Flush_Door_Blockboard | Veneer_Both_Side | Sal_Wood_100x65
+  D-Toilet | Wet_Area | Hinged_Single | WPC_Waterproof | Laminate_Inside_Veneer_Outside | Granite_Frame
+
+  HardwareSet[List]{door_ref, hinge_type, handle_type, lock_type}:
+    D-Main | SS_Ball_Bearing_4Inch_x4 | Mortise_Handle_Brass_Antique | Biometric_Digital_Lock
+    D-Toilet | SS_Butt_Hinge_x3 | Rose_Handle_SS | Cylindrical_Privacy_Knob
+
+  DimensionMetrics[List]{door_ref, structural_opening_w_h, leaf_size_w_h, clear_passage_width}:
+    D-Main | 1050 x 2150 | 1000 x 2100 | 950
+    D-Toilet | 850 x 2150 | 800 x 2100 | 750
+
+# -----------------------------------------------------------------------------
+# 3. WINDOW SCHEDULE (Fenestration)
+# -----------------------------------------------------------------------------
+WindowType[List]{id, operation, material_profile, glazing_spec, mesh_type}:
+  W-Balcony | Sliding_3_Track | UPVC_Wood_Finish | 6mm_Toughened_Clear | SS_Mosquito_Mesh
+  W-Bed | Casement_Openable | Aluminium_SlimLine | Double_Glazed_DGU_24mm | Pleated_Mesh
+  V-Toilet | Top_Hung_Ventilator | Aluminium_Powder_Coated | Frosted_Glass_4mm | Fixed_Mesh
+
+  FrameDetail[List]{window_ref, sill_height_mm, lintel_height_mm, frame_width_mm, acoustic_rating_db}:
+    W-Balcony | 0 (Floor Level) | 2400 | 60 | 30
+    W-Bed | 900 | 2400 | 45 | 35 (Noise Reduction)
+

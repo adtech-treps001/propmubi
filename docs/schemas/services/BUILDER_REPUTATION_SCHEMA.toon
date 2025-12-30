@@ -1,0 +1,101 @@
+# Propmubi Builder Trust Score & Reputation Schema
+# Format: TOON
+# Goal: Multi-dimensional scoring with Project Value Segmentation and Golden Standards.
+
+# -----------------------------------------------------------------------------
+# 1. BUILDER PROFILE
+# -----------------------------------------------------------------------------
+BuilderProfile{builder_id, name, established_year, total_projects, active_projects}:
+  B-001 | My Home Constructions | 1995 | 25 | 8
+
+  CorporateInfo{cin, registered_office}:
+    U45200TG1995PTC019876 | Hyderabad
+
+  Leadership[List]{name, designation}:
+    Jupally Rameshwar Rao | Chairman_MD
+
+# -----------------------------------------------------------------------------
+# 2. PROJECT VALUE SEGMENTATION (Builder Tier Classification)
+# -----------------------------------------------------------------------------
+BuilderTierClassification{builder_ref, primary_segment, avg_project_value_cr, tier_grade}:
+  B-001 | Premium_Luxury | 450 | Tier_1_Premium
+
+  ProjectValueBreakdown[List]{segment, project_count, total_value_cr, avg_ticket_size_cr}:
+    Ultra_Luxury (>1000Cr) | 2 | 2500 | 1250
+    Premium (500-1000Cr) | 8 | 5600 | 700
+    Mid_Segment (100-500Cr) | 12 | 2400 | 200
+    Affordable (<100Cr) | 3 | 180 | 60
+
+  # TIER STANDARDS (Industry Benchmarks)
+  TierStandards:
+    Tier_1_Premium: {Min_Avg_Value: 400Cr, Quality_Expectation: 90+, Delay_Tolerance: <3mo}
+    Tier_2_Mid: {Min_Avg_Value: 150Cr, Quality_Expectation: 80+, Delay_Tolerance: <6mo}
+    Tier_3_Affordable: {Min_Avg_Value: 50Cr, Quality_Expectation: 70+, Delay_Tolerance: <12mo}
+
+# -----------------------------------------------------------------------------
+# 3. SCORING DIMENSIONS (Tier-Adjusted)
+# -----------------------------------------------------------------------------
+
+# A. TRACK RECORD (40% Weight)
+TrackRecordScore{total_delivered, on_time_pct, avg_delay_months, tier_benchmark_met, score}:
+  25 | 80% | 6 | true | 85
+
+  # GOLDEN STANDARD COMPARISON
+  GoldenStandardBenchmark{metric, builder_value, tier_1_standard, variance}:
+    On_Time_Delivery | 80% | 90% | -10% (Below Standard)
+    Quality_Score | 88 | 90 | -2 (Near Standard)
+    Customer_NPS | 65 | 75 | -10 (Below Standard)
+
+# B. LEGAL & COMPLIANCE (25%)
+LegalComplianceScore{rera_complaints, court_cases, resolution_rate, score}:
+  12 | 3 | 75% | 70
+
+  RERAComplaintLog[List]{complaint_id, issue, status}:
+    RERA-TS-C-9988 | Delay | Resolved
+
+# C. FINANCIAL STRENGTH (20%)
+FinancialHealthScore{credit_rating, debt_equity, score}:
+  CRISIL_A+ | 0.6 | 90
+
+# D. CUSTOMER SATISFACTION (10%)
+CustomerSatisfactionScore{google_rating, platform_rating, nps, score}:
+  4.2 | 4.5 | 65 | 75
+
+# E. QUALITY & INNOVATION (5%)
+QualityInnovationScore{certifications, awards, score}:
+  [ISO_9001, IGBC_Gold] | [CREDAI_2023] | 80
+
+# -----------------------------------------------------------------------------
+# 4. COMPOSITE TRUST SCORE
+# -----------------------------------------------------------------------------
+BuilderTrustScore{builder_ref, composite_score, grade, tier_adjusted_grade}:
+  B-001 | 82.5/100 | A | A- (Tier 1 Adjusted)
+
+  # TIER ADJUSTMENT LOGIC
+  # For Tier 1 builders, standards are stricter
+  TierAdjustment:
+    Raw_Score: 82.5
+    Tier_1_Penalty_for_Below_Golden_Standard: -2.5
+    Final_Tier_Adjusted: 80.0 (A- instead of A)
+
+# -----------------------------------------------------------------------------
+# 5. GOLDEN STANDARD TRACKING (The North Star)
+# Updated quarterly based on top 10% performers in each tier.
+# -----------------------------------------------------------------------------
+GoldenStandardRegistry[List]{tier, metric, current_standard, last_updated}:
+  Tier_1_Premium | On_Time_Delivery_Pct | 90% | 2025-Q4
+  Tier_1_Premium | Quality_Score | 90 | 2025-Q4
+  Tier_1_Premium | Customer_NPS | 75 | 2025-Q4
+  
+  Tier_2_Mid | On_Time_Delivery_Pct | 80% | 2025-Q4
+  Tier_2_Mid | Quality_Score | 80 | 2025-Q4
+
+  # BENCHMARK SOURCES
+  BenchmarkSource: Top_10_Percent_Performers_in_Tier + Industry_Awards + RERA_Best_Practices
+
+# -----------------------------------------------------------------------------
+# 6. NEW BUILDER SCORING
+# -----------------------------------------------------------------------------
+NewBuilderScore{builder_ref, projects_count, proxy_score, final_score}:
+  B-NEW-001 | 1 | Director_Background + Financial | 65
+

@@ -1,0 +1,66 @@
+# Propmubi Property Management & Leasing Schema
+# Format: TOON
+# Goal: Complete lifecycle for Plots (Protection) and Apartments (Tenancy, Verification, Inspection).
+
+# -----------------------------------------------------------------------------
+# 1. PARTNER ECOSYSTEM
+# -----------------------------------------------------------------------------
+PropMgmtPartnerEnum = ["NestAway", "NoBroker_Manage", "PropDial", "HouseJoy"]
+PlotMonitoringPartnerEnum = ["SafeKeys", "ManageMyPlot", "PlotEye_Surveillance", "Vigil_Space"]
+TenantScreeningPartnerEnum = ["AuthBridge", "IDfy", "CIBIL_Tenant_Score"]
+InspectionPartnerEnum = ["PropCheck", "Nemmadi", "HomeInspektor", "Meazurement"]
+
+# -----------------------------------------------------------------------------
+# 2. PLOT LIFECYCLE MANAGEMENT
+# -----------------------------------------------------------------------------
+PlotLifecycleRecord[List]{plot_ref, owner_ref, service_plan, status}:
+  PLT-101 | USR-99 | SVC-PLOT-02 (Premium) | Protected
+  
+  # A. SURVEILLANCE & INFRA (Physical)
+  SurveillanceVisit[List]{date, partner_ref, findings, media_proof_url}:
+     2024-09-01 | SafeKeys | "Fencing Intact. Signboard Visible." | .../sept_visit.jpg
+     
+  InfraDevelopmentTask[List]{task, cost, status}:
+     Boundary_Wall_Construction | 2,50,000 | Completed
+
+  # B. TITLE WATCH (Legal)
+  TitleWatchLog[List]{check_date, status}:
+     2024-12-01 | "Nil Encumbrance" (Safe)
+
+  # C. MARKET WATCH & APPRECIATION (Financial)
+  AreaDevelopmentLog[List]{location_ref, news, impact}:
+    LOC-TELLAPUR | "Metro Announced" | Positive_Appreciation
+  
+  InvestmentInsight{purchase_price, current_market_est, annual_cagr}:
+     65,000/sqyd | 82,000/sqyd | 12.5%
+
+# -----------------------------------------------------------------------------
+# 3. APARTMENT TENANCY LIFECYCLE
+# -----------------------------------------------------------------------------
+  
+  # A. TENANT VERIFICATION (Trust)
+  TenantVerificationProfile{tenant_ref, kyc_status, risk_score, report_url}:
+    TNT-2024-001 | Verified | Low_Risk (95/100) | .../authbridge_rpt.pdf
+    
+    Checks_Passed: [
+      Financial_Health (Anumati AA: High Liquidity),
+      Legal_History (eCourts: Clean),
+      Identity (IDfy: Aadhaar Match),
+      Professional (Microsoft: Verified)
+    ]
+
+  # B. LEASE & RENEWAL (Contract)
+  TenantLeaseInstance[List]{lease_id, unit_ref, tenant_ref, start_date, end_date}:
+    LEASE-1001 | U-A-101 | TNT-2024-001 | 2024-06-01 | 2025-05-31
+    
+    RenewalAction{trigger_date, propsed_hike_pct, status}:
+      2025-05-01 | 5.0% | Draft_Generated
+
+  # C. ASSET INSPECTION (Maintenance)
+  AssetHealthLog[List]{property_ref, audit_type, date, auditor_ref, refund_deduction}:
+    # MOVE-IN
+    U-A-101 | Move_In_Inventory | 2024-06-01 | HomeInspektor | Baseline_Set
+    
+    # MOVE-OUT (Deduction Logic)
+    U-A-101 | Move_Out_Assessment | 2025-05-31 | PropCheck | Rs. 7,500 (Damage)
+

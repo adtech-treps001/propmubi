@@ -1,0 +1,393 @@
+# Propmubi Marketing Strategy & Lead Generation Schema
+# Format: TOON
+# Goal: Complete omni-channel marketing strategy for property discovery and buyer acquisition.
+
+# -----------------------------------------------------------------------------
+# 1. DATA SOURCING STRATEGY (The Intelligence Layer)
+# -----------------------------------------------------------------------------
+DataSource[List]{source_type, category, method, frequency, cost_model}:
+  # OFFICIAL SOURCES
+  RERA_Portal | Official | Web_Scraping | Weekly | Free
+  Builder_Direct_Feed | Official | API_Integration | Real_Time | Partnership
+  CREDAI_Reports | Official | PDF_Download | Monthly | Free
+  
+  # PLATFORM AGGREGATORS
+  99acres_Listings | Semi_Official | API_Bulk_Access | Daily | Bulk_Discount_Model
+  MagicBricks_Data | Semi_Official | API_Bulk_Access | Daily | Bulk_Discount_Model
+  Housing_com_Feed | Semi_Official | Scraping + API | Daily | Negotiated_Rate
+  
+  # UNOFFICIAL / GROUND INTELLIGENCE
+  Broker_Network | Unofficial | Manual_Input_App | Real_Time | Commission_Share
+  Site_Visit_Agents | Unofficial | Field_App_Photos | Weekly | Per_Report_Fee
+  WhatsApp_Groups | Unofficial | Community_Monitoring | Daily | Free
+
+# -----------------------------------------------------------------------------
+# 2. CONTENT GENERATION ENGINE (The Creative Factory)
+# -----------------------------------------------------------------------------
+ContentTemplate[List]{template_id, content_type, format, target_platform, automation_level}:
+  # VISUAL CONTENT
+  TMPL-VID-01 | Property_Walkthrough | Video_60sec | Instagram_Reels | Semi_Auto (AI_Editing)
+  TMPL-VID-02 | Drone_Flyover | Video_90sec | YouTube_Shorts | Manual
+  TMPL-IMG-01 | Floor_Plan_Infographic | Image_Carousel | Instagram_Feed | Fully_Auto (Template)
+  TMPL-IMG-02 | Price_Comparison_Chart | Image_Single | LinkedIn_Post | Fully_Auto (Data_Viz)
+  
+  # TEXT CONTENT
+  TMPL-TXT-01 | Micro_Market_Analysis | Article_800words | Blog_SEO | AI_Assisted (GPT)
+  TMPL-TXT-02 | Project_Launch_Alert | WhatsApp_Message | WhatsApp_Broadcast | Fully_Auto
+  TMPL-TXT-03 | Investment_Insight | Newsletter_Email | Email_Campaign | AI_Assisted
+
+  ContentGenerationWorkflow:
+    Data_Input: [Project_Details, Pricing, Location, Amenities]
+    AI_Processing: [GPT4_Content_Gen, Canva_Design_API, Runway_Video_Edit]
+    Human_QA: Manual_Review_for_Accuracy
+    Multi_Format_Export: [Instagram_1080x1080, YouTube_1920x1080, WhatsApp_Status]
+
+# -----------------------------------------------------------------------------
+# 3. MULTI-WEBSITE STRATEGY (SEO & Lead Capture)
+# -----------------------------------------------------------------------------
+WebsitePortfolio[List]{site_id, domain, purpose, target_audience, tech_stack}:
+  # MAIN PLATFORM
+  WEB-MAIN-01 | propmubi.com | Main_Platform | All_Buyers | Next.js_React
+  
+  # MICRO-MARKET SPECIFIC (SEO Play)
+  WEB-MICRO-01 | gachibowli-properties.com | Hyper_Local_SEO | Gachibowli_Buyers | WordPress_Fast
+  WEB-MICRO-02 | tellapur-plots.com | Plot_Focused | Plot_Investors | WordPress_Fast
+  WEB-MICRO-03 | kokapet-villas.com | Villa_Niche | HNI_Villa_Buyers | WordPress_Fast
+  
+  # BUILDER SPECIFIC (White Label)
+  WEB-BUILDER-01 | myhome-sayuk.propmubi.com | Single_Project | My_Home_Buyers | Subdomain_Template
+  WEB-BUILDER-02 | prestige-oakwood.propmubi.com | Single_Project | Prestige_Buyers | Subdomain_Template
+  
+  # COMPARISON & REVIEW SITES (Affiliate)
+  WEB-COMP-01 | hyderabad-builder-reviews.com | Builder_Comparison | Research_Phase_Buyers | Next.js
+  WEB-COMP-02 | best-gated-communities-hyd.com | Project_Rankings | Decision_Phase | Next.js
+
+LandingPageTemplate[List]{template_id, name, form_fields, cta_type, conversion_goal}:
+  # GENERIC LEAD CAPTURE
+  LP-GEN-01 | Property_Inquiry_Form | [Name, Phone, Email, Budget, Property_Type] | Download_Brochure | Lead_Capture
+  
+  # MICRO-MARKET SPECIFIC
+  LP-MICRO-01 | Gachibowli_3BHK_Finder | [Name, Phone, Budget, Preferred_Tower] | Get_Shortlist | Qualified_Lead
+  LP-MICRO-02 | Tellapur_Plot_Calculator | [Name, Phone, Plot_Size, Facing] | Calculate_Price | High_Intent
+  
+  # BUILDER SPECIFIC
+  LP-BUILDER-01 | My_Home_Sayuk_EOI | [Name, Phone, Email, Unit_Type, Payment_Plan] | Book_Site_Visit | Hot_Lead
+  
+  # COMPARISON TOOLS
+  LP-TOOL-01 | Builder_Comparison_Tool | [Name, Email, Shortlisted_Builders] | Get_Detailed_Report | Nurture_Lead
+  LP-TOOL-02 | EMI_Calculator | [Name, Phone, Loan_Amount] | Get_Loan_Options | Fintech_Lead
+
+WebsiteAutomation{site_type, deployment_method, update_frequency, cost_per_site}:
+  Micro_Market_Sites | WordPress_Template_Clone | Weekly_Content_Update | 5000_INR/yr (Hosting)
+  Builder_Subdomains | Dynamic_Template_Render | Real_Time_Inventory_Sync | Included_in_Platform
+  Comparison_Sites | Next.js_Static_Gen | Monthly_Data_Refresh | 15000_INR/yr
+
+SEOStrategy{site_type, primary_keywords, backlink_strategy}:
+  Micro_Market | ["Gachibowli 3BHK", "Tellapur plots price"] | Local_Directory_Listings
+  Builder_Specific | ["My Home Sayuk review", "Prestige Oakwood price"] | PR_Articles + Social_Shares
+  Comparison | ["Best builders Hyderabad", "Gated communities comparison"] | Guest_Posts + Infographics
+
+# -----------------------------------------------------------------------------
+# 3A. LLM-POWERED SEO (AI Content Engine)
+# -----------------------------------------------------------------------------
+LLMSEOStrategy[List]{use_case, llm_model, prompt_template, output_format, publishing_target}:
+  # BLOG CONTENT GENERATION
+  Blog_Article | GPT-4 | "Write 1500-word SEO article on {keyword} targeting {audience}" | Markdown | WordPress_API
+  
+  # PROPERTY DESCRIPTIONS
+  Listing_Copy | Claude-3 | "Create compelling description for {property} highlighting {USPs}" | HTML | Propmubi_DB
+  
+  # SOCIAL MEDIA POSTS
+  Instagram_Caption | GPT-4 | "Write engaging caption for {property_image} with {hashtags}" | Text | Meta_API
+  
+  # EMAIL CAMPAIGNS
+  Drip_Email | Claude-3 | "Write nurture email Day {n} about {topic} for {segment}" | HTML_Email | SendGrid_API
+  
+  # COMPARISON CONTENT
+  Builder_Comparison | GPT-4 | "Compare {builder_a} vs {builder_b} on {dimensions}" | Table_HTML | Comparison_Site
+
+LLMOptimization{task, input_data, ai_enhancement, quality_check}:
+  Keyword_Research | [Micro_Market, Property_Type] | GPT-4_Semantic_Expansion | Manual_Review
+  Meta_Description | [Page_Content] | Claude_Summarization | Character_Limit_Check
+  Schema_Markup | [Property_Data] | GPT-4_JSON-LD_Generation | Validator_Check
+  FAQ_Generation | [Common_Queries] | GPT-4_Q&A_Pairs | Relevance_Score
+
+# -----------------------------------------------------------------------------
+# 3B. AUTOMATION WORKFLOWS (n8n & Zapier)
+# -----------------------------------------------------------------------------
+
+# WORKFLOW 1: NEW PROJECT LAUNCH AUTOMATION
+Workflow_Project_Launch[List]{step, tool, trigger, action, output}:
+  1 | n8n | New_Project_Added_to_DB | Fetch_Project_Details | JSON_Object
+  2 | n8n | JSON_Object | Call_GPT-4_API (Blog_Article) | Markdown_Content
+  3 | n8n | Markdown_Content | Publish_to_WordPress | Blog_Post_URL
+  4 | n8n | Blog_Post_URL | Create_Social_Posts (GPT-4) | 5x_Platform_Posts
+  5 | n8n | Social_Posts | Schedule_Buffer_API | Posts_Queued
+  6 | n8n | Project_Details | Generate_Landing_Page (Template) | LP_URL
+  7 | n8n | LP_URL | Create_Google_Ads_Campaign | Campaign_ID
+  8 | Zapier | Campaign_ID | Notify_Slack_Channel | Team_Alert
+
+# WORKFLOW 2: LEAD NURTURE DRIP CAMPAIGN
+Workflow_Lead_Nurture[List]{step, tool, trigger, action}:
+  1 | n8n | New_Lead_Form_Submit | Enrich_Data (LinkedIn_Scraper)
+  2 | n8n | Enriched_Lead | Score_Intent (Custom_Logic)
+  3 | n8n | Intent_Score | Assign_to_Drip_Sequence
+  4 | n8n | Day_1_Trigger | GPT-4_Generate_Email_1
+  5 | n8n | Email_Content | Send_via_SendGrid
+  6 | n8n | Day_3_Trigger | GPT-4_Generate_WhatsApp_Message
+  7 | n8n | WhatsApp_Content | Send_via_Twilio_API
+  8 | n8n | Day_5_Trigger | Assign_to_Channel_Partner
+
+# WORKFLOW 3: CONTENT SYNDICATION PIPELINE
+Workflow_Content_Syndication[List]{step, tool, trigger, action}:
+  1 | n8n | New_Blog_Post_Published | Extract_Content_Summary
+  2 | n8n | Summary | GPT-4_Rewrite_for_LinkedIn
+  3 | n8n | LinkedIn_Post | Publish_via_LinkedIn_API
+  4 | n8n | Summary | GPT-4_Rewrite_for_Twitter_Thread
+  5 | n8n | Twitter_Thread | Publish_via_Twitter_API
+  6 | n8n | Summary | GPT-4_Create_Instagram_Carousel
+  7 | n8n | Carousel_Text | Send_to_Canva_API (Design)
+  8 | n8n | Canva_Output | Schedule_Instagram_Post
+
+# WORKFLOW 4: MARKET INTELLIGENCE AGGREGATION
+Workflow_Market_Intel[List]{step, tool, trigger, action}:
+  1 | n8n | Weekly_Cron_Job | Scrape_Anarock_Report
+  2 | n8n | PDF_URL | OCR_Extract_Data (Adobe_API)
+  3 | n8n | Extracted_Data | GPT-4_Summarize_Insights
+  4 | n8n | Insights | Update_Micro_Market_Schema
+  5 | n8n | Schema_Updated | Trigger_Price_Recalculation
+  6 | n8n | New_Prices | Generate_Market_Update_Email
+  7 | n8n | Email_Content | Send_to_Subscriber_List
+
+# WORKFLOW 5: REVIEW & REPUTATION MONITORING
+Workflow_Reputation[List]{step, tool, trigger, action}:
+  1 | n8n | Daily_Cron | Scrape_Google_Reviews (Builder)
+  2 | n8n | New_Review_Detected | Sentiment_Analysis (GPT-4)
+  3 | n8n | Negative_Sentiment | Alert_Builder_Partner
+  4 | n8n | Negative_Sentiment | GPT-4_Draft_Response
+  5 | n8n | Response_Draft | Send_for_Approval (Slack)
+  6 | n8n | Approved | Post_Response_Google_API
+
+AutomationPlatformStack[List]{platform, use_case, cost_model, integration_count}:
+  n8n_Self_Hosted | Complex_Workflows | Free (Self_Host) | 200+_Integrations
+  Zapier | Simple_Zaps | 20_USD/mo | 5000+_Apps
+  Make_Integromat | Visual_Workflows | 10_USD/mo | 1000+_Apps
+  Pipedream | Serverless_Workflows | Free_Tier | 500+_Apps
+
+# -----------------------------------------------------------------------------
+# 4. DISTRIBUTION CHANNELS (The Reach Matrix)
+# -----------------------------------------------------------------------------
+
+# A. PAID ADVERTISING (Performance Marketing)
+PaidChannel[List]{channel_id, platform, ad_format, targeting_capability, cost_model}:
+  CH-META-01 | Meta_Ads (FB+Insta) | Carousel_Video | Hyper_Local_Geo | CPC_CPM
+  CH-GOOGLE-01 | Google_Search_Ads | Text_Responsive | Intent_Keywords | CPC
+  CH-GOOGLE-02 | Google_Display | Banner_Retargeting | Remarketing_Audience | CPM
+  CH-GOOGLE-03 | YouTube_Ads | TrueView_Skippable | Demographic_Interest | CPV
+  CH-99AC-01 | 99acres_Premium_Listing | Featured_Slot | City_Micro_Market | Monthly_Flat_Fee
+  CH-MB-01 | MagicBricks_Spotlight | Top_Search_Result | Pincode_Level | Pay_Per_Lead
+  CH-HOUSING-01 | Housing_com_Featured | Premium_Badge | Locality_Level | Monthly_Fee
+  CH-NOBROKER-01 | NoBroker_Boost | Top_Listing | City_Zone | Pay_Per_Click
+  CH-SMS-01 | SMS_Campaigns | Bulk_SMS | Database_Segmented | Per_SMS
+  CH-EMAIL-01 | Email_Marketing | Newsletter_Drip | Behavior_Triggered | Per_Send
+  CH-QUORA-01 | Quora_Ads | Text_Image | Question_Targeting | CPC
+  CH-REDDIT-01 | Reddit_Promoted | Native_Post | Subreddit_Targeting | CPM
+
+  BulkDiscountNegotiation{platform, standard_rate, propmubi_bulk_rate, savings_pct}:
+    99acres | 50000/mo | 35000/mo | 30%
+    MagicBricks | 40000/mo | 28000/mo | 30%
+    Housing_com | 35000/mo | 25000/mo | 28%
+    # Aggregating multiple builders = volume discount
+
+# B. ORGANIC SOCIAL MEDIA
+OrganicChannel[List]{channel_id, platform, content_type, posting_frequency, growth_tactic}:
+  CH-INSTA-01 | Instagram | Reels_Carousel | Daily | Hashtag_Strategy + Influencer_Collab
+  CH-YT-01 | YouTube | Long_Form_Walkthrough | 3x_Week | SEO_Optimization
+  CH-LI-01 | LinkedIn | Thought_Leadership | 2x_Week | Professional_Network
+  CH-TWITTER-01 | Twitter | Market_Updates | Daily | Trending_Hashtags
+  CH-FB-01 | Facebook_Groups | Community_Posts | 3x_Week | Group_Engagement
+  CH-TELEGRAM-01 | Telegram_Channels | Market_Alerts | Daily | Channel_Growth
+  CH-PINTEREST-01 | Pinterest | Design_Inspiration | Weekly | SEO_Pins
+  CH-THREADS-01 | Threads | Quick_Updates | Daily | Meta_Integration
+
+# C. COMMUNITY & GRASSROOTS
+CommunityChannel[List]{channel_id, type, reach_method, trust_level}:
+  CH-WA-01 | WhatsApp_Gated_Community_Groups | Informative_Posts (No Spam) | High
+  CH-WA-02 | WhatsApp_Broadcast_Lists | Segmented_by_Budget | Medium
+  CH-WA-03 | WhatsApp_Business_API | Automated_Responses | Medium
+  CH-AGENT-01 | Part_Time_Agent_Network | Commission_Incentive | High (Personal Touch)
+  CH-INFLUENCER-01 | Micro_Influencers_Local | Sponsored_Posts | Medium
+  CH-REFERRAL-01 | Customer_Referral_Program | Incentive_Based | Very_High
+
+# D. TRADITIONAL MEDIA (Still Relevant in India)
+TraditionalChannel[List]{channel_id, type, format, reach, cost_model}:
+  CH-OOH-01 | Outdoor_Billboards | Hoardings_ORR | High_Visibility | Monthly_Rental
+  CH-OOH-02 | Metro_Station_Ads | Backlit_Panels | Commuter_Targeting | Monthly_Rental
+  CH-PRINT-01 | Newspaper_Ads | Quarter_Page_TOI | Mass_Reach | Per_Insertion
+  CH-PRINT-02 | Magazine_Ads | Full_Page_Realty_Plus | Niche_Audience | Per_Issue
+  CH-RADIO-01 | FM_Radio_Spots | 30sec_Ads | Drive_Time | Per_Spot
+  CH-TV-01 | Cable_TV_Ads | 15sec_Spots | Regional_Channels | Per_Spot
+
+# E. CONTENT & ENGAGEMENT
+ContentChannel[List]{channel_id, type, format, frequency, engagement_goal}:
+  CH-BLOG-01 | SEO_Blog | Long_Form_Articles | Weekly | Organic_Traffic
+  CH-WEBINAR-01 | Live_Webinars | Expert_Sessions | Bi_Weekly | Lead_Generation
+  CH-PODCAST-01 | Property_Podcast | Interview_Format | Weekly | Brand_Authority
+  CH-VIRT-EVENT-01 | Virtual_Property_Expo | 3D_Tours_Live | Quarterly | Mass_Engagement
+
+# -----------------------------------------------------------------------------
+# 4. INFLUENCER & AGENT NETWORK (The Amplifiers)
+# -----------------------------------------------------------------------------
+InfluencerPartner[List]{influencer_id, name, platform, followers, niche, engagement_rate}:
+  INF-001 | Hyderabad_Property_Guru | Instagram | 45000 | Gated_Communities | 8.5%
+  INF-002 | Tech_City_Homes | YouTube | 120000 | IT_Corridor_Reviews | 6.2%
+  INF-003 | Investment_Insights_HYD | LinkedIn | 25000 | Investment_Analysis | 12%
+
+  CollaborationModel{type, deliverable, compensation}:
+    Sponsored_Reel | 1_Reel + 3_Stories | 15000_INR + Affiliate_Commission
+    Project_Review | 10min_YouTube_Video | 25000_INR + Site_Visit_Coverage
+
+PartTimeAgentNetwork[List]{agent_id, name, network_size, specialization, commission_model}:
+  PTA-001 | Ramesh_K | 500_Contacts | IT_Professionals_Gachibowli | 0.5%_of_Deal
+  PTA-002 | Sneha_R | 300_Contacts | NRI_Investors | 0.75%_of_Deal
+  
+  ActivationStrategy:
+    Provide: [Ready_Content, Pricing_Sheets, Virtual_Tour_Links]
+    Incentive: [Commission + Monthly_Bonus_for_Top_Performers]
+    Training: [Weekly_Webinar_on_New_Launches]
+
+# -----------------------------------------------------------------------------
+# 5. BUYER ENRICHMENT PIPELINE (The Nurture Engine)
+# -----------------------------------------------------------------------------
+BuyerEnrichmentStage[List]{stage, touchpoint, content_type, goal}:
+  # STAGE 1: AWARENESS
+  Awareness | Social_Media_Ad | Property_Reel | Capture_Attention
+  
+  # STAGE 2: INTEREST
+  Interest | Landing_Page | Detailed_Brochure_Download | Collect_Email_Phone
+  
+  # STAGE 3: CONSIDERATION
+  Consideration | WhatsApp_Drip_Campaign | 5_Day_Educational_Series | Build_Trust
+    Day_1: "Why Tellapur is Trending"
+    Day_2: "Builder Comparison: Tier 1 vs Tier 2"
+    Day_3: "Vastu & Sunlight Analysis"
+    Day_4: "Payment Plans Explained"
+    Day_5: "Site Visit Invitation"
+  
+  # STAGE 4: INTENT
+  Intent | Personal_Call_from_CP | Customized_Shortlist | Schedule_Site_Visit
+  
+  # STAGE 5: DECISION
+  Decision | Site_Visit + Negotiation | Final_Offer | Close_Deal
+
+DataEnrichment{lead_ref, enrichment_source, data_added}:
+  LEAD-001 | LinkedIn_Profile_Scrape | [Company: Google, Designation: L5, Income_Estimate: 80L]
+  LEAD-001 | Account_Aggregator_Consent | [Actual_Income: 95L, Credit_Score: 785]
+  LEAD-001 | Behavioral_Tracking | [Viewed: Tellapur_3BHK x5, Budget_Range: 1.5-2Cr]
+
+# -----------------------------------------------------------------------------
+# 6. CONVERSION FUNNEL ANALYTICS (The Performance Tracker)
+# -----------------------------------------------------------------------------
+ConversionFunnel[List]{channel_ref, stage, count, conversion_rate_to_next, avg_time_in_stage_days}:
+  # META ADS FUNNEL
+  CH-META-01 | Ad_Impression | 100000 | 2.5% | 0
+  CH-META-01 | Landing_Page_Visit | 2500 | 40% | 0
+  CH-META-01 | Lead_Form_Submit | 1000 | 30% | 1
+  CH-META-01 | Phone_Call_Connected | 300 | 50% | 2
+  CH-META-01 | Site_Visit_Scheduled | 150 | 60% | 7
+  CH-META-01 | Site_Visit_Completed | 90 | 40% | 14
+  CH-META-01 | Booking_Done | 36 | - | 21
+  
+  # Overall Conversion: 0.036% (Impression to Booking)
+  # Cost Per Booking: 4L / 36 = 11,111 INR
+
+  # GOOGLE SEARCH FUNNEL (Higher Intent)
+  CH-GOOGLE-01 | Ad_Click | 5000 | 50% | 0
+  CH-GOOGLE-01 | Landing_Page_Visit | 2500 | 60% | 0
+  CH-GOOGLE-01 | Lead_Form_Submit | 1500 | 40% | 1
+  CH-GOOGLE-01 | Phone_Call_Connected | 600 | 55% | 2
+  CH-GOOGLE-01 | Site_Visit_Scheduled | 330 | 65% | 5
+  CH-GOOGLE-01 | Site_Visit_Completed | 215 | 45% | 10
+  CH-GOOGLE-01 | Booking_Done | 97 | - | 18
+  
+  # Overall Conversion: 1.94% (Click to Booking) - HIGHEST
+  # Cost Per Booking: 2.5L / 97 = 2,577 INR - BEST ROI
+
+  # PART-TIME AGENT NETWORK (Personal Touch)
+  CH-AGENT-01 | Referral_Shared | 500 | 70% | 0
+  CH-AGENT-01 | Initial_Interest | 350 | 60% | 1
+  CH-AGENT-01 | Site_Visit_Scheduled | 210 | 80% | 3
+  CH-AGENT-01 | Site_Visit_Completed | 168 | 55% | 7
+  CH-AGENT-01 | Booking_Done | 92 | - | 14
+  
+  # Overall Conversion: 18.4% (Referral to Booking) - HIGHEST QUALITY
+  # Cost Per Booking: Commission_Only = Variable
+
+# -----------------------------------------------------------------------------
+# 7. INTENT BUYER MAPPING (The Scoring Engine)
+# -----------------------------------------------------------------------------
+BuyerIntentScore[List]{lead_ref, composite_score, grade, conversion_probability}:
+  LEAD-001 | 92/100 | Hot | 85%
+  LEAD-045 | 68/100 | Warm | 45%
+  LEAD-099 | 35/100 | Cold | 10%
+
+  # SCORING DIMENSIONS (Weighted)
+  ScoringModel{dimension, weight_pct, LEAD-001_score, LEAD-045_score}:
+    
+    # A. DIGITAL BEHAVIOR (30%)
+    Page_Views_Count | 10% | 15_views | 3_views
+    Time_on_Site_Minutes | 10% | 45_mins | 8_mins
+    Content_Depth | 10% | Watched_Full_Walkthrough | Skimmed_Brochure
+    
+    # B. ENGAGEMENT SIGNALS (25%)
+    Form_Submissions | 10% | 3_forms | 1_form
+    Call_Attempts | 10% | Called_Back_Twice | No_Callback
+    WhatsApp_Response | 5% | Active_Chat | Read_Only
+    
+    # C. FINANCIAL CAPABILITY (20%)
+    Credit_Score | 10% | 785 (Excellent) | Unknown
+    Income_Verified | 10% | 95L_via_AA | Self_Declared_50L
+    
+    # D. LIFE EVENT TRIGGERS (15%)
+    Job_Change | 5% | New_Job_in_Hyderabad | -
+    Marriage_Recent | 5% | Married_6mo_ago | -
+    Current_Rental | 5% | Paying_50k_Rent | Owns_Home
+    
+    # E. SOCIAL PROOF (10%)
+    Network_Influence | 5% | 3_Friends_Bought_Here | -
+    Professional_Stability | 5% | Google_L5_10yrs | Startup_2yrs
+
+  # INTENT SIGNALS (Real-Time Triggers)
+  IntentSignal[List]{lead_ref, signal_type, timestamp, urgency_boost}:
+    LEAD-001 | Searched_Home_Loan_Calculator | 2024-12-11_22:30 | +10_points
+    LEAD-001 | Saved_3_Units_to_Wishlist | 2024-12-11_23:15 | +15_points
+    LEAD-001 | Requested_Site_Visit_Weekend | 2024-12-12_00:05 | +20_points (HOT!)
+
+# -----------------------------------------------------------------------------
+# 8. CHANNEL PERFORMANCE BENCHMARKS (The Optimization Guide)
+# -----------------------------------------------------------------------------
+ChannelBenchmark[List]{channel_ref, cost_per_lead, cost_per_booking, conversion_rate, quality_score}:
+  CH-GOOGLE-01 | 167_INR | 2577_INR | 1.94% | A+ (Highest Intent)
+  CH-AGENT-01 | 0_INR | Variable | 18.4% | A+ (Highest Quality)
+  CH-META-01 | 400_INR | 11111_INR | 0.036% | B (Volume Play)
+  CH-99AC-01 | 233_INR | 5000_INR | 0.8% | B+ (Decent Intent)
+  CH-INFLUENCER-01 | 150_INR | 15000_INR | 0.67% | C+ (Awareness Only)
+
+  OptimizationRecommendation:
+    Increase_Budget: [CH-GOOGLE-01 (Best ROI), CH-AGENT-01 (Best Quality)]
+    Maintain: [CH-99AC-01]
+    Reduce: [CH-INFLUENCER-01 (High CPB, Low Conversion)]
+    A/B_Test: [CH-META-01 (Improve Landing Page to boost 40% → 60%)]
+
+# -----------------------------------------------------------------------------
+# 9. CAMPAIGN ORCHESTRATION (The Master Plan)
+# -----------------------------------------------------------------------------
+MarketingCampaign[List]{campaign_id, project_ref, objective, budget, duration, channels}:
+  CAMP-SAYUK-001 | P-SAYUK | Launch_Awareness | 10L_INR | 30_Days | [Meta, Google, 99acres, Influencers]
+  
+  ChannelMix{channel, budget_allocation_pct, expected_leads, expected_bookings}:
+    Google_Search | 35% (Increased) | 250 | 120 (High Intent)
+    Part_Time_Agents | 25% (New Focus) | 150 | 90 (High Quality)
+    Meta_Ads | 25% (Reduced) | 400 | 30
+    99acres_Premium | 15% | 100 | 15
+

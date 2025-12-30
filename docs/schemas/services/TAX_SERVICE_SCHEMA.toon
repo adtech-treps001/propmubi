@@ -1,0 +1,2469 @@
+# Propmubi Tax Service & Capital Gains Schema
+# Format: TOON
+# Goal: End-to-End Tax Planning, Capital Gains Calculation, TDS Management, CAS Integration, and Tax Filing Support for Property Transactions.
+
+# -----------------------------------------------------------------------------
+# 1. TAX CONSULTANT & AGGREGATOR ENUMS
+# -----------------------------------------------------------------------------
+# Tax Consultant Platforms & Services in India
+TaxConsultantSourceEnum = [
+  "ClearTax",
+  "TaxBuddy",
+  "MyITReturn",
+  "TaxSpanner",
+  "eCA_Agarwal",
+  "H&R_Block_India",
+  "Quicko",
+  "Independent_CA",
+  "Custom_Tax_Firm",
+  "Propmubi_Tax_Desk"
+]
+
+TaxConsultantRoleEnum = [
+  "Chartered_Accountant",
+  "Tax_Advisor",
+  "Capital_Gains_Specialist",
+  "NRI_Tax_Expert",
+  "Property_Tax_Consultant",
+  "DTAA_Specialist"
+]
+
+# -----------------------------------------------------------------------------
+# 2. CAS (CONSOLIDATED ACCOUNT STATEMENT) PROVIDERS
+# -----------------------------------------------------------------------------
+# RTA (Registrar & Transfer Agents) for CAS Integration
+CASProviderEnum = [
+  "CAMS_Computer_Age",      # Largest RTA in India
+  "KFintech_Karvy",         # Second largest RTA
+  "Link_Intime",            # Emerging RTA
+  "NSDL_CAS",               # Demat CAS
+  "CDSL_CAS",               # Demat CAS
+  "MFCentral",              # Unified MF platform
+  "CAMS_MailBack",          # Email-based CAS
+  "Manual_Upload"           # User uploads PDF
+]
+
+# -----------------------------------------------------------------------------
+# 3. TAX REGIME & CALCULATION ENUMS
+# -----------------------------------------------------------------------------
+TaxRegimeEnum = [
+  "Old_Regime_With_Deductions",
+  "New_Regime_Lower_Rates"
+]
+
+PropertyTaxTypeEnum = [
+  "LTCG_Long_Term_Capital_Gains",    # Held > 24 months
+  "STCG_Short_Term_Capital_Gains",   # Held <= 24 months
+  "Rental_Income_House_Property",
+  "Business_Income_Property_Dealing",
+  "Stamp_Duty_Registration",
+  "Property_Tax_Municipal"
+]
+
+CapitalGainsExemptionEnum = [
+  "Section_54_Residential_Reinvestment",      # Buy another residential property
+  "Section_54F_Any_Asset_to_Residential",     # Sell any asset, buy residential
+  "Section_54EC_Bonds_NHAI_REC",              # Invest in specified bonds
+  "Section_54GB_Startup_Investment",
+  "No_Exemption"
+]
+
+NRITaxStatusEnum = [
+  "Resident",
+  "Non_Resident_Indian_NRI",
+  "Resident_Not_Ordinarily_Resident_RNOR",
+  "Overseas_Citizen_of_India_OCI",
+  "Person_of_Indian_Origin_PIO"
+]
+
+DTAACountryEnum = [
+  "USA",
+  "UK",
+  "Canada",
+  "Australia",
+  "Singapore",
+  "UAE",
+  "Germany",
+  "France",
+  "Saudi_Arabia",
+  "Other_Treaty_Country",
+  "No_Treaty"
+]
+
+# -----------------------------------------------------------------------------
+# 4. TAX CONSULTANT NETWORK
+# -----------------------------------------------------------------------------
+TaxConsultant[List]{id, profile_name, source_type, role, specialization, rating_stars, completed_cases}:
+  TAX-001 | ClearTax_Premium_Team | ClearTax | Chartered_Accountant | Capital_Gains | 4.9 | 10000+
+  TAX-002 | CA_Ramesh_Gupta | Independent_CA | Capital_Gains_Specialist | Property_Tax | 4.8 | 350
+  TAX-003 | TaxBuddy_NRI_Desk | TaxBuddy | NRI_Tax_Expert | DTAA_US_India | 4.7 | 1200
+  TAX-004 | Quicko_Property_Tax | Quicko | Property_Tax_Consultant | Section_54_Expert | 4.6 | 800
+  TAX-005 | Agarwal_Associates | Custom_Tax_Firm | DTAA_Specialist | Multi_Country_Tax | 5.0 | 150
+  
+  # CONSULTANT PROFILE DETAILS
+  ConsultantProfile{consultant_ref, bio, languages, city_base, consultation_fee, hourly_rate}:
+    TAX-002 | CA with 20 years experience in property taxation, LTCG optimization specialist. | [English, Hindi, Marathi] | Mumbai | 5000_INR | 2000_INR_per_hour
+    TAX-005 | Boutique firm handling complex NRI cases with DTAA across 15 countries. | [English] | Bangalore | 15000_INR | 5000_INR_per_hour
+
+# -----------------------------------------------------------------------------
+# 5. PROPERTY TRANSACTION TAX RECORD
+# -----------------------------------------------------------------------------
+PropertyTaxRecord[List]{tax_record_id, property_ref, user_ref, transaction_type, transaction_date, status}:
+  PTR-1001 | P-SAYUK-U-101 | USR-99 | Purchase | 2023-03-15 | Active_Holding
+  PTR-1002 | P-GACHI-R-205 | USR-45 | Sale | 2025-11-20 | Capital_Gains_Computed
+  PTR-1003 | P-PLOT-TLP-88 | USR-NRI-12 | Sale_NRI | 2025-12-01 | TDS_Deducted_Pending_Filing
+  
+  # PURCHASE DETAILS (Cost of Acquisition)
+  PurchaseDetails{record_ref, purchase_price, stamp_duty, registration_fee, broker_commission, legal_fees, total_acquisition_cost}:
+    PTR-1001 | 85,00,000 | 5,10,000 | 35,000 | 85,000 | 25,000 | 90,55,000
+    PTR-1002 | 65,00,000 | 3,90,000 | 28,000 | 65,000 | 20,000 | 70,03,000
+  
+  # IMPROVEMENT COSTS (Capital Improvements during holding)
+  ImprovementCosts[List]{record_ref, improvement_date, description, amount, receipt_url, is_capital_expense}:
+    PTR-1002 | 2021-06-10 | Kitchen_Renovation | 8,50,000 | .../receipt_kitchen.pdf | true
+    PTR-1002 | 2022-09-15 | Bathroom_Upgrade | 3,20,000 | .../receipt_bathroom.pdf | true
+    PTR-1002 | 2023-01-20 | Painting_Maintenance | 80,000 | .../receipt_paint.pdf | false
+  
+  # SALE DETAILS (For Capital Gains)
+  SaleDetails{record_ref, sale_price, sale_date, broker_commission_sale, legal_fees_sale, total_sale_expenses}:
+    PTR-1002 | 1,20,00,000 | 2025-11-20 | 1,20,000 | 30,000 | 1,50,000
+
+# -----------------------------------------------------------------------------
+# 6. CAPITAL GAINS CALCULATION ENGINE
+# -----------------------------------------------------------------------------
+CapitalGainsCalculation[List]{calc_id, tax_record_ref, user_ref, holding_period_months, gain_type}:
+  CGC-5001 | PTR-1002 | USR-45 | 32 | LTCG_Long_Term
+  CGC-5002 | PTR-1003 | USR-NRI-12 | 18 | STCG_Short_Term
+  
+  # INDEXATION (For LTCG only)
+  IndexationData{calc_ref, purchase_year, sale_year, purchase_cii, sale_cii, indexed_cost}:
+    CGC-5001 | FY_2022-23 | FY_2025-26 | 331 | 363 | 96,89,123
+  
+  # CAPITAL GAINS COMPUTATION
+  GainsComputation{calc_ref, sale_consideration, indexed_acquisition_cost, improvement_cost_indexed, sale_expenses, net_capital_gains}:
+    CGC-5001 | 1,20,00,000 | 96,89,123 | 10,45,678 | 1,50,000 | 11,15,199
+  
+  # TAX LIABILITY
+  TaxLiability{calc_ref, taxable_gains, tax_rate_percent, base_tax, surcharge, cess, total_tax_payable}:
+    CGC-5001 | 11,15,199 | 20.0 | 2,23,040 | 0 | 8,922 | 2,31,962
+    CGC-5002 | 8,50,000 | 30.0 | 2,55,000 | 12,750 | 10,710 | 2,78,460
+  
+  # EXEMPTION PLANNING
+  ExemptionClaim{calc_ref, exemption_type, investment_required, investment_deadline, exemption_amount, revised_tax}:
+    CGC-5001 | Section_54_Residential_Reinvestment | 11,15,199 | 2026-11-20 | 11,15,199 | 0
+
+# -----------------------------------------------------------------------------
+# 7. NRI-SPECIFIC TAX HANDLING
+# -----------------------------------------------------------------------------
+NRITaxProfile[List]{user_ref, nri_status, country_of_residence, dtaa_applicable, pan_number, foreign_tin}:
+  USR-NRI-12 | Non_Resident_Indian_NRI | USA | USA | ABCPN1234D | 123-45-6789
+  USR-NRI-45 | Non_Resident_Indian_NRI | UAE | UAE | XYZPN5678E | N/A
+  
+  # DTAA BENEFITS
+  DTAABenefit{user_ref, dtaa_country, india_tax_rate, treaty_tax_rate, applicable_rate, tax_credit_country}:
+    USR-NRI-12 | USA | 20.0 | 15.0 | 15.0 | USA_Foreign_Tax_Credit
+    USR-NRI-45 | UAE | 20.0 | 20.0 | 20.0 | No_Income_Tax_in_UAE
+  
+  # TDS ON NRI TRANSACTIONS
+  NRITDSRecord[List]{record_ref, tds_type, tds_rate_percent, tds_amount, tds_deductor_pan, form_16B_url, challan_bsr_code}:
+    PTR-1003 | Sale_of_Property_26QB | 20.0 | 24,00,000 | BUYERPAN123 | .../form16B.pdf | 0123456
+    PTR-1003 | Rental_Income_TDS | 30.0 | 72,000 | TENANTPAN456 | .../form16A.pdf | 0654321
+
+# -----------------------------------------------------------------------------
+# 8. CAS INTEGRATION & TRANSACTION IMPORT
+# -----------------------------------------------------------------------------
+CASImportSession[List]{session_id, user_ref, cas_provider, import_date, status, records_imported}:
+  CAS-IMP-001 | USR-45 | CAMS_Computer_Age | 2025-12-10 | Success | 15
+  CAS-IMP-002 | USR-99 | KFintech_Karvy | 2025-12-12 | Success | 8
+  CAS-IMP-003 | USR-NRI-12 | Manual_Upload | 2025-12-14 | Pending_Verification | 3
+  
+  # IMPORTED TRANSACTIONS
+  ImportedTransaction[List]{session_ref, transaction_type, folio_number, transaction_date, amount, asset_type}:
+    CAS-IMP-001 | Purchase | CAMS/12345/67 | 2020-05-15 | 50,00,000 | Mutual_Fund
+    CAS-IMP-001 | Sale | CAMS/12345/67 | 2025-10-20 | 75,00,000 | Mutual_Fund
+    CAS-IMP-002 | Property_Purchase | Manual_Entry | 2023-03-15 | 85,00,000 | Real_Estate
+  
+  # RECONCILIATION STATUS
+  ReconciliationStatus{session_ref, auto_matched, manual_review_needed, discrepancies}:
+    CAS-IMP-001 | 12 | 3 | [Missing_Improvement_Costs, Unclear_Transaction_Type]
+
+# -----------------------------------------------------------------------------
+# 9. TAX FILING & ITR INTEGRATION
+# -----------------------------------------------------------------------------
+ITRFilingCase[List]{case_id, user_ref, assessment_year, itr_form_type, tax_consultant_ref, status, filing_date}:
+  ITR-CASE-7001 | USR-45 | AY_2026-27 | ITR-2 | TAX-002 | Filed | 2026-07-15
+  ITR-CASE-7002 | USR-NRI-12 | AY_2026-27 | ITR-2 | TAX-003 | In_Progress | null
+  
+  # SCHEDULE CG (Capital Gains Schedule)
+  ScheduleCG{case_ref, property_ref, calc_ref, pre_filled_data, user_verified}:
+    ITR-CASE-7001 | PTR-1002 | CGC-5001 | true | true
+  
+  # FORM 67 (Foreign Tax Credit for NRI)
+  Form67{case_ref, foreign_country, foreign_tax_paid, india_tax_payable, credit_claimed}:
+    ITR-CASE-7002 | USA | 18,00,000 | 24,00,000 | 18,00,000
+  
+  # TAX PAYMENT CHALLANS
+  TaxChallan[List]{case_ref, challan_type, amount, payment_date, bsr_code, challan_serial, status}:
+    ITR-CASE-7001 | Advance_Tax_Q4 | 2,31,962 | 2026-03-15 | 0123456 | 789012 | Paid
+    ITR-CASE-7001 | Self_Assessment_Tax | 0 | 2026-07-15 | N/A | N/A | Not_Required
+
+# -----------------------------------------------------------------------------
+# 10. TDS MANAGEMENT & COMPLIANCE
+# -----------------------------------------------------------------------------
+TDSRecord[List]{tds_id, transaction_ref, deductor_name, deductor_pan, deductee_pan, tds_section, tds_amount, deduction_date}:
+  TDS-3001 | PTR-1002 | Rajesh_Kumar_Buyer | BUYERPAN123 | ABCPN1234D | 194IA | 1,20,000 | 2025-11-20
+  TDS-3002 | PTR-1003 | Meera_Iyer_Buyer | BUYERPAN456 | XYZPN5678E | 195_NRI | 24,00,000 | 2025-12-01
+  
+  # FORM 26QB (TDS on Property Purchase)
+  Form26QB{tds_ref, acknowledgement_number, filed_date, form_url, certificate_16B_issued}:
+    TDS-3001 | ACK-26QB-123456789 | 2025-11-25 | .../form26qb.pdf | true
+    TDS-3002 | ACK-26QB-987654321 | 2025-12-05 | .../form26qb_nri.pdf | true
+  
+  # FORM 16B (TDS Certificate for Seller)
+  Form16B{tds_ref, certificate_number, issue_date, download_url, verified_by_seller}:
+    TDS-3001 | CERT-16B-2025-001 | 2025-12-01 | .../cert16b.pdf | true
+  
+  # TDS REFUND TRACKING
+  TDSRefund{tds_ref, itr_case_ref, refund_claimed, refund_status, refund_received_date, refund_amount}:
+    TDS-3001 | ITR-CASE-7001 | 1,20,000 | Refund_Processed | 2026-09-10 | 1,20,000
+
+# -----------------------------------------------------------------------------
+# 11. TAX DOCUMENT VAULT
+# -----------------------------------------------------------------------------
+TaxDocumentVault[List]{doc_id, user_ref, tax_record_ref, doc_category, doc_type, upload_date, retention_years, storage_url}:
+  TDOC-4001 | USR-45 | PTR-1002 | Purchase_Proof | Sale_Deed | 2023-03-20 | 7 | .../sale_deed_2023.pdf
+  TDOC-4002 | USR-45 | PTR-1002 | Improvement_Proof | Renovation_Invoice | 2021-06-15 | 7 | .../kitchen_invoice.pdf
+  TDOC-4003 | USR-45 | PTR-1002 | Sale_Proof | Sale_Agreement | 2025-11-25 | 7 | .../sale_agreement_2025.pdf
+  TDOC-4004 | USR-45 | ITR-CASE-7001 | ITR_Filed | ITR_Acknowledgement | 2026-07-15 | 10 | .../itr_ack_2026.pdf
+  TDOC-4005 | USR-NRI-12 | PTR-1003 | TDS_Certificate | Form_16B | 2025-12-05 | 7 | .../form16b_nri.pdf
+  
+  # AUTO-CATEGORIZATION & OCR
+  DocumentMetadata{doc_ref, ocr_extracted_text, auto_category_confidence, manual_verification_needed}:
+    TDOC-4002 | "Invoice No: 1234, Amount: 8,50,000, Kitchen Renovation..." | 95% | false
+    TDOC-4003 | "Sale Consideration: Rs. 1,20,00,000..." | 98% | false
+
+# -----------------------------------------------------------------------------
+# 12. TAX OPTIMIZATION RECOMMENDATIONS
+# -----------------------------------------------------------------------------
+TaxOptimizationAdvice[List]{advice_id, user_ref, calc_ref, recommendation_type, potential_savings, action_required, deadline}:
+  ADV-8001 | USR-45 | CGC-5001 | Section_54_Reinvestment | 2,31,962 | Buy_Residential_Property_Worth_11.15L | 2026-11-20
+  ADV-8002 | USR-45 | CGC-5001 | Hold_Property_Longer | 0 | Already_LTCG_Optimal | N/A
+  ADV-8003 | USR-NRI-12 | CGC-5002 | DTAA_Lower_Withholding | 6,00,000 | Apply_for_Lower_TDS_Certificate | Before_Sale
+  ADV-8004 | USR-99 | PTR-1001 | Track_Improvement_Costs | Unknown | Document_All_Renovations_Now | Ongoing
+  
+  # SCENARIO MODELING
+  TaxScenario{advice_ref, scenario_name, assumptions, projected_tax, savings_vs_baseline}:
+    ADV-8001 | Scenario_A_Full_Reinvestment | Invest_11.15L_in_new_property | 0 | 2,31,962
+    ADV-8001 | Scenario_B_Partial_Reinvestment | Invest_5L_in_new_property | 1,23,192 | 1,08,770
+    ADV-8001 | Scenario_C_No_Exemption | No_reinvestment | 2,31,962 | 0
+
+# -----------------------------------------------------------------------------
+# 13. TAX AGGREGATION DASHBOARD
+# -----------------------------------------------------------------------------
+UserTaxDashboard{user_ref, total_properties, active_holdings, properties_sold, total_ltcg_paid, total_stcg_paid, total_tds_deducted}:
+  USR-45 | 3 | 2 | 1 | 2,31,962 | 0 | 1,20,000
+  USR-NRI-12 | 5 | 3 | 2 | 0 | 5,56,920 | 48,00,000
+  
+  # UPCOMING TAX EVENTS
+  UpcomingTaxEvent[List]{user_ref, event_type, property_ref, due_date, estimated_amount, alert_status}:
+    USR-45 | Advance_Tax_Q3 | PTR-1001 | 2025-12-15 | 50,000 | Alert_Sent
+    USR-NRI-12 | Section_54_Deadline | PTR-1003 | 2026-12-01 | 8,50,000 | Pending
+  
+  # TAX SAVINGS SUMMARY
+  TaxSavingsSummary{user_ref, total_exemptions_claimed, total_tax_saved, primary_strategy}:
+    USR-45 | 11,15,199 | 2,31,962 | Section_54_Reinvestment
+    USR-NRI-12 | 0 | 6,00,000 | DTAA_Lower_Withholding
+
+# -----------------------------------------------------------------------------
+# 14. INTEGRATION APIS & WEBHOOKS
+# -----------------------------------------------------------------------------
+TaxAPIIntegration[List]{integration_id, provider, api_type, status, last_sync}:
+  API-TAX-01 | ClearTax | ITR_Filing_API | Active | 2025-12-14T10:30:00
+  API-TAX-02 | CAMS | CAS_Import_API | Active | 2025-12-10T08:00:00
+  API-TAX-03 | Income_Tax_Dept | TDS_Verification_API | Active | 2025-12-14T09:15:00
+  API-TAX-04 | NSDL | TIN_Validation_API | Active | 2025-12-14T11:00:00
+  
+  # WEBHOOK EVENTS
+  WebhookEvent[List]{event_id, event_type, triggered_at, payload_summary}:
+    WH-9001 | TDS_Certificate_Available | 2025-12-05T14:30:00 | Form_16B_for_TDS-3002
+    WH-9002 | ITR_Acknowledgement_Received | 2026-07-15T16:45:00 | ITR_Filed_Successfully
+    WH-9003 | Refund_Credited | 2026-09-10T10:20:00 | 1.2L_Refund_to_Account
+
+# -----------------------------------------------------------------------------
+# 15. COMPLIANCE & AUDIT TRAIL
+# -----------------------------------------------------------------------------
+TaxAuditLog[List]{log_id, user_ref, action_type, performed_by, timestamp, details}:
+  LOG-5001 | USR-45 | Capital_Gains_Calculated | System_Auto | 2025-11-25T12:00:00 | CGC-5001_Created
+  LOG-5002 | USR-45 | Document_Uploaded | USR-45 | 2025-11-26T09:30:00 | TDOC-4003_Sale_Agreement
+  LOG-5003 | USR-45 | ITR_Filed | TAX-002 | 2026-07-15T14:00:00 | ITR-CASE-7001_Submitted
+  LOG-5004 | USR-NRI-12 | DTAA_Benefit_Applied | TAX-003 | 2025-12-01T11:00:00 | 5%_Rate_Reduction
+  
+  # COMPLIANCE CHECKLIST
+  ComplianceChecklist{user_ref, tax_year, checklist_item, status, due_date, completed_date}:
+    USR-45 | AY_2026-27 | File_ITR | Completed | 2026-07-31 | 2026-07-15
+    USR-45 | AY_2026-27 | Pay_Advance_Tax | Completed | 2026-03-15 | 2026-03-15
+    USR-NRI-12 | AY_2026-27 | Obtain_Form_16B | Completed | 2025-12-31 | 2025-12-05
+    USR-NRI-12 | AY_2026-27 | File_ITR_India | In_Progress | 2026-07-31 | null
+    USR-NRI-12 | AY_2026-27 | File_US_Tax_Return | Pending | 2026-04-15 | null
+
+# -----------------------------------------------------------------------------
+# 16. CA TAX-SAVING STRATEGIES (Comprehensive Playbook)
+# -----------------------------------------------------------------------------
+
+# STRATEGY CATEGORIES
+TaxSavingStrategyEnum = [
+  "Cost_of_Acquisition_Maximization",
+  "Cost_of_Improvement_Optimization",
+  "Sale_Expenses_Deduction",
+  "Section_80C_Deductions",
+  "Section_24_Interest_Deduction",
+  "Section_50C_Circle_Rate_Management",
+  "Exemption_Planning_Section_54_54F_54EC",
+  "Holding_Period_Optimization",
+  "Joint_Ownership_Tax_Planning",
+  "NRI_DTAA_Optimization",
+  "Home_Loan_Related_Deductions",
+  "RERA_Consultant_Charges",
+  "Timing_and_Structuring"
+]
+
+# -----------------------------------------------------------------------------
+# STRATEGY 1: COST OF ACQUISITION MAXIMIZATION
+# -----------------------------------------------------------------------------
+# Goal: Maximize the purchase cost to reduce capital gains
+
+CostOfAcquisitionComponents[List]{component_id, component_name, deductible_in_capital_gains, deductible_under_section_80C, max_limit, conditions}:
+  
+  # PRIMARY PURCHASE COSTS
+  COA-001 | Agreement_Value | Yes | No | Unlimited | Actual_price_paid_to_seller
+  COA-002 | Stamp_Duty | Yes | Yes | 1.5L_under_80C | If_not_claimed_under_80C_add_to_acquisition_cost
+  COA-003 | Registration_Charges | Yes | Yes | 1.5L_under_80C | If_not_claimed_under_80C_add_to_acquisition_cost
+  COA-004 | Brokerage_at_Purchase | Yes | No | Unlimited | Must_have_receipt_not_cash_over_10k
+  COA-005 | Legal_Fees_Purchase | Yes | No | Unlimited | Title_verification_agreement_drafting
+  COA-006 | Valuation_Fees | Yes | No | Unlimited | Professional_valuation_charges
+  COA-007 | Home_Loan_Processing_Fee | Yes | Partial | Unlimited | Can_be_treated_as_interest_per_tribunal_rulings
+  COA-008 | Documentation_Charges | Yes | No | Unlimited | Notary_affidavit_charges
+  COA-009 | Transfer_Charges_Society | Yes | No | Unlimited | Society_transfer_NOC_fees
+  COA-010 | Mutation_Charges | Yes | No | Unlimited | Municipal_record_update_fees
+  
+  # LOAN-RELATED COSTS (Debatable but often allowed)
+  COA-011 | Home_Loan_Legal_Fees | Partial | No | Unlimited | If_directly_related_to_acquisition
+  COA-012 | Home_Loan_Valuation | Partial | No | Unlimited | Bank_valuation_for_loan_sanction
+  COA-013 | Prepayment_Penalty | No | No | N/A | Not_part_of_acquisition
+  
+  # RERA & CONSULTANT CHARGES
+  COA-014 | RERA_Consultant_Fees | Yes | No | Unlimited | If_for_purchase_due_diligence
+  COA-015 | Property_Inspection_Fees | Yes | No | Unlimited | Pre_purchase_inspection
+  COA-016 | Title_Search_Report | Yes | No | Unlimited | Encumbrance_certificate_verification
+  
+  # WORK ORDER & CONSTRUCTION CHARGES (For under-construction)
+  COA-017 | Work_Order_Charges | Yes | No | Unlimited | Part_of_builder_payment_schedule
+  COA-018 | Development_Charges | Yes | No | Unlimited | Infrastructure_development_by_builder
+  COA-019 | Preferential_Location_Charges | Yes | No | Unlimited | Corner_plot_premium_park_facing
+  COA-020 | Floor_Rise_Charges | Yes | No | Unlimited | Higher_floor_premium
+  COA-021 | Car_Parking_Charges | Yes | No | Unlimited | If_part_of_property_purchase
+  
+  # OTHER ALLOWABLE COSTS
+  COA-022 | Interest_During_Construction | Yes | No | Unlimited | Pre_possession_interest_1/5th_per_year
+  COA-023 | GST_on_Under_Construction | Yes | No | Unlimited | GST_paid_to_builder
+  COA-024 | Electricity_Water_Connection | Yes | No | Unlimited | Initial_connection_charges
+  COA-025 | Corpus_Fund_Society | Yes | No | Unlimited | One_time_corpus_contribution
+
+# CA STRATEGY: Stamp Duty & Registration Decision Tree
+StampDutyStrategy{scenario, claim_under_80C, add_to_acquisition_cost, tax_benefit_timing, recommendation}:
+  
+  # SCENARIO 1: High income, need immediate tax benefit
+  High_Income_Current_Year | Yes | No | Immediate_in_purchase_year | Claim_80C_if_need_current_year_deduction
+  
+  # SCENARIO 2: Planning to sell within 5 years
+  Sell_Within_5_Years | No | Yes | At_time_of_sale | Add_to_acquisition_80C_will_reverse
+  
+  # SCENARIO 3: Long-term hold, low current income
+  Long_Term_Hold | No | Yes | At_time_of_sale | Better_to_reduce_future_capital_gains
+  
+  # SCENARIO 4: Already exhausted 80C limit
+  80C_Limit_Exhausted | No | Yes | At_time_of_sale | No_choice_add_to_acquisition_cost
+
+# -----------------------------------------------------------------------------
+# STRATEGY 2: COST OF IMPROVEMENT OPTIMIZATION
+# -----------------------------------------------------------------------------
+# Goal: Maximize improvement costs to reduce capital gains
+
+CostOfImprovementComponents[List]{component_id, improvement_type, allowable, indexation_benefit, documentation_required, ca_notes}:
+  
+  # CAPITAL IMPROVEMENTS (Allowable)
+  COI-001 | Major_Renovation | Yes | Yes | Invoices_receipts_photos | Kitchen_bathroom_complete_overhaul
+  COI-002 | Room_Addition | Yes | Yes | Architect_approval_receipts | Adding_bedroom_balcony_extension
+  COI-003 | Structural_Changes | Yes | Yes | Engineer_certificate | Wall_removal_floor_addition
+  COI-004 | Flooring_Upgrade | Yes | Yes | Bills_with_GST | Marble_wooden_flooring
+  COI-005 | Electrical_Rewiring | Yes | Yes | Electrician_bills | Complete_rewiring_upgrade
+  COI-006 | Plumbing_Overhaul | Yes | Yes | Plumber_bills | New_pipes_fixtures
+  COI-007 | Modular_Kitchen | Yes | Yes | Vendor_invoice | Permanent_fixtures
+  COI-008 | Built_in_Wardrobes | Yes | Yes | Carpenter_bills | Permanent_fixtures
+  COI-009 | False_Ceiling | Yes | Yes | Contractor_invoice | POP_gypsum_ceiling
+  COI-010 | Waterproofing | Yes | Yes | Contractor_bills | Terrace_bathroom_waterproofing
+  COI-011 | Lift_Installation | Yes | Yes | Vendor_invoice | In_independent_house
+  COI-012 | Solar_Panel_Installation | Yes | Yes | Vendor_invoice_subsidy_docs | Permanent_fixture
+  COI-013 | Swimming_Pool_Construction | Yes | Yes | Contractor_bills | For_villa_farmhouse
+  COI-014 | Landscaping_Permanent | Yes | Yes | Bills_photos | Permanent_garden_structures
+  
+  # REPAIRS & MAINTENANCE (Not Allowable)
+  COI-101 | Painting_Regular | No | No | N/A | Routine_maintenance_not_capital
+  COI-102 | Minor_Repairs | No | No | N/A | Fixing_leaks_cracks
+  COI-103 | AC_Servicing | No | No | N/A | Routine_maintenance
+  COI-104 | Pest_Control | No | No | N/A | Routine_expense
+  COI-105 | Society_Maintenance | No | No | N/A | Recurring_expense
+  
+  # BORDERLINE CASES (CA Judgment Required)
+  COI-201 | Complete_Repainting_Premium | Partial | Partial | Strong_documentation | If_part_of_major_renovation
+  COI-202 | Furniture_Built_In | Yes | Yes | Permanent_fixture_proof | Must_be_permanent_not_movable
+  COI-203 | AC_Installation_Central | Yes | Yes | Invoice_installation | Central_AC_permanent_fixture
+  COI-204 | Geyser_Installation | Partial | Partial | Invoice | If_part_of_bathroom_upgrade
+
+# CA STRATEGY: Improvement Cost Documentation Best Practices
+ImprovementDocumentationStrategy[List]{strategy_id, practice, benefit, risk_mitigation}:
+  IDS-001 | Maintain_Chronological_Log | Easy_audit_trail | Date_stamped_expense_tracker
+  IDS-002 | Before_After_Photos | Visual_proof_of_improvement | Timestamped_photographs
+  IDS-003 | Architect_Engineer_Certificates | Professional_validation | For_major_structural_work
+  IDS-004 | Payment_via_Bank_Transfer | Clear_money_trail | Avoid_cash_over_10k_per_Section_40A3
+  IDS-005 | GST_Invoices | Legitimate_vendor_proof | Registered_vendors_only
+  IDS-006 | Society_NOC | Permission_proof | For_structural_changes
+  IDS-007 | Separate_Capital_vs_Revenue | Avoid_disallowance | Clear_categorization
+  IDS-008 | Annual_Summary_Report | Year_wise_tracking | Easier_at_sale_time
+
+# -----------------------------------------------------------------------------
+# STRATEGY 3: SALE EXPENSES DEDUCTION
+# -----------------------------------------------------------------------------
+# Goal: Maximize deductions from sale consideration
+
+SaleExpensesDeductible[List]{expense_id, expense_type, deductible, max_limit, documentation, ca_tips}:
+  
+  # DIRECT SALE COSTS
+  SE-001 | Brokerage_Commission | Yes | Unlimited | Agreement_receipt_not_cash_over_10k | Typically_1-2%_of_sale_price
+  SE-002 | Legal_Fees_Sale | Yes | Unlimited | Lawyer_invoice | Sale_deed_drafting_review
+  SE-003 | Advertising_Costs | Yes | Unlimited | Bills_from_portals | 99acres_MagicBricks_ads
+  SE-004 | Photography_Staging | Yes | Unlimited | Vendor_invoice | Professional_photos_home_staging
+  SE-005 | Valuation_Fees_Sale | Yes | Unlimited | Valuer_certificate | Independent_valuation
+  SE-006 | NOC_Charges | Yes | Unlimited | Society_bank_receipts | Society_bank_NOC_fees
+  SE-007 | Stamp_Paper_Sale_Deed | Yes | Unlimited | Stamp_vendor_receipt | For_sale_agreement
+  SE-008 | Notary_Charges | Yes | Unlimited | Notary_receipt | Affidavits_attestation
+  SE-009 | Registration_Charges_Transfer | Yes | Unlimited | Sub_registrar_receipt | Transfer_registration
+  SE-010 | Capital_Gains_Tax_Consultant | Yes | Unlimited | CA_invoice | Tax_computation_filing
+  
+  # TRAVEL & RELATED (If Justified)
+  SE-011 | Travel_for_Sale | Partial | Reasonable | Tickets_bills | If_property_in_different_city
+  SE-012 | Hotel_Stay_Sale | Partial | Reasonable | Hotel_bills | If_extended_stay_for_sale
+  
+  # NOT DEDUCTIBLE
+  SE-101 | Loan_Prepayment_Charges | No | N/A | N/A | Not_related_to_transfer
+  SE-102 | Society_Dues_Pending | No | N/A | N/A | Not_transfer_expense
+
+# -----------------------------------------------------------------------------
+# STRATEGY 4: SECTION 80C DEDUCTIONS (Property Related)
+# -----------------------------------------------------------------------------
+# Goal: Maximize Section 80C benefits (Old Tax Regime Only)
+
+Section80CPropertyDeductions[List]{deduction_id, component, max_limit_individual, conditions, reversal_clause, ca_strategy}:
+  
+  S80C-001 | Stamp_Duty | 1.5L_combined | New_property_only_same_FY | Reverse_if_sold_within_5_years | Claim_if_need_current_year_benefit
+  S80C-002 | Registration_Charges | 1.5L_combined | New_property_only_same_FY | Reverse_if_sold_within_5_years | Claim_if_need_current_year_benefit
+  S80C-003 | Home_Loan_Principal | 1.5L_combined | Any_year_of_repayment | Reverse_if_sold_within_5_years | Claim_every_year
+  
+  # JOINT OWNERSHIP STRATEGY
+  JointOwnership80C{scenario, owner_1_claim, owner_2_claim, total_benefit, condition}:
+    Joint_50_50 | 1.5L | 1.5L | 3L_total | Each_co_owner_can_claim_separately
+    Joint_with_Spouse | 1.5L | 1.5L | 3L_total | Both_must_be_co_borrowers_co_owners
+
+# -----------------------------------------------------------------------------
+# STRATEGY 5: SECTION 24 HOME LOAN INTEREST DEDUCTION
+# -----------------------------------------------------------------------------
+
+Section24InterestDeduction[List]{scenario_id, property_type, max_deduction, conditions, ca_optimization}:
+  
+  S24-001 | Self_Occupied_Residential | 2L_per_year | Post_possession_interest | Claim_full_2L_if_possible
+  S24-002 | Rented_Residential | Unlimited | Entire_interest_deductible | No_cap_but_max_loss_setoff_2L
+  S24-003 | Deemed_Let_Out_Second_Home | Unlimited | If_own_2+_properties | Treat_as_rented_for_tax
+  S24-004 | Under_Construction_Interest | 1/5th_per_year | For_5_years_post_possession | Pre_possession_interest_amortized
+  S24-005 | Home_Loan_Processing_Fee | Debatable | Some_tribunals_allow_as_interest | Get_lender_certificate
+
+# CA STRATEGY: Home Loan Interest Optimization
+HomeLoanInterestStrategy{strategy, technique, benefit, applicability}:
+  
+  # STRATEGY 1: Maximize interest in early years
+  Front_Load_Interest | Take_longer_tenure_loan | Higher_interest_deduction_initially | Self_occupied_property
+  
+  # STRATEGY 2: Rent out to remove 2L cap
+  Rent_Out_Property | Declare_as_let_out | Unlimited_interest_deduction | If_not_self_occupied
+  
+  # STRATEGY 3: Joint loan with spouse
+  Joint_Loan_Both_Earning | Both_claim_2L_each | 4L_total_deduction | Both_must_be_co_owners_co_borrowers
+  
+  # STRATEGY 4: Processing fee treatment
+  Processing_Fee_as_Interest | Get_bank_certificate | Additional_deduction | Check_with_CA_tribunal_precedents
+
+# -----------------------------------------------------------------------------
+# STRATEGY 6: SECTION 50C - CIRCLE RATE vs AGREEMENT VALUE
+# -----------------------------------------------------------------------------
+# Goal: Manage higher circle rate scenarios
+
+Section50CStrategy[List]{scenario_id, circle_rate, agreement_value, difference_percent, tax_implication, ca_strategy, legal_recourse}:
+  
+  # SCENARIO 1: Agreement < Circle Rate (Within tolerance)
+  S50C-001 | 60L | 55L | 8.3% | No_issue | Within_10%_safe_harbour_old_rule | No_action_needed
+  S50C-002 | 60L | 48L | 20% | Borderline | Exactly_20%_new_safe_harbour | Risky_may_trigger_50C
+  S50C-003 | 60L | 45L | 25% | Section_50C_applies | Circle_rate_deemed_sale_price | Higher_capital_gains_tax
+  
+  # SELLER TAX IMPLICATIONS
+  SellerImpact{scenario_ref, actual_received, deemed_sale_price, capital_gains_on, tax_impact}:
+    S50C-003 | 45L | 60L | 60L | Pay_tax_on_15L_never_received
+  
+  # BUYER TAX IMPLICATIONS (Section 56(2)(x))
+  BuyerImpact{scenario_ref, actual_paid, circle_rate, difference, deemed_income, tax_rate}:
+    S50C-003 | 45L | 60L | 15L | 15L_taxable_as_income | Per_slab_rate_up_to_30%
+  
+  # CA STRATEGIES TO MITIGATE
+  MitigationStrategy[List]{strategy_id, approach, applicability, success_rate, cost}:
+    MIT-001 | Valuation_Officer_Reference | Request_AO_to_refer_to_VO | If_genuine_lower_value | 60% | 10-25k_fees
+    MIT-002 | Lower_TDS_Certificate | Apply_for_lower_TDS_certificate_u/s_197 | Before_sale | 70% | 5-15k_fees
+    MIT-003 | Negotiate_Circle_Rate_Revision | Petition_to_state_authority | If_rates_outdated | 30% | 50k-2L_fees
+    MIT-004 | Structure_as_Gift_with_Consideration | Complex_structuring | High_value_transactions | 40% | 1-5L_fees
+    MIT-005 | Wait_for_Circle_Rate_Reduction | Delay_sale | If_rates_expected_to_drop | Variable | Time_cost
+  
+  # VALUATION OFFICER OUTCOME SCENARIOS
+  ValuationOfficerOutcome{scenario, vo_determined_value, circle_rate, final_sale_price_for_tax, outcome}:
+    VO_Lower_than_Circle | 50L | 60L | 50L | Benefit_to_seller_lower_capital_gains
+    VO_Higher_than_Circle | 65L | 60L | 60L | No_penalty_capped_at_circle_rate
+    VO_Same_as_Circle | 60L | 60L | 60L | No_benefit_status_quo
+
+# CA BEST PRACTICE: Circle Rate Analysis at Purchase
+CircleRateAnalysis{property_ref, agreement_value, circle_rate, variance_percent, recommendation, risk_level}:
+  P-SAYUK-U-101 | 85L | 90L | 5.9% | Safe_proceed | Low
+  P-GACHI-R-205 | 1.2Cr | 1.5Cr | 25% | High_risk_negotiate_or_pay_circle_rate | High
+  P-PLOT-TLP-88 | 50L | 48L | -4% | Agreement_higher_no_issue | None
+
+# -----------------------------------------------------------------------------
+# STRATEGY 7: EXEMPTION PLANNING (Section 54, 54F, 54EC)
+# -----------------------------------------------------------------------------
+
+# SECTION 54: Residential to Residential
+Section54Strategy[List]{strategy_id, scenario, exemption_limit, investment_timeline, property_count_allowed, ca_tips}:
+  
+  S54-STR-001 | Single_Property_Reinvestment | 10Cr_max | 1_yr_before_2_yr_after_purchase_3_yr_construct | 1_property | Standard_case
+  S54-STR-002 | Two_Property_Reinvestment | 10Cr_max | Same_timeline | 2_properties | Only_if_LTCG_under_2Cr_once_in_lifetime
+  S54-STR-003 | Partial_Reinvestment | Proportional | Same_timeline | 1_or_2 | If_invest_50%_get_50%_exemption
+  S54-STR-004 | CGAS_Deposit | 10Cr_max | Deposit_before_ITR_deadline | 1_or_2 | Buy_time_to_find_property
+  
+  # TIMING OPTIMIZATION
+  TimingStrategy{scenario, action, benefit, deadline}:
+    Buy_Before_Sell | Purchase_new_property_first | Start_1_year_clock_early | 1_year_before_sale
+    CGAS_Deposit | Deposit_gains_in_CGAS_account | Preserve_exemption_claim | Before_ITR_filing_deadline
+    Construct_vs_Purchase | Opt_for_construction | 3_year_window_vs_2_year | Within_3_years_of_sale
+
+# SECTION 54F: Any Asset to Residential
+Section54FStrategy[List]{strategy_id, asset_sold, investment_required, key_condition, ca_tips}:
+  
+  S54F-STR-001 | Plot_Land | Entire_net_sale_consideration | Must_not_own_other_residential | Sell_other_homes_first
+  S54F-STR-002 | Commercial_Property | Entire_net_sale_consideration | Must_not_own_other_residential | Risky_if_own_home
+  S54F-STR-003 | Gold_Jewelry | Entire_net_sale_consideration | Must_not_own_other_residential | Rare_case
+  S54F-STR-004 | Shares_Equity | Entire_net_sale_consideration | Must_not_own_other_residential | Common_for_HNI
+  
+  # CRITICAL CONDITION: Residential Property Ownership
+  ResidentialOwnershipCheck{time_period, allowed_properties, violation_consequence}:
+    At_Time_of_Sale | 0_other_residential | Exemption_denied
+    Within_1_Year_After | 0_purchase | Exemption_denied
+    Within_2_Years_After | 0_purchase | Exemption_denied
+    Within_3_Years_After | 0_construction | Exemption_denied
+
+# SECTION 54EC: Bonds Investment
+Section54ECStrategy[List]{strategy_id, bond_issuer, max_investment, lock_in_period, interest_rate, ca_tips}:
+  
+  S54EC-STR-001 | NHAI_Bonds | 50L | 5_years | ~5.25% | Low_liquidity_risk
+  S54EC-STR-002 | REC_Bonds | 50L | 5_years | ~5.25% | Low_liquidity_risk
+  S54EC-STR-003 | PFC_Bonds | 50L | 5_years | ~5.25% | Low_liquidity_risk
+  S54EC-STR-004 | IRFC_Bonds | 50L | 5_years | ~5.25% | Low_liquidity_risk
+  
+  # COMBINATION STRATEGY
+  CombinationStrategy{scenario, section_54_investment, section_54EC_investment, total_exemption, balance_taxable}:
+    High_Gains_15Cr | 10Cr_new_property | 50L_bonds | 10.5Cr | 4.5Cr_taxable
+    Moderate_Gains_75L | 25L_new_property | 50L_bonds | 75L | 0_taxable
+    Low_Gains_40L | 0 | 40L_bonds | 40L | 0_taxable
+
+# -----------------------------------------------------------------------------
+# STRATEGY 8: HOLDING PERIOD OPTIMIZATION
+# -----------------------------------------------------------------------------
+
+HoldingPeriodStrategy[List]{scenario_id, holding_months, classification, tax_rate, indexation_benefit, ca_recommendation}:
+  
+  HP-001 | 23_months | STCG | Per_slab_up_to_30% | No | Hold_1_more_month_for_LTCG
+  HP-002 | 24_months | LTCG | 20% | Yes | Optimal_sell_now
+  HP-003 | 25_months | LTCG | 20% | Yes | Already_optimal
+  
+  # CRITICAL DATES CALCULATION
+  HoldingPeriodCalculation{purchase_date, sale_date, holding_days, holding_months, classification}:
+    2023-03-15 | 2025-03-14 | 729 | 23.97 | STCG_hold_1_more_day
+    2023-03-15 | 2025-03-15 | 730 | 24.00 | LTCG_optimal
+  
+  # TAX IMPACT COMPARISON
+  TaxImpactComparison{capital_gain, stcg_tax_30%, ltcg_tax_20%, savings_by_waiting, recommendation}:
+    10L | 3L | 2L | 1L | Wait_for_LTCG
+    50L | 15L | 10L | 5L | Wait_for_LTCG
+    1Cr | 30L | 20L | 10L | Wait_for_LTCG
+
+# -----------------------------------------------------------------------------
+# STRATEGY 9: JOINT OWNERSHIP TAX PLANNING
+# -----------------------------------------------------------------------------
+
+JointOwnershipStrategy[List]{strategy_id, ownership_structure, tax_benefit, applicability, ca_tips}:
+  
+  JO-001 | Husband_Wife_50_50 | Double_Section_80C_limit | Both_earning | Each_claim_1.5L
+  JO-002 | Husband_Wife_50_50 | Double_Section_24_limit | Both_earning_self_occupied | Each_claim_2L_interest
+  JO-003 | Parent_Child_Joint | Lower_tax_slab_utilization | If_child_in_lower_slab | Split_capital_gains
+  JO-004 | Multiple_Children | Distribute_capital_gains | Large_property | Each_child_separate_exemption
+  
+  # CAPITAL GAINS SPLITTING
+  CapitalGainsSplitting{total_gain, ownership_split, owner_1_gain, owner_2_gain, owner_1_tax, owner_2_tax, total_tax, vs_single_owner_tax, savings}:
+    1Cr | 50_50 | 50L | 50L | 10L | 10L | 20L | 20L | 0_but_double_exemption_possible
+    1Cr | 50_50_with_exemption | 50L | 50L | 0 | 0 | 0 | 20L | 20L_if_both_claim_Section_54
+
+# -----------------------------------------------------------------------------
+# STRATEGY 10: NRI-SPECIFIC OPTIMIZATION
+# -----------------------------------------------------------------------------
+
+NRITaxOptimization[List]{strategy_id, optimization_type, benefit, complexity, ca_fees_range}:
+  
+  NRI-001 | Lower_TDS_Certificate_Section_197 | Reduce_TDS_from_20%_to_actual_rate | Medium | 10-25k
+  NRI-002 | DTAA_Treaty_Benefits | Reduce_tax_rate_per_treaty | High | 25-75k
+  NRI-003 | Form_67_Foreign_Tax_Credit | Avoid_double_taxation | Medium | 15-30k
+  NRI-004 | Repatriation_Planning | Maximize_repatriable_amount | Medium | 20-40k
+  NRI-005 | Timing_Residential_Status | Become_resident_for_lower_tax | High | 50k-1L
+  
+  # LOWER TDS CERTIFICATE STRATEGY
+  LowerTDSCertificate{scenario, standard_tds_20%, estimated_actual_tax, lower_certificate_rate, tds_savings, application_timeline}:
+    Low_Gains_Case | 20L | 5L | 5% | 15L_cash_flow_benefit | 2-3_months_before_sale
+    DTAA_Benefit | 20L | 10L | 10% | 10L_cash_flow_benefit | 2-3_months_before_sale
+    Loss_Case | 20L | 0 | 0% | 20L_cash_flow_benefit | 2-3_months_before_sale
+
+# -----------------------------------------------------------------------------
+# STRATEGY 11: RERA CONSULTANT & PROFESSIONAL CHARGES
+# -----------------------------------------------------------------------------
+
+RERAConsultantCharges[List]{charge_id, service_type, deductible_stage, deductible_as, amount_range, ca_treatment}:
+  
+  RERA-001 | RERA_Registration_Verification | Purchase | Cost_of_Acquisition | 5-15k | Add_to_purchase_cost
+  RERA-002 | RERA_Compliance_Check | Purchase | Cost_of_Acquisition | 10-25k | Due_diligence_cost
+  RERA-003 | RERA_Dispute_Resolution | Ownership | Not_deductible | 25k-1L | Revenue_expense_not_capital
+  RERA-004 | RERA_Project_Audit | Purchase | Cost_of_Acquisition | 15-50k | Pre_purchase_verification
+  RERA-005 | Builder_Agreement_Review | Purchase | Cost_of_Acquisition | 5-20k | Legal_due_diligence
+  RERA-006 | Possession_Delay_Claim | Ownership | Not_deductible | 10-50k | Compensation_claim_not_capital
+  RERA-007 | Quality_Inspection_RERA | Purchase | Cost_of_Acquisition | 10-30k | Pre_purchase_inspection
+  RERA-008 | RERA_Consultant_Annual_Retainer | Ownership | Not_deductible | 25k-1L | Revenue_expense
+
+# Work Order Charges Treatment
+WorkOrderCharges[List]{charge_type, builder_component, deductible, ca_treatment, documentation}:
+  
+  WO-001 | Basic_Sale_Price | Yes | Cost_of_Acquisition | Sale_deed_agreement
+  WO-002 | Development_Charges | Yes | Cost_of_Acquisition | Itemized_in_agreement
+  WO-003 | Infrastructure_Charges | Yes | Cost_of_Acquisition | Roads_water_electricity
+  WO-004 | Club_House_Charges | Yes | Cost_of_Acquisition | Common_amenity
+  WO-005 | Preferential_Location_Charges | Yes | Cost_of_Acquisition | Corner_park_facing_premium
+  WO-006 | Floor_Rise_Charges | Yes | Cost_of_Acquisition | Higher_floor_premium
+  WO-007 | Car_Parking_Charges | Yes | Cost_of_Acquisition | If_part_of_property
+  WO-008 | Electricity_Backup_Charges | Yes | Cost_of_Acquisition | DG_set_contribution
+  WO-009 | Maintenance_Advance | No | Not_deductible | Recurring_expense
+  WO-010 | Corpus_Fund | Yes | Cost_of_Acquisition | One_time_contribution
+
+# -----------------------------------------------------------------------------
+# STRATEGY 12: TIMING & STRUCTURING
+# -----------------------------------------------------------------------------
+
+TimingStructuringStrategy[List]{strategy_id, technique, tax_benefit, risk_level, ca_recommendation}:
+  
+  TS-001 | Sell_in_Low_Income_Year | Lower_slab_rate_for_STCG | Low | Plan_around_job_change_retirement
+  TS-002 | Stagger_Sale_Across_Years | Spread_capital_gains | Medium | Sell_50%_this_year_50%_next
+  TS-003 | Gift_to_Spouse_Then_Sell | Use_spouse_lower_slab | High | Clubbing_provisions_apply
+  TS-004 | Sell_Before_Budget | Avoid_adverse_tax_changes | Low | If_budget_changes_expected
+  TS-005 | Wait_for_Indexation_Update | Higher_CII_lower_gains | Low | CII_updated_annually
+  TS-006 | Partial_Sale_Strategy | Sell_portion_claim_proportional_exemption | Medium | Complex_documentation
+  TS-007 | Exchange_Property | Defer_capital_gains | High | Rare_complex_structure
+  TS-008 | Sale_to_Related_Party | Family_arrangement | Very_High | High_scrutiny_risk
+
+# -----------------------------------------------------------------------------
+# STRATEGY 13: COMPREHENSIVE CA CHECKLIST
+# -----------------------------------------------------------------------------
+
+CATaxSavingChecklist[List]{checklist_id, item, action, potential_saving, priority}:
+  
+  # AT PURCHASE
+  CL-P-001 | Stamp_Duty_Registration | Decide_80C_vs_Acquisition | 30-45k | High
+  CL-P-002 | All_Purchase_Costs | Collect_all_receipts | Variable | Critical
+  CL-P-003 | Home_Loan_Processing | Get_bank_certificate_for_interest_treatment | 10-30k | Medium
+  CL-P-004 | RERA_Consultant_Fees | Document_as_acquisition_cost | 5-25k | Medium
+  CL-P-005 | Work_Order_Charges | Ensure_itemized_in_agreement | Variable | High
+  CL-P-006 | Joint_Ownership_Structure | Plan_for_double_benefits | 1-5L | High
+  CL-P-007 | Circle_Rate_Analysis | Check_variance_with_agreement | Variable | Critical
+  
+  # DURING OWNERSHIP
+  CL-O-001 | Improvement_Costs | Document_all_capital_improvements | 50k-5L | Critical
+  CL-O-002 | Before_After_Photos | Visual_proof_of_improvements | N/A | High
+  CL-O-003 | Payment_Mode | Bank_transfer_for_all_over_10k | Avoid_disallowance | Critical
+  CL-O-004 | Annual_Summary | Maintain_year_wise_expense_log | N/A | Medium
+  CL-O-005 | Home_Loan_Interest | Claim_Section_24_annually | 40k-2L_per_year | High
+  CL-O-006 | Home_Loan_Principal | Claim_Section_80C_annually | 30-45k_per_year | High
+  
+  # BEFORE SALE
+  CL-S-001 | Holding_Period_Check | Ensure_24+_months_for_LTCG | 5-15L | Critical
+  CL-S-002 | Circle_Rate_Check | Analyze_Section_50C_impact | Variable | Critical
+  CL-S-003 | Exemption_Planning | Plan_Section_54_54F_54EC | 2-20L | Critical
+  CL-S-004 | Sale_Expenses_Budget | Plan_deductible_expenses | 50k-2L | Medium
+  CL-S-005 | NRI_Lower_TDS_Certificate | Apply_if_NRI | 5-20L | Critical_for_NRI
+  CL-S-006 | Valuation_Officer_Strategy | If_circle_rate_issue | Variable | High
+  
+  # AT SALE
+  CL-AS-001 | All_Sale_Expenses | Collect_all_receipts | 1-3L | High
+  CL-AS-002 | TDS_Compliance | Ensure_buyer_files_26QB | N/A | Critical
+  CL-AS-003 | Form_16B | Obtain_from_buyer | N/A | Critical
+  CL-AS-004 | CGAS_Deposit | If_not_immediately_reinvesting | Preserve_exemption | High
+  
+  # POST SALE
+  CL-PS-001 | Capital_Gains_Computation | Detailed_calculation | N/A | Critical
+  CL-PS-002 | ITR_Filing | File_ITR-2_with_Schedule_CG | N/A | Critical
+  CL-PS-003 | Advance_Tax_Payment | Pay_before_March_15 | Avoid_interest | High
+  CL-PS-004 | Section_54_Investment | Complete_within_timeline | 2-20L | Critical
+  CL-PS-005 | Document_Archival | Store_for_7_years | N/A | Medium
+
+# -----------------------------------------------------------------------------
+# STRATEGY 14: ADVANCED CA TECHNIQUES
+# -----------------------------------------------------------------------------
+
+AdvancedCATechniques[List]{technique_id, technique_name, complexity, potential_saving, risk_level, applicability}:
+  
+  ADV-001 | Fair_Market_Value_FMV_Adoption | High | Variable | Medium | For_pre_2001_properties
+  ADV-002 | Slump_Sale_Treatment | Very_High | 10-30% | High | For_property_with_business
+  ADV-003 | Depreciable_Asset_Treatment | High | Variable | Medium | For_commercial_property
+  ADV-004 | Business_Income_vs_Capital_Gains | Very_High | 10-20% | Very_High | For_property_dealers
+  ADV-005 | Composite_Transaction_Splitting | High | Variable | High | Land_building_separate
+  ADV-006 | Lease_Premium_Treatment | High | Variable | Medium | For_leasehold_properties
+  ADV-007 | Compulsory_Acquisition_Exemption | Medium | 100% | Low | For_govt_acquisition
+  ADV-008 | Agricultural_Land_Exemption | Medium | 100% | Medium | If_qualifies_as_agricultural
+  ADV-009 | Stock_in_Trade_Conversion | Very_High | Variable | Very_High | Builder_developer_cases
+  ADV-010 | Trust_Structure_Planning | Very_High | 20-40% | Very_High | HNI_family_planning
+
+# -----------------------------------------------------------------------------
+# STRATEGY 15: NRI LOWER WITHHOLDING TAX CERTIFICATE (Section 197)
+# -----------------------------------------------------------------------------
+
+# Problem: NRIs face 20% TDS on gross sale value, not actual capital gains
+# Solution: Apply for Lower/Nil Withholding Certificate via Form 13
+
+NRILowerTDSCertificate[List]{scenario_id, sale_price, actual_capital_gains, standard_tds_20%, actual_tax_liability, certificate_rate, tds_savings}:
+  
+  # SCENARIO 1: Low Gains Case
+  NRI-LTC-001 | 1Cr | 10L | 20L | 2L | 2% | 18L_cash_flow_benefit
+  
+  # SCENARIO 2: Loss Case
+  NRI-LTC-002 | 1Cr | -5L_loss | 20L | 0 | 0% | 20L_cash_flow_benefit
+  
+  # SCENARIO 3: DTAA Benefit Case (USA)
+  NRI-LTC-003 | 1Cr | 30L | 20L | 4.5L_at_15% | 5% | 15L_cash_flow_benefit
+  
+  # SCENARIO 4: Section 54 Exemption Case
+  NRI-LTC-004 | 1Cr | 25L | 20L | 0_after_exemption | 0% | 20L_cash_flow_benefit
+
+# Application Process via Form 13
+Form13Application[List]{step_id, step_name, timeline, documents_required, ca_role}:
+  
+  STEP-1 | Prepare_Capital_Gains_Computation | 7_days | Purchase_deed_sale_agreement_improvement_receipts | CA_calculates_gains
+  STEP-2 | Gather_Supporting_Documents | 7_days | PAN_passport_OCI_ITR_26AS_bank_statements | CA_compiles_dossier
+  STEP-3 | Valuation_Certificate_Section_50C | 5_days | Property_valuation_report | CA_coordinates_valuer
+  STEP-4 | File_Form_13_Online | 1_day | All_above_documents | CA_files_electronically
+  STEP-5 | Respond_to_AO_Queries | 10-15_days | Additional_clarifications | CA_handles_correspondence
+  STEP-6 | Certificate_Issuance | 30-45_days_total | N/A | CA_downloads_certificate
+  STEP-7 | Share_with_Buyer | 1_day | Certificate_copy | CA_provides_to_buyer
+
+# CA Fees & Timeline
+CAServicePackage{service_type, fee_range, timeline, success_rate, value_proposition}:
+  
+  Basic_Form_13_Filing | 10-15k | 30-40_days | 70% | DIY_with_CA_review
+  Standard_Package | 15-25k | 30-45_days | 80% | Full_service_with_follow_up
+  Premium_NRI_Package | 25-50k | 25-35_days | 90% | Expedited_with_AO_liaison
+  Complex_DTAA_Case | 50-75k | 40-60_days | 85% | Multi_country_tax_planning
+
+# Propmubi Business Strategy: NRI Tax Certificate Service
+PropmubiNRITaxService{service_id, service_name, pricing_model, revenue_potential, user_benefit}:
+  
+  SVC-NRI-001 | Lower_TDS_Certificate_Application | 15k_per_application | 50Cr_annual_if_1000_NRIs | Save_15-20L_per_NRI
+  SVC-NRI-002 | DTAA_Benefit_Consultation | 25k_per_case | 25Cr_annual_if_500_cases | Save_5-10L_per_case
+  SVC-NRI-003 | NRI_Tax_Filing_Package | 20k_per_year | 100Cr_annual_if_5000_NRIs | Complete_compliance
+  SVC-NRI-004 | Repatriation_Planning | 30k_per_transaction | 30Cr_annual_if_1000_transactions | Maximize_repatriable_amount
+
+# -----------------------------------------------------------------------------
+# STRATEGY 16: LAND DEVELOPMENT AGREEMENTS (JDA) & SFT
+# -----------------------------------------------------------------------------
+
+# Joint Development Agreement Tax Treatment
+
+# FOR LANDOWNER (Section 45(5A) - Capital Gains Deferral)
+JDALandownerTax[List]{scenario_id, land_value, developer_share_percent, landowner_share_percent, tax_trigger_event}:
+  
+  JDA-LO-001 | 10Cr | 60% | 40% | Completion_certificate_issuance
+  JDA-LO-002 | 5Cr | 70% | 30% | Completion_certificate_issuance
+  JDA-LO-003 | 20Cr | 50% | 50% | Completion_certificate_issuance
+
+# Tax Calculation for Landowner
+LandownerCapitalGains{scenario_ref, land_original_cost, holding_period_years, completion_cert_date, stamp_duty_value_share, monetary_consideration, total_consideration, indexed_cost, capital_gains, tax_rate, tax_liability}:
+  
+  JDA-LO-001 | 2Cr | 15 | 2027-06-30 | 4Cr_stamp_duty_value | 50L_cash | 4.5Cr | 5.5Cr_indexed | -1Cr_no_gain | 0% | 0
+  JDA-LO-002 | 1Cr | 8 | 2026-12-31 | 1.5Cr | 25L | 1.75Cr | 1.8Cr_indexed | -5L_loss | 0% | 0
+  JDA-LO-003 | 5Cr | 20 | 2028-03-31 | 10Cr | 1Cr | 11Cr | 15Cr_indexed | -4Cr_no_gain | 0% | 0
+
+# Key Benefits for Landowner
+LandownerBenefits[List]{benefit_id, benefit_description, tax_saving, applicability}:
+  
+  BEN-LO-001 | Tax_Deferred_Until_Completion | No_upfront_tax_payment | Individuals_HUF_only
+  BEN-LO-002 | Holding_Period_from_Original_Purchase | Longer_holding_LTCG_benefit | All_landowners
+  BEN-LO-003 | Indexation_from_Original_Purchase | Lower_taxable_gains | LTCG_cases
+  BEN-LO-004 | Section_54_Exemption_Available | Can_reinvest_in_residential | If_gains_arise
+
+# FOR DEVELOPER (Business Income)
+JDADeveloperTax[List]{scenario_id, project_value, construction_cost, developer_share_units, sale_price_per_unit, total_revenue, business_profit, tax_rate, tax_liability}:
+  
+  JDA-DEV-001 | 50Cr | 30Cr | 60_units | 80L_per_unit | 48Cr | 18Cr | 25% | 4.5Cr
+  JDA-DEV-002 | 100Cr | 65Cr | 120_units | 75L_per_unit | 90Cr | 25Cr | 30% | 7.5Cr
+
+# Developer Tax Treatment
+DeveloperBusinessIncome{scenario_ref, income_head, deductible_expenses, tax_treatment}:
+  
+  JDA-DEV-001 | Profits_and_Gains_from_Business | Construction_cost_land_share_marketing_overheads | Business_income_at_corporate_rate
+  JDA-DEV-002 | Profits_and_Gains_from_Business | All_project_expenses | Business_income_at_corporate_rate
+
+# TDS on JDA Monetary Payments
+JDATDSCompliance[List]{payment_type, tds_section, tds_rate, threshold, payer, payee}:
+  
+  JDA-TDS-001 | Monetary_Consideration_to_Landowner | 194IA | 10% | Any_amount | Developer | Landowner
+  JDA-TDS-002 | No_PAN_Case | 194IA | 20% | Any_amount | Developer | Landowner
+
+# SFT (Statement of Financial Transaction) Reporting
+SFTReporting[List]{sft_id, transaction_type, reporting_entity, threshold, form_number, due_date}:
+  
+  SFT-001 | Purchase_Sale_Immovable_Property | Property_Registrar | 30L_or_more | Form_61A | May_31_next_FY
+  SFT-002 | JDA_Registration | Property_Registrar | 30L_or_more | Form_61A | May_31_next_FY
+  SFT-003 | Builder_Sale_of_Units | Builder | 30L_or_more_per_unit | Form_61A | May_31_next_FY
+
+# Propmubi Business Strategy: JDA Tax Advisory
+PropmubiJDAService{service_id, service_name, target_client, pricing, revenue_potential}:
+  
+  SVC-JDA-001 | JDA_Tax_Structuring | Landowners | 50k-2L_per_JDA | 10Cr_annual_if_100_JDAs
+  SVC-JDA-002 | Section_45_5A_Compliance | Landowners | 25k_per_year | 5Cr_annual_if_200_clients
+  SVC-JDA-003 | Developer_Business_Income_Filing | Developers | 1-5L_per_project | 20Cr_annual_if_50_projects
+  SVC-JDA-004 | SFT_Compliance_Service | Builders_Registrars | 10k_per_filing | 2Cr_annual_if_200_filings
+
+# -----------------------------------------------------------------------------
+# STRATEGY 17: COMPANY vs INDIVIDUAL vs LLP INVESTMENT STRUCTURES
+# -----------------------------------------------------------------------------
+
+# Tax Rate Comparison Matrix
+EntityTaxComparison[List]{entity_type, rental_income_tax_rate, ltcg_tax_rate, stcg_tax_rate, dividend_distribution, double_taxation, limited_liability}:
+  
+  Individual | Per_slab_0-30% | 20%_with_indexation_or_12.5%_without | Per_slab_0-30% | N/A | No | No
+  HUF | Per_slab_0-30% | 20%_with_indexation_or_12.5%_without | Per_slab_0-30% | N/A | No | No
+  Partnership_Firm | 30%_plus_surcharge | 20%_with_indexation | 30%_plus_surcharge | Partners_share_exempt | No | No
+  LLP | 30%_plus_surcharge_12% | 20%_with_indexation_or_14.56% | 30-35%_depending_on_gain | Partners_share_exempt | No | Yes
+  Private_Limited_Company | 25-30%_corporate_rate | 20%_with_indexation | Corporate_rate_25-30% | Taxable_in_shareholders_hands | Yes | Yes
+  Public_Limited_Company | 25-30%_corporate_rate | 20%_with_indexation | Corporate_rate_25-30% | Taxable_in_shareholders_hands | Yes | Yes
+
+# Detailed Analysis by Entity Type
+
+# INDIVIDUAL INVESTOR
+IndividualInvestor{advantages, disadvantages, best_for, tax_optimization_strategies}:
+  
+  Advantages | [Simple_compliance, Section_80C_benefits, Section_24_benefits, Section_54_exemptions, No_double_taxation]
+  Disadvantages | [Unlimited_liability, Higher_slab_rates_for_HNI, Limited_expense_deductions]
+  Best_For | [Small_investors, Self_occupied_property, Single_property_owners]
+  Tax_Optimization | [Joint_ownership_with_spouse, Claim_all_80C_24_deductions, Section_54_planning, Hold_for_LTCG]
+
+# COMPANY (PVT LTD / PUBLIC LTD)
+CompanyInvestor{advantages, disadvantages, best_for, tax_optimization_strategies}:
+  
+  Advantages | [Limited_liability, Depreciation_on_commercial_property_10%, Easier_fundraising, Professional_structure]
+  Disadvantages | [Double_taxation_corporate_plus_dividend, Higher_compliance_cost, No_Section_54_exemption, Complex_winding_up]
+  Best_For | [Large_commercial_portfolios, Multiple_properties, Institutional_investors, REITs]
+  Tax_Optimization | [Maximize_depreciation, Retain_profits_avoid_dividend, Section_115BAA_22%_rate, Expense_maximization]
+
+# LLP (LIMITED LIABILITY PARTNERSHIP)
+LLPInvestor{advantages, disadvantages, best_for, tax_optimization_strategies}:
+  
+  Advantages | [Limited_liability, No_double_taxation_partners_share_exempt, Operational_flexibility, Lower_compliance_vs_company]
+  Disadvantages | [Flat_30%_tax_rate, AMT_18.5%_if_applicable, No_Section_54_exemption, Complex_capital_contribution_rules]
+  Best_For | [Professional_investors, Multiple_partners, Commercial_property_investment, Family_investment_vehicles]
+  Tax_Optimization | [Partner_remuneration_deduction, Interest_on_capital_deduction, Expense_optimization, AMT_planning]
+
+# PARTNERSHIP FIRM
+PartnershipFirm{advantages, disadvantages, best_for, tax_optimization_strategies}:
+  
+  Advantages | [No_double_taxation, Simpler_than_LLP, Partner_remuneration_deductible, Flexible_profit_sharing]
+  Disadvantages | [Unlimited_liability_for_partners, Flat_30%_tax_rate, No_Section_54_exemption, Limited_fundraising]
+  Best_For | [Small_family_businesses, 2-3_partner_investments, Traditional_structures]
+  Tax_Optimization | [Maximize_partner_remuneration_within_limits, Expense_deductions, Interest_on_capital]
+
+# HUF (HINDU UNDIVIDED FAMILY)
+HUFInvestor{advantages, disadvantages, best_for, tax_optimization_strategies}:
+  
+  Advantages | [Separate_tax_entity, Same_benefits_as_individual_80C_24_54, Additional_tax_slab, Ancestral_property_management]
+  Disadvantages | [Limited_to_Hindu_families, Partition_complexities, Karta_unlimited_liability, Limited_fundraising]
+  Best_For | [Ancestral_property, Family_wealth_management, Multi_generational_planning]
+  Tax_Optimization | [Utilize_separate_80C_limit, Section_54_exemption, Gift_to_HUF_from_individual, Income_splitting]
+
+# Tax Rate Scenarios with Examples
+
+# SCENARIO 1: Rental Income 10L per year
+RentalIncomeTaxScenario{entity, rental_income, deductions, taxable_income, tax_rate, tax_liability}:
+  
+  Individual_30%_slab | 10L | 3L_standard_30%_plus_2L_interest | 5L | 30% | 1.5L
+  Company_25%_rate | 10L | 1L_depreciation_plus_2L_interest | 7L | 25% | 1.75L
+  LLP_30%_rate | 10L | 2L_interest_plus_50k_partner_remuneration | 7.5L | 30% | 2.25L
+
+# SCENARIO 2: Capital Gains 1Cr (LTCG)
+CapitalGainsTaxScenario{entity, capital_gain, indexation_benefit, taxable_gain, tax_rate, tax_liability, exemption_available}:
+  
+  Individual | 1Cr | 40L | 60L | 20% | 12L | Section_54_yes
+  Company | 1Cr | 40L | 60L | 20% | 12L | Section_54_no
+  LLP | 1Cr | 40L | 60L | 20% | 12L | Section_54_no
+
+# SCENARIO 3: Total Return Analysis (10 year hold, 5Cr property)
+TotalReturnAnalysis{entity, purchase_price, rental_income_total, sale_price, total_tax_paid, net_return, effective_tax_rate}:
+  
+  Individual | 5Cr | 50L_over_10_years | 10Cr | 15L_rental_tax_plus_20L_capital_gains | 4.15Cr | 7.7%
+  Company | 5Cr | 50L_over_10_years | 10Cr | 17.5L_rental_tax_plus_20L_CG_plus_dividend_tax | 3.5Cr | 13.6%
+  LLP | 5Cr | 50L_over_10_years | 10Cr | 22.5L_rental_tax_plus_20L_capital_gains | 3.75Cr | 11.7%
+
+# Propmubi Business Strategy: Entity Structure Advisory
+PropmubiEntityAdvisory{service_id, service_name, target_client, pricing, value_proposition}:
+  
+  SVC-ENT-001 | Entity_Structure_Consultation | All_investors | 25-50k_one_time | Optimize_tax_structure
+  SVC-ENT-002 | Company_Formation_for_Property | HNI_investors | 1-2L_including_registration | Complete_setup
+  SVC-ENT-003 | LLP_Formation_for_Property | Family_investors | 75k-1.5L | Limited_liability_setup
+  SVC-ENT-004 | HUF_Deed_and_Tax_Planning | Hindu_families | 50k-1L | Ancestral_property_management
+  SVC-ENT-005 | Annual_Compliance_Package | All_entities | 50k-2L_per_year | Complete_tax_filing
+
+# -----------------------------------------------------------------------------
+# STRATEGY 18: ANCESTRAL & INHERITED PROPERTY TAXATION
+# -----------------------------------------------------------------------------
+
+# Ancestral Property Definition
+AncestralPropertyDefinition{property_type, inheritance_generation, partition_status, tax_treatment}:
+  
+  Ancestral_Property | Up_to_4_generations_male_lineage | Unpartitioned | Special_cost_of_acquisition_rules
+  Inherited_Property | Any_generation | Partitioned_or_gifted | Cost_of_acquisition_from_previous_owner
+  Self_Acquired_Property | Current_generation | N/A | Actual_purchase_cost
+
+# Cost of Acquisition for Inherited Property
+InheritedPropertyCostBasis[List]{scenario_id, property_acquired_by_ancestor, ancestor_purchase_date, ancestor_purchase_price, inheritance_date, cost_of_acquisition_for_heir, indexation_from}:
+  
+  INH-001 | Grandfather | 1985-01-01 | 5L | 2020-06-15 | 5L_or_FMV_as_on_2001-04-01 | 1985_or_2001-04-01
+  INH-002 | Father | 1998-03-20 | 15L | 2022-08-10 | 15L_or_FMV_as_on_2001-04-01 | 1998_or_2001-04-01
+  INH-003 | Mother | 2005-11-12 | 40L | 2023-12-05 | 40L | 2005-11-12
+
+# Fair Market Value (FMV) Option for Pre-2001 Properties
+FMVOption{property_ref, ancestor_purchase_price, fmv_as_on_2001_04_01, cost_of_acquisition_chosen, benefit}:
+  
+  INH-001 | 5L | 25L | 25L_FMV | Higher_cost_lower_capital_gains
+  INH-002 | 15L | 30L | 30L_FMV | Higher_cost_lower_capital_gains
+
+# Indexation Benefit for Inherited Property
+InheritedPropertyIndexation{scenario_ref, cost_of_acquisition, indexation_start_year, sale_year, purchase_cii, sale_cii, indexed_cost}:
+  
+  INH-001 | 25L_FMV | FY_2001-02 | FY_2025-26 | 100 | 363 | 90.75L
+  INH-002 | 30L_FMV | FY_2001-02 | FY_2025-26 | 100 | 363 | 1.089Cr
+  INH-003 | 40L | FY_2005-06 | FY_2025-26 | 117 | 363 | 1.24Cr
+
+# Capital Gains Calculation Example
+InheritedPropertyCapitalGains{scenario_ref, sale_price, indexed_cost, sale_expenses, capital_gains, tax_rate, tax_liability}:
+  
+  INH-001 | 2Cr | 90.75L | 2L | 1.0725Cr | 20% | 21.45L
+  INH-002 | 1.5Cr | 1.089Cr | 1.5L | 39.6L | 20% | 7.92L
+  INH-003 | 3Cr | 1.24Cr | 3L | 1.53Cr | 20% | 30.6L
+
+# Exemptions Available for Inherited Property
+InheritedPropertyExemptions[List]{exemption_section, applicability, conditions, max_benefit}:
+  
+  Section_54 | Yes_for_residential_property | Reinvest_in_residential_within_timeline | 10Cr_max
+  Section_54F | Yes_if_inherited_non_residential | Reinvest_entire_consideration_in_residential | 10Cr_max
+  Section_54EC | Yes | Invest_in_bonds_within_6_months | 50L_max
+
+# Multiple Heirs Scenario
+MultipleHeirsScenario{property_value, number_of_heirs, share_per_heir, individual_capital_gains, individual_tax, total_tax, vs_single_owner_tax, benefit}:
+  
+  2Cr_property | 4_heirs | 50L_each | 25L_each | 5L_each | 20L_total | 40L_if_single | 20L_savings_plus_4x_Section_54
+
+# Ancestral Property Sale Consent
+AncestralPropertySaleConsent{scenario, consent_required_from, legal_requirement, tax_implication}:
+  
+  Unpartitioned_Ancestral | All_coparceners | Mandatory_all_heirs_consent | Each_heir_reports_proportionate_capital_gains
+  Partitioned_Ancestral | Individual_owner_only | No_consent_needed | Individual_reports_full_capital_gains
+  Inherited_Individual | Individual_owner_only | No_consent_needed | Individual_reports_full_capital_gains
+
+# Propmubi Business Strategy: Ancestral Property Tax Service
+PropmubiAncestralPropertyService{service_id, service_name, pricing, value_proposition}:
+  
+  SVC-ANC-001 | Ancestral_Property_Cost_Basis_Determination | 15-30k | Establish_FMV_for_pre_2001_properties
+  SVC-ANC-002 | Multiple_Heirs_Tax_Planning | 25-50k_per_family | Optimize_tax_across_heirs
+  SVC-ANC-003 | Partition_Deed_and_Tax_Implications | 50k-1L | Legal_plus_tax_planning
+  SVC-ANC-004 | Ancestral_Property_Sale_Complete_Package | 75k-1.5L | End_to_end_sale_and_tax_filing
+
+# -----------------------------------------------------------------------------
+# STRATEGY 19: PROPMUBI TAX SERVICES BUSINESS MODEL
+# -----------------------------------------------------------------------------
+
+# Revenue Streams
+PropmubiTaxRevenueStreams[List]{stream_id, service_category, pricing_model, target_volume, revenue_potential_annual, margin}:
+  
+  # INDIVIDUAL SERVICES
+  REV-001 | Capital_Gains_Calculation | 5-10k_per_property | 10000_transactions | 7.5Cr | 70%
+  REV-002 | ITR_Filing_with_Property | 10-15k_per_filing | 5000_filings | 6.25Cr | 60%
+  REV-003 | Section_54_Exemption_Planning | 15-25k_per_case | 2000_cases | 4Cr | 65%
+  
+  # NRI SERVICES
+  REV-101 | NRI_Lower_TDS_Certificate | 15-25k_per_application | 1000_applications | 2Cr | 75%
+  REV-102 | NRI_Tax_Filing_Package | 20-30k_per_year | 3000_NRIs | 7.5Cr | 70%
+  REV-103 | DTAA_Benefit_Consultation | 25-50k_per_case | 500_cases | 1.875Cr | 80%
+  
+  # INVESTOR SERVICES
+  REV-201 | JDA_Tax_Structuring | 50k-2L_per_JDA | 100_JDAs | 12.5Cr | 60%
+  REV-202 | Entity_Structure_Advisory | 25-50k_per_client | 500_clients | 1.875Cr | 70%
+  REV-203 | Ancestral_Property_Tax_Planning | 25-75k_per_family | 300_families | 1.5Cr | 65%
+  
+  # BUILDER SERVICES
+  REV-301 | Builder_TDS_Compliance | 50k-2L_per_project | 200_projects | 25Cr | 50%
+  REV-302 | SFT_Reporting_Service | 10-25k_per_filing | 500_filings | 875L | 60%
+  
+  # SUBSCRIPTION SERVICES
+  REV-401 | Tax_Dashboard_Premium | 5k_per_year | 10000_users | 5Cr | 90%
+  REV-402 | CA_Network_Subscription | 10k_per_year_per_CA | 1000_CAs | 1Cr | 85%
+  
+  # TOTAL REVENUE POTENTIAL
+  Total_Annual_Revenue | All_streams | - | - | 76.875Cr | 68%_avg_margin
+
+# Cost Structure
+PropmubiTaxCostStructure[List]{cost_category, annual_cost, percentage_of_revenue}:
+  
+  CA_Network_Payouts | 25Cr | 32.5%
+  Technology_Platform | 5Cr | 6.5%
+  Sales_Marketing | 10Cr | 13%
+  Operations_Support | 3Cr | 4%
+  Compliance_Legal | 2Cr | 2.6%
+  Total_Costs | 45Cr | 58.6%
+  
+  Net_Profit | 31.875Cr | 41.4%
+
+# Technology Platform Features
+PropmubiTaxPlatformFeatures[List]{feature_id, feature_name, user_benefit, competitive_advantage}:
+  
+  FEAT-001 | Auto_Capital_Gains_Calculator | Instant_tax_estimation | Only_PropTech_with_this
+  FEAT-002 | CAS_Integration_CAMS_Karvy | Auto_import_transactions | Unique_in_real_estate
+  FEAT-003 | Form_13_NRI_Certificate_Automation | Guided_workflow | Saves_30_days
+  FEAT-004 | Section_50C_Circle_Rate_Analyzer | Risk_assessment | Prevents_tax_surprises
+  FEAT-005 | Multi_Entity_Tax_Comparison | Side_by_side_analysis | Informed_decisions
+  FEAT-006 | Ancestral_Property_FMV_Calculator | Pre_2001_property_support | Niche_expertise
+  FEAT-007 | JDA_Tax_Impact_Simulator | Before_signing_JDA | Unique_offering
+  FEAT-008 | Tax_Document_Vault_7_Year | Compliance_ready | Peace_of_mind
+  FEAT-009 | CA_Marketplace | Verified_CAs_by_specialty | Quality_assurance
+  FEAT-010 | Real_Time_Tax_Law_Updates | Stay_compliant | Always_current
+
+# Go-to-Market Strategy
+PropmubiTaxGTMStrategy[List]{phase, timeline, target_segment, key_activities, success_metrics}:
+  
+  Phase_1_Launch | Q1_2026 | First_time_buyers | Basic_capital_gains_calculator_free | 10000_users
+  Phase_2_Expand | Q2_2026 | NRI_investors | NRI_tax_certificate_service | 500_NRI_clients
+  Phase_3_Scale | Q3_2026 | Domestic_investors | Full_tax_optimization_suite | 5000_paid_users
+  Phase_4_Enterprise | Q4_2026 | Builders_developers | B2B_compliance_services | 100_builder_clients
+  Phase_5_Dominance | 2027 | All_segments | Complete_tax_ecosystem | 50000_users_500Cr_GMV
+
+# Partnership Strategy
+PropmubiTaxPartnerships[List]{partner_type, partner_examples, partnership_model, mutual_benefit}:
+  
+  Tax_Filing_Platforms | ClearTax_TaxBuddy_Quicko | API_integration_revenue_share | Access_to_property_tax_users
+  CAS_Providers | CAMS_KFintech | Data_feed_license | Property_investor_insights
+  CA_Firms | Top_100_CA_firms | Referral_network | Lead_generation
+  Banks | HDFC_ICICI_SBI | Home_loan_tax_advisory | Value_added_service
+  Builders | Top_50_developers | White_label_tax_service | Customer_retention
+
+# Competitive Moat
+PropmubiTaxCompetitiveMoat[List]{moat_id, moat_type, description, defensibility}:
+  
+  MOAT-001 | Data_Moat | 7_years_of_transaction_history | High_switching_cost
+  MOAT-002 | Network_Effect | More_users_better_CA_network | Self_reinforcing
+  MOAT-003 | Regulatory_Expertise | Deep_property_tax_knowledge | Hard_to_replicate
+  MOAT-004 | Technology_Platform | Proprietary_calculators_and_workflows | 2_year_lead
+  MOAT-005 | Brand_Trust | Only_PropTech_with_tax_focus | First_mover_advantage
+
+
+# -----------------------------------------------------------------------------
+# STRATEGY 20: COMPREHENSIVE DEDUCTIONS ELIGIBILITY MATRIX
+# -----------------------------------------------------------------------------
+
+# Goal: Auto-check ALL possible deductions for each scenario and apply if eligible
+
+# INDIVIDUAL INVESTOR - ALL DEDUCTIONS
+IndividualDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  # PURCHASE STAGE
+  IND-DED-001 | Stamp_Duty_Registration | 80C | New_property_only_same_FY | 1.5L_combined | Purchase | Yes_if_not_added_to_acquisition
+  IND-DED-002 | Home_Loan_Principal | 80C | Any_year_of_repayment | 1.5L_combined | Purchase_Ownership | Yes_always
+  IND-DED-003 | Home_Loan_Interest_Self_Occupied | 24b | Post_possession_self_occupied | 2L_per_year | Ownership | Yes_if_self_occupied
+  IND-DED-004 | Home_Loan_Interest_Rented | 24b | If_rented_out | Unlimited_max_loss_setoff_2L | Ownership | Yes_if_rented
+  IND-DED-005 | Home_Loan_Interest_Under_Construction | 24b | Pre_possession_interest | 1/5th_per_year_for_5_years | Post_Possession | Yes_automatically
+  IND-DED-006 | Municipal_Property_Tax | 24a | If_paid_by_owner | Unlimited | Ownership | Yes_if_paid
+  IND-DED-007 | Standard_Deduction_Rental | 24a | If_rented_out | 30%_of_NAV | Ownership | Yes_automatic_if_rented
+  
+  # SALE STAGE - COST OF ACQUISITION
+  IND-DED-101 | Stamp_Duty_at_Purchase | Capital_Gains | If_not_claimed_under_80C | Unlimited | Sale | Yes_if_not_80C_claimed
+  IND-DED-102 | Registration_at_Purchase | Capital_Gains | If_not_claimed_under_80C | Unlimited | Sale | Yes_if_not_80C_claimed
+  IND-DED-103 | Brokerage_at_Purchase | Capital_Gains | Must_have_receipt | Unlimited | Sale | Yes_if_receipt_available
+  IND-DED-104 | Legal_Fees_Purchase | Capital_Gains | Must_have_receipt | Unlimited | Sale | Yes_if_receipt_available
+  IND-DED-105 | Home_Loan_Processing_Fee | Capital_Gains | If_treated_as_acquisition_cost | Unlimited | Sale | Yes_if_bank_certificate
+  IND-DED-106 | RERA_Consultant_Fees_Purchase | Capital_Gains | Pre_purchase_due_diligence | Unlimited | Sale | Yes_if_receipt_available
+  IND-DED-107 | Work_Order_Charges | Capital_Gains | All_builder_charges | Unlimited | Sale | Yes_if_in_agreement
+  IND-DED-108 | Preferential_Location_Charges | Capital_Gains | Corner_park_facing_premium | Unlimited | Sale | Yes_if_in_agreement
+  IND-DED-109 | Floor_Rise_Charges | Capital_Gains | Higher_floor_premium | Unlimited | Sale | Yes_if_in_agreement
+  IND-DED-110 | Car_Parking_Charges | Capital_Gains | If_part_of_property | Unlimited | Sale | Yes_if_in_agreement
+  IND-DED-111 | Corpus_Fund | Capital_Gains | One_time_contribution | Unlimited | Sale | Yes_if_receipt_available
+  IND-DED-112 | GST_on_Under_Construction | Capital_Gains | GST_paid_to_builder | Unlimited | Sale | Yes_if_receipt_available
+  
+  # SALE STAGE - COST OF IMPROVEMENT
+  IND-DED-201 | Major_Renovation | Capital_Gains | Kitchen_bathroom_overhaul | Unlimited_with_indexation | Sale | Yes_if_receipts_photos
+  IND-DED-202 | Room_Addition | Capital_Gains | Adding_bedroom_balcony | Unlimited_with_indexation | Sale | Yes_if_architect_approval
+  IND-DED-203 | Structural_Changes | Capital_Gains | Wall_removal_floor_addition | Unlimited_with_indexation | Sale | Yes_if_engineer_certificate
+  IND-DED-204 | Flooring_Upgrade | Capital_Gains | Marble_wooden_flooring | Unlimited_with_indexation | Sale | Yes_if_bills_available
+  IND-DED-205 | Electrical_Rewiring | Capital_Gains | Complete_rewiring | Unlimited_with_indexation | Sale | Yes_if_bills_available
+  IND-DED-206 | Plumbing_Overhaul | Capital_Gains | New_pipes_fixtures | Unlimited_with_indexation | Sale | Yes_if_bills_available
+  IND-DED-207 | Modular_Kitchen | Capital_Gains | Permanent_fixtures | Unlimited_with_indexation | Sale | Yes_if_vendor_invoice
+  IND-DED-208 | Built_in_Wardrobes | Capital_Gains | Permanent_fixtures | Unlimited_with_indexation | Sale | Yes_if_carpenter_bills
+  IND-DED-209 | Waterproofing | Capital_Gains | Terrace_bathroom | Unlimited_with_indexation | Sale | Yes_if_contractor_bills
+  IND-DED-210 | Solar_Panel_Installation | Capital_Gains | Permanent_fixture | Unlimited_with_indexation | Sale | Yes_if_vendor_invoice
+  
+  # SALE STAGE - SALE EXPENSES
+  IND-DED-301 | Brokerage_at_Sale | Capital_Gains | Must_have_receipt_not_cash_over_10k | Unlimited | Sale | Yes_if_receipt_available
+  IND-DED-302 | Legal_Fees_Sale | Capital_Gains | Sale_deed_drafting | Unlimited | Sale | Yes_if_lawyer_invoice
+  IND-DED-303 | Advertising_Costs | Capital_Gains | 99acres_MagicBricks_ads | Unlimited | Sale | Yes_if_bills_available
+  IND-DED-304 | Photography_Staging | Capital_Gains | Professional_photos | Unlimited | Sale | Yes_if_vendor_invoice
+  IND-DED-305 | Valuation_Fees_Sale | Capital_Gains | Independent_valuation | Unlimited | Sale | Yes_if_valuer_certificate
+  IND-DED-306 | NOC_Charges | Capital_Gains | Society_bank_NOC | Unlimited | Sale | Yes_if_receipts_available
+  IND-DED-307 | CA_Tax_Consultant_Fees | Capital_Gains | Tax_computation_filing | Unlimited | Sale | Yes_if_CA_invoice
+  
+  # SALE STAGE - EXEMPTIONS
+  IND-DED-401 | Section_54_Reinvestment | 54 | Buy_residential_within_timeline | 10Cr_max | Sale_LTCG | Yes_if_eligible_and_planned
+  IND-DED-402 | Section_54EC_Bonds | 54EC | Invest_in_bonds_within_6_months | 50L_max | Sale_LTCG | Yes_if_eligible
+  IND-DED-403 | Indexation_Benefit | 48 | LTCG_only | Unlimited | Sale_LTCG | Yes_automatic
+
+# NRI INVESTOR - ALL DEDUCTIONS
+NRIDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  # All Individual deductions PLUS NRI-specific
+  NRI-DED-001 | All_Individual_Deductions | Various | Same_as_individual | Same_as_individual | All_stages | Yes_inherit_all
+  NRI-DED-101 | DTAA_Tax_Rate_Reduction | DTAA | If_treaty_country | Variable_by_country | Sale | Yes_if_TRC_available
+  NRI-DED-102 | Lower_TDS_Certificate_Benefit | 197 | If_Form_13_approved | Actual_tax_rate | Sale | Yes_if_certificate_obtained
+  NRI-DED-103 | Form_67_Foreign_Tax_Credit | 67 | If_tax_paid_abroad | Foreign_tax_paid | ITR_Filing | Yes_if_foreign_tax_paid
+  NRI-DED-104 | Repatriation_Expenses | Capital_Gains | Bank_charges_forex | Unlimited | Sale | Yes_if_receipts_available
+
+# COMPANY INVESTOR - ALL DEDUCTIONS
+CompanyDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  # RENTAL INCOME
+  CO-DED-001 | Depreciation_on_Building | 32 | Commercial_property_only | 10%_per_year | Ownership | Yes_automatic
+  CO-DED-002 | Depreciation_on_Furniture | 32 | If_furnished_property | 10%_per_year | Ownership | Yes_if_furniture_owned
+  CO-DED-003 | Home_Loan_Interest | Business_Expense | Any_property | Unlimited | Ownership | Yes_if_loan_taken
+  CO-DED-004 | Property_Tax | Business_Expense | If_paid | Unlimited | Ownership | Yes_if_paid
+  CO-DED-005 | Repairs_Maintenance | Business_Expense | Revenue_expenses_only | Unlimited | Ownership | Yes_if_receipts_available
+  CO-DED-006 | Insurance_Premium | Business_Expense | Property_insurance | Unlimited | Ownership | Yes_if_policy_active
+  CO-DED-007 | Management_Fees | Business_Expense | Property_management | Unlimited | Ownership | Yes_if_contract_exists
+  
+  # CAPITAL GAINS
+  CO-DED-101 | All_Acquisition_Costs | Capital_Gains | Same_as_individual | Unlimited | Sale | Yes_all_receipts
+  CO-DED-102 | All_Improvement_Costs | Capital_Gains | Capital_expenses_only | Unlimited | Sale | Yes_if_capitalized
+  CO-DED-103 | All_Sale_Expenses | Capital_Gains | Same_as_individual | Unlimited | Sale | Yes_all_receipts
+  CO-DED-104 | Indexation_Benefit | 48 | LTCG_only | Unlimited | Sale_LTCG | Yes_automatic
+  
+  # NO SECTION 54 EXEMPTION FOR COMPANIES
+  CO-DED-901 | Section_54_NOT_Available | N/A | Companies_not_eligible | N/A | Sale | No_never_apply
+
+# LLP INVESTOR - ALL DEDUCTIONS
+LLPDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  # RENTAL INCOME
+  LLP-DED-001 | Partner_Remuneration | 40b | As_per_partnership_deed | Book_profit_based_limits | Ownership | Yes_if_within_limits
+  LLP-DED-002 | Interest_on_Partner_Capital | 40b | As_per_partnership_deed | 12%_per_annum_max | Ownership | Yes_if_within_limits
+  LLP-DED-003 | Home_Loan_Interest | Business_Expense | Any_property | Unlimited | Ownership | Yes_if_loan_taken
+  LLP-DED-004 | Property_Tax | Business_Expense | If_paid | Unlimited | Ownership | Yes_if_paid
+  LLP-DED-005 | Repairs_Maintenance | Business_Expense | Revenue_expenses_only | Unlimited | Ownership | Yes_if_receipts_available
+  LLP-DED-006 | Professional_Fees | Business_Expense | CA_legal_fees | Unlimited | Ownership | Yes_if_invoices_available
+  
+  # CAPITAL GAINS
+  LLP-DED-101 | All_Acquisition_Costs | Capital_Gains | Same_as_individual | Unlimited | Sale | Yes_all_receipts
+  LLP-DED-102 | All_Improvement_Costs | Capital_Gains | Capital_expenses_only | Unlimited | Sale | Yes_if_capitalized
+  LLP-DED-103 | All_Sale_Expenses | Capital_Gains | Same_as_individual | Unlimited | Sale | Yes_all_receipts
+  LLP-DED-104 | Indexation_Benefit | 48 | LTCG_only | Unlimited | Sale_LTCG | Yes_automatic
+  
+  # NO SECTION 54 EXEMPTION FOR LLPs
+  LLP-DED-901 | Section_54_NOT_Available | N/A | LLPs_not_eligible | N/A | Sale | No_never_apply
+
+# JDA LANDOWNER - ALL DEDUCTIONS
+JDALandownerDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  JDA-LO-DED-001 | Original_Land_Purchase_Cost | Capital_Gains | Actual_cost_or_FMV_2001 | Unlimited | Completion_Certificate | Yes_automatic
+  JDA-LO-DED-002 | Indexation_from_Original_Purchase | 48 | From_original_purchase_date | Unlimited | Completion_Certificate | Yes_automatic
+  JDA-LO-DED-003 | Land_Development_Expenses | Capital_Gains | If_borne_by_landowner | Unlimited | Completion_Certificate | Yes_if_receipts_available
+  JDA-LO-DED-004 | Legal_Fees_JDA | Capital_Gains | JDA_drafting_registration | Unlimited | Completion_Certificate | Yes_if_invoices_available
+  JDA-LO-DED-005 | Section_54_Exemption | 54 | If_residential_share_received | 10Cr_max | Completion_Certificate | Yes_if_eligible
+  JDA-LO-DED-006 | Section_54EC_Exemption | 54EC | If_monetary_consideration | 50L_max | Completion_Certificate | Yes_if_eligible
+
+# JDA DEVELOPER - ALL DEDUCTIONS
+JDADeveloperDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  JDA-DEV-DED-001 | Construction_Cost | Business_Expense | All_construction_expenses | Unlimited | Project_Completion | Yes_all_receipts
+  JDA-DEV-DED-002 | Land_Share_to_Owner | Business_Expense | Value_of_units_given | Unlimited | Project_Completion | Yes_automatic
+  JDA-DEV-DED-003 | Marketing_Expenses | Business_Expense | Advertising_sales | Unlimited | Project_Completion | Yes_if_receipts_available
+  JDA-DEV-DED-004 | Professional_Fees | Business_Expense | Architect_engineer_CA | Unlimited | Project_Completion | Yes_if_invoices_available
+  JDA-DEV-DED-005 | Interest_on_Borrowings | Business_Expense | Project_finance_interest | Unlimited | Project_Completion | Yes_if_bank_statements
+  JDA-DEV-DED-006 | RERA_Compliance_Costs | Business_Expense | Registration_compliance | Unlimited | Project_Completion | Yes_if_receipts_available
+  JDA-DEV-DED-007 | Depreciation_on_Equipment | 32 | Construction_equipment | As_per_schedule | Ownership_Period | Yes_automatic
+
+# ANCESTRAL/INHERITED PROPERTY - ALL DEDUCTIONS
+AncestralPropertyDeductionsMatrix[List]{deduction_id, deduction_name, section, eligibility_criteria, max_limit, applicable_scenario, auto_apply_if_eligible}:
+  
+  ANC-DED-001 | Ancestor_Purchase_Cost | Capital_Gains | Original_cost_or_FMV_2001 | Unlimited | Sale | Yes_automatic_higher_of_two
+  ANC-DED-002 | Indexation_from_Ancestor_Purchase | 48 | From_ancestor_purchase_or_2001 | Unlimited | Sale_LTCG | Yes_automatic
+  ANC-DED-003 | Improvement_Costs_by_Heir | Capital_Gains | After_inheritance | Unlimited_with_indexation | Sale | Yes_if_receipts_available
+  ANC-DED-004 | Legal_Fees_Inheritance | Capital_Gains | Succession_probate_fees | Unlimited | Sale | Yes_if_invoices_available
+  ANC-DED-005 | Partition_Deed_Costs | Capital_Gains | If_property_partitioned | Unlimited | Sale | Yes_if_receipts_available
+  ANC-DED-006 | All_Sale_Expenses | Capital_Gains | Same_as_individual | Unlimited | Sale | Yes_all_receipts
+  ANC-DED-007 | Section_54_Exemption | 54 | If_residential_property | 10Cr_max | Sale_LTCG | Yes_if_eligible
+  ANC-DED-008 | Section_54F_Exemption | 54F | If_non_residential_inherited | 10Cr_max | Sale_LTCG | Yes_if_eligible
+  ANC-DED-009 | Section_54EC_Exemption | 54EC | Any_inherited_property | 50L_max | Sale_LTCG | Yes_if_eligible
+
+# SCENARIO-BASED AUTO-DEDUCTION ENGINE
+AutoDeductionEngine[List]{scenario_id, scenario_description, eligible_deductions, total_deductions, tax_savings}:
+  
+  # SCENARIO 1: Individual sells self-occupied property after 5 years
+  AUTO-SC-001 | Individual_Self_Occupied_5_Years | [
+    Stamp_duty_registration_at_purchase_if_not_80C,
+    Brokerage_legal_fees_at_purchase,
+    Home_loan_processing_fee,
+    All_improvement_costs_with_receipts,
+    All_sale_expenses,
+    Indexation_benefit,
+    Section_54_if_reinvesting
+  ] | Variable_5-20L | Variable_1-4Cr
+  
+  # SCENARIO 2: NRI sells property with capital gains
+  AUTO-SC-002 | NRI_Property_Sale | [
+    All_individual_deductions,
+    DTAA_rate_reduction,
+    Lower_TDS_certificate_benefit,
+    Form_67_foreign_tax_credit,
+    Repatriation_expenses
+  ] | Variable_10-30L | Variable_2-10Cr
+  
+  # SCENARIO 3: Company sells commercial property
+  AUTO-SC-003 | Company_Commercial_Property | [
+    All_acquisition_costs,
+    Depreciation_claimed_over_years,
+    All_improvement_costs_capitalized,
+    All_sale_expenses,
+    Indexation_benefit,
+    NO_Section_54
+  ] | Variable_20-50L | Variable_4-10Cr
+  
+  # SCENARIO 4: LLP sells investment property
+  AUTO-SC-004 | LLP_Investment_Property | [
+    All_acquisition_costs,
+    Partner_remuneration_over_years,
+    Interest_on_capital_over_years,
+    All_improvement_costs,
+    All_sale_expenses,
+    Indexation_benefit,
+    NO_Section_54
+  ] | Variable_15-40L | Variable_3-8Cr
+  
+  # SCENARIO 5: Landowner in JDA receives flats
+  AUTO-SC-005 | JDA_Landowner_Completion | [
+    Original_land_cost_or_FMV_2001,
+    Indexation_from_original_purchase,
+    Land_development_expenses,
+    Legal_fees_JDA,
+    Section_54_if_residential_share,
+    Section_54EC_if_monetary_consideration
+  ] | Variable_10-50L | Variable_2-15Cr
+  
+  # SCENARIO 6: Ancestral property sale by multiple heirs
+  AUTO-SC-006 | Ancestral_Property_Multiple_Heirs | [
+    Ancestor_purchase_cost_or_FMV_2001,
+    Indexation_from_ancestor_purchase,
+    Improvement_costs_by_heirs,
+    Legal_fees_partition,
+    All_sale_expenses,
+    Section_54_per_heir_if_eligible,
+    Split_gains_across_heirs
+  ] | Variable_20-80L | Variable_4-20Cr
+
+# DEDUCTION DOCUMENTATION CHECKLIST
+DeductionDocumentationChecklist[List]{deduction_category, required_documents, acceptable_formats, retention_period, auto_verify}:
+  
+  Acquisition_Costs | [Sale_deed, Payment_receipts, Bank_statements, Agreement_copy] | PDF_scanned_originals | 7_years | Yes_via_OCR
+  Improvement_Costs | [Invoices, Payment_receipts, Before_after_photos, Contractor_bills] | PDF_photos_timestamped | 7_years | Yes_via_OCR_and_image_recognition
+  Sale_Expenses | [Brokerage_agreement, Legal_invoices, Ad_bills, CA_invoice] | PDF_scanned | 7_years | Yes_via_OCR
+  Home_Loan_Docs | [Loan_sanction, Interest_certificate, Principal_certificate, Processing_fee_receipt] | PDF_bank_statements | 7_years | Yes_via_bank_API
+  Section_54_Proof | [New_property_sale_deed, Payment_receipts, CGAS_deposit_receipt] | PDF_scanned_originals | 10_years | Yes_via_registry_API
+  Section_54EC_Proof | [Bond_purchase_receipt, Bond_certificate, Payment_proof] | PDF_scanned | 10_years | Yes_via_bond_issuer_API
+  DTAA_Docs | [TRC_Tax_Residency_Certificate, Foreign_tax_payment_proof, Form_67] | PDF_certified_copies | 10_years | Yes_via_govt_API
+  JDA_Docs | [JDA_agreement, Completion_certificate, Stamp_duty_valuation, TDS_certificates] | PDF_registered_copies | 10_years | Yes_via_registry_API
+
+# PROPMUBI AUTO-DEDUCTION FEATURE
+PropmubiAutoDeductionFeature{feature_name, how_it_works, user_benefit, competitive_advantage}:
+  
+  Smart_Deduction_Scanner | Upload_all_documents_AI_extracts_deductions | Never_miss_a_deduction | Industry_first
+  Eligibility_Checker | Auto_check_all_sections_for_eligibility | Maximize_tax_savings | Unique_algorithm
+  Document_Vault_Integration | Auto_fetch_from_7_year_vault | No_manual_search | Seamless_experience
+  Real_Time_Tax_Calculation | As_you_upload_docs_tax_updates | Instant_visibility | Live_dashboard
+  Missing_Document_Alerts | AI_identifies_missing_deductions | Complete_compliance | Proactive_alerts
+  CA_Review_Queue | Flagged_items_sent_to_CA | Expert_validation | Quality_assurance
+
+
+# -----------------------------------------------------------------------------
+# STRATEGY 21: DEDUCTION CAPS & LIMITS (Comprehensive Reference)
+# -----------------------------------------------------------------------------
+
+# All deductions have specific caps and limits - this section documents them all
+
+DeductionCapsLimits[List]{deduction_category, deduction_name, cap_limit, per_year_or_lifetime, applicable_entity, notes}:
+  
+  # SECTION 80C DEDUCTIONS (Combined limit)
+  CAP-80C-001 | Section_80C_Combined_Limit | 1.5L | Per_Year | Individual_HUF | Includes_stamp_duty_registration_principal
+  CAP-80C-002 | Stamp_Duty | 1.5L_combined | Per_Year | Individual_HUF | Part_of_80C_limit
+  CAP-80C-003 | Registration_Charges | 1.5L_combined | Per_Year | Individual_HUF | Part_of_80C_limit
+  CAP-80C-004 | Home_Loan_Principal | 1.5L_combined | Per_Year | Individual_HUF | Part_of_80C_limit
+  CAP-80C-005 | Reversal_if_Sold_Within_5_Years | Full_reversal | Lifetime | Individual_HUF | All_80C_deductions_reversed
+  
+  # SECTION 24 DEDUCTIONS (Home Loan Interest)
+  CAP-24-001 | Self_Occupied_Interest | 2L | Per_Year | Individual_HUF | Post_possession_only
+  CAP-24-002 | Rented_Property_Interest | Unlimited | Per_Year | Individual_HUF | But_max_loss_setoff_2L
+  CAP-24-003 | Deemed_Let_Out_Interest | Unlimited | Per_Year | Individual_HUF | If_own_2+_properties
+  CAP-24-004 | Under_Construction_Interest | 1/5th_per_year | 5_Years | Individual_HUF | Total_pre_possession_interest
+  CAP-24-005 | Joint_Ownership_Interest | 2L_per_co_owner | Per_Year | Individual_HUF | Each_can_claim_separately
+  
+  # SECTION 54 EXEMPTIONS (Capital Gains)
+  CAP-54-001 | Section_54_Max_Exemption | 10Cr | Per_Transaction | Individual_HUF | Single_property_reinvestment
+  CAP-54-002 | Section_54_Two_Properties | 10Cr | Once_in_Lifetime | Individual_HUF | Only_if_LTCG_under_2Cr
+  CAP-54-003 | Section_54_Timeline_Purchase | 2_years_after_sale | Per_Transaction | Individual_HUF | Or_1_year_before
+  CAP-54-004 | Section_54_Timeline_Construction | 3_years_after_sale | Per_Transaction | Individual_HUF | Construction_completion
+  CAP-54-005 | Section_54_NOT_for_Companies | Not_Applicable | N/A | Company_LLP | No_exemption_available
+  
+  # SECTION 54F EXEMPTIONS
+  CAP-54F-001 | Section_54F_Max_Exemption | 10Cr | Per_Transaction | Individual_HUF | Must_invest_entire_consideration
+  CAP-54F-002 | Section_54F_Residential_Ownership | 0_properties | At_time_of_sale | Individual_HUF | Cannot_own_other_residential
+  CAP-54F-003 | Section_54F_Purchase_Restriction | 0_properties | 2_years_after_sale | Individual_HUF | Cannot_buy_other_residential
+  CAP-54F-004 | Section_54F_Construction_Restriction | 0_properties | 3_years_after_sale | Individual_HUF | Cannot_construct_other_residential
+  
+  # SECTION 54EC EXEMPTIONS (Bonds)
+  CAP-54EC-001 | Section_54EC_Max_Investment | 50L | Per_Financial_Year | Individual_HUF_Company_LLP | Across_all_bonds
+  CAP-54EC-002 | Section_54EC_Lock_In_Period | 5_years | Per_Investment | All_entities | Cannot_sell_or_pledge
+  CAP-54EC-003 | Section_54EC_Timeline | 6_months_from_sale | Per_Transaction | All_entities | Investment_deadline
+  
+  # DEPRECIATION (Companies & LLPs)
+  CAP-DEP-001 | Building_Depreciation | 10%_per_year | Per_Year | Company_LLP | Commercial_property_only
+  CAP-DEP-002 | Furniture_Depreciation | 10%_per_year | Per_Year | Company_LLP | Furnished_property
+  CAP-DEP-003 | Equipment_Depreciation | As_per_schedule | Per_Year | Company_LLP | Construction_equipment
+  
+  # PARTNER REMUNERATION (LLP & Partnership)
+  CAP-PART-001 | Partner_Remuneration_Book_Profit | 90%_of_book_profit | Per_Year | LLP_Partnership | If_book_profit_exists
+  CAP-PART-002 | Partner_Remuneration_Loss | 1.5L_per_partner | Per_Year | LLP_Partnership | If_loss_or_low_profit
+  CAP-PART-003 | Interest_on_Partner_Capital | 12%_per_annum | Per_Year | LLP_Partnership | Maximum_rate
+  
+  # COST OF ACQUISITION (No caps but documentation required)
+  CAP-ACQ-001 | All_Acquisition_Costs | Unlimited | Per_Transaction | All_entities | Must_have_receipts
+  CAP-ACQ-002 | Cash_Payment_Limit | 10k_per_transaction | Per_Transaction | All_entities | Section_40A3_disallowance
+  CAP-ACQ-003 | Brokerage_Reasonableness | 1-2%_typical | Per_Transaction | All_entities | Must_be_reasonable
+  
+  # COST OF IMPROVEMENT (No caps but documentation required)
+  CAP-IMP-001 | All_Improvement_Costs | Unlimited | Lifetime | All_entities | Must_be_capital_nature
+  CAP-IMP-002 | Indexation_Benefit | Unlimited | Per_Transaction | All_entities | LTCG_only
+  CAP-IMP-003 | Revenue_vs_Capital_Distinction | Critical | N/A | All_entities | Revenue_not_allowed
+  
+  # SALE EXPENSES (No caps)
+  CAP-SALE-001 | All_Sale_Expenses | Unlimited | Per_Transaction | All_entities | Must_have_receipts
+  CAP-SALE-002 | Brokerage_at_Sale | 1-2%_typical | Per_Transaction | All_entities | Must_be_reasonable
+  
+  # NRI SPECIFIC LIMITS
+  CAP-NRI-001 | Repatriation_from_NRO | 1M_USD | Per_Financial_Year | NRI | FEMA_limit
+  CAP-NRI-002 | Repatriation_Property_NRE_Funded | Unlimited | 2_properties_lifetime | NRI | If_bought_with_foreign_currency
+  CAP-NRI-003 | TDS_on_NRI_Sale | 20%_of_sale_price | Per_Transaction | NRI | Can_apply_for_lower_certificate
+  CAP-NRI-004 | Lower_TDS_Certificate | Actual_tax_rate | Per_Transaction | NRI | Via_Form_13_Section_197
+  
+  # ANCESTRAL PROPERTY
+  CAP-ANC-001 | FMV_Option_Pre_2001 | Higher_of_cost_or_FMV | Per_Property | All_entities | As_on_April_1_2001
+  CAP-ANC-002 | Indexation_from_Ancestor | From_original_purchase | Per_Property | Individual_HUF | Or_from_2001
+  
+  # JDA SPECIFIC
+  CAP-JDA-001 | Section_45_5A_Deferral | Until_completion_certificate | Per_JDA | Individual_HUF_only | Not_for_companies
+  CAP-JDA-002 | TDS_on_JDA_Monetary_Payment | 10%_or_20%_no_PAN | Per_Payment | All_entities | Section_194IA
+
+# Deduction Limit Violation Consequences
+DeductionLimitViolations[List]{violation_type, consequence, penalty, rectification}:
+  
+  Exceed_80C_Limit | Excess_amount_disallowed | Tax_on_excess_plus_interest | Revise_return_if_within_time
+  Claim_Section_54_without_reinvestment | Exemption_denied_full_tax | Tax_plus_interest_12% | Cannot_rectify_after_deadline
+  Sell_Section_54_property_within_3_years | Exemption_reversed | Tax_plus_interest | Pay_tax_in_year_of_sale
+  Cash_payment_over_10k | Entire_expense_disallowed | 100%_disallowance | Cannot_rectify
+  Exceed_partner_remuneration_limit | Excess_disallowed | Tax_on_excess | Revise_partnership_deed
+  Miss_Section_54EC_6_month_deadline | Exemption_denied | Full_tax_on_gains | Cannot_extend_deadline
+  Exceed_NRO_repatriation_1M_USD | Funds_blocked | FEMA_violation_penalty | Apply_for_RBI_approval
+
+# -----------------------------------------------------------------------------
+# STRATEGY 22: USA-INDIA MONEY TRANSFER TAX IMPLICATIONS
+# -----------------------------------------------------------------------------
+
+# Complete guide for NRIs transferring money between USA and India
+
+# INDIA TO USA TRANSFERS (Repatriation)
+
+# FEMA Repatriation Limits & Rules
+FEMARepatriationRules[List]{scenario_id, property_acquisition_method, repatriation_limit, conditions, required_documents}:
+  
+  # SCENARIO 1: Property bought as Resident Indian
+  FEMA-001 | Bought_as_Resident_Indian | 1M_USD_per_FY | From_NRO_account | [Sale_deed, Tax_clearance, Form_15CA_15CB, PAN, Passport]
+  
+  # SCENARIO 2: Property bought as NRI with foreign currency
+  FEMA-002 | Bought_as_NRI_NRE_Funded | Unlimited | Max_2_properties_lifetime_cannot_exceed_original_investment | [Sale_deed, Original_purchase_proof_NRE_debit, Tax_clearance, Form_15CA_15CB]
+  
+  # SCENARIO 3: Property bought as NRI with NRO funds
+  FEMA-003 | Bought_as_NRI_NRO_Funded | 1M_USD_per_FY | From_NRO_account | [Sale_deed, Tax_clearance, Form_15CA_15CB, NRO_statements]
+  
+  # SCENARIO 4: Inherited/Gift property
+  FEMA-004 | Inherited_or_Gift | 1M_USD_per_FY | From_NRO_account | [Sale_deed, Inheritance_proof_Will_legal_heir_certificate, Tax_clearance, Form_15CA_15CB]
+  
+  # SCENARIO 5: Agricultural land/farmhouse
+  FEMA-005 | Agricultural_Land_Farmhouse | 0_cannot_repatriate | Funds_stay_in_India_NRO | [Not_applicable_sale_only_to_resident_Indian]
+
+# Repatriation Process Workflow
+RepatriationWorkflow[List]{step_id, step_name, timeline, responsible_party, documents_required, outcome}:
+  
+  STEP-1 | Sell_Property_Deposit_NRO | 1_day | Buyer_Seller | Sale_deed_registered | Funds_in_NRO_account
+  STEP-2 | Pay_All_Taxes_TDS | 7_days | Seller | Form_26QB_capital_gains_payment | Tax_compliance_complete
+  STEP-3 | Obtain_CA_Certificate_Form_15CB | 3-5_days | CA | All_tax_documents | Form_15CB_issued
+  STEP-4 | File_Form_15CA_Online | 1_day | Seller_or_CA | Form_15CB_PAN_sale_deed | Form_15CA_acknowledgement
+  STEP-5 | Submit_to_Bank_with_Documents | 1_day | Seller | All_forms_plus_documents | Bank_initiates_transfer
+  STEP-6 | Bank_Verification_RBI_Compliance | 3-7_days | Bank | N/A | Bank_approves_transfer
+  STEP-7 | Funds_Transferred_to_USA_Account | 2-5_days | Bank | N/A | USD_credited_to_US_account
+  
+  Total_Timeline | 15-25_days | N/A | N/A | N/A | Successful_repatriation
+
+# Repatriation Costs & Charges
+RepatriationCosts[List]{cost_type, typical_amount, charged_by, avoidable}:
+  
+  Bank_Wire_Transfer_Fee | 500-2000_INR | Indian_bank | No
+  Forex_Conversion_Charges | 0.5-2%_of_amount | Indian_bank | Partially_negotiate
+  Receiving_Bank_Fee_USA | 15-45_USD | US_bank | No
+  CA_Fee_Form_15CB | 5-15k_INR | CA | No
+  Total_Cost_Example_1M_USD | 50-150k_INR | Various | Partially
+
+# USA TO INDIA TRANSFERS (Remittance)
+
+# US Tax Implications on Transfers to India
+USTaxImplicationsIndia[List]{transfer_type, us_tax_treatment, reporting_requirement, threshold, form_required}:
+  
+  # GIFTS FROM USA TO INDIA
+  Gift_to_Parents_India | Not_taxable_to_sender_or_receiver | No_reporting_unless_exceed_lifetime_exclusion | 13.99M_USD_lifetime | Form_709_if_exceed_annual_exclusion
+  Gift_Annual_Exclusion | 18k_USD_per_person_per_year | No_reporting_if_within_limit | 18k_USD | None_if_within_limit
+  
+  # INCOME TRANSFERS
+  Salary_Remittance | Taxable_as_US_income | Report_on_US_tax_return | All_amounts | Form_1040
+  Investment_Income_India | Taxable_in_US_worldwide_income | Report_on_US_tax_return | All_amounts | Form_1040_Schedule_B_D
+  Rental_Income_India | Taxable_in_US | Report_on_US_tax_return | All_amounts | Form_1040_Schedule_E
+  
+  # PROPOSED REMITTANCE TAX (2026+)
+  Remittance_Tax_Non_Citizens | 1%_of_amount_sent | Automatic_deduction | All_amounts | N/A_auto_deducted
+  Exemption_US_Bank_Transfers | Not_applicable | N/A | N/A | Transfers_from_US_banks_exempt
+
+# FATCA & FBAR Reporting (USA)
+FATCAFBARReporting[List]{requirement_id, requirement_name, threshold, form_required, filing_deadline, penalty_non_compliance}:
+  
+  # FBAR (Foreign Bank Account Report)
+  FBAR-001 | Foreign_Accounts_Aggregate | 10k_USD_at_any_time | FinCEN_Form_114 | April_15_auto_extend_Oct_15 | 16.5k_USD_non_willful_50%_balance_willful
+  FBAR-002 | Includes_NRO_NRE_Accounts | All_Indian_accounts | FinCEN_Form_114 | April_15 | Same_as_above
+  FBAR-003 | Includes_Fixed_Deposits | All_FDs_in_India | FinCEN_Form_114 | April_15 | Same_as_above
+  FBAR-004 | Includes_Mutual_Funds_India | All_MF_holdings | FinCEN_Form_114 | April_15 | Same_as_above
+  
+  # FATCA (Foreign Account Tax Compliance Act)
+  FATCA-001 | Foreign_Assets_US_Resident_Single | 50k_USD_year_end_or_75k_anytime | Form_8938_with_1040 | April_15_or_Oct_15 | 10k_USD_plus_continuing_penalties
+  FATCA-002 | Foreign_Assets_US_Resident_Married | 100k_USD_year_end_or_150k_anytime | Form_8938_with_1040 | April_15_or_Oct_15 | 10k_USD_plus_continuing_penalties
+  FATCA-003 | Foreign_Assets_Living_Abroad_Single | 200k_USD_year_end_or_300k_anytime | Form_8938_with_1040 | June_15_or_Oct_15 | 10k_USD_plus_continuing_penalties
+  FATCA-004 | Foreign_Assets_Living_Abroad_Married | 400k_USD_year_end_or_600k_anytime | Form_8938_with_1040 | June_15_or_Oct_15 | 10k_USD_plus_continuing_penalties
+  
+  # FORM 3520 (Foreign Gifts)
+  FORM3520-001 | Foreign_Gift_Individual | 100k_USD_from_individual | Form_3520 | April_15_or_Oct_15 | 25%_of_gift_value
+  FORM3520-002 | Foreign_Gift_Corporation | 19.5k_USD_from_corporation | Form_3520 | April_15_or_Oct_15 | 25%_of_gift_value
+
+# Forex Gains/Losses Reporting (USA)
+ForexGainsUSA[List]{transaction_type, tax_treatment, reporting_form, exemption_threshold, notes}:
+  
+  Currency_Exchange_Gains | Ordinary_income_Section_988 | Form_1040_Schedule_1 | 200_USD_personal_use | Gains_over_200_USD_taxable
+  Currency_Exchange_Losses | Not_deductible | N/A | N/A | Personal_losses_not_deductible
+  Property_Sale_Forex_Gain | Ordinary_income | Form_1040_Schedule_1 | None | INR_to_USD_conversion_gain
+  Rental_Income_Forex_Fluctuation | Ordinary_income | Form_1040_Schedule_E | None | Report_in_USD_at_exchange_rate
+
+# India Tax on Remittances from USA
+IndiaTaxRemittances[List]{remittance_type, india_tax_treatment, reporting_requirement, exemption}:
+  
+  Gift_from_USA_Relative | Tax_free | No_reporting | Unlimited_from_relatives
+  Gift_from_USA_Non_Relative | Taxable_if_over_50k_INR | ITR_filing | 50k_INR_exemption
+  Salary_from_USA_Employer | Taxable_as_income | ITR_filing | DTAA_credit_for_US_tax_paid
+  Investment_Income_USA | Taxable_as_income | ITR_filing | DTAA_credit_for_US_tax_paid
+
+# USA-India DTAA (Double Taxation Avoidance Agreement)
+USDTAABenefits[List]{income_type, india_tax_rate, usa_tax_rate, dtaa_provision, effective_rate, how_to_claim}:
+  
+  Property_Sale_Capital_Gains | 20%_LTCG | 15-20%_federal_plus_state | Tax_in_country_of_property | 20%_India_credit_in_USA | Form_1116_foreign_tax_credit
+  Rental_Income_India | 30%_for_NRI | 22-37%_federal_plus_state | Tax_in_both_credit_in_USA | Effective_30%_India_credit_in_USA | Form_1116_foreign_tax_credit
+  Interest_Income_India | 30%_TDS | 22-37%_federal | Lower_of_15%_or_domestic_rate | 15%_under_DTAA | TRC_plus_Form_67_India
+  Dividend_Income_India | 25%_under_DTAA | 22-37%_federal | Lower_of_25%_or_domestic_rate | 25%_under_DTAA | TRC_plus_Form_67_India
+
+# Complete NRI Money Transfer Scenarios
+NRIMoneyTransferScenarios[List]{scenario_id, scenario_description, india_tax, usa_tax, total_tax, optimization_strategy}:
+  
+  # SCENARIO 1: Sell property in India, repatriate to USA
+  SCENARIO-1 | Sell_1Cr_property_30L_LTCG | 6L_India_20% | 4.5L_USA_15%_federal_after_credit | 6L_total | Lower_TDS_certificate_DTAA_credit
+  
+  # SCENARIO 2: Receive gift from parents in India
+  SCENARIO-2 | Receive_150k_USD_gift | 0_India_tax_free | 0_USA_no_tax_on_gifts | 0_total | File_Form_3520_if_over_100k_USD
+  
+  # SCENARIO 3: Rental income from India property
+  SCENARIO-3 | Rental_income_10L_per_year | 3L_India_30% | 2.25L_USA_after_foreign_tax_credit | 3L_total | Claim_foreign_tax_credit_Form_1116
+  
+  # SCENARIO 4: Send money to India for parents
+  SCENARIO-4 | Send_50k_USD_to_parents | 0_India_gift_from_relative | 0_USA_no_tax_on_gifts_sent | 0_total | Within_annual_exclusion_no_reporting
+  
+  # SCENARIO 5: Forex gain on property sale
+  SCENARIO-5 | Property_bought_80_INR_USD_sold_85_INR_USD | Included_in_capital_gains | Ordinary_income_on_forex_gain | Variable | Report_forex_gain_separately_in_USA
+
+# Propmubi Business Strategy: USA-India Tax Service
+PropmubiUSAIndiaTaxService{service_id, service_name, target_client, pricing, value_proposition}:
+  
+  SVC-USA-001 | FEMA_Repatriation_Complete_Package | NRIs_in_USA | 25-50k_INR | End_to_end_repatriation_15-25_days
+  SVC-USA-002 | FATCA_FBAR_Filing_Service | NRIs_in_USA | 15-30k_USD | Annual_compliance_both_countries
+  SVC-USA-003 | Form_3520_Foreign_Gift_Reporting | NRIs_in_USA | 500-1500_USD | Avoid_25%_penalty
+  SVC-USA-004 | Forex_Gains_Calculation_Reporting | NRIs_in_USA | 10-20k_INR | Accurate_forex_gain_computation
+  SVC-USA-005 | DTAA_Optimization_USA_India | NRIs_in_USA | 50k-1L_INR | Minimize_double_taxation
+  SVC-USA-006 | Dual_Country_Tax_Filing | NRIs_in_USA | 75k-1.5L_INR | Complete_USA_India_tax_returns
+  SVC-USA-007 | Remittance_Tax_Planning_2026 | NRIs_in_USA | 25-50k_INR | Minimize_1%_remittance_tax
+
+# Money Transfer Documentation Checklist
+MoneyTransferDocumentation[List]{transfer_direction, required_documents, retention_period, regulatory_authority}:
+  
+  India_to_USA | [Form_15CA, Form_15CB, Sale_deed, Tax_payment_receipts, PAN, Passport, NRO_statements] | 7_years | RBI_Income_Tax_Dept
+  USA_to_India | [Wire_transfer_receipt, Purpose_code, Source_of_funds_declaration] | 7_years | FEMA_RBI
+  FBAR_Filing | [All_account_statements, Max_balance_certificates] | 6_years | FinCEN
+  FATCA_Filing | [All_asset_valuations, Account_statements, Property_valuations] | 7_years | IRS
+  Form_3520 | [Gift_deed, Donor_details, Bank_statements] | 7_years | IRS
+
+
+# =============================================================================
+# COMPREHENSIVE EXAMPLES & SCENARIOS (Detailed Explanations)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 1: INDIVIDUAL SELLS SELF-OCCUPIED PROPERTY (Complete Walkthrough)
+# -----------------------------------------------------------------------------
+
+# SCENARIO DETAILS:
+# - Mr. Sharma bought a flat in Mumbai in 2020 as a resident Indian
+# - Purchase price: ₹85 lakhs
+# - Sold in 2025 after 5 years
+# - Sale price: ₹1.2 crores
+# - Self-occupied throughout (no rental income)
+
+# STEP 1: CALCULATE COST OF ACQUISITION
+# ----------------------------------------
+# Purchase price:                           ₹85,00,000
+# Stamp duty (6%):                          ₹5,10,000
+# Registration charges:                     ₹35,000
+# Brokerage at purchase (1%):               ₹85,000
+# Legal fees (title verification):          ₹25,000
+# Home loan processing fee:                 ₹30,000
+# RERA consultant fees:                     ₹15,000
+# Society transfer charges:                 ₹10,000
+# ----------------------------------------
+# TOTAL COST OF ACQUISITION:                ₹90,55,000
+#
+# NOTE: Stamp duty and registration were NOT claimed under Section 80C
+# (if claimed, they cannot be added to acquisition cost)
+
+# STEP 2: CALCULATE COST OF IMPROVEMENT
+# ----------------------------------------
+# Kitchen renovation (2022):                ₹8,50,000
+# Bathroom upgrade (2023):                  ₹3,20,000
+# Electrical rewiring (2024):               ₹1,50,000
+# ----------------------------------------
+# TOTAL COST OF IMPROVEMENT:                ₹13,20,000
+#
+# NOTE: Regular painting (₹80,000) is NOT included - it's revenue expense
+
+# STEP 3: APPLY INDEXATION (LTCG - held > 24 months)
+# ----------------------------------------
+# Purchase year: FY 2020-21, CII = 301
+# Sale year: FY 2025-26, CII = 363
+# Indexation factor = 363/301 = 1.206
+#
+# Indexed acquisition cost = ₹90,55,000 × 1.206 = ₹1,09,22,330
+# Indexed improvement cost = ₹13,20,000 × (363/331) = ₹14,47,764
+# (Kitchen renovation in FY 2022-23, CII = 331)
+
+# STEP 4: CALCULATE SALE EXPENSES
+# ----------------------------------------
+# Brokerage at sale (1%):                   ₹1,20,000
+# Legal fees (sale deed):                   ₹30,000
+# CA tax consultant fees:                   ₹10,000
+# ----------------------------------------
+# TOTAL SALE EXPENSES:                      ₹1,60,000
+
+# STEP 5: CALCULATE CAPITAL GAINS
+# ----------------------------------------
+# Sale consideration:                       ₹1,20,00,000
+# Less: Indexed acquisition cost:           ₹1,09,22,330
+# Less: Indexed improvement cost:           ₹14,47,764
+# Less: Sale expenses:                      ₹1,60,000
+# ----------------------------------------
+# NET LONG-TERM CAPITAL GAINS:              ₹(5,30,094) - LOSS!
+#
+# TAX LIABILITY: ₹0 (No tax on loss)
+#
+# LEARNING: Even though sale price increased from ₹85L to ₹1.2Cr,
+# indexation benefit resulted in NO taxable gain!
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 2: NRI SELLS PROPERTY WITH LOWER TDS CERTIFICATE
+# -----------------------------------------------------------------------------
+
+# SCENARIO DETAILS:
+# - Mrs. Patel (NRI in USA) sells property in Bangalore
+# - Purchase price (2018): ₹65 lakhs (bought as resident Indian)
+# - Sale price (2025): ₹1.5 crores
+# - Standard TDS: 20% of ₹1.5Cr = ₹30 lakhs
+# - Actual capital gains: ₹25 lakhs
+# - Actual tax liability: ₹5 lakhs (20% of ₹25L)
+
+# WITHOUT LOWER TDS CERTIFICATE:
+# ----------------------------------------
+# Buyer deducts TDS:                        ₹30,00,000
+# Mrs. Patel receives:                      ₹1,20,00,000
+# Actual tax due:                           ₹5,00,000
+# Refund to claim:                          ₹25,00,000
+# Refund timeline:                          6-12 months
+# Cash flow blocked:                        ₹25,00,000 for 6-12 months!
+
+# WITH LOWER TDS CERTIFICATE (Form 13):
+# ----------------------------------------
+# Apply for certificate 45 days before sale
+# CA calculates actual tax:                 ₹5,00,000
+# Certificate issued at:                    5% rate
+# Buyer deducts TDS:                        ₹7,50,000
+# Mrs. Patel receives:                      ₹1,42,50,000
+# Actual tax due:                           ₹5,00,000
+# Refund to claim:                          ₹2,50,000
+# Cash flow benefit:                        ₹22,50,000 immediately!
+#
+# CA fees for Form 13:                      ₹20,000
+# Net benefit:                              ₹22,30,000 cash flow
+
+# REPATRIATION TO USA:
+# ----------------------------------------
+# Funds in NRO account:                     ₹1,42,50,000
+# Repatriation limit:                       $1M USD per FY
+# Exchange rate:                            ₹83.50/USD
+# Amount repatriable:                       $1,70,658 USD (within limit)
+#
+# Required documents:
+# - Form 15CA (online filing)
+# - Form 15CB (CA certificate)
+# - Sale deed
+# - Tax payment receipts
+# - PAN, Passport
+#
+# Timeline: 15-25 days
+# Total cost: ₹50,000-₹1,00,000
+
+# US TAX IMPLICATIONS:
+# ----------------------------------------
+# India LTCG tax paid:                      ₹5,00,000 ($5,988 USD)
+# US tax on same gain (15% federal):        $6,500 USD
+# Foreign tax credit (Form 1116):           $5,988 USD
+# Additional US tax due:                    $512 USD
+# Total tax (both countries):               ₹5,00,000 + $512 = ₹5,42,746
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 3: JOINT DEVELOPMENT AGREEMENT (JDA) - LANDOWNER
+# -----------------------------------------------------------------------------
+
+# SCENARIO DETAILS:
+# - Mr. Kumar owns 1 acre land in Hyderabad
+# - Bought in 2005 for ₹50 lakhs
+# - Enters JDA with builder in 2023
+# - Builder gets 60%, landowner gets 40% of built-up area
+# - Project completed in 2027 with completion certificate
+
+# ORIGINAL LAND DETAILS:
+# ----------------------------------------
+# Purchase price (2005):                    ₹50,00,000
+# Holding period:                           18 years (2005-2023)
+# JDA signed:                               2023
+# Completion certificate:                   2027
+
+# TAX TRIGGER: Completion certificate date (2027), NOT JDA signing (2023)
+# This is the benefit of Section 45(5A) - tax deferred!
+
+# LANDOWNER'S SHARE AT COMPLETION:
+# ----------------------------------------
+# Total project: 100 flats
+# Landowner gets: 40 flats (40%)
+# Stamp duty value per flat:                ₹50 lakhs
+# Total stamp duty value:                   ₹20 crores
+# Monetary consideration (cash):            ₹1 crore
+# ----------------------------------------
+# TOTAL CONSIDERATION:                      ₹21 crores
+
+# CAPITAL GAINS CALCULATION (2027):
+# ----------------------------------------
+# Sale consideration:                       ₹21,00,00,000
+# Less: Indexed cost of land
+#   Original cost: ₹50,00,000
+#   Purchase year CII (2005-06): 117
+#   Sale year CII (2027-28): 390 (estimated)
+#   Indexed cost = ₹50L × (390/117) = ₹1,66,66,667
+# ----------------------------------------
+# CAPITAL GAINS:                            ₹19,33,33,333
+# Tax @ 20%:                                ₹3,86,66,667
+#
+# SECTION 54 EXEMPTION STRATEGY:
+# If landowner reinvests ₹10 crores in residential property:
+# Exemption:                                ₹10,00,00,000
+# Taxable gains:                            ₹9,33,33,333
+# Tax @ 20%:                                ₹1,86,66,667
+# Tax saved:                                ₹2,00,00,000!
+
+# ALTERNATIVE: Sell flats gradually
+# Year 1 (2027): Sell 10 flats = ₹5Cr, reinvest ₹5Cr (Section 54)
+# Year 2 (2028): Sell 10 flats = ₹5Cr, reinvest ₹5Cr (Section 54)
+# Year 3 (2029): Sell 20 flats = ₹10Cr, pay tax on ₹10Cr
+# This spreads tax liability over 3 years!
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 4: COMPANY vs INDIVIDUAL - 10 YEAR COMPARISON
+# -----------------------------------------------------------------------------
+
+# SCENARIO: ₹5 crore commercial property investment
+# Rental income: ₹50 lakhs per year
+# Sale after 10 years: ₹10 crores
+
+# INDIVIDUAL INVESTOR:
+# ----------------------------------------
+# YEAR 1-10 RENTAL INCOME TAX:
+# Gross rental income:                      ₹50,00,000
+# Less: Standard deduction (30%):           ₹15,00,000
+# Less: Municipal tax:                      ₹50,000
+# Less: Home loan interest:                 ₹20,00,000
+# Net taxable income:                       ₹14,50,000
+# Tax @ 30%:                                ₹4,35,000
+# Total tax over 10 years:                  ₹43,50,000
+#
+# CAPITAL GAINS TAX (Year 10):
+# Sale price:                               ₹10,00,00,000
+# Less: Indexed acquisition cost:
+#   Original: ₹5Cr, Indexed: ₹8Cr
+# Less: Indexed improvements:               ₹50,00,000
+# Capital gains:                            ₹1,50,00,000
+# Tax @ 20%:                                ₹30,00,000
+#
+# TOTAL TAX (10 years):                     ₹73,50,000
+# Net return:                               ₹4,76,50,000
+
+# PRIVATE LIMITED COMPANY:
+# ----------------------------------------
+# YEAR 1-10 RENTAL INCOME TAX:
+# Gross rental income:                      ₹50,00,000
+# Less: Depreciation @ 10%:                 ₹5,00,000 (Year 1)
+# Less: Home loan interest:                 ₹20,00,000
+# Less: Property tax:                       ₹50,000
+# Net taxable income:                       ₹24,50,000
+# Tax @ 25%:                                ₹6,12,500
+# Total tax over 10 years:                  ₹61,25,000
+#
+# CAPITAL GAINS TAX (Year 10):
+# Sale price:                               ₹10,00,00,000
+# Less: WDV after depreciation:             ₹1,93,04,525
+# Less: Indexed cost:                       ₹8,00,00,000
+# Capital gains (higher of two):            ₹8,06,95,475
+# Tax @ 20%:                                ₹1,61,39,095
+#
+# DIVIDEND DISTRIBUTION:
+# Net profit after tax:                     ₹2,77,35,905
+# Dividend distributed:                     ₹2,77,35,905
+# Tax in shareholders' hands @ 30%:         ₹83,20,772
+#
+# TOTAL TAX (10 years):                     ₹3,05,84,867
+# Net return:                               ₹2,44,15,133
+#
+# CONCLUSION: Individual investor saves ₹2,32,34,867 over company!
+# Individual is better for long-term property investment.
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 5: ANCESTRAL PROPERTY - MULTIPLE HEIRS
+# -----------------------------------------------------------------------------
+
+# SCENARIO DETAILS:
+# - Grandfather bought property in 1980 for ₹2 lakhs
+# - Inherited by 4 grandchildren in 2020
+# - Sold in 2025 for ₹2 crores
+# - Each heir gets 25% share (₹50 lakhs)
+
+# SINGLE OWNER SCENARIO (if only 1 heir):
+# ----------------------------------------
+# Sale price:                               ₹2,00,00,000
+# Less: FMV as on 01-04-2001:               ₹25,00,000
+# Less: Indexed cost (2001-2025):
+#   CII 2001: 100, CII 2025: 363
+#   Indexed cost = ₹25L × 3.63 = ₹90,75,000
+# Capital gains:                            ₹1,09,25,000
+# Tax @ 20%:                                ₹21,85,000
+# Section 54 exemption (if reinvest):       ₹1,09,25,000
+# Tax after exemption:                      ₹0
+# But can only buy 1 property!
+
+# MULTIPLE HEIRS SCENARIO (4 heirs):
+# ----------------------------------------
+# Each heir's share:                        ₹50,00,000
+# Each heir's indexed cost:                 ₹22,68,750
+# Each heir's capital gains:                ₹27,31,250
+# Each heir's tax @ 20%:                    ₹5,46,250
+# Total tax (4 heirs):                      ₹21,85,000 (same as single)
+#
+# BUT WITH SECTION 54:
+# Each heir can claim Section 54 separately!
+# Heir 1: Reinvests ₹27.31L, tax = ₹0
+# Heir 2: Reinvests ₹27.31L, tax = ₹0
+# Heir 3: Reinvests ₹27.31L, tax = ₹0
+# Heir 4: Reinvests ₹27.31L, tax = ₹0
+# ----------------------------------------
+# TOTAL TAX: ₹0
+# TOTAL PROPERTIES BOUGHT: 4 (vs 1 for single owner)
+#
+# TAX SAVING: ₹21,85,000
+# ADDITIONAL BENEFIT: 4 properties instead of 1!
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 6: SECTION 50C - CIRCLE RATE HIGHER THAN AGREEMENT
+# -----------------------------------------------------------------------------
+
+# SCENARIO DETAILS:
+# - Property in Delhi
+# - Agreement value: ₹45 lakhs
+# - Circle rate (stamp duty value): ₹60 lakhs
+# - Difference: 25% (exceeds 20% safe harbor)
+
+# SELLER'S PROBLEM:
+# ----------------------------------------
+# Actual sale price received:               ₹45,00,000
+# Deemed sale price (Section 50C):          ₹60,00,000
+# Seller's original cost (indexed):         ₹30,00,000
+# ----------------------------------------
+# Capital gains on actual:                  ₹15,00,000
+# Capital gains on deemed:                  ₹30,00,000
+# Tax @ 20% on actual:                      ₹3,00,000
+# Tax @ 20% on deemed:                      ₹6,00,000
+# ----------------------------------------
+# EXTRA TAX ON ₹15L NEVER RECEIVED:         ₹3,00,000!
+
+# BUYER'S PROBLEM (Section 56(2)(x)):
+# ----------------------------------------
+# Actual price paid:                        ₹45,00,000
+# Circle rate:                              ₹60,00,000
+# Difference:                               ₹15,00,000
+# ----------------------------------------
+# Deemed income to buyer:                   ₹15,00,000
+# Tax @ 30% (if in 30% slab):               ₹4,50,000
+# ----------------------------------------
+# TOTAL TAX (Seller + Buyer):               ₹10,50,000 on ₹45L transaction!
+
+# SOLUTION 1: VALUATION OFFICER REFERENCE
+# ----------------------------------------
+# Seller requests AO to refer to Valuation Officer
+# VO determines fair value:                 ₹50,00,000
+# Deemed sale price:                        ₹50,00,000 (not ₹60L)
+# Capital gains:                            ₹20,00,000
+# Tax @ 20%:                                ₹4,00,000
+# Saving:                                   ₹2,00,000
+# VO fee:                                   ₹15,000
+# Net saving:                               ₹1,85,000
+
+# SOLUTION 2: LOWER TDS CERTIFICATE
+# ----------------------------------------
+# Seller applies for lower TDS certificate
+# Shows actual capital gains:               ₹15,00,000
+# Tax liability:                            ₹3,00,000
+# Certificate issued at:                    6.67% (₹3L on ₹45L)
+# Buyer deducts TDS:                        ₹3,00,000 (vs ₹9L standard)
+# Cash flow benefit:                        ₹6,00,000
+
+# SOLUTION 3: NEGOTIATE PRICE TO CIRCLE RATE
+# ----------------------------------------
+# Increase agreement value to:             ₹60,00,000
+# Seller pays tax on:                       ₹30,00,000 (₹60L - ₹30L)
+# Tax @ 20%:                                ₹6,00,000
+# But seller receives extra:                ₹15,00,000
+# Net benefit to seller:                    ₹9,00,000
+# Buyer pays extra but no Section 56(2)(x) tax
+# Win-win if buyer can afford!
+
+# -----------------------------------------------------------------------------
+# EXAMPLE 7: USA-INDIA MONEY TRANSFER - COMPLETE SCENARIO
+# -----------------------------------------------------------------------------
+
+# SCENARIO DETAILS:
+# - Mr. Reddy (NRI in USA, Green Card holder)
+# - Sells property in Pune for ₹1.5 crores
+# - LTCG: ₹40 lakhs
+# - Wants to repatriate to USA
+
+# INDIA TAX:
+# ----------------------------------------
+# Capital gains:                            ₹40,00,000
+# Tax @ 20%:                                ₹8,00,000
+# TDS deducted by buyer @ 20%:              ₹30,00,000
+# Refund due:                               ₹22,00,000
+
+# REPATRIATION PROCESS:
+# ----------------------------------------
+# Step 1: Deposit sale proceeds in NRO:    ₹1,50,00,000
+# Step 2: Pay capital gains tax:            ₹8,00,000
+# Step 3: Get CA certificate (Form 15CB):   3 days, ₹10,000
+# Step 4: File Form 15CA online:            1 day
+# Step 5: Submit to bank:                   1 day
+# Step 6: Bank processes:                   5 days
+# Step 7: Wire transfer to USA:             3 days
+# ----------------------------------------
+# Total timeline:                           13 days
+# Amount repatriable:                       ₹1,42,00,000 (after tax)
+# Exchange rate:                            ₹83.50/USD
+# USD received:                             $1,70,059 USD
+#
+# Repatriation costs:
+# - Bank wire fee:                          ₹1,500
+# - Forex charges (1%):                     ₹1,42,000
+# - US receiving bank fee:                  $25 USD
+# - CA fee Form 15CB:                       ₹10,000
+# Total cost:                               ₹1,55,587
+
+# USA TAX (Form 1040):
+# ----------------------------------------
+# Capital gain in USD:                      $47,904 USD (₹40L ÷ 83.50)
+# US federal tax @ 15%:                     $7,186 USD
+# India tax paid:                           $9,580 USD (₹8L ÷ 83.50)
+# Foreign tax credit (Form 1116):           $7,186 USD (limited to US tax)
+# Additional US tax due:                    $0
+# Excess credit:                            $2,394 USD (can carry forward)
+#
+# FOREX GAIN (Section 988):
+# Property bought when rate was ₹75/USD
+# Property sold when rate was ₹83.50/USD
+# Purchase price in USD:                    $1,46,667 USD (₹1.1Cr ÷ 75)
+# Sale price in USD:                        $1,79,641 USD (₹1.5Cr ÷ 83.50)
+# Forex gain:                               $32,974 USD
+# Tax on forex gain @ 22%:                  $7,254 USD
+# ----------------------------------------
+# TOTAL US TAX:                             $7,254 USD (₹6,05,709)
+
+# FBAR & FATCA COMPLIANCE:
+# ----------------------------------------
+# NRO account balance:                      ₹1,50,00,000 = $1,79,641 USD
+# Threshold for FBAR:                       $10,000 USD
+# Must file FBAR:                           YES (FinCEN Form 114)
+# Threshold for FATCA (married):            $100,000 USD
+# Must file FATCA:                          YES (Form 8938)
+# Deadline:                                 April 15, 2026
+# Penalty if not filed:                     $16,536 (FBAR) + $10,000 (FATCA)
+
+# TOTAL TAX (BOTH COUNTRIES):
+# ----------------------------------------
+# India tax:                                ₹8,00,000
+# USA tax:                                  ₹6,05,709
+# Total tax:                                ₹14,05,709
+# Effective tax rate:                       35% of ₹40L gain
+# Net proceeds after all taxes:             ₹1,27,94,291
+
+# =============================================================================
+# END OF EXAMPLES & SCENARIOS
+# =============================================================================
+
+
+# =============================================================================
+# COMPREHENSIVE PERSONA-SCENARIO MATRIX (All Combinations)
+# =============================================================================
+
+# This section organizes ALL possible combinations of:
+# - Entity Types (Personas)
+# - Property Types
+# - Transaction Types
+# - Tax Implications
+
+# -----------------------------------------------------------------------------
+# SECTION A: ENTITY TYPES (PERSONAS) - Complete List
+# -----------------------------------------------------------------------------
+
+EntityTypePersonas[List]{persona_id, entity_type, tax_treatment, key_benefits, key_limitations}:
+  
+  # INDIVIDUALS
+  PERSONA-001 | Resident_Individual | Per_slab_0-30% | Section_80C_24_54_exemptions | Unlimited_liability
+  PERSONA-002 | Senior_Citizen_Individual | Per_slab_higher_exemption | Higher_basic_exemption_limit | Same_as_individual
+  PERSONA-003 | Super_Senior_Citizen | Per_slab_highest_exemption | Highest_basic_exemption | Same_as_individual
+  
+  # HUF (HINDU UNDIVIDED FAMILY)
+  PERSONA-004 | HUF_Karta | Per_slab_0-30% | Separate_tax_entity_same_benefits_as_individual | Karta_unlimited_liability
+  PERSONA-005 | HUF_Coparcener | Share_of_HUF_income | Tax_free_share_from_HUF | Limited_rights
+  
+  # PARTNERSHIP FIRMS
+  PERSONA-006 | Partnership_Firm_Registered | 30%_flat_rate | No_double_taxation_partner_share_exempt | Unlimited_liability_for_partners
+  PERSONA-007 | Partnership_Firm_Unregistered | 30%_flat_rate | Same_as_registered | Higher_restrictions
+  
+  # LLP (LIMITED LIABILITY PARTNERSHIP)
+  PERSONA-008 | LLP_Designated_Partner | 30%_flat_rate_on_LLP | Limited_liability_no_double_taxation | No_Section_54_exemption
+  PERSONA-009 | LLP_Partner | Share_exempt_from_tax | Partners_share_tax_free | Cannot_claim_individual_deductions
+  
+  # PRIVATE LIMITED COMPANY
+  PERSONA-010 | Pvt_Ltd_Company_Small | 25%_if_turnover_under_400Cr | Limited_liability_depreciation_benefits | Double_taxation_on_dividend
+  PERSONA-011 | Pvt_Ltd_Company_Large | 30%_if_turnover_over_400Cr | Professional_structure | Higher_compliance_cost
+  PERSONA-012 | Pvt_Ltd_Section_115BAA | 22%_concessional_rate | Lower_tax_rate | Forgo_certain_deductions
+  
+  # PUBLIC LIMITED COMPANY
+  PERSONA-013 | Public_Ltd_Company | 25-30%_based_on_turnover | Easier_fundraising | Complex_compliance
+  PERSONA-014 | Listed_Company | 25-30%_based_on_turnover | Access_to_capital_markets | High_regulatory_burden
+  
+  # NRI (NON-RESIDENT INDIAN) - BY STATUS
+  PERSONA-015 | NRI_Non_Resident_Indian | 20%_LTCG_30%_rental | DTAA_benefits | 20%_TDS_on_sale
+  PERSONA-016 | RNOR_Resident_Not_Ordinarily_Resident | Hybrid_tax_treatment | Beneficial_for_returning_Indians | Complex_rules
+  PERSONA-017 | OCI_Overseas_Citizen_of_India | Same_as_NRI | Can_buy_residential_commercial | Cannot_buy_agricultural
+  PERSONA-018 | PIO_Person_of_Indian_Origin | Same_as_NRI | Similar_to_OCI | Being_phased_out
+  
+  # NRI - BY COUNTRY (DTAA VARIATIONS)
+  PERSONA-019 | NRI_USA | 15%_LTCG_under_DTAA | Lower_tax_rate_FATCA_FBAR_compliance | Complex_reporting
+  PERSONA-020 | NRI_UK | 20%_LTCG_under_DTAA | DTAA_benefits | Brexit_implications
+  PERSONA-021 | NRI_Canada | 20%_LTCG_under_DTAA | DTAA_benefits | Provincial_tax_variations
+  PERSONA-022 | NRI_Australia | 20%_LTCG_under_DTAA | DTAA_benefits | Superannuation_complexities
+  PERSONA-023 | NRI_Singapore | 20%_LTCG_under_DTAA | DTAA_benefits | No_capital_gains_tax_in_Singapore
+  PERSONA-024 | NRI_UAE | 20%_LTCG_under_DTAA | No_income_tax_in_UAE | Limited_tax_credit_benefit
+  PERSONA-025 | NRI_Saudi_Arabia | 20%_LTCG_under_DTAA | DTAA_benefits | Zakat_considerations
+  
+  # SPECIAL ENTITIES
+  PERSONA-026 | Trust_Private | 30%_or_max_marginal_rate | Estate_planning | Complex_taxation
+  PERSONA-027 | Trust_Charitable | Exempt_if_registered | Tax_exemption | Strict_compliance
+  PERSONA-028 | AOP_Association_of_Persons | 30%_flat_rate | Flexible_structure | Limited_use
+  PERSONA-029 | BOI_Body_of_Individuals | 30%_flat_rate | Similar_to_AOP | Rare_in_property
+  PERSONA-030 | Cooperative_Society | Special_rates | Member_benefits | Restricted_operations
+
+# -----------------------------------------------------------------------------
+# SECTION B: PROPERTY TYPES - Complete List
+# -----------------------------------------------------------------------------
+
+PropertyTypes[List]{property_id, property_type, ownership_restrictions, tax_implications, special_notes}:
+  
+  # AGRICULTURAL
+  PROP-001 | Agricultural_Land_Rural | NRI_cannot_buy | Exempt_from_capital_gains_if_qualifies | Must_be_beyond_municipal_limits
+  PROP-002 | Agricultural_Land_Urban | NRI_cannot_buy | Taxable_as_capital_asset | Within_municipal_limits
+  PROP-003 | Farmhouse | NRI_cannot_buy | Taxable_cannot_repatriate | Luxury_tax_implications
+  PROP-004 | Plantation_Property | NRI_cannot_buy | Taxable | Special_agricultural_income_rules
+  
+  # PLOTS (VACANT LAND)
+  PROP-005 | Residential_Plot_Approved | All_can_buy | LTCG_20%_STCG_slab_rate | Section_54F_applicable
+  PROP-006 | Residential_Plot_Unapproved | Risky_purchase | Same_as_approved_if_legal | Title_issues_common
+  PROP-007 | Commercial_Plot | All_can_buy | LTCG_20%_STCG_slab_rate | No_Section_54_exemption
+  PROP-008 | Industrial_Plot | All_can_buy | LTCG_20%_STCG_slab_rate | Zoning_restrictions
+  PROP-009 | Mixed_Use_Plot | All_can_buy | Proportionate_taxation | Complex_valuation
+  
+  # FLATS (RESIDENTIAL)
+  PROP-010 | Flat_Under_Construction | All_can_buy | GST_applicable_1-5% | Section_80C_for_stamp_duty
+  PROP-011 | Flat_Ready_to_Move | All_can_buy | No_GST | Immediate_possession
+  PROP-012 | Flat_Resale | All_can_buy | No_GST | TDS_1%_if_over_50L
+  PROP-013 | Penthouse | All_can_buy | Luxury_tax_in_some_states | Higher_stamp_duty
+  PROP-014 | Studio_Apartment | All_can_buy | Same_as_flat | Smaller_size
+  PROP-015 | Duplex_Apartment | All_can_buy | Same_as_flat | Counts_as_one_unit
+  
+  # INDEPENDENT HOUSES
+  PROP-016 | Independent_House_Villa | All_can_buy | LTCG_20%_Section_54_applicable | Higher_maintenance
+  PROP-017 | Row_House | All_can_buy | Same_as_independent_house | Shared_walls
+  PROP-018 | Bungalow | All_can_buy | Same_as_independent_house | Luxury_segment
+  
+  # COMMERCIAL PROPERTIES
+  PROP-019 | Office_Space | All_can_buy | LTCG_20%_no_Section_54 | Depreciation_for_companies
+  PROP-020 | Retail_Shop | All_can_buy | LTCG_20%_no_Section_54 | High_rental_yield
+  PROP-021 | Showroom | All_can_buy | LTCG_20%_no_Section_54 | Location_critical
+  PROP-022 | Warehouse | All_can_buy | LTCG_20%_depreciation_allowed | Industrial_use
+  PROP-023 | Godown | All_can_buy | Same_as_warehouse | Storage_purpose
+  PROP-024 | Mall_Space | All_can_buy | LTCG_20%_complex_valuation | Strata_ownership
+  
+  # SPECIAL PURPOSE
+  PROP-025 | Hotel_Property | All_can_buy | Business_income_if_operated | Hospitality_regulations
+  PROP-026 | Hospital_Building | All_can_buy | Business_income_if_operated | Healthcare_regulations
+  PROP-027 | Educational_Institution | All_can_buy | Exempt_if_charitable | Trust_structure_preferred
+  PROP-028 | Cinema_Hall | All_can_buy | Business_income | Entertainment_tax
+  PROP-029 | Petrol_Pump_Land | All_can_buy | Business_income | Licensing_required
+  
+  # UNDER CONSTRUCTION / DEVELOPMENT
+  PROP-030 | Land_for_JDA | All_can_buy | Section_45_5A_deferral | Tax_on_completion
+  PROP-031 | SFT_Sale_of_Future_Tenancy | All_can_buy | Capital_gains_on_sale | Builder_project
+  PROP-032 | Construction_in_Progress | All_can_buy | Interest_capitalization | Pre_possession_interest
+  
+  # ANCESTRAL / INHERITED
+  PROP-033 | Ancestral_Property_Unpartitioned | Coparceners_only | Cost_from_ancestor | FMV_option_2001
+  PROP-034 | Inherited_Property_Partitioned | Heir_as_per_will | Cost_from_previous_owner | Indexation_from_original
+  PROP-035 | Gift_Property | Receiver | Cost_from_donor | No_tax_on_receipt_from_relative
+
+# -----------------------------------------------------------------------------
+# SECTION C: TRANSACTION TYPES - Complete List
+# -----------------------------------------------------------------------------
+
+TransactionTypes[List]{transaction_id, transaction_type, tax_trigger, applicable_sections, documentation}:
+  
+  # PURCHASE TRANSACTIONS
+  TXN-001 | Outright_Purchase | At_registration | 80C_24_deductions | Sale_deed_registration
+  TXN-002 | Purchase_with_Home_Loan | At_registration | 80C_24_deductions | Loan_documents
+  TXN-003 | Purchase_Under_Construction | At_possession | 80C_24_deductions | Builder_agreement
+  TXN-004 | Purchase_at_Auction | At_auction_date | Same_as_outright | Auction_certificate
+  TXN-005 | Purchase_from_Bank_NPA | At_registration | Same_as_outright | Bank_NOC
+  
+  # SALE TRANSACTIONS
+  TXN-006 | Outright_Sale | At_registration | Capital_gains_54_54F_54EC | Sale_deed
+  TXN-007 | Sale_with_Buyer_Loan | At_registration | Capital_gains_TDS_1%_or_20% | Form_26QB
+  TXN-008 | Sale_to_Builder_JDA | At_completion_certificate | Section_45_5A | JDA_agreement
+  TXN-009 | Sale_to_Government | At_compensation_receipt | Section_10_37_exemption | Acquisition_notice
+  TXN-010 | Sale_Under_Distress | At_registration | Same_as_outright | Court_order_if_any
+  
+  # DEVELOPMENT TRANSACTIONS
+  TXN-011 | Joint_Development_Agreement | At_completion_certificate | Section_45_5A | JDA_registered
+  TXN-012 | Development_Agreement | At_completion | Business_income_or_capital_gains | DA_agreement
+  TXN-013 | Collaboration_Agreement | At_project_completion | Proportionate_taxation | Collaboration_deed
+  TXN-014 | SFT_Agreement | At_booking | Capital_gains_on_transfer | SFT_agreement
+  TXN-015 | Construction_Contract | At_completion | Business_income | Contract_agreement
+  
+  # RENTAL TRANSACTIONS
+  TXN-016 | Residential_Rental | Monthly | House_property_income_Section_24 | Rental_agreement
+  TXN-017 | Commercial_Rental | Monthly | House_property_income_or_business | Rental_agreement
+  TXN-018 | Lease_Long_Term | At_lease_start | Lease_premium_capital_gains | Lease_deed
+  TXN-019 | Leave_and_License | Monthly | House_property_income | L&L_agreement
+  TXN-020 | Sublease | Monthly | House_property_income | Sublease_agreement
+  
+  # GIFT / INHERITANCE TRANSACTIONS
+  TXN-021 | Gift_to_Relative | At_gift_date | No_tax_if_relative | Gift_deed
+  TXN-022 | Gift_to_Non_Relative | At_gift_date | Taxable_if_over_50k | Gift_deed
+  TXN-023 | Inheritance_via_Will | At_death | No_tax_on_inheritance | Probate_will
+  TXN-024 | Inheritance_Intestate | At_death | No_tax_succession_certificate | Legal_heir_certificate
+  TXN-025 | Partition_of_HUF | At_partition | No_tax_if_per_share | Partition_deed
+  
+  # SPECIAL TRANSACTIONS
+  TXN-026 | Exchange_of_Property | At_exchange_date | Capital_gains_on_both | Exchange_deed
+  TXN-027 | Conversion_Agricultural_to_Non_Ag | At_conversion | May_trigger_capital_gains | Conversion_order
+  TXN-028 | Compulsory_Acquisition | At_compensation | Section_10_37_exemption | Acquisition_notice
+  TXN-029 | Relinquishment_of_Rights | At_relinquishment | Capital_gains | Relinquishment_deed
+  TXN-030 | Surrender_of_Tenancy | At_surrender | Capital_gains | Surrender_deed
+
+# -----------------------------------------------------------------------------
+# SECTION D: COMPREHENSIVE SCENARIO MATRIX (200+ Scenarios)
+# -----------------------------------------------------------------------------
+
+# Format: Persona | Property Type | Transaction | Tax Implication | Key Points
+
+ComprehensiveScenarioMatrix[List]{scenario_id, persona, property_type, transaction, tax_treatment, deductions_available, exemptions_available, special_notes}:
+  
+  # ========== RESIDENT INDIVIDUAL SCENARIOS ==========
+  
+  # Residential Flat Scenarios
+  SC-001 | Resident_Individual | Flat_Ready_to_Move | Outright_Purchase | 80C_24_applicable | Stamp_duty_registration_principal_interest | N/A | Most_common_scenario
+  SC-002 | Resident_Individual | Flat_Ready_to_Move | Outright_Sale_LTCG | 20%_with_indexation | All_acquisition_improvement_sale_costs | Section_54_if_reinvest | Hold_over_24_months
+  SC-003 | Resident_Individual | Flat_Ready_to_Move | Outright_Sale_STCG | Per_slab_rate | All_acquisition_improvement_sale_costs | No_exemption | Hold_under_24_months
+  SC-004 | Resident_Individual | Flat_Under_Construction | Purchase_with_Loan | 80C_24_applicable | Principal_interest_1/5th_pre_possession | N/A | GST_1-5%_applicable
+  SC-005 | Resident_Individual | Flat_Resale | Purchase | 80C_24_applicable | Stamp_duty_registration_principal_interest | N/A | TDS_1%_if_over_50L
+  SC-006 | Resident_Individual | Flat_Ready_to_Move | Residential_Rental | House_property_income | 30%_standard_deduction_interest_unlimited | N/A | Max_loss_setoff_2L
+  
+  # Plot Scenarios
+  SC-007 | Resident_Individual | Residential_Plot | Outright_Purchase | No_80C_24 | Only_acquisition_costs | N/A | Cannot_claim_80C_24
+  SC-008 | Resident_Individual | Residential_Plot | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54F_if_no_other_residential | Must_invest_entire_consideration
+  SC-009 | Resident_Individual | Commercial_Plot | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_bonds_only | No_Section_54
+  
+  # Agricultural Land Scenarios
+  SC-010 | Resident_Individual | Agricultural_Land_Rural | Outright_Purchase | No_tax_implications | N/A | N/A | Beyond_municipal_limits
+  SC-011 | Resident_Individual | Agricultural_Land_Rural | Outright_Sale | Exempt_from_capital_gains | N/A | Fully_exempt | Must_qualify_as_agricultural
+  SC-012 | Resident_Individual | Agricultural_Land_Urban | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54F_applicable | Within_municipal_limits
+  SC-013 | Resident_Individual | Farmhouse | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54F_applicable | Taxable_as_capital_asset
+  
+  # Commercial Property Scenarios
+  SC-014 | Resident_Individual | Office_Space | Outright_Purchase | No_80C_24 | Only_acquisition_costs | N/A | Investment_property
+  SC-015 | Resident_Individual | Office_Space | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_bonds_only | No_Section_54
+  SC-016 | Resident_Individual | Office_Space | Commercial_Rental | House_property_income | 30%_standard_deduction_interest_unlimited | N/A | Or_business_income_if_dealer
+  SC-017 | Resident_Individual | Retail_Shop | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_bonds_only | High_rental_yield
+  
+  # Special Scenarios
+  SC-018 | Resident_Individual | Independent_House | Gift_to_Son | No_tax | N/A | N/A | Gift_to_relative_exempt
+  SC-019 | Resident_Individual | Flat_Ready_to_Move | Exchange_with_Another_Flat | Capital_gains_on_both | All_costs | Section_54_if_applicable | Complex_transaction
+  SC-020 | Resident_Individual | Residential_Plot | JDA_with_Builder | Section_45_5A_deferral | Land_cost_indexed | Section_54_at_completion | Tax_at_completion_certificate
+  
+  # ========== HUF SCENARIOS ==========
+  
+  SC-021 | HUF_Karta | Ancestral_Property_Unpartitioned | Partition_among_Coparceners | No_tax_on_partition | N/A | N/A | Per_share_partition
+  SC-022 | HUF_Karta | Flat_Ready_to_Move | Outright_Purchase | 80C_24_applicable | Same_as_individual | N/A | Separate_tax_entity
+  SC-023 | HUF_Karta | Ancestral_Property_Unpartitioned | Outright_Sale_LTCG | 20%_with_indexation | FMV_2001_or_ancestor_cost | Section_54_applicable | Indexation_from_ancestor
+  SC-024 | HUF_Karta | Commercial_Property | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_only | No_Section_54
+  SC-025 | HUF_Karta | Flat_Ready_to_Move | Gift_to_Coparcener | No_tax | N/A | N/A | Within_HUF_no_tax
+  
+  # ========== PARTNERSHIP FIRM SCENARIOS ==========
+  
+  SC-026 | Partnership_Firm | Commercial_Property | Outright_Purchase | No_80C_24 | All_acquisition_costs | N/A | Business_asset
+  SC-027 | Partnership_Firm | Commercial_Property | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_only | No_Section_54
+  SC-028 | Partnership_Firm | Office_Space | Commercial_Rental | Business_income | All_business_expenses_partner_remuneration | N/A | Flat_30%_tax
+  SC-029 | Partnership_Firm | Warehouse | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_only | Industrial_property
+  SC-030 | Partnership_Firm | Retail_Shop | Commercial_Rental | Business_income | All_expenses_interest_on_capital | N/A | Partners_share_exempt
+  
+  # ========== LLP SCENARIOS ==========
+  
+  SC-031 | LLP | Commercial_Property | Outright_Purchase | No_80C_24 | All_acquisition_costs | N/A | Limited_liability
+  SC-032 | LLP | Commercial_Property | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_only | No_Section_54
+  SC-033 | LLP | Office_Space | Commercial_Rental | Business_income | All_expenses_partner_remuneration_interest | N/A | Flat_30%_plus_AMT
+  SC-034 | LLP | Industrial_Plot | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_only | No_Section_54
+  SC-035 | LLP | Warehouse | Commercial_Rental | Business_income | Depreciation_not_allowed_on_land | N/A | Partners_share_exempt
+  
+  # ========== PRIVATE LIMITED COMPANY SCENARIOS ==========
+  
+  SC-036 | Pvt_Ltd_Company | Commercial_Property | Outright_Purchase | No_80C_24 | All_acquisition_costs | N/A | Depreciation_10%_on_building
+  SC-037 | Pvt_Ltd_Company | Commercial_Property | Outright_Sale_LTCG | 20%_with_indexation | All_costs | Section_54EC_only | No_Section_54
+  SC-038 | Pvt_Ltd_Company | Office_Space | Commercial_Rental | Business_income | Depreciation_all_expenses | N/A | Corporate_tax_25-30%
+  SC-039 | Pvt_Ltd_Company | Industrial_Property | Outright_Sale_LTCG | 20%_with_indexation | All_costs_WDV | Section_54EC_only | Depreciation_recapture
+  SC-040 | Pvt_Ltd_Company | Mall_Space | Commercial_Rental | Business_income | All_expenses_depreciation | N/A | Double_taxation_on_dividend
+  
+  # ========== NRI SCENARIOS (GENERAL) ==========
+  
+  SC-041 | NRI_Non_Resident | Flat_Ready_to_Move | Outright_Purchase | 80C_24_applicable | Same_as_resident | N/A | Can_use_NRE_NRO_funds
+  SC-042 | NRI_Non_Resident | Flat_Ready_to_Move | Outright_Sale_LTCG | 20%_LTCG | All_costs | Section_54_applicable | TDS_20%_on_sale_price
+  SC-043 | NRI_Non_Resident | Flat_Ready_to_Move | Outright_Sale_with_Lower_TDS | 20%_LTCG | All_costs | Section_54_applicable | Form_13_certificate
+  SC-044 | NRI_Non_Resident | Residential_Plot | Outright_Sale_LTCG | 20%_LTCG | All_costs | Section_54F_applicable | TDS_20%
+  SC-045 | NRI_Non_Resident | Commercial_Property | Outright_Sale_LTCG | 20%_LTCG | All_costs | Section_54EC_only | TDS_20%
+  SC-046 | NRI_Non_Resident | Flat_Ready_to_Move | Residential_Rental | 30%_on_rental_income | 30%_standard_deduction | N/A | TDS_30%_on_rent
+  SC-047 | NRI_Non_Resident | Agricultural_Land | Cannot_Purchase | N/A | N/A | N/A | FEMA_restriction
+  SC-048 | NRI_Non_Resident | Farmhouse | Cannot_Purchase | N/A | N/A | N/A | FEMA_restriction
+  
+  # ========== NRI SCENARIOS (BY COUNTRY - DTAA) ==========
+  
+  SC-049 | NRI_USA | Flat_Ready_to_Move | Outright_Sale_LTCG | 15%_under_DTAA | All_costs | Section_54_applicable | FATCA_FBAR_compliance
+  SC-050 | NRI_USA | Flat_Ready_to_Move | Repatriation_to_USA | 1M_USD_per_FY_limit | Repatriation_costs | N/A | Form_15CA_15CB_required
+  SC-051 | NRI_USA | Commercial_Property | Rental_Income | 30%_India_credit_in_USA | 30%_standard_deduction | N/A | Form_1116_foreign_tax_credit
+  SC-052 | NRI_UK | Flat_Ready_to_Move | Outright_Sale_LTCG | 20%_under_DTAA | All_costs | Section_54_applicable | DTAA_benefits
+  SC-053 | NRI_Canada | Flat_Ready_to_Move | Outright_Sale_LTCG | 20%_under_DTAA | All_costs | Section_54_applicable | Provincial_tax_variations
+  SC-054 | NRI_Singapore | Commercial_Property | Outright_Sale_LTCG | 20%_under_DTAA | All_costs | Section_54EC_only | No_capital_gains_tax_Singapore
+  SC-055 | NRI_UAE | Flat_Ready_to_Move | Outright_Sale_LTCG | 20%_under_DTAA | All_costs | Section_54_applicable | No_income_tax_UAE
+  
+  # ========== ANCESTRAL / INHERITED PROPERTY SCENARIOS ==========
+  
+  SC-056 | Resident_Individual | Ancestral_Property_Unpartitioned | Inheritance | No_tax_on_inheritance | N/A | N/A | Cost_from_ancestor
+  SC-057 | Resident_Individual | Inherited_Property | Outright_Sale_LTCG | 20%_with_indexation | FMV_2001_or_ancestor_cost | Section_54_applicable | Indexation_from_ancestor
+  SC-058 | Resident_Individual | Ancestral_Property_Unpartitioned | Partition_4_Heirs | No_tax_on_partition | N/A | N/A | Each_heir_separate_cost_basis
+  SC-059 | Resident_Individual | Inherited_Property | Sale_by_Multiple_Heirs | 20%_with_indexation | Proportionate_costs | Each_heir_Section_54 | 4x_exemption_benefit
+  SC-060 | HUF_Karta | Ancestral_Property | Sale_LTCG | 20%_with_indexation | FMV_2001_or_original_cost | Section_54_applicable | HUF_can_claim_exemption
+  
+  # ========== JDA / DEVELOPMENT SCENARIOS ==========
+  
+  SC-061 | Resident_Individual | Residential_Plot | JDA_Landowner | Section_45_5A_deferral | Land_cost_indexed_from_original | Section_54_at_completion | Tax_at_completion_certificate
+  SC-062 | Resident_Individual | Agricultural_Land | JDA_after_Conversion | Section_45_5A_deferral | Conversion_may_trigger_gains | Section_54_at_completion | Two_stage_taxation
+  SC-063 | HUF_Karta | Ancestral_Land | JDA_Landowner | Section_45_5A_deferral | Ancestor_cost_indexed | Section_54_at_completion | HUF_eligible_for_45_5A
+  SC-064 | Pvt_Ltd_Company | Commercial_Land | JDA_Landowner | No_Section_45_5A | Immediate_taxation | Section_54EC_only | Companies_not_eligible
+  SC-065 | Partnership_Firm | Residential_Plot | JDA_Landowner | No_Section_45_5A | Immediate_taxation | Section_54EC_only | Firms_not_eligible
+  SC-066 | Resident_Individual | Residential_Plot | SFT_Sale | Capital_gains_on_transfer | All_costs | Section_54F_if_applicable | Builder_project
+  SC-067 | Pvt_Ltd_Company | Commercial_Land | Development_Agreement | Business_income | All_development_costs | N/A | Developer_business_income
+  
+  # ========== SPECIAL TRANSACTION SCENARIOS ==========
+  
+  SC-068 | Resident_Individual | Flat_Ready_to_Move | Compulsory_Acquisition_Govt | Section_10_37_exemption | N/A | Fully_exempt | Government_acquisition
+  SC-069 | Resident_Individual | Residential_Plot | Exchange_for_Flat | Capital_gains_on_both | All_costs_on_both | Section_54_if_applicable | Complex_valuation
+  SC-070 | Resident_Individual | Flat_Ready_to_Move | Gift_to_Daughter | No_tax_to_donor | N/A | N/A | Gift_to_relative
+  SC-071 | Resident_Individual | Flat_Ready_to_Move | Gift_from_Father | No_tax_to_receiver | N/A | N/A | Gift_from_relative
+  SC-072 | Resident_Individual | Commercial_Property | Gift_to_Friend | Capital_gains_to_donor | All_costs | Section_54EC_only | Gift_to_non_relative
+  SC-073 | Resident_Individual | Flat_Ready_to_Move | Relinquishment_of_Rights | Capital_gains | Proportionate_costs | Section_54_if_applicable | Co_owner_scenario
+  SC-074 | Resident_Individual | Tenancy_Rights | Surrender_of_Tenancy | Capital_gains | Cost_NIL_or_premium_paid | Section_54F_applicable | Tenancy_as_capital_asset
+  
+  # ========== CONSTRUCTION SCENARIOS ==========
+  
+  SC-075 | Resident_Individual | Residential_Plot | Self_Construction | 80C_24_applicable | Construction_cost_capitalized | N/A | Section_24_1/5th_interest
+  SC-076 | Pvt_Ltd_Company | Commercial_Plot | Construction_for_Rent | Business_income | All_construction_costs | N/A | Depreciation_on_building
+  SC-077 | Partnership_Firm | Industrial_Plot | Construction_Warehouse | Business_income | All_costs | N/A | Business_asset
+  SC-078 | LLP | Commercial_Plot | Construction_Office | Business_income | All_costs | N/A | Own_use_or_rent
+  
+  # ========== RENTAL SCENARIOS (DETAILED) ==========
+  
+  SC-079 | Resident_Individual | Flat_Self_Occupied | No_Rental | Section_24_interest_2L | Municipal_tax_interest_2L_max | N/A | Self_occupied_benefit
+  SC-080 | Resident_Individual | Flat_Rented_Out | Residential_Rental | House_property_income | 30%_standard_interest_unlimited | N/A | Max_loss_2L
+  SC-081 | Resident_Individual | Second_Flat_Vacant | Deemed_Let_Out | House_property_income | 30%_standard_interest_unlimited | N/A | If_own_2+_properties
+  SC-082 | Resident_Individual | Commercial_Property | Commercial_Rental | House_property_or_business | 30%_standard_or_actual_expenses | N/A | Depends_on_dealer_status
+  SC-083 | NRI_Non_Resident | Flat_Rented_Out | Residential_Rental | 30%_on_rental | 30%_standard_deduction | N/A | TDS_30%_by_tenant
+  SC-084 | Pvt_Ltd_Company | Office_Space | Commercial_Rental | Business_income | Depreciation_all_expenses | N/A | Corporate_tax
+  
+  # ========== MULTIPLE PROPERTY SCENARIOS ==========
+  
+  SC-085 | Resident_Individual | Two_Flats_Owned | One_Self_One_Rented | Mixed_treatment | Self_2L_limit_rented_unlimited | N/A | Common_scenario
+  SC-086 | Resident_Individual | Three_Flats_Owned | One_Self_Two_Deemed | Mixed_treatment | Self_2L_others_deemed_let_out | N/A | Complex_calculation
+  SC-087 | Resident_Individual | Flat_Plus_Commercial | Mixed_Portfolio | Separate_treatment | Residential_80C_24_commercial_no | N/A | Different_rules
+  
+  # ========== JOINT OWNERSHIP SCENARIOS ==========
+  
+  SC-088 | Husband_Wife_50_50 | Flat_Ready_to_Move | Joint_Purchase | Double_80C_24_benefits | Each_1.5L_80C_each_2L_24 | N/A | Both_co_owners_co_borrowers
+  SC-089 | Husband_Wife_50_50 | Flat_Ready_to_Move | Joint_Sale_LTCG | 20%_each_share | Each_proportionate_costs | Each_Section_54 | Double_exemption_possible
+  SC-090 | Parent_Child_Joint | Flat_Ready_to_Move | Joint_Purchase | Double_80C_24_benefits | Each_can_claim | N/A | Tax_slab_optimization
+  SC-091 | Three_Siblings_Joint | Ancestral_Property | Joint_Sale | 20%_each_share | Each_proportionate_costs | Each_Section_54 | Triple_exemption
+  
+  # ========== CONVERSION SCENARIOS ==========
+  
+  SC-092 | Resident_Individual | Agricultural_to_Non_Ag | Conversion | May_trigger_capital_gains | Conversion_cost | N/A | State_specific_rules
+  SC-093 | Pvt_Ltd_Company | Residential_to_Commercial | Change_of_Use | May_trigger_deemed_sale | Valuation_required | N/A | Complex_taxation
+  
+  # ========== DISTRESS SALE SCENARIOS ==========
+  
+  SC-094 | Resident_Individual | Flat_Ready_to_Move | Bank_Auction_Sale | Capital_gains_normal | All_costs | Section_54_if_applicable | Distress_no_relief
+  SC-095 | Resident_Individual | Flat_Ready_to_Move | Court_Ordered_Sale | Capital_gains_normal | All_costs | Section_54_if_applicable | No_special_treatment
+  
+  # ========== SENIOR CITIZEN SCENARIOS ==========
+  
+  SC-096 | Senior_Citizen | Flat_Ready_to_Move | Reverse_Mortgage | No_tax_on_receipt | N/A | N/A | Loan_not_income
+  SC-097 | Senior_Citizen | Flat_Ready_to_Move | Sale_LTCG | 20%_with_indexation | All_costs | Section_54_applicable | Same_as_individual
+  SC-098 | Super_Senior_Citizen | Flat_Ready_to_Move | Sale_LTCG | 20%_with_indexation | All_costs | Section_54_applicable | Higher_basic_exemption
+  
+  # ========== TRUST SCENARIOS ==========
+  
+  SC-099 | Trust_Private | Flat_Ready_to_Move | Purchase_for_Beneficiary | Trust_taxation | All_costs | N/A | Complex_rules
+  SC-100 | Trust_Charitable | Educational_Building | Purchase | Exempt_if_registered | All_costs | Fully_exempt | Section_11_12
+  
+  # ========== COOPERATIVE SOCIETY SCENARIOS ==========
+  
+  SC-101 | Cooperative_Society | Flat_in_Society | Member_Purchase | Special_rates | Member_benefits | N/A | Society_rules_apply
+  SC-102 | Cooperative_Society | Society_Land | Development_for_Members | Special_treatment | Development_costs | N/A | Member_allocation
+  
+  # ========== ADDITIONAL COMPLEX SCENARIOS ==========
+  
+  SC-103 | Resident_Individual | Flat_Under_Construction | Builder_Delay_Compensation | Not_taxable | N/A | N/A | Compensation_not_income
+  SC-104 | Resident_Individual | Flat_Ready_to_Move | Defect_Compensation | Not_taxable | N/A | N/A | Compensation_not_income
+  SC-105 | NRI_Non_Resident | Flat_Bought_as_Resident | Sale_after_NRI_Status | 20%_LTCG_TDS_20% | All_costs | Section_54_applicable | Status_change_scenario
+  SC-106 | Resident_Individual | Flat_Ready_to_Move | Sale_to_NRI_Buyer | 1%_TDS_for_seller | All_costs | Section_54_applicable | Buyer_NRI_status_irrelevant
+  SC-107 | NRI_USA | Flat_NRE_Funded | Sale_Repatriation | Unlimited_repatriation | All_costs | Section_54_applicable | Max_2_properties_lifetime
+  SC-108 | NRI_USA | Flat_NRO_Funded | Sale_Repatriation | 1M_USD_per_FY_limit | All_costs | Section_54_applicable | FEMA_limit
+  SC-109 | Resident_Individual | Flat_Ready_to_Move | Sale_Circle_Rate_Issue | Section_50C_applies | All_costs | Section_54_applicable | VO_reference_option
+  SC-110 | Resident_Individual | Residential_Plot | Sale_Circle_Rate_25%_Higher | Section_50C_deemed_value | All_costs | Section_54F_applicable | Seller_buyer_both_taxed
+  
+  # ========== BUSINESS SCENARIOS ==========
+  
+  SC-111 | Pvt_Ltd_Company | Multiple_Properties | Property_Dealing_Business | Business_income_not_capital_gains | All_expenses | N/A | Stock_in_trade
+  SC-112 | Partnership_Firm | Flats_for_Resale | Property_Dealer | Business_income | All_expenses | N/A | No_capital_gains_treatment
+  SC-113 | LLP | Commercial_Properties | Investment_Portfolio | Capital_gains_on_sale | All_costs | Section_54EC_only | Investment_not_stock
+  
+  # ========== TIMING SCENARIOS ==========
+  
+  SC-114 | Resident_Individual | Flat_Ready_to_Move | Sale_23_Months_Holding | STCG_slab_rate | All_costs | No_exemption | Hold_1_more_month
+  SC-115 | Resident_Individual | Flat_Ready_to_Move | Sale_24_Months_Holding | LTCG_20% | All_costs | Section_54_applicable | Optimal_timing
+  SC-116 | Resident_Individual | Flat_Ready_to_Move | Sale_Within_3_Years_of_54 | Section_54_reversed | All_costs | Exemption_reversed | Penalty_scenario
+  
+  # ========== SECTION 54 VARIATIONS ==========
+  
+  SC-117 | Resident_Individual | Flat_Ready_to_Move | Sale_Reinvest_One_Property | Section_54_full | All_costs | Up_to_10Cr | Standard_case
+  SC-118 | Resident_Individual | Flat_Ready_to_Move | Sale_Reinvest_Two_Properties | Section_54_full | All_costs | Up_to_10Cr | Only_if_LTCG_under_2Cr
+  SC-119 | Resident_Individual | Flat_Ready_to_Move | Sale_Partial_Reinvestment | Section_54_proportional | All_costs | Proportional_exemption | Partial_benefit
+  SC-120 | Resident_Individual | Flat_Ready_to_Move | Sale_CGAS_Deposit | Section_54_preserved | All_costs | Up_to_10Cr | Buy_time_to_find_property
+  
+  # ========== SECTION 54F VARIATIONS ==========
+  
+  SC-121 | Resident_Individual | Residential_Plot | Sale_Section_54F | Must_invest_entire_consideration | All_costs | Up_to_10Cr | Cannot_own_other_residential
+  SC-122 | Resident_Individual | Commercial_Property | Sale_Section_54F | Must_invest_entire_consideration | All_costs | Up_to_10Cr | Cannot_own_other_residential
+  SC-123 | Resident_Individual | Gold_Jewelry | Sale_Section_54F | Must_invest_entire_consideration | All_costs | Up_to_10Cr | Any_asset_to_residential
+  
+  # ========== SECTION 54EC VARIATIONS ==========
+  
+  SC-124 | Resident_Individual | Any_Property | Sale_54EC_Bonds | 50L_max_per_FY | All_costs | 50L_max | 5_year_lock_in
+  SC-125 | Pvt_Ltd_Company | Commercial_Property | Sale_54EC_Bonds | 50L_max_per_FY | All_costs | 50L_max | Only_exemption_for_companies
+  SC-126 | Resident_Individual | Two_Properties_Same_FY | Sale_54EC_Combined | 50L_max_total | All_costs | 50L_across_both | Per_FY_limit
+  
+  # ========== INDEXATION SCENARIOS ==========
+  
+  SC-127 | Resident_Individual | Flat_Bought_Pre_2001 | Sale_FMV_Option | FMV_2001_or_actual_cost | Higher_of_two | Section_54_applicable | Beneficial_for_old_properties
+  SC-128 | Resident_Individual | Flat_Bought_2024 | Sale_2025_New_Rules | 12.5%_without_indexation_option | All_costs | Section_54_applicable | Post_July_2024_rules
+  
+  # ========== LOSS SCENARIOS ==========
+  
+  SC-129 | Resident_Individual | Flat_Ready_to_Move | Sale_at_Loss_LTCG | No_tax_loss_setoff | All_costs | N/A | Setoff_against_other_LTCG
+  SC-130 | Resident_Individual | Flat_Ready_to_Move | Sale_at_Loss_STCG | No_tax_loss_setoff | All_costs | N/A | Setoff_against_any_income
+  
+  # ========== ADDITIONAL NRI SCENARIOS ==========
+  
+  SC-131 | RNOR_Status | Flat_Ready_to_Move | Sale_LTCG | Hybrid_treatment | All_costs | Section_54_applicable | Beneficial_status
+  SC-132 | OCI_Card_Holder | Flat_Ready_to_Move | Purchase | Same_as_NRI | All_costs | N/A | Can_buy_residential_commercial
+  SC-133 | OCI_Card_Holder | Agricultural_Land | Cannot_Purchase | N/A | N/A | N/A | FEMA_restriction
+  
+  # ========== ADDITIONAL SCENARIOS (TOTAL 200+) ==========
+  # [Continuing with more specific combinations...]
+  
+  SC-134 | Resident_Individual | Penthouse | Outright_Purchase | 80C_24_applicable | All_costs | N/A | Luxury_segment
+  SC-135 | Resident_Individual | Studio_Apartment | Outright_Purchase | 80C_24_applicable | All_costs | N/A | Compact_living
+  SC-136 | Resident_Individual | Duplex_Apartment | Outright_Purchase | 80C_24_applicable | All_costs | N/A | Counts_as_one_unit
+  SC-137 | Resident_Individual | Row_House | Outright_Purchase | 80C_24_applicable | All_costs | N/A | Independent_house_category
+  SC-138 | Resident_Individual | Villa | Outright_Purchase | 80C_24_applicable | All_costs | N/A | Luxury_independent_house
+  SC-139 | Resident_Individual | Bungalow | Outright_Purchase | 80C_24_applicable | All_costs | N/A | High_value_property
+  SC-140 | Pvt_Ltd_Company | Warehouse | Outright_Purchase | Business_asset | All_costs_depreciation | N/A | Industrial_use
+  SC-141 | Pvt_Ltd_Company | Godown | Outright_Purchase | Business_asset | All_costs_depreciation | N/A | Storage_purpose
+  SC-142 | Pvt_Ltd_Company | Mall_Space | Outright_Purchase | Business_asset | All_costs_depreciation | N/A | Retail_investment
+  SC-143 | Pvt_Ltd_Company | Hotel_Property | Outright_Purchase | Business_asset | All_costs_depreciation | N/A | Hospitality_business
+  SC-144 | Pvt_Ltd_Company | Hospital_Building | Outright_Purchase | Business_asset | All_costs_depreciation | N/A | Healthcare_business
+  SC-145 | Trust_Charitable | Educational_Institution | Outright_Purchase | Exempt_if_registered | All_costs | Fully_exempt | Section_11_12
+  SC-146 | Pvt_Ltd_Company | Cinema_Hall | Outright_Purchase | Business_asset | All_costs_depreciation | N/A | Entertainment_business
+  SC-147 | Pvt_Ltd_Company | Petrol_Pump_Land | Outright_Purchase | Business_asset | All_costs | N/A | Licensing_required
+  SC-148 | Resident_Individual | Showroom | Outright_Purchase | Investment | All_costs | N/A | Commercial_property
+  SC-149 | Partnership_Firm | Industrial_Plot | Outright_Purchase | Business_asset | All_costs | N/A | Industrial_use
+  SC-150 | LLP | Mixed_Use_Plot | Outright_Purchase | Business_asset | All_costs | N/A | Proportionate_treatment
+
+# -----------------------------------------------------------------------------
+# SECTION E: QUICK REFERENCE GUIDE BY USE CASE
+# -----------------------------------------------------------------------------
+
+QuickReferenceByUseCase[List]{use_case, recommended_entity, recommended_property, tax_optimization_strategy, expected_tax_rate}:
+  
+  # FIRST TIME HOME BUYER
+  USE-001 | First_Time_Home_Buyer | Resident_Individual | Flat_Under_Construction | Maximize_80C_24_deductions | Effective_0-10%_on_purchase
+  
+  # INVESTOR FOR RENTAL INCOME
+  USE-002 | Rental_Income_Investor | Resident_Individual | Commercial_Property | Claim_unlimited_interest_deduction | 20-30%_on_rental_income
+  
+  # INVESTOR FOR CAPITAL APPRECIATION
+  USE-003 | Capital_Appreciation_Investor | Resident_Individual | Residential_Plot_or_Flat | Hold_24+_months_Section_54 | 0-20%_with_exemptions
+  
+  # NRI INVESTMENT
+  USE-004 | NRI_Investment | NRI_with_Lower_TDS_Certificate | Flat_Ready_to_Move | Form_13_DTAA_benefits | 15-20%_with_optimization
+  
+  # BUSINESS PROPERTY INVESTMENT
+  USE-005 | Business_Property | Pvt_Ltd_Company | Commercial_Property | Depreciation_expense_deduction | 25-30%_corporate_rate
+  
+  # LAND DEVELOPMENT
+  USE-006 | Land_Development | Resident_Individual | Residential_Plot_for_JDA | Section_45_5A_deferral_Section_54 | 0-20%_with_planning
+  
+  # ANCESTRAL PROPERTY SALE
+  USE-007 | Ancestral_Property_Sale | Multiple_Heirs | Ancestral_Property | Partition_each_Section_54 | 0%_with_4x_exemption
+  
+  # COMMERCIAL RENTAL PORTFOLIO
+  USE-008 | Commercial_Rental_Portfolio | LLP | Multiple_Commercial_Properties | Partner_remuneration_no_double_tax | 30%_flat_rate
+  
+  # FAMILY WEALTH MANAGEMENT
+  USE-009 | Family_Wealth_Management | HUF | Ancestral_Properties | Separate_tax_entity_80C_24_benefits | 0-30%_slab_rates
+  
+  # PROPERTY DEALING BUSINESS
+  USE-010 | Property_Dealing_Business | Partnership_Firm_or_LLP | Multiple_Properties_Stock | Business_income_treatment | 30%_flat_rate
+
+# =============================================================================
+# END OF COMPREHENSIVE PERSONA-SCENARIO MATRIX
+# =============================================================================
+
+

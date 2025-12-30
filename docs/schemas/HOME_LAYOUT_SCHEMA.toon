@@ -1,0 +1,68 @@
+# Propmubi Home Micro-Layout Schema (Master Assembly)
+# Format: TOON
+# Goal: Master definition of the home, referencing specialized schemas.
+
+# DEPENDENCIES (Linking other TOON files)
+Import: AS_BUILT_SURVEY.toon as Isurvey
+Import: ELECTRICAL_SCHEMA.toon as Ielec
+Import: PLUMBING_SCHEMA.toon as Iplumb
+Import: WALL_FINISHES_SCHEMA.toon as Iwall
+Import: FINISHES_SCHEMA.toon as Ifinish
+
+HomeLayout{id, unit_template_id, name, style, layout_config, ceiling_height, area_sft}:
+  UUID | UUID | The Monarch Layout | Contemporary | StraightRectangle | 10.0 | 2400
+
+# -----------------------------------------------------------------------------
+# ZONING & FLOW
+# -----------------------------------------------------------------------------
+Zones[3]{name, type, rooms_list}:
+  Public | Open_Access | [Living, Dining, Foyer, Balcony]
+  Semi-Private | Service | [Kitchen, Utility, Puja]
+  Private | Restricted | [MasterBed, ChildBed, GuestBed]
+
+# -----------------------------------------------------------------------------
+# ROOM DEFINITIONS (Aggregating all data)
+# -----------------------------------------------------------------------------
+Room[List]{id, type, name, dims_l_w_h, zone_ref}:
+  ROOM-001 | MasterBed | Master Bedroom | 16x14x10 | Private
+
+    # 1. PHYSICAL SHELL (From As-Built Survey)
+    # References the precise Walls, Columns, Beams defined in Survey
+    ShellRef: Isurvey.ROOM-001
+
+    # 2. SURFACE FINISHES (Walls & Floor)
+    Finishes:
+      Floor: Ifinish.FL-03 (Engineered Wood)
+      Wall_North: Iwall.WC-01 (Brick) + Iwall.PNT-01 (White Paint)
+      Wall_West: Iwall.WC-01 (Brick) + Iwall.TXT-02 (Wallpaper Accent)
+
+    # 3. OPENINGS (Windows/Doors)
+    Openings:
+      Door_Main: Ifinish.D-Bed (Teak/Veneer)
+      Window_Side: Ifinish.W-Bed (UPVC DGU)
+
+    # 4. UTILITIES (M/E/P)
+    Utilities:
+      Electrical: [Ielec.SB-Main-BedSide-L, Ielec.SB-TV-Unit]
+      Plumbing: None (Dry Room)
+
+    # 5. ENVIRONMENT SIMULATION
+    Environment:
+      Lighting: {morning: 400lux, evening: 150lux, is_dark: false}
+      Airflow: {path: 'E->W', ach: 4.5}
+      
+    # 6. VASTU COMPLIANCE
+    Vastu:
+      Correction: {status: Compliant, element: Earth, reason: 'SW Stability'}
+      Furniture: {bed_head: South, wardrobe: West}
+
+  ROOM-002 | Kitchen | Main Kitchen | 12x10x10 | Semi-Private
+    ShellRef: Isurvey.ROOM-XXX
+    Finishes:
+       Floor: Ifinish.FL-02 (Vitrified Satin)
+       Wall_Splashback: Iwall.CLD-02 (Stone Cladding)
+    Utilities:
+       Electrical: [Ielec.SB-Kitchen-Main, Ielec.SB-Fridge]
+       Plumbing: [Iplumb.FIX-K-Sink, Iplumb.FIX-K-RO]
+    Vastu:
+       Correction: {status: Compliant, element: Fire, reason: 'SE Agni Corner'}

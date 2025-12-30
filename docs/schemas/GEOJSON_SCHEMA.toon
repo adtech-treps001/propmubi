@@ -1,0 +1,46 @@
+# Propmubi Geo-Spatial Data Schema
+# Format: TOON
+# Goal: Define Map Features (Layers) for 3D visualization.
+
+# -----------------------------------------------------------------------------
+# 1. FEATURE COLLECTION ROOT
+# -----------------------------------------------------------------------------
+GeoFeatureCollection{name, crs}:
+  My Home Sayuk GIS Data | EPSG:4326
+
+# -----------------------------------------------------------------------------
+# 2. FEATURE TYPES
+# -----------------------------------------------------------------------------
+
+# POLYGONS (Project Boundary, Lakes, Parks)
+FeaturePolygon[List]{id, type, subtype, name, color_hex, opacity}:
+  POLY-01 | ProjectBoundary | - | My Home Sayuk | #3B82F6 | 0.2
+  POLY-02 | Environmental | Lake | Tellapur Lake | #60A5FA | 0.6
+  
+  # GEOMETRY (Simplified WKT or Coordinate Array pointer)
+  GeometryRef: assets/geo/sayuk_boundary.json
+
+# STRUCTURES (Extruded 3D Buildings)
+FeatureStructure[List]{id, type, name, height_m, elevation_m, color_hex}:
+  STR-A | HighRiseTower | Block A | 120.5 | 0 | #FFFFFF
+  STR-B | HighRiseTower | Block B | 120.5 | 0 | #FFFFFF
+  STR-CLUB | Clubhouse | The Hub | 15.0 | 0 | #10B981
+
+  Attributes{orientation, airflow, shadow_impact}:
+    North | NE-to-SW | Casts shadow on Pool at 4PM
+    North | NE-to-SW | -
+
+# PLOTS (Land Parcels)
+FeaturePlot[List]{id, plot_no, status, area_sqyd, facing, stroke_color}:
+  PLT-101 | 101 | Available | 300 | East | #10B981
+  PLT-102 | 102 | Sold | 300 | West | #EF4444
+
+# POINTS OF INTEREST (POIs)
+FeaturePOI[List]{id, category, subcategory, name, distance_km, rating}:
+  POI-01 | Education | International School | Manthan School | 0.5 | 4.8
+  POI-02 | Connectivity | Metro Station | Miyapur Metro | 3.2 | 4.0
+  POI-03 | Nature | Urban Forest | Tellapur Forest | 1.0 | 4.5
+
+  Meta{travel_time_peak_min, route_url}:
+    15 | https://maps.google.com/...
+    25 | https://maps.google.com/...

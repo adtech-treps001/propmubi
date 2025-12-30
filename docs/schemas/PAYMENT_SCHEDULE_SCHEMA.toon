@@ -1,0 +1,49 @@
+# Propmubi Payment Schedule Schema
+# Format: TOON
+# Goal: Scannable, dynamic payment schedules with FORECASTING (Probable Dates).
+
+# -----------------------------------------------------------------------------
+# 1. DISCOUNT STRATEGIES
+# -----------------------------------------------------------------------------
+DiscountPolicy[List]{code, name, payment_pct_upfront, discount_pct_on_base}:
+  DISC-100 | One_Time_Payment (OTP) | 95% | 8.0
+  DISC-NONE | Construction_Linked | 10% | 0.0
+
+# -----------------------------------------------------------------------------
+# 2. MASTER PROJECT SCHEDULE (The Timeline Source)
+# This drives the "Probable Date" calculation for all buyers.
+# -----------------------------------------------------------------------------
+ProjectMasterSchedule[List]{project_ref, stage_key, baseline_date, expected_date, status}:
+  P-SAYUK | Excavation | 2024-01-01 | 2024-01-15 | Completed
+  P-SAYUK | Plinth | 2024-03-01 | 2024-03-10 | Completed
+  P-SAYUK | Slab_5 | 2024-08-01 | 2024-09-15 | Delayed_(Rain)
+  P-SAYUK | Slab_10 | 2024-12-01 | 2025-01-15 | Forecast
+  P-SAYUK | Structure_Complete | 2025-06-01 | 2025-07-01 | Forecast
+
+# -----------------------------------------------------------------------------
+# 3. APARTMENT SCHEDULE (CLP)
+# -----------------------------------------------------------------------------
+ScheduleTemplate_Apartment{template_id, project_ref, name}:
+  SCH-APT-SAYUK | P-SAYUK | Standard CLP
+
+  MilestoneRules[List]{stage, pct_demand, master_schedule_link}:
+    Excavation | 10% | Excavation
+    Slab_5 | 5% | Slab_5
+    Slab_10 | 5% | Slab_10
+
+# -----------------------------------------------------------------------------
+# 4. USER LEDGER (With Forecasting)
+# -----------------------------------------------------------------------------
+UserLedgerInstance{unit_ref, applied_discount, total_payable}:
+  U-A-1505 (Standard CLP) | DISC-NONE | 1,85,61,650
+  
+  InstallmentPlan[List]{seq, description, amount, status, date_type, date_value}:
+    1 | Booking | 18,56,165 | Paid | Actual | 2024-01-01
+    2 | Excavation | 18,56,165 | Paid | Actual | 2024-01-20
+    
+    # FUTURE FORECAST (Derived from ProjectMasterSchedule)
+    3 | 5th Slab | 9,28,082 | Upcoming | Probable | 2024-09-15
+    # Note: Shifted from Aug to Sep due to Project Delay
+    
+    4 | 10th Slab | 9,28,082 | Future | Probable | 2025-01-15
+

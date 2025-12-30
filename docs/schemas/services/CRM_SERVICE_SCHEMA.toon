@@ -1,0 +1,212 @@
+# Propmubi Unified CRM & Lead Management Schema
+# Format: TOON
+# Goal: Enterprise-grade CRM for buyers, builders, and real estate stakeholders with 
+# intent mapping, customer enrichment, and interaction tracking (Salesforce/Zoho CRM capabilities)
+
+# ============================================================================
+# SECTION 1: BUYER CRM (B2C - End Consumers)
+# ============================================================================
+
+# 1.1 BUYER LEAD PROFILE
+BuyerLeadProfile[List]{lead_id, name, type, segment, stage, kyc_status, source, creation_date}:
+  LEAD-001 | Rahul Verma | End_User_Buyer | HNI | Hot_Lead | Verified | Website_Search | 2025-12-10
+  LEAD-002 | Priya Sharma | NRI_Buyer | Premium | Active_Evaluation | Verified | Referral | 2025-12-12
+  LEAD-003 | Amit Kumar | First_Time_Buyer | Middle_Class | Nurture | Unverified | Cold_Outreach | 2025-12-15
+
+  # BUYER CATEGORIZATION
+  BuyerSegmentation{lead_id, buyer_type, property_need, timeline, decision_style}:
+    LEAD-001 | End_User | Self_Occupied_Upgrade | 30_days | Data_Driven
+    LEAD-002 | Investment_Buyer | Portfolio_Diversification | 60_days | Advisor_Influenced
+    LEAD-003 | End_User | First_Home | 90_days | Family_Influenced
+
+  # BUYER LIFECYCLE STAGE TRACKING
+  BuyerStageProgression[List]{lead_id, current_stage, prev_stage, stage_duration_days, last_action, next_target_action}:
+    LEAD-001 | Site_Visit_Scheduled | Site_Visit_Booked | 2 | Sent_Amenities_Video | Price_Negotiation
+    LEAD-002 | Document_Review | Proposal_Sent | 5 | Shared_Loan_Details | Bank_Approval
+    LEAD-003 | Initial_Inquiry | Lead_Capture | 10 | Sent_Market_Analysis | Schedule_Demo
+
+# 1.2 BUYER FINANCIAL & AFFORDABILITY PROFILES
+BuyerAffordabilityMatrix[List]{lead_id, property_price_range, down_payment_capacity, monthly_income, debt_to_income_ratio, loan_eligibility}:
+  LEAD-001 | 1.5Cr-3Cr | 40_percent_Ready | 95L_PA | 35% | 3.5Cr_Approved
+  LEAD-002 | 50L-1Cr | 30_percent_Flexible | 45L_PA | 28% | 60L_Approved
+  LEAD-003 | 25L-50L | 20_percent_Saving | 12L_PA | 32% | 30L_Pre_Approved
+
+  # PAYMENT PLAN PREFERENCES
+  PaymentPlanPreference{lead_id, preferred_structure, flexibility_needed, construction_phase_payment}:
+    LEAD-001 | 20_Percent_Down_Upfront | Low | Ready_Possession
+    LEAD-002 | Staggered_Possession_Linked | High | Construction_Phase
+    LEAD-003 | Maximum_Loan_Financing | Very_High | Possession_Linked
+
+# 1.3 BUYER CONTACT & ENGAGEMENT HISTORY
+BuyerContactHistory[List]{contact_id, lead_id, contact_type, channel, contact_date, duration_minutes, outcome}:
+  CONT-001 | LEAD-001 | Outbound_Call | Phone | 2025-12-10_14:30 | 12 | Interested_Engaged
+  CONT-002 | LEAD-001 | Inbound_Call | Phone | 2025-12-11_10:15 | 18 | Price_Query
+  CONT-003 | LEAD-001 | Email | Email | 2025-12-12_09:00 | N/A | Sent_Brochure
+  CONT-004 | LEAD-002 | Video_Call | Zoom | 2025-12-13_15:00 | 25 | Site_Visit_Booked
+  CONT-005 | LEAD-003 | Chat | WhatsApp | 2025-12-15_18:30 | 5 | Initial_Query
+
+  # BUYER COMMUNICATION PREFERENCES
+  CommunicationPreference{lead_id, preferred_channel, call_time, frequency, language, do_not_contact_periods}:
+    LEAD-001 | Email_Video_Call | Evening_6PM_9PM | Bi_Weekly | English | No_Sundays
+    LEAD-002 | WhatsApp_Phone | Morning_10AM_12PM | Weekly | English_Hindi | No_Weekends
+    LEAD-003 | WhatsApp_Chat | Any_Time | Daily | Hindi | No_Office_Hours
+
+# ============================================================================
+# SECTION 2: BUILDER/DEVELOPER CRM (B2B - Enterprise)
+# ============================================================================
+
+# 2.1 BUILDER/DEVELOPER PROFILE
+BuilderProfile[List]{builder_id, builder_name, company_type, registration_no, rating, active_projects}:
+  BLD-001 | Sayuk Real Estates | Real_Estate_Developer | CIN_L45201TG1995PLC020123 | 4.7 | 3_active
+  BLD-002 | Prestige Constructions | Large_Developer | CIN_L45201KA1992PLC064456 | 4.9 | 8_active
+  BLD-003 | Rising Cities | Mid_Developer | CIN_L45201HR2005PLC037891 | 4.2 | 2_active
+
+  # BUILDER SEGMENT CLASSIFICATION
+  BuilderSegmentation{builder_id, market_segment, scale, geographical_presence, specialization}:
+    BLD-001 | Mid_Premium | Regional | [Telangana_Andhra] | Mixed_Residential_Commercial
+    BLD-002 | Luxury_Premium | National | [Bangalore_Hyderabad_Pune_Chennai] | Luxury_Residences
+    BLD-003 | Affordable_Mid | Regional | [Haryana_NCR] | Budget_Housing
+
+  # BUILDER OPERATIONAL METRICS
+  BuilderOperationalMetrics{builder_id, total_delivered_units, under_construction_units, inventory_unsold, avg_delivery_time_months}:
+    BLD-001 | 2450 | 1800 | 350 | 38
+    BLD-002 | 8900 | 4200 | 550 | 42
+    BLD-003 | 1200 | 800 | 145 | 36
+
+# 2.2 BUILDER SALES TEAM & HIERARCHY
+BuilderSalesTeam[List]{team_member_id, builder_ref, name, role, reporting_to, managed_projects, sales_target_units_annual}:
+  BSALES-001 | BLD-001 | Arjun Singh | Sales_Director | VP_Sales | [P-SAYUK, P-MANGALA] | 180_units
+  BSALES-002 | BLD-001 | Neha Patel | Sales_Manager | Arjun_Singh | [P-SAYUK] | 90_units
+  BSALES-003 | BLD-002 | Vikram Reddy | Regional_Head | Chief_Sales_Officer | [P-PRESTIGE-HYD, P-PRESTIGE-BNG] | 240_units
+
+  # SALES TEAM PERFORMANCE METRICS
+  BuilderSalesPerformance{team_member_id, target_units, units_sold_ytd, achievement_pct, avg_deal_value, commission_earned}:
+    BSALES-001 | 180 | 156 | 86.7% | 1.85Cr | 28.86L
+    BSALES-002 | 90 | 72 | 80.0% | 1.78Cr | 12.82L
+    BSALES-003 | 240 | 210 | 87.5% | 2.45Cr | 51.45L
+
+# 2.3 BUILDER-BUYER INTERACTION TRACKING
+BuilderBuyerInteraction[List]{interaction_id, builder_id, lead_id, project_ref, interaction_type, interaction_date, notes}:
+  BBINT-001 | BLD-001 | LEAD-001 | P-SAYUK | Site_Visit_Completed | 2025-12-10 | Very_Interested_Tower_A
+  BBINT-002 | BLD-001 | LEAD-002 | P-SAYUK | Proposal_Sent | 2025-12-11 | Quoted_2.1Cr_20_Percent_Down
+  BBINT-003 | BLD-002 | LEAD-003 | P-PRESTIGE | Price_Negotiation | 2025-12-15 | Offered_2_percent_Discount
+
+# ============================================================================
+# SECTION 3: COMPREHENSIVE INTERACTION TRACKING (Multi-Touch CRM)
+# ============================================================================
+
+# 3.1 ALL INTERACTION EVENTS (Unified Activity Log)
+InteractionEvent[List]{event_id, lead_id, actor_type, actor_id, channel, interaction_type, timestamp, duration_seconds, sentiment, next_followup}:
+  EVENT-001 | LEAD-001 | Agent | CP-001 | Phone | Call_Outbound | 2025-12-10_14:30 | 720 | Positive | 2025-12-12_15:00
+  EVENT-002 | LEAD-001 | Buyer | LEAD-001 | Website | Page_Visit | 2025-12-10_16:45 | 180 | N/A | Auto_Nurture
+  EVENT-003 | LEAD-001 | Builder | BSALES-002 | Email | Email_Brochure | 2025-12-11_09:00 | N/A | Positive | 2025-12-15_10:00
+  EVENT-004 | LEAD-001 | System | Platform | WhatsApp | Automated_Reminder | 2025-12-12_06:00 | N/A | N/A | 2025-12-13_18:00
+  EVENT-005 | LEAD-002 | Agent | CP-002 | Video_Call | Video_Demo | 2025-12-13_15:00 | 1200 | Very_Positive | 2025-12-20_14:00
+
+  # INTERACTION CLASSIFICATION
+  InteractionClassification{event_id, primary_topic, sub_topic, intent_category, outcome_category}:
+    EVENT-001 | Property_Query | Price_Availability | Buying_Interest | Positive_Response
+    EVENT-002 | Content_Consumption | Property_Features | Information_Seeking | Engagement_High
+    EVENT-003 | Sales_Material | Brochure_Download | Lead_Nurturing | Material_Received
+    EVENT-004 | Reminder | Follow_Up_Prompt | Re_Engagement | Engagement_Touch
+    EVENT-005 | Product_Demo | Virtual_Walkthrough | Decision_Support | Ready_Next_Step
+
+# 3.2 MULTI-CHANNEL INTERACTION ORCHESTRATION
+InteractionOrchestration[List]{journey_id, lead_id, phase, sequence, channels_used, total_touchpoints, conversion_point}:
+  JOUR-001 | LEAD-001 | Awareness | 1 | Website_Organic_Search | 1 | Not_Yet
+  JOUR-001 | LEAD-001 | Consideration | 2-5 | Phone_Call_Email_WhatsApp_Video | 4 | After_Video_Call
+  JOUR-001 | LEAD-001 | Decision | 6-8 | In_Person_Visit_Negotiation_Email | 3 | After_Site_Visit
+
+# 3.3 CONVERSATION HISTORY & NOTES (Salesforce Notes/Zoho CRM Activities)
+ConversationLog[List]{log_id, lead_id, date, initiated_by, conversation_summary, action_items, due_date}:
+  CONV-001 | LEAD-001 | 2025-12-10 | Agent_CP-001 | Initial inquiry about 3BHK Tower A, budget 2-2.5Cr confirmed, wants virtual tour | Schedule video demo, send brochure | 2025-12-12
+  CONV-002 | LEAD-001 | 2025-12-13 | Buyer | Appreciated video demo, wants to know about financing options | Get loan processor contact, send bank list | 2025-12-15
+  CONV-003 | LEAD-002 | 2025-12-12 | Builder | Sent formal proposal with payment plan options | Follow up for commitment | 2025-12-19
+
+# ============================================================================
+# SECTION 4: INTENT MAPPING & DETECTION (Separate Intelligence Engine)
+# ============================================================================
+# Referenced from: INTENT_MAPPING_SCHEMA.toon
+# Contains: Behavioral intent scoring, life event triggers, purchase intent signals,
+# intent stages, real-time intent detection, and intent-to-action workflows
+
+IntentDetectionFramework{lead_id, overall_intent_score, intent_confidence_pct, primary_intent_type, secondary_intents}:
+  LEAD-001 | 92/100 | 94% | Active_Buyer_Ready_to_Commit | [End_User_Self_Occupied, Seeking_Upgrade]
+  LEAD-002 | 78/100 | 87% | Investment_Buyer_Evaluating | [Portfolio_Diversification, NRI_Returns]
+  LEAD-003 | 45/100 | 62% | Window_Shopping_Early_Stage | [First_Time_Exploration, Budget_Uncertain]
+
+# ============================================================================
+# SECTION 5: CUSTOMER ENRICHMENT (Separate Enrichment Engine)
+# ============================================================================
+# Referenced from: CUSTOMER_ENRICHMENT_SCHEMA.toon
+# Contains: Professional profile enrichment, financial profile enrichment,
+# social graph analysis, behavioral enrichment, firmographic data, and scoring models
+
+CustomerEnrichmentProfile[List]{lead_id, enrichment_timestamp, enriched_attributes_count, data_completeness_pct, next_refresh_date}:
+  LEAD-001 | 2025-12-10_08:00 | 28 | 94% | 2026-01-10
+  LEAD-002 | 2025-12-12_09:30 | 24 | 88% | 2026-01-12
+  LEAD-003 | 2025-12-15_10:00 | 12 | 56% | 2025-12-30
+
+# 5.1 PROFESSIONAL PROFILE ENRICHMENT
+EnrichedProfessionalProfile[List]{lead_id, current_company, designation, department, experience_years, industry, job_change_likelihood, income_proxy}:
+  LEAD-001 | Google_India | Senior_Engineering_Manager | Cloud_Platform | 12 | Tech_SaaS | Low_Stable | 95L_PA
+  LEAD-002 | Goldman_Sachs | Vice_President | Investments | 15 | Financial_Services | Low_Stable | 150L_PA
+  LEAD-003 | TCS | Software_Engineer | Application_Development | 4 | IT_Services | Medium_Dynamic | 15L_PA
+
+# 5.2 FINANCIAL PROFILE ENRICHMENT
+EnrichedFinancialProfile[List]{lead_id, credit_score, estimated_networth, monthly_savings, investment_portfolio, banking_preference}:
+  LEAD-001 | 785_Excellent | 8.5Cr_Plus | 50L_Monthly | Active_MF_Stock_Real_Estate | Premium_Banks
+  LEAD-002 | 795_Excellent | 25Cr_Plus | 100L_Monthly | HNI_Portfolio_Gold_Real_Estate | Wealth_Management | 
+  LEAD-003 | 720_Good | 25L_Emerging | 15L_Monthly | Savings_PPF | Public_Banks
+
+# 5.3 FAMILY & DEMOGRAPHIC ENRICHMENT
+EnrichedDemographics[List]{lead_id, age, family_size, children_education, spouse_profession, lifestyle_segment}:
+  LEAD-001 | 38 | 4_Family | 2_School_Studying | Software_Architect | Urban_Professionals
+  LEAD-002 | 45 | 3_Family | 1_College_1_Working | Consultant | Premium_Lifestyle
+  LEAD-003 | 28 | 2_Family | Planning | Teacher | Young_Family_Building
+
+# 5.4 BEHAVIORAL PROFILE ENRICHMENT
+EnrichedBehavioralProfile[List]{lead_id, digital_engagement_score, content_preferences, mobile_app_usage, email_open_rate, website_session_frequency}:
+  LEAD-001 | 89/100 | Video_Blogs_Comparison | High_Daily | 65% | 3_visits_week
+  LEAD-002 | 72/100 | Reports_Investment_Articles | Medium_Weekly | 48% | 2_visits_month
+  LEAD-003 | 51/100 | How_To_Guides_Vlogs | Low_Casual | 32% | 1_visit_week
+
+# ============================================================================
+# SECTION 6: REAL ESTATE CRM BEST PRACTICES (Salesforce/Zoho Mapped)
+# ============================================================================
+
+# 6.1 SALES PIPELINE MANAGEMENT
+SalesPipeline[List]{lead_id, pipeline_stage, probability_pct, days_in_stage, value_if_won, expected_close_date}:
+  LEAD-001 | Negotiation | 85% | 3 | 2.1Cr | 2025-12-30
+  LEAD-002 | Document_Review | 70% | 8 | 75L | 2026-01-15
+  LEAD-003 | Qualification | 40% | 10 | 35L | 2026-02-28
+
+# 6.2 OPPORTUNITY & DEAL TRACKING
+OpportunityTracking[List]{opportunity_id, lead_id, property_ref, deal_value, deal_status, deal_probability, last_milestone, next_milestone}:
+  OPP-001 | LEAD-001 | P-SAYUK-U-315 | 2.1Cr | Active | 85% | Price_Agreement | Registration_Approval
+  OPP-002 | LEAD-002 | P-PRESTIGE-U-128 | 75L | Active | 70% | Proposal_Sent | Loan_Approval
+  OPP-003 | LEAD-003 | P-SAYUK-U-206 | 35L | Early_Stage | 40% | Lead_Qualified | Schedule_Demo
+
+# 6.3 ACTIVITY MANAGEMENT & AUTOMATION
+ActivityAutomation[List]{automation_id, trigger_event, target_lead_segment, automated_action, channel, timing, success_rate_pct}:
+  AUTO-001 | Website_Visit_3_Times | Engaged_Prospects | Send_Video_Demo | Email | After_3rd_Visit | 68%
+  AUTO-002 | Download_Brochure | All_Leads | Schedule_Call | WhatsApp | 24_Hours_Later | 52%
+  AUTO-003 | Site_Visit_Completed | Hot_Leads | Send_Financing_Options | Email | 48_Hours_Later | 71%
+  AUTO-004 | Price_Negotiation_Active | Active_Buyers | Send_Legal_Documents | Email | Immediate | 85%
+
+# ============================================================================
+# SECTION 7: PERFORMANCE METRICS & ANALYTICS
+# ============================================================================
+
+# 7.1 LEAD SCORING MODEL
+LeadScoringModel[List]{lead_id, engagement_score, financial_score, intent_score, behavioral_score, total_lead_score, grade}:
+  LEAD-001 | 95 | 98 | 92 | 94 | 95 | A_Hot
+  LEAD-002 | 80 | 94 | 78 | 75 | 82 | A_Warm
+  LEAD-003 | 45 | 55 | 45 | 38 | 45 | C_Cold
+
+# 7.2 CONVERSION METRICS
+ConversionMetrics[List]{period, total_leads_active, conversion_to_buyer_pct, avg_deal_value, sales_velocity_days, close_rate_pct}:
+  2025_Q4 | 450 | 12.2% | 1.42Cr | 38_days | 8.7%
+  2025_Q3 | 380 | 11.5% | 1.35Cr | 42_days | 8.2%
+  2025_Q2 | 320 | 10.8% | 1.28Cr | 45_days | 7.9%
+

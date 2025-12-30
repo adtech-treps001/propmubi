@@ -1,0 +1,600 @@
+# Propmubi Micro-Market Research & Business Intelligence Schema
+# Format: TOON
+# Goal: Comprehensive market research, competitor analysis, and business intelligence for micro-markets
+
+# ============================================================================
+# 1. MICRO-MARKET PROFILES & ECONOMIC INDICATORS
+# ============================================================================
+
+MicroMarketProfile[List]{market_id, city, micro_market_name, area_sq_km, population_estimate, business_density}:
+  MM-HYD-001 | Hyderabad | HITEC_City_Madhapur | 8.5 | 180000 | High_Tech_Hub
+  MM-HYD-002 | Hyderabad | Gachibowli_Financial_District | 6.2 | 150000 | Financial_Services_Hub
+  MM-HYD-003 | Hyderabad | Kondapur_Corporate_Corridor | 7.8 | 165000 | Mixed_Business_Use
+  MM-HYD-004 | Hyderabad | Banjara_Hills_Premium | 5.5 | 95000 | Ultra_Luxury_Residential
+  MM-HYD-005 | Hyderabad | Jubilee_Hills_Upscale | 6.0 | 110000 | Luxury_Business_Residential
+  MM-HYD-006 | Hyderabad | Koramangala_Young_Professional | 4.2 | 85000 | Startup_Creative_Hub
+
+  # MICRO-MARKET ECONOMIC INDICATORS
+  MarketEconomics{market_ref, avg_property_price_per_sqft, commercial_activity_level, growth_rate_yearly}:
+    MM-HYD-001 | 8500-12000 | Very_High | 15%_YoY
+    MM-HYD-002 | 9000-13500 | Very_High | 18%_YoY
+    MM-HYD-003 | 7500-11000 | High | 16%_YoY
+    MM-HYD-004 | 15000-25000 | High | 12%_YoY
+    MM-HYD-005 | 12000-18000 | High | 14%_YoY
+    MM-HYD-006 | 6500-9500 | Very_High | 20%_YoY
+
+  # INFRASTRUCTURE DEVELOPMENT INDICATORS
+  InfrastructureDevelopment{market_ref, metro_connectivity, highway_access, airport_distance_km, development_score}:
+    MM-HYD-001 | Metro_Phase3_Planned | NH_44_Nearby | 18 | 9.2
+    MM-HYD-002 | Metro_Phase2_Active | Ring_Road_Access | 22 | 9.5
+    MM-HYD-003 | Metro_Under_Construction | Outer_Ring_Road | 25 | 8.8
+    MM-HYD-004 | Road_Access_Only | Inner_Ring_Road | 12 | 8.3
+    MM-HYD-005 | Road_Access_Only | Inner_Ring_Road | 14 | 8.6
+    MM-HYD-006 | Metro_Phase3_Planned | NH_44_Access | 20 | 8.9
+
+# ============================================================================
+# 2. REAL ESTATE FIRMS & COMPETITORS IN MICRO-MARKETS
+# ============================================================================
+
+RealEstateEcosystem[List]{firm_id, market_id, firm_name, firm_type, market_share_pct, office_locations, agent_strength}:
+  REF-MM-001 | MM-HYD-001 | XYZ_Properties_Group | Major_Developer | 8.5 | 3_offices | 250_agents
+  REF-MM-002 | MM-HYD-001 | ABC_Realty_Hyderabad | Mid_Broker | 4.2 | 2_offices | 65_agents
+  REF-MM-003 | MM-HYD-002 | Premium_Estates_Ltd | Luxury_Specialist | 6.8 | 2_offices | 45_agents
+  REF-MM-004 | MM-HYD-003 | Corporate_Real_Estate_Solutions | Corporate_Services | 5.5 | 4_offices | 120_agents
+  REF-MM-005 | MM-HYD-004 | Luxury_Living_Hyderabad | Ultra_Luxury_Boutique | 3.2 | 1_office | 18_agents
+  REF-MM-006 | MM-HYD-005 | Heritage_Properties | Established_Multi_Segment | 7.1 | 3_offices | 85_agents
+  REF-MM-007 | MM-HYD-006 | TechStart_Real_Estate | Startup_Focused | 2.8 | 1_office | 22_agents
+
+  # COMPETITOR ANALYSIS & POSITIONING
+  CompetitorProfile{firm_id, specialization, pricing_strategy, tech_integration, customer_satisfaction, years_operating}:
+    REF-MM-001 | Residential_Commercial_Mix | Volume_Based_Discount | High_Tech_CRM | 4.5_stars | 15_years
+    REF-MM-003 | Premium_Luxury_Only | Premium_Pricing | Digital_Marketing_Focus | 4.8_stars | 12_years
+    REF-MM-004 | Corporate_Institutional | B2B_Pricing_Model | Enterprise_Solutions | 4.7_stars | 18_years
+    REF-MM-007 | Young_Professional_Segment | Tech_Enabled_Discount | AI_Chatbots | 4.3_stars | 3_years
+
+  # FIRM BRANCH & OFFICE LOCATIONS
+  FirmBranches[List]{branch_id, firm_ref, location_address, micro_market, staff_count, specialization}:
+    BR-XYZ-001 | REF-MM-001 | HITEC City Main Office | MM-HYD-001 | 85 | Commercial_Residential
+    BR-XYZ-002 | REF-MM-001 | Gachibowli Branch | MM-HYD-002 | 65 | Commercial_Focus
+    BR-XYZ-003 | REF-MM-001 | Jubilee Hills Office | MM-HYD-005 | 45 | Luxury_Residential
+    BR-PRM-001 | REF-MM-003 | Banjara Hills Flagship | MM-HYD-004 | 28 | Ultra_Luxury
+    BR-HER-001 | REF-MM-006 | Jubilee Hills Main | MM-HYD-005 | 35 | Premium_Multi_Segment
+    BR-TECH-001 | REF-MM-007 | Koramangala Hub | MM-HYD-006 | 22 | Startup_Properties
+
+  # COMPETITOR STRENGTHS & WEAKNESSES
+  CompetitiveAnalysis{firm_id, strengths, weaknesses, market_opportunities, threats}:
+    REF-MM-001 | {Large_Team, Multiple_Offices, Strong_Brand} | {High_Turnover, Process_Heavy, Slow_Decision} | {Startup_Market, Tech_Segment} | {New_Entrants, Digital_Platforms}
+    REF-MM-007 | {Tech_Savvy, Agile, Fast_Decision} | {Limited_Capital, Small_Team, New_Brand} | {Corporate_Segment, Young_Professionals} | {Established_Firms, Price_Wars}
+
+# ============================================================================
+# 3. BANKING & FINANCIAL SERVICES ECOSYSTEM
+# ============================================================================
+
+BankingInfrastructure[List]{bank_id, market_id, bank_name, branch_type, location_count, mortgage_services}:
+  BANK-MM-001 | MM-HYD-001 | State_Bank_of_India | Corporate_Hub | 5 | Full_Service_Home_Loans
+  BANK-MM-002 | MM-HYD-001 | HDFC_Bank | Premium_Branch | 3 | Wealth_Management_Mortgages
+  BANK-MM-003 | MM-HYD-002 | ICICI_Bank | Corporate_Branch | 4 | Corporate_Mortgages
+  BANK-MM-004 | MM-HYD-002 | Axis_Bank | High_Net_Worth | 2 | Premium_Home_Loans
+  BANK-MM-005 | MM-HYD-004 | HDFC_Bank_Luxury | Ultra_Premium | 1 | HNI_Home_Loans
+  BANK-MM-006 | MM-HYD-005 | Yes_Bank | Standard_Branch | 2 | Standard_Home_Loans
+  BANK-MM-007 | MM-HYD-006 | ICICI_Bank_Youth | Startup_Focused | 1 | Young_Professional_Loans
+
+  # LOAN PROCESSING PARTNERSHIPS
+  LoanProcessing{bank_ref, processing_time_days, approval_rate, avg_loan_amount, prime_rate_offer, documentation_required}:
+    BANK-MM-001 | 15-20 | 85% | 50_Lakhs | 8.5% | Extensive
+    BANK-MM-002 | 10-15 | 92% | 1.5_Cr | 8.0% | Standard
+    BANK-MM-003 | 12-18 | 88% | 75_Lakhs | 8.2% | Standard
+    BANK-MM-004 | 8-12 | 95% | 2_Cr | 7.8% | Minimal
+    BANK-MM-005 | 7-10 | 98% | 5_Cr | 7.5% | Minimal
+    BANK-MM-007 | 14-18 | 80% | 30_Lakhs | 9.2% | Tech_Enabled
+
+  # BANK OFFERINGS & INCENTIVES FOR BUYERS
+  BankIncentives[List]{bank_ref, cashback_offer, processing_fee_waived, additional_benefits}:
+    BANK-MM-002 | 0.5% | Yes | Complimentary_Insurance_1yr
+    BANK-MM-004 | 1.0% | Yes | Priority_Processing_Loyalty_Benefits
+    BANK-MM-005 | 1.5% | Yes | Wealth_Management_Waiver_Concierge
+
+# ============================================================================
+# 4. COMMERCIAL ESTABLISHMENTS & FRANCHISE OPPORTUNITIES
+# ============================================================================
+
+CommercialEcosystem[List]{establishment_id, market_id, business_name, business_type, branches_operating, growth_stage}:
+  EST-MM-001 | MM-HYD-001 | Tech_Park_Plaza_Management | Commercial_Real_Estate | 1 | Mature
+  EST-MM-002 | MM-HYD-001 | Office_Space_Provider_XYZ | Co_Working_Spaces | 2 | Growth
+  EST-MM-003 | MM-HYD-002 | Corporate_Housing_Services | Corporate_Lodging | 3 | Mature
+  EST-MM-004 | MM-HYD-003 | Retail_Shopping_Center_Ops | Retail_Management | 2 | Mature
+  EST-MM-005 | MM-HYD-004 | Luxury_Hospitality_Group | High_End_Hotels | 2 | Growth
+  EST-MM-006 | MM-HYD-005 | Restaurant_Food_Court_Network | F&B_Services | 5 | Expansion
+  EST-MM-007 | MM-HYD-006 | Startup_Hub_Accelerator | Startup_Services | 1 | Growth
+
+  # FRANCHISE EXPANSION OPPORTUNITIES
+  FranchiseOpportunities[List]{franchise_id, establishment_ref, franchise_model, investment_required, roi_projected, payback_period_months}:
+    FRAN-001 | EST-MM-001 | Office_Space_Leasing | 5_Cr | 18%_Annual | 60
+    FRAN-002 | EST-MM-002 | Co_Working_Membership | 2_Cr | 22%_Annual | 48
+    FRAN-003 | EST-MM-003 | Corporate_Housing | 3_Cr | 20%_Annual | 54
+    FRAN-004 | EST-MM-005 | Boutique_Hotel | 10_Cr | 16%_Annual | 72
+    FRAN-005 | EST-MM-006 | Premium_Dining | 1.5_Cr | 25%_Annual | 42
+    FRAN-006 | EST-MM-007 | Startup_Accelerator | 2.5_Cr | 30%_Annual | 36
+
+  # COMMERCIAL VACANCY & OCCUPANCY RATES
+  CommercialOccupancy{establishment_ref, total_sqft, occupied_sqft, vacancy_rate, avg_rental_per_sqft}:
+    EST-MM-001 | 500000 | 485000 | 3% | 65_per_month
+    EST-MM-002 | 150000 | 135000 | 10% | 50_per_day_membership
+    EST-MM-003 | 200000 | 198000 | 1% | 120_per_day_per_room
+
+# ============================================================================
+# 5. MARKET RESEARCH & BUSINESS INTELLIGENCE
+# ============================================================================
+
+MarketResearchData[List]{research_id, market_id, category, key_finding, data_source, research_date, confidence_level}:
+  MRES-001 | MM-HYD-001 | Tech_Job_Creation | 8000_new_jobs_expected_2026 | LinkedIn_Industry_Report | 2025-12-15 | 95%
+  MRES-002 | MM-HYD-002 | Financial_Services_Growth | 15%_CAGR_fintech_adoption | RBI_Economic_Review | 2025-12-10 | 98%
+  MRES-003 | MM-HYD-003 | Commercial_Real_Estate | 2.5M_sqft_new_office_space | Knight_Frank_Report | 2025-12-05 | 92%
+  MRES-004 | MM-HYD-004 | Luxury_Market_Trends | HNI_buyers_up_28%_YoY | Luxury_Real_Estate_Survey | 2025-12-20 | 88%
+  MRES-005 | MM-HYD-005 | Middle_Class_Aspirations | 35000_new_families_2026 | Urban_Demographics_Study | 2025-12-08 | 85%
+  MRES-006 | MM-HYD-006 | Startup_Ecosystem | 250_active_startups_registered | Startup_India_Census | 2025-12-12 | 90%
+
+  # DEMAND & SUPPLY ANALYSIS
+  DemandSupplyAnalysis{market_ref, residential_demand_units, commercial_demand_sqft, supply_pipeline_units, inventory_months, absorption_rate}:
+    MM-HYD-001 | 8500_units_annual | 1.2M_sqft_annual | 6500_units_ready | 8.5_months | 85%_absorption
+    MM-HYD-002 | 5200_units_annual | 800K_sqft_annual | 4200_units_ready | 9.7_months | 92%_absorption
+    MM-HYD-004 | 2100_units_annual | 150K_sqft_annual | 1800_units_ready | 10.3_months | 78%_absorption
+    MM-HYD-005 | 3400_units_annual | 250K_sqft_annual | 2800_units_ready | 9.9_months | 88%_absorption
+    MM-HYD-006 | 4200_units_annual | 350K_sqft_annual | 3500_units_ready | 10.0_months | 90%_absorption
+
+  # PRICE TREND ANALYSIS
+  PriceTrendAnalysis[List]{market_ref, quarter, avg_price_per_sqft, qoq_growth_pct, yoy_growth_pct, price_forecast_next_quarter}:
+    MM-HYD-001 | Q4_2025 | 11500 | 2.1% | 15.2% | 11800
+    MM-HYD-002 | Q4_2025 | 12000 | 3.2% | 18.5% | 12450
+    MM-HYD-004 | Q4_2025 | 18500 | 1.8% | 12.3% | 18650
+    MM-HYD-005 | Q4_2025 | 15200 | 2.5% | 14.2% | 15600
+
+# ============================================================================
+# 5A. CRITICAL REAL ESTATE INVESTMENT METRICS (Price & Growth Focus)
+# ============================================================================
+
+RealEstatePriceAppreciationModel[List]{market_id, market_name, current_price_per_sqft, 1_year_target_price, 3_year_cagr_pct, 5_year_cagr_pct, appreciation_driver_primary, price_momentum}:
+  MM-HYD-001 | HITEC_City | 11500_INR | 13225_per_sqft_+15% | 15.2%_CAGR | 16.8%_CAGR | Tech_Job_Creation_Demand_Surge | Strong_Positive_Accelerating
+  MM-HYD-002 | Gachibowli | 12000_INR | 14160_per_sqft_+18% | 18.5%_CAGR | 19.2%_CAGR | Finance_Sector_Premium_Positioning | Very_Strong_Highest_Growth
+  MM-HYD-003 | Kondapur | 9250_INR | 10658_per_sqft_+15% | 16.2%_CAGR | 17.5%_CAGR | Mixed_Sector_Metro_Corridor | Strong_Balanced_Growth
+  MM-HYD-004 | Banjara_Hills | 18500_INR | 20745_per_sqft_+12% | 12.3%_CAGR | 13.1%_CAGR | Ultra_Premium_Wealth_Concentration | Moderate_Stable_Premium
+  MM-HYD-005 | Jubilee_Hills | 15200_INR | 17480_per_sqft_+15% | 14.2%_CAGR | 15.8%_CAGR | Premium_Portfolio_Diversification | Strong_Affluent_Growth
+  MM-HYD-006 | Koramangala | 8000_INR | 9600_per_sqft_+20% | 20.1%_CAGR | 22.5%_CAGR | Startup_Emerging_Market_Young_Demographic | Very_Strong_Highest_Potential
+
+  # REAL_ESTATE_CRITICAL_SUCCESS_FACTORS_FOR_GROWTH
+  RealEstateCriticalFactors{market_id, factor_1_importance, factor_2_importance, factor_3_importance, factor_4_importance, factor_5_importance, factor_1_detail, factor_2_detail}:
+    MM-HYD-001 | Job_Creation_Growth_95pct | Infrastructure_Metro_92pct | Supply_Demand_88pct | Commercial_Activity_85pct | Affordability_Index_75pct | Tech_Companies_Hiring_8000_jobs_2026 | Metro_Phase3_2026_Completion_Major_Catalyst
+    MM-HYD-002 | Finance_Sector_Expansion_98pct | Premium_Positioning_95pct | Supply_Scarcity_92pct | Corporate_Presence_90pct | Investment_Confidence_88pct | BFSI_Growth_Strong_15%_CAGR | Limited_Land_Supply_Creates_Price_Pressure
+    MM-HYD-003 | Metro_Connectivity_90pct | Demand_Supply_Balance_88pct | Mixed_Sector_Diversification_85pct | Affordability_Accessibility_80pct | Infrastructure_Completion_78pct | Metro_Under_Construction_Game_Changer | Balanced_Supply_Demand_Healthy_Market
+    MM-HYD-004 | Ultra_HNI_Wealth_Growth_85pct | Limited_Supply_Scarcity_95pct | Brand_Legacy_Positioning_88pct | Safety_Gated_Communities_92pct | Exclusivity_Premium_Pricing_90pct | HNI_Population_Growing_28%_YoY | Ultra_Premium_Segment_Price_Insensitive
+    MM-HYD-005 | Premium_Positioning_90pct | Balanced_Growth_Market_85pct | School_Proximity_Family_Appeal_88pct | Investment_Portfolio_Diversification_82pct | Mixed_Use_Development_80pct | Premium_Family_Neighborhoods_Sought_After | School_Quality_Primary_Location_Driver
+    MM-HYD-006 | Emerging_Market_Growth_Potential_95pct | Young_Demographic_Energy_92pct | Startup_Ecosystem_Jobs_90pct | Affordability_Entry_Price_88pct | Infrastructure_Development_Pipeline_85pct | Startup_Jobs_Explosive_25%_YoY_Growth | Entry_Point_20pct_Lower_Than_Peers
+
+  # PROPERTY_TYPE_SPECIFIC_APPRECIATION_FORECAST
+  PropertyTypeAppreciationForecast[List]{market_id, property_type, current_price_per_sqft, 3yr_forecast_price, expected_appreciation_pct, best_suited_buyer, roi_expectation}:
+    MM-HYD-001 | 2BHK_Apartment | 9500_INR | 11000_INR | +16%_3yr | First_Time_Investor_Young | 5.2%_Annual_Strong
+    MM-HYD-001 | 3BHK_Apartment | 10500_INR | 12500_INR | +19%_3yr | Family_Upgrade_Investor | 6.1%_Annual_Very_Strong
+    MM-HYD-002 | 3BHK_Premium | 13500_INR | 16000_INR | +18%_3yr | Portfolio_Investor_Affluent | 5.9%_Annual_Very_Strong
+    MM-HYD-002 | 4BHK_Luxury | 15500_INR | 18500_INR | +26%_3yr | HNI_Investment_Premium | 8.1%_Annual_Excellent
+    MM-HYD-004 | 4BHK_Ultra_Premium | 22000_INR | 24500_INR | +11%_3yr | Ultra_HNI_Wealth | 3.7%_Annual_Moderate_But_Stable
+    MM-HYD-006 | 2BHK_Affordable | 7000_INR | 8500_INR | +21%_3yr | First_Time_Buyer_Budget | 6.6%_Annual_Very_Strong
+
+# ============================================================================
+# 5B. FUTURE GROWTH CATALYSTS & TIMELINE (Real Estate Perspective)
+# ============================================================================
+
+RealEstateGrowthCatalysts[List]{market_id, catalyst_name, implementation_timeline, expected_price_impact_pct, property_type_most_impacted, buyer_profile_targeted, confidence_level}:
+  MM-HYD-001 | Metro_Phase3_Completion | 12_to_18_months | +12_to_18%_Price_Jump | 2BHK_3BHK_Residential | First_Time_Investor_Young | 98%_Extremely_High
+  MM-HYD-001 | Tech_Park_Phase_II_Commercial | 12_to_18_months | +8_to_12%_Commercial | Office_Space_Commercial | Corporate_Investor | 95%_Very_High
+  MM-HYD-001 | Highway_Expansion_NH44 | 18_to_24_months | +5_to_8%_Connectivity | All_Residential_Types | Infrastructure_Sensitive_Buyers | 85%_High
+  MM-HYD-002 | Financial_District_New_Offices | 6_to_12_months | +10_to_15%_Premium | 3BHK_4BHK_Premium | Corporate_Families | 96%_Very_High
+  MM-HYD-002 | FinTech_Hub_Establishment | 12_to_18_months | +8_to_12%_Sector_Specific | 2BHK_3BHK | Tech_Finance_Young_Pros | 90%_High
+  MM-HYD-003 | Metro_Construction_Completion | 18_to_24_months | +15_to_22%_Major_Catalyst | All_Types | All_Buyer_Segments | 92%_Very_High
+  MM-HYD-004 | Ultra_Luxury_Developments | 18_to_36_months | +8_to_12%_Exclusive_Positioning | 4BHK_Plus_Villas | Ultra_HNI | 88%_High
+  MM-HYD-005 | International_School_Expansion | 12_to_24_months | +8_to_12%_Family_Appeal | 3BHK_4BHK_Family | Affluent_Families | 87%_High
+  MM-HYD-006 | Startup_Hub_IPO_Exits | 12_to_36_months | +18_to_28%_Wealth_Creation | 2BHK_3BHK | Young_Founder_Professional | 78%_Moderate_High
+
+  # CATALYST_TIMING_IMPACT_ANALYSIS
+  CatalystTimingForBuyers{catalyst_name, buy_before_catalyst_recommended_months, price_at_buy_inr_per_sqft, price_post_catalyst_inr_per_sqft, opportunity_gain_pct, optimal_exit_timeline}:
+    Metro_Completion_Game_Changer | 12_to_18_months_Before | 11500_INR | 13225_INR_+15% | 1725_INR_Gain_Per_SqFt | 3_to_5_Years_Post_Completion
+    Finance_Sector_Premium | 6_to_12_months_Before | 12000_INR | 13800_INR_+15% | 1800_INR_Gain_Per_SqFt | 2_to_4_Years_Post_Expansion
+    Tech_Job_Creation | 12_to_18_months_Before | 11500_INR | 13050_INR_+14% | 1550_INR_Gain_Per_SqFt | 3_to_5_Years_Job_Stabilization
+    Startup_Ecosystem_Growth | 12_to_36_months_Before | 8000_INR | 9600_to_10240_INR | 1600_to_2240_INR_Per_SqFt | 5_to_7_Years_Long_Term_Growth
+
+# ============================================================================
+# 5C. BUYER INTENT SIGNALS & CRITICAL DECISION FACTORS (Real Estate Focused)
+# ============================================================================
+
+RealEstateBuyerIntentSignals[List]{market_id, signal_category, intent_signal, buyer_segment_most_responsive, urgency_level, price_sensitivity_level}:
+  MM-HYD-001 | Infrastructure_Catalyst | Metro_Phase3_Announcement | First_Time_Investor_Young_Professional | Very_High_Urgent | High_Sensitive_Timing
+  MM-HYD-001 | Growth_Opportunity | Tech_Company_Job_Announcement | Tech_Worker_Career_Driven | High_Moderate | Moderate_Price_Focus
+  MM-HYD-001 | Market_Demand | Property_Demand_Pipeline_Growing | Portfolio_Investor_Diverse | Moderate_Planning | Low_Long_Term_Play
+  MM-HYD-002 | Sector_Growth | Finance_Industry_Expansion | Finance_Professional_Executive | High_Career_Driven | Moderate_Affordability_Secondary
+  MM-HYD-002 | Premium_Positioning | Brand_Heritage_Gachibowli | Established_Investor_Wealth | Moderate_Status_Symbol | Low_Price_Secondary
+  MM-HYD-004 | Wealth_Creation | HNI_Population_Growth | Ultra_HNI_Business_Owner | Low_Portfolio_Driven | Very_Low_Price_Irrelevant
+  MM-HYD-005 | Family_Appeal | School_Quality_Family_Growth | Affluent_Family_Multi_Child | High_Family_Planning | Moderate_School_Proximity_Critical
+  MM-HYD-006 | Emerging_Opportunity | Startup_Job_Growth_Explosive | Young_Founder_Professional_Career | Very_High_Career_Driven | High_Budget_Constraint_Important
+
+  # CRITICAL_BUYER_DECISION_FACTORS_REAL_ESTATE
+  BuyerDecisionFactorsRealEstate[List]{market_id, factor_rank_1, factor_rank_2, factor_rank_3, factor_rank_4, factor_rank_5, critical_timeline_decision}:
+    MM-HYD-001 | Price_Appreciation_Future_Growth_Critical | Infrastructure_Metro_Connectivity | Job_Market_Sector_Strength | Affordability_EMI_Capacity | School_Proximity_Family | Decision_Window_12_to_18_months_Before_Metro
+    MM-HYD-002 | Premium_Positioning_Brand_Value | Sector_Growth_Finance_BFSI | Limited_Supply_Scarcity | School_Quality_Premium | Wealth_Preservation | Decision_Window_6_to_12_months_Sector_Expansion
+    MM-HYD-004 | Exclusivity_Positioning | Wealth_Preservation | Ultra_HNI_Peer_Network | Security_Gated_Community | Legacy_Generational_Investment | Decision_Window_Opportunistic_Not_Time_Sensitive
+    MM-HYD-005 | Family_Happiness_Quality_of_Life | School_Quality_Education | Safety_Community_Environment | Investment_Returns_Secondary | Long_Term_Stability | Decision_Window_School_Enrollment_Driven
+    MM-HYD-006 | Career_Growth_Job_Market | Entry_Price_Affordability | Future_Appreciation_Growth | Community_Young_Energy | Lifestyle_Startup_Culture | Decision_Window_12_to_18_months_Job_Stability
+
+# ============================================================================
+# 5D. INVESTMENT SCORECARDS & BUYER MATCHMAKING (Real Estate Focused)
+# ============================================================================
+
+RealEstateInvestmentScorecard[List]{market_id, market_name, price_potential_score_1_10, growth_catalyst_score_1_10, demand_supply_score_1_10, infrastructure_score_1_10, affordability_score_1_10, overall_investment_score, buyer_recommendation}:
+  MM-HYD-001 | HITEC_City | 8.2_High | 9.1_Very_High | 8.8_High | 8.9_High | 7.5_Good | 8.5/10_Very_Strong | Best_First_Time_Investor_Young_Career
+  MM-HYD-002 | Gachibowli | 8.8_Very_High | 9.3_Excellent | 9.2_Excellent | 9.0_High | 6.8_Moderate | 8.8/10_Excellent | Best_Portfolio_Investor_Established_Wealth
+  MM-HYD-003 | Kondapur | 8.1_High | 8.7_High | 8.5_High | 8.4_High | 8.2_High | 8.4/10_Strong | Best_Balanced_Investor_Moderate_Income
+  MM-HYD-004 | Banjara_Hills | 7.5_Good | 7.2_Good | 7.0_Good | 8.2_High | 4.2_Low | 6.8/10_Moderate | Best_Ultra_HNI_Wealth_Preservation_Legacy
+  MM-HYD-005 | Jubilee_Hills | 8.0_High | 8.2_High | 8.4_High | 8.3_High | 6.5_Moderate | 7.9/10_Strong | Best_Affluent_Family_Multi_Child_Education
+  MM-HYD-006 | Koramangala | 9.1_Excellent | 9.5_Excellent | 8.9_High | 8.6_High | 8.8_High | 8.9/10_Excellent | Best_Young_Founder_First_Buyer_Growth_Seeker
+
+  # BUYER_MARKET_FIT_ANALYSIS
+  BuyerMarketFitAnalysis[List]{market_id, ideal_buyer_profile, purchase_reason_primary, expected_holding_period, expected_roi_annual_pct, confidence_level_pct}:
+    MM-HYD-001 | Age_25_to_40_Tech_Professional_First_Time_Buyer | Career_Growth_Location_Job_Market | 5_to_8_years | 5.2%_to_6.1%_Annual | 92%_Very_Confident
+    MM-HYD-002 | Age_35_to_55_Finance_Executive_Portfolio_Investor | Premium_Positioning_Investment_Returns | 5_to_10_years | 5.9%_to_8.1%_Annual | 96%_Excellent_Confidence
+    MM-HYD-003 | Age_28_to_45_Mixed_Professional_Balanced_Seeker | Affordability_Growth_Balance | 5_to_10_years | 5.2%_to_6.2%_Annual | 90%_Very_Confident
+    MM-HYD-004 | Age_45_Plus_Ultra_HNI_Business_Owner_Wealth | Exclusivity_Generational_Legacy | 10_to_20_years | 3.7%_to_4.5%_Annual_Stability | 88%_Very_Confident
+    MM-HYD-005 | Age_35_to_50_Affluent_Family_Multi_Child | Family_Happiness_School_Quality | 10_to_15_years | 4.5%_to_5.8%_Annual_Stability | 85%_Confident
+    MM-HYD-006 | Age_24_to_38_Young_Founder_First_Buyer | Career_Growth_Emerging_Opportunity | 3_to_7_years | 6.6%_to_8.2%_Annual_High_Growth | 78%_Moderately_Confident
+
+# ============================================================================
+# 5E. PRICE MOMENTUM & MARKET SENTIMENT (Real Estate Investment View)
+# ============================================================================
+
+RealEstatePriceGrowthMomentum[List]{market_id, current_momentum_direction, momentum_strength_indicator, 6month_price_forecast, 12month_price_forecast, buyer_action_recommendation, urgency_level}:
+  MM-HYD-001 | Upward_Strong_Accelerating | +15.2%_YoY_Accelerating_Trend | +7.5%_Next_6months | +15%_Next_12months | Buy_Now_Limited_Time | Very_High_Urgent_Window
+  MM-HYD-002 | Upward_Very_Strong | +18.5%_YoY_Strongest_Trend | +9%_Next_6months | +18%_Next_12months | Buy_Immediately_Premium_Pricing | Critical_Time_Sensitive
+  MM-HYD-003 | Upward_Moderate_Steady | +16%_YoY_Consistent_Growth | +8%_Next_6months | +16%_Next_12months | Buy_Planned_Good_Timing | High_Moderately_Urgent
+  MM-HYD-004 | Upward_Stable_Premium | +12.3%_YoY_Steady | +6%_Next_6months | +12%_Next_12months | Buy_Selective_Long_Term | Low_Not_Time_Urgent
+  MM-HYD-005 | Upward_Strong_Balanced | +14.2%_YoY_Strong | +7%_Next_6months | +14%_Next_12months | Buy_Planned_Growth | High_Moderately_Urgent
+  MM-HYD-006 | Upward_Very_Strong_Emerging | +20.1%_YoY_Highest_Growth | +10%_Next_6months | +20%_Next_12months | Buy_ASAP_Emerging_Opportunity | Critical_Highest_Urgency_Window
+
+  # MARKET_SENTIMENT_BUYER_PERCEPTION
+  MarketSentimentAnalysis[List]{market_id, buyer_sentiment_current, supply_scarcity_indicator, demand_intensity, price_negotiation_power, market_timing_assessment}:
+    MM-HYD-001 | Positive_Optimistic_Strong_Demand | Moderate_Scarcity | High_Demand_Exceeds_Supply | Low_Seller_Advantage | Excellent_Buy_Window_Before_Metro
+    MM-HYD-002 | Very_Positive_Extremely_Bullish | High_Scarcity | Very_High_Demand | Very_Low_Seller_Strong_Position | Critical_Limited_Supply_Premium_Pricing
+    MM-HYD-004 | Positive_Exclusive_Niche | Very_High_Scarcity | Low_Selective_Demand | Very_Low_Seller_Advantage | Selective_Wealth_Driven_Not_Price
+    MM-HYD-005 | Positive_Stable_Family_Appeal | Moderate_Scarcity | High_Demand | Low_Seller_Advantage | Good_Planned_Buying_Window
+    MM-HYD-006 | Extremely_Positive_FOMO_Emerging | Moderate_Scarcity | Very_High_Explosive_Demand | Low_Seller_Advantage | Critical_Emerging_Opportunity_Window
+
+# ============================================================================
+# 6. STAKEHOLDER NETWORK & REGULATORY ENVIRONMENT
+# ============================================================================
+
+KeyStakeholders[List]{stakeholder_id, market_id, organization_type, organization_name, contact_person, contact_email}:
+  STAH-MM-001 | MM-HYD-001 | Municipal_Authority | GHMC_HITEC_Division | Joint_Commissioner_Commerce | jc.commerce@ghmc.telangana.in
+  STAH-MM-002 | MM-HYD-001 | Chamber_of_Commerce | Hyderabad_Tech_Chamber | President_Business_Dev | president@techchamber.in
+  STAH-MM-003 | MM-HYD-001 | Infrastructure_Authority | Telangana_Real_Estate_Board | CEO_Market_Regulation | ceo@telanganareboard.in
+  STAH-MM-004 | MM-HYD-002 | Banking_Consortium | Finance_Forum_HYD | Chairperson_Operations | chair@financeforumhyd.in
+  STAH-MM-005 | MM-HYD-004 | Luxury_Developers_Group | Premium_Builders_Association | President_Member_Services | president@pba.in
+  STAH-MM-006 | MM-HYD-006 | Tech_Community | Startup_Hyderabad_Alliance | Community_Director | director@startuphyd.in
+
+  # REGULATORY & COMPLIANCE REQUIREMENTS BY MARKET
+  RegulatoryEnvironment{market_ref, rera_registration_mandatory, gst_rate, stamp_duty_rate, legal_authority, recent_policy_changes}:
+    MM-HYD-001 | Yes_RERA_TS | 5% | 4-5% | RERA_Telangana_Authority | Incentives_for_Green_Buildings
+    MM-HYD-002 | Yes_RERA_TS | 5% | 4-5% | RERA_Telangana_Authority | Corporate_Housing_Tax_Benefits
+    MM-HYD-004 | Yes_RERA_TS | 5% | 4-5% | RERA_Telangana_Authority | Luxury_Property_Circle_Rate_Update
+    MM-HYD-005 | Yes_RERA_TS | 5% | 4-5% | RERA_Telangana_Authority | Residential_Category_Clarifications
+    MM-HYD-006 | Yes_RERA_TS | 5% | 4-5% | RERA_Telangana_Authority | Startup_Housing_Schemes
+
+  # ENVIRONMENTAL & SOCIAL FACTORS
+  ESGIndicators{market_ref, tree_cover_percentage, air_quality_index, water_availability, community_programs}:
+    MM-HYD-001 | 18% | 145_AQI_Moderate | Adequate | Tech_Education_Program
+    MM-HYD-004 | 28% | 125_AQI_Good | Abundant | Heritage_Conservation_Initiative
+    MM-HYD-006 | 22% | 138_AQI_Moderate | Good | Youth_Development_Programs
+
+# ============================================================================
+# 7. CUSTOMER DEMOGRAPHIC INSIGHTS
+# ============================================================================
+
+DemographicProfile{market_ref, age_bracket, occupation_primary, education_level, income_range, buyer_type}:
+  MM-HYD-001 | 28-45 | IT_Professionals_Entrepreneurs | Bachelors_Masters | 15L-40L_annually | First_Time_Investor
+  MM-HYD-002 | 35-55 | Finance_Executives_Business | MBA_Advanced_Degrees | 35L-100L_annually | Investment_Portfolio
+  MM-HYD-004 | 40-65 | Senior_Executives_Business_Owners | MBA_PhD | 100L-500L_annually | Ultra_HNI
+  MM-HYD-005 | 32-50 | Mid_Senior_Management | Bachelors_Masters | 25L-80L_annually | Family_Upgrade
+  MM-HYD-006 | 24-38 | Young_Professionals_Startup_Founders | Bachelors_Masters | 10L-50L_annually | First_Time_Buyer
+
+  # INVESTMENT BEHAVIOR & PREFERENCES
+  InvestmentBehavior{market_ref, investment_horizon_years, preference_rental_resale, expected_roi_percent, financing_preference}:
+    MM-HYD-001 | 7-10 | Rental_Primary | 12-15% | 60%_Financed_40%_Cash
+    MM-HYD-002 | 5-8 | Resale_Primary | 15-20% | 40%_Financed_60%_Cash
+    MM-HYD-004 | 10-15 | Both_Equal | 10-18% | 30%_Financed_70%_Cash
+    MM-HYD-005 | 15-20 | Resale_Primary | 10-14% | 50%_Financed_50%_Cash
+    MM-HYD-006 | 3-5 | Rental_Primary | 15-22% | 70%_Financed_30%_Cash
+
+# ============================================================================
+# 8. LIFESTYLE COST ANALYSIS & INCOME LEVEL MAPPING (Researcher-Curated)
+# ============================================================================
+
+MicromarketIncomeProfileResearch[List]{market_id, market_name, avg_household_income_annual, median_income_annual, income_bracket_primary, income_bracket_secondary, researcher_observation}:
+  MM-HYD-001 | HITEC_City | 35L_to_65L | 48L | IT_Mid_Management_35_to_60L | Young_Entrepreneurs_45_to_85L | High_Earners_Stable_Tech_Jobs
+  MM-HYD-002 | Gachibowli | 50L_to_120L | 75L | Finance_Executives_60_to_150L | Corporate_Managers_55_to_100L | Highest_Earning_Stable_Finance_Sector
+  MM-HYD-003 | Kondapur | 30L_to_75L | 52L | Mixed_Professional_40_to_80L | Young_Professionals_25_to_70L | Moderate_Income_Diverse_Sectors
+  MM-HYD-004 | Banjara_Hills | 75L_to_300L | 120L | Ultra_HNI_Business_Owners_150_to_400L | Senior_Corporate_100_to_250L | Wealth_Concentration_Business_Owners
+  MM-HYD-005 | Jubilee_Hills | 60L_to_180L | 95L | Senior_Management_80_to_200L | Established_Business_100_to_300L | Affluent_Stable_Corporate_Professionals
+  MM-HYD-006 | Koramangala | 20L_to_60L | 38L | Startups_Young_Founders_25_to_100L | Service_Professionals_18_to_55L | Emerging_Income_Startup_Growth
+
+  # MONTHLY_HOUSEHOLD_EXPENDITURE_BREAKDOWN (Research-Based Estimates)
+  HouseholdExpenditureAnalysis[List]{market_id, monthly_rent_housing, dining_restaurants_monthly, school_fees_annual, utilities_monthly, entertainment_monthly, transport_fuel_monthly, total_lifestyle_monthly}:
+    MM-HYD-001 | 35K_to_55K_Rent | 18K_to_28K_Dining | 4L_to_8L_Annual | 3K_to_6K | 8K_to_15K_Entertainment | 5K_to_10K | 75K_to_120K_Total
+    MM-HYD-002 | 50K_to_80K_Rent | 25K_to_45K_Dining | 6L_to_12L_Annual | 4K_to_8K | 12K_to_25K_Entertainment | 7K_to_15K | 110K_to_170K_Total
+    MM-HYD-003 | 25K_to_45K_Rent | 12K_to_20K_Dining | 3L_to_6L_Annual | 2K_to_5K | 6K_to_12K_Entertainment | 4K_to_8K | 55K_to_95K_Total
+    MM-HYD-004 | 80K_to_150K_Rent | 40K_to_80K_Dining | 10L_to_20L_Annual | 6K_to_12K | 20K_to_50K_Entertainment | 10K_to_25K | 180K_to_330K_Total
+    MM-HYD-005 | 60K_to_120K_Rent | 30K_to_60K_Dining | 8L_to_15L_Annual | 5K_to_10K | 15K_to_35K_Entertainment | 8K_to_18K | 135K_to_250K_Total
+    MM-HYD-006 | 20K_to_35K_Rent | 10K_to_18K_Dining | 2L_to_5L_Annual | 2K_to_4K | 5K_to_10K_Entertainment | 3K_to_6K | 45K_to_75K_Total
+
+  # RESEARCHER_INSIGHTS_INCOME_LIFESTYLE
+  ResearcherInsights{market_id, market_name, researcher_observation, income_to_property_ratio, buyer_profile_summary, purchasing_power_comment}:
+    MM-HYD-001 | HITEC_City | Tech_Driven_Young_Professionals_Good_Earning | 8_to_12x_Income_to_Property | First_Time_Buyer_Investment_Hybrid | Strong_2BHK_3BHK_Demand
+    MM-HYD-002 | Gachibowli | Wealth_Concentrated_Finance_Professionals | 6_to_10x_Income_to_Property | Established_Investor_Portfolio_Players | Premium_2BHK_3BHK_4BHK_Demand
+    MM-HYD-003 | Kondapur | Balanced_Mixed_Professionals_Moderate_Growth | 10_to_15x_Income_to_Property | First_Time_Upgrade_Seekers | Affordable_Premium_Mix_2BHK_3BHK
+    MM-HYD-004 | Banjara_Hills | Ultra_Luxury_Ultra_High_Net_Worth | 3_to_6x_Income_to_Property | Established_Wealth_Multiple_Properties | Ultra_Luxury_4BHK_Plus_Penthouses
+    MM-HYD-005 | Jubilee_Hills | Affluent_Corporate_Established_Professionals | 5_to_8x_Income_to_Property | Premium_Portfolio_Investors | Luxury_3BHK_4BHK_Premium_Segments
+    MM-HYD-006 | Koramangala | Emerging_Startup_Young_Energy | 15_to_25x_Income_to_Property | First_Time_Buyer_Aspiring | Budget_Affordable_Starter_Homes
+
+# ============================================================================
+# 9. DINING & RESTAURANT ECOSYSTEM (One Meal Cost Analysis)
+# ============================================================================
+
+DiningEcosystemAnalysis[List]{restaurant_id, market_id, restaurant_type, avg_meal_cost_single_person, cuisine_type, dining_frequency_per_month_avg, researcher_note}:
+  REST-MM-001 | MM-HYD-001 | Cloud_Kitchen_Casual | 250_to_400_INR | Multiple_Cuisines | 8_to_12_times | Budget_Friendly_Tech_Workers
+  REST-MM-002 | MM-HYD-001 | Fast_Casual_Mid_Range | 500_to_750_INR | Indian_Continental | 6_to_10_times | Quick_Lunch_Office_Goers
+  REST-MM-003 | MM-HYD-001 | Fine_Dining_Premium | 1500_to_2500_INR | International_Fusion | 2_to_4_times | Weekend_Social_Dining
+  REST-MM-004 | MM-HYD-002 | Upscale_Business_Dining | 800_to_1200_INR | Indian_Continental_Fusion | 5_to_8_times | Corporate_Lunch_Culture
+  REST-MM-005 | MM-HYD-002 | Luxury_Fine_Dining | 2000_to_4000_INR | High_End_International | 1_to_3_times | Premium_Entertainment_Business
+  REST-MM-006 | MM-HYD-004 | Exclusive_Michelin_Class | 3500_to_7000_INR | Fine_Dining_French_Asian | 1_to_2_times | Ultra_HNI_Exclusive_Clubs
+  REST-MM-007 | MM-HYD-005 | Premium_Casual | 900_to_1400_INR | Contemporary_Fusion | 3_to_6_times | Weekend_Family_Dining
+  REST-MM-008 | MM-HYD-006 | Startup_Cafe_Casual | 300_to_500_INR | Eclectic_Fusion_Cafe | 10_to_15_times | Daily_Work_Social_Spot
+
+  # MONTHLY_DINING_SPEND_BY_MARKET
+  MonthlyDiningSpend[List]{market_id, budget_conscious_monthly, moderate_dining_monthly, regular_restaurant_monthly, occasional_fine_dining_monthly, total_annual_dining_estimate}:
+    MM-HYD-001 | 4K_to_6K_Budget | 10K_to_15K_Moderate | 15K_to_22K_Regular | 8K_to_15K_Fine_Dining | 1.5L_to_2.5L_Annual
+    MM-HYD-002 | 6K_to_10K_Budget | 15K_to_25K_Moderate | 20K_to_35K_Regular | 15K_to_30K_Fine_Dining | 2.5L_to_4L_Annual
+    MM-HYD-004 | 10K_to_20K_Budget | 25K_to_50K_Moderate | 40K_to_70K_Regular | 40K_to_100K_Fine_Dining | 5L_to_12L_Annual
+    MM-HYD-005 | 8K_to_15K_Budget | 20K_to_35K_Moderate | 30K_to_50K_Regular | 25K_to_60K_Fine_Dining | 3.5L_to_7L_Annual
+    MM-HYD-006 | 3K_to_5K_Budget | 8K_to_12K_Moderate | 12K_to_18K_Regular | 5K_to_12K_Fine_Dining | 1L_to_1.8L_Annual
+
+# ============================================================================
+# 10. ENTERTAINMENT ZONES & LIFESTYLE VENUES
+# ============================================================================
+
+EntertainmentZonesMapping[List]{venue_id, market_id, venue_type, venue_name_type, count_in_micromarket, avg_cost_per_visit, primary_demographic}:
+  ENT-MM-001 | MM-HYD-001 | Multiplex_Cinema | PVR_Inox_Cinepolis | 3_locations | 400_to_600_per_person | Tech_Young_Professionals
+  ENT-MM-002 | MM-HYD-001 | Gaming_Zones | Arcade_VR_Gaming | 4_locations | 300_to_800_per_session | Gamers_Teenagers_Young_Adults
+  ENT-MM-003 | MM-HYD-001 | Gym_Fitness | Premium_Health_Clubs | 8_locations | 4500_to_8000_monthly | Health_Conscious_Professionals
+  ENT-MM-004 | MM-HYD-001 | Sports_Facilities | Tennis_Badminton_Pools | 6_locations | 300_to_1000_per_session | Active_Professionals
+  ENT-MM-005 | MM-HYD-002 | Bars_Lounges | Upscale_Rooftop_Bars | 5_locations | 800_to_1500_per_evening | Young_Affluent
+  ENT-MM-006 | MM-HYD-002 | Nightclubs | Premium_Club_Scene | 3_locations | 1500_to_3000_per_night | HNI_Affluent_Young
+  ENT-MM-007 | MM-HYD-004 | Country_Clubs | Exclusive_Golf_Clubs | 2_locations | 50000_to_150000_annual_membership | Ultra_HNI_Executives
+  ENT-MM-008 | MM-HYD-004 | Luxury_Spas | High_End_Wellness | 4_locations | 3000_to_8000_per_session | Ultra_HNI_Wellness
+  ENT-MM-009 | MM-HYD-005 | Community_Centers | Cultural_Event_Spaces | 5_locations | 200_to_500_per_event | Families_Community
+  ENT-MM-010 | MM-HYD-006 | Startup_Hubs | Co_Working_Social_Spaces | 6_locations | 300_to_1000_membership | Startup_Founders_Young_Professionals
+
+  # ENTERTAINMENT_MONTHLY_SPEND_BY_MARKET
+  MonthlyEntertainmentSpend[List]{market_id, movie_cinema_monthly, gym_fitness_monthly, clubs_bars_monthly, sports_activity_monthly, other_entertainment_monthly, total_monthly_entertainment}:
+    MM-HYD-001 | 1K_to_2K_Movies | 4.5K_to_8K_Gym | 2K_to_5K_Clubs | 1K_to_3K_Sports | 2K_to_4K_Other | 10.5K_to_22K_Monthly
+    MM-HYD-002 | 1.5K_to_3K_Movies | 5K_to_10K_Gym | 4K_to_10K_Clubs | 1.5K_to_4K_Sports | 3K_to_6K_Other | 15K_to_33K_Monthly
+    MM-HYD-004 | 2K_to_4K_Movies | 8K_to_15K_Gym | 8K_to_20K_Clubs | 3K_to_8K_Sports | 5K_to_15K_Other | 26K_to_62K_Monthly
+    MM-HYD-005 | 1.5K_to_3K_Movies | 6K_to_12K_Gym | 5K_to_12K_Clubs | 2K_to_5K_Sports | 4K_to_8K_Other | 18.5K_to_40K_Monthly
+    MM-HYD-006 | 0.5K_to_1.5K_Movies | 2K_to_4K_Gym | 1K_to_3K_Clubs | 0.5K_to_2K_Sports | 1K_to_2K_Other | 5K_to_12.5K_Monthly
+
+# ============================================================================
+# 11. SCHOOL COSTS & EDUCATION ECOSYSTEM (Comprehensive Analysis)
+# ============================================================================
+
+SchoolEcosystemByMarket[List]{school_id, market_id, school_type, school_tier, avg_annual_fee_inr, curriculum_type, student_teacher_ratio, researcher_assessment}:
+  SCH-MM-001 | MM-HYD-001 | Private_School | Mid_Premium | 4L_to_6L_Annual | CBSE_ICSE_IB | 1:20 | Good_Quality_Affordable_Tech_Families
+  SCH-MM-002 | MM-HYD-001 | Premium_School | Premium | 7L_to_10L_Annual | CBSE_ICSE | 1:15 | High_Quality_Popular_Choice
+  SCH-MM-003 | MM-HYD-001 | International | Ultra_Premium | 12L_to_18L_Annual | IB_International | 1:12 | Elite_Expat_HNI_Focus
+  SCH-MM-004 | MM-HYD-002 | Premier_School | Premium_Plus | 8L_to_12L_Annual | CBSE_ICSE | 1:14 | Top_Tier_Finance_Family_Children
+  SCH-MM-005 | MM-HYD-002 | Boarding_Option | Ultra_Premium | 18L_to_25L_Annual | IB_Cambridge | 1:10 | Elite_Residential_HNI_International
+  SCH-MM-006 | MM-HYD-004 | Exclusive_International | Ultra_Premium_Elite | 20L_to_35L_Annual | IB_A_Level | 1:8 | Ultra_HNI_Global_Standard
+  SCH-MM-007 | MM-HYD-005 | Premium_National | Premium | 7L_to_11L_Annual | CBSE_ICSE | 1:15 | Good_Balance_Affluent_Families
+  SCH-MM-008 | MM-HYD-006 | Affordable_Quality | Mid_Range | 2.5L_to_4L_Annual | CBSE | 1:25 | Value_For_Money_Startup_Families
+
+  # SCHOOL_COST_LIFECYCLE_ANALYSIS
+  SchoolCostLifecycle[List]{market_id, kg_annual_fee, primary_annual_fee, secondary_annual_fee, senior_secondary_annual_fee, total_12year_education_cost, researcher_note}:
+    MM-HYD-001 | 4L_to_6L | 4.5L_to_6.5L | 5.5L_to_8L | 6L_to_9L | 62L_to_93L_Total | Moderate_Cost_Manageable
+    MM-HYD-002 | 7L_to_10L | 8L_to_11L | 9L_to_13L | 10L_to_15L | 105L_to_150L_Total | High_Cost_Significant_Budget
+    MM-HYD-004 | 18L_to_25L | 20L_to_28L | 22L_to_32L | 25L_to_40L | 260L_to_390L_Total | Ultra_Premium_Elite_Investment
+    MM-HYD-005 | 8L_to_12L | 9L_to_13L | 11L_to_16L | 12L_to_18L | 120L_to_180L_Total | Premium_Substantial_Investment
+    MM-HYD-006 | 2.5L_to_4L | 3L_to_4.5L | 3.5L_to_5.5L | 4L_to_6L | 36L_to_54L_Total | Affordable_Budget_Friendly
+
+  # PARENT_SCHOOL_SELECTION_CRITERIA
+  ParentSchoolSelection{market_id, top_priority_1, top_priority_2, top_priority_3, willing_commute_distance_km, decision_timeline_months}:
+    MM-HYD-001 | Quality_Academic_Excellence | Location_Proximity | Affordability_Value | 5_to_8_km | 6_to_12_months
+    MM-HYD-002 | Academic_Excellence_Reputation | International_Curriculum | Location_Convenience | 3_to_6_km | 12_to_18_months
+    MM-HYD-004 | Prestige_Global_Reputation | Curriculum_IB_A_Level | Exclusive_Peer_Group | 15_to_25_km | 18_to_24_months
+    MM-HYD-005 | Quality_Rankings | Location_Safe_Community | Balanced_Development | 5_to_10_km | 12_to_18_months
+    MM-HYD-006 | Affordability_Quality_Balance | Location_Walking_Distance | Values_Orientation | 2_to_4_km | 6_to_12_months
+
+# ============================================================================
+# 12. RENTAL MARKET ANALYSIS & AFFORDABILITY INDICES
+# ============================================================================
+
+RentalMarketAnalysis[List]{rental_id, market_id, property_type, bedroom_count, avg_monthly_rent_inr, rental_demand_level, vacancy_rate_pct, researcher_insight}:
+  RENT-MM-001 | MM-HYD-001 | Apartment | 1BHK | 20K_to_32K | Very_High | 2% | High_Demand_Limited_Supply
+  RENT-MM-002 | MM-HYD-001 | Apartment | 2BHK | 35K_to_55K | Very_High | 1.5% | Tech_Worker_Primary_Renter
+  RENT-MM-003 | MM-HYD-001 | Apartment | 3BHK | 60K_to_85K | High | 3% | Family_Rentals_Growing
+  RENT-MM-004 | MM-HYD-002 | Apartment | 2BHK | 45K_to_70K | Very_High | 1% | Finance_Professional_Preference
+  RENT-MM-005 | MM-HYD-002 | Apartment | 3BHK | 75K_to_110K | High | 2% | Corporate_Family_Rentals
+  RENT-MM-006 | MM-HYD-004 | Villa_Luxury | 4BHK | 150K_to_250K | Medium | 8% | Ultra_HNI_Expat_Temporary
+  RENT-MM-007 | MM-HYD-005 | Apartment | 3BHK | 65K_to_95K | High | 2.5% | Premium_Family_Rentals
+  RENT-MM-008 | MM-HYD-006 | Apartment | 1BHK | 15K_to_24K | Very_High | 1% | Young_Professional_Budget
+  RENT-MM-009 | MM-HYD-006 | Apartment | 2BHK | 25K_to_38K | Very_High | 1.5% | Startup_Founder_Affordable
+
+  # RENTAL_AFFORDABILITY_BY_INCOME_BRACKET
+  RentalAffordability[List]{market_id, income_bracket, affordable_rent_range, rent_to_income_ratio, market_assessment}:
+    MM-HYD-001 | 35L_to_65L_Annual | 20K_to_45K_Monthly_Rent | 4_to_8%_Ratio | Comfortable_Affordable_Strong_Market
+    MM-HYD-002 | 50L_to_120L_Annual | 40K_to_85K_Monthly_Rent | 5_to_10%_Ratio | Premium_Affordable_Stable_Demand
+    MM-HYD-003 | 30L_to_75L_Annual | 18K_to_50K_Monthly_Rent | 4_to_9%_Ratio | Balanced_Accessible_Growing_Market
+    MM-HYD-004 | 75L_to_300L_Annual | 100K_to_250K_Monthly_Rent | 2_to_8%_Ratio | Luxury_Temporary_Corporate_Rentals
+    MM-HYD-005 | 60L_to_180L_Annual | 60K_to_110K_Monthly_Rent | 4_to_10%_Ratio | Premium_Family_Rentals_Stable
+    MM-HYD-006 | 20L_to_60L_Annual | 12K_to_40K_Monthly_Rent | 4_to_8%_Ratio | Budget_Affordable_High_Churn
+
+  # RENTAL_CONVERSION_TO_PURCHASE_ANALYSIS
+  RentalToPurchasePattern[List]{market_id, avg_rental_duration_months, typical_transition_trigger, purchase_price_when_buy, down_payment_typical_pct, researcher_recommendation}:
+    MM-HYD-001 | 18_to_36_months | Job_Stability_Family_Planning | 65L_to_100L_Purchase | 25_to_40%_Down | Natural_Graduation_Path
+    MM-HYD-002 | 24_to_48_months | Investment_Mindset_Portfolio | 100L_to_150L_Purchase | 30_to_50%_Down | Delayed_Commitment_Investors
+    MM-HYD-004 | 12_to_24_months | Corporate_Relocation_Temporary | 200L_to_350L_Purchase | 40_to_60%_Down | Mostly_Temporary_Not_Buyers
+    MM-HYD-005 | 24_to_48_months | Family_Growth_School_Needs | 90L_to_140L_Purchase | 35_to_50%_Down | Family_Driven_Transition
+    MM-HYD-006 | 12_to_24_months | Career_Growth_Startup_Exit | 50L_to_85L_Purchase | 20_to_40%_Down | Quick_Transition_Young_Buyers
+
+# ============================================================================
+# 13. COMMERCIAL REAL ESTATE SPACE & OFFICE MARKET ANALYSIS
+# ============================================================================
+
+CommercialSpaceAnalysis[List]{commercial_id, market_id, space_type, avg_size_sqft, monthly_rate_per_sqft, occupancy_rate_pct, primary_tenant_type, researcher_analysis}:
+  COM-MM-001 | MM-HYD-001 | IT_Office_Space | 10000_to_100000 | 65_to_85_per_sqft | 92% | IT_Tech_Companies | High_Demand_Limited_Premium_Space
+  COM-MM-002 | MM-HYD-001 | Co_Working_Space | 500_to_10000 | 75_to_120_per_sqft | 85% | Startups_Small_Teams | Growing_Trend_Affordable_Alternative
+  COM-MM-003 | MM-HYD-001 | Retail_Space | 1000_to_5000 | 100_to_150_per_sqft | 88% | Retail_Stores_Cafes | Premium_Retail_Corridor
+  COM-MM-004 | MM-HYD-002 | Financial_Services_Office | 5000_to_50000 | 70_to_90_per_sqft | 95% | Banks_Finance_Companies | Ultra_High_Occupancy
+  COM-MM-005 | MM-HYD-002 | Institutional_Office | 20000_to_200000 | 55_to_75_per_sqft | 98% | Corporations_Institutions | Limited_Supply_High_Demand
+  COM-MM-006 | MM-HYD-003 | Mixed_Use_Office | 5000_to_100000 | 50_to_70_per_sqft | 89% | Mixed_Tenants | Balanced_Market
+  COM-MM-007 | MM-HYD-004 | Luxury_Office | 10000_to_50000 | 80_to_120_per_sqft | 90% | High_End_Corporates | Premium_Positioning
+  COM-MM-008 | MM-HYD-006 | Startup_Office_Incubator | 500_to_10000 | 40_to_70_per_sqft | 82% | Early_Stage_Startups | Affordable_Collaborative
+
+  # COMMERCIAL_SPACE_COST_BREAKDOWN
+  CommercialSpaceCost[List]{market_id, space_type, annual_rent_per_sqft, avg_size_selected_sqft, annual_rent_total, additional_charges_percentage, total_annual_occupancy_cost}:
+    MM-HYD-001 | IT_Office_Premium | 900_to_1020 | 50000_sqft | 45L_to_51L_Annual | 15_to_20%_Charges | 52L_to_61L_Total
+    MM-HYD-002 | Financial_Office | 840_to_1080 | 75000_sqft | 63L_to_81L_Annual | 18_to_22%_Charges | 74L_to_99L_Total
+    MM-HYD-004 | Luxury_Corporate | 960_to_1440 | 100000_sqft | 96L_to_144L_Annual | 20_to_25%_Charges | 115L_to_180L_Total
+    MM-HYD-006 | Startup_Incubator | 480_to_840 | 10000_sqft | 4.8L_to_8.4L_Annual | 10_to_15%_Charges | 5.3L_to_9.7L_Total
+
+  # COMMERCIAL_MARKET_TRENDS_RESEARCHER_VIEW
+  CommercialMarketTrends{market_id, current_trend, future_outlook_months, growth_potential, investment_recommendation}:
+    MM-HYD-001 | Rapid_Expansion_Tech_Boom | 12_to_18_months_High_Growth | 18_to_25%_Growth_Potential | High_Demand_Strong_ROI
+    MM-HYD-002 | Consolidation_Finance_Sector | 12_to_24_months_Stable | 10_to_15%_Growth_Potential | Stable_Reliable_Investment
+    MM-HYD-003 | Mixed_Healthy_Growth | 18_to_36_months_Moderate | 12_to_18%_Growth_Potential | Balanced_Good_Opportunity
+    MM-HYD-004 | Premium_Niche_Market | 24_to_36_months_Selective | 8_to_12%_Growth_Potential | Selective_Ultra_Premium_Only
+    MM-HYD-006 | Emerging_Startup_Growth | 12_to_24_months_Rapid | 25_to_35%_Growth_Potential | High_Risk_High_Reward_Growth
+
+# ============================================================================
+# 14. UPCOMING COMMERCIAL PROJECTS & PIPELINE (2025-2027)
+# ============================================================================
+
+UpcomingCommercialProjects[List]{project_id, market_id, project_name, project_type, total_sqft, expected_launch_date, investment_amount_cr, developer_name, researcher_expectation}:
+  PROJ-MM-001 | MM-HYD-001 | TechHub_Phase_II_HITEC | Office_Commercial | 2.5M_sqft | Q2_2026 | 800_Cr | Prestige_Constructions | High_Demand_Fast_Absorption
+  PROJ-MM-002 | MM-HYD-001 | Green_Office_Tower_Madhapur | Green_Certified_Office | 1.2M_sqft | Q3_2026 | 450_Cr | L&T_Realty | Premium_Sustainable_Trend
+  PROJ-MM-003 | MM-HYD-002 | Financial_District_Commercial | Mixed_Office_Retail | 1.8M_sqft | Q1_2026 | 650_Cr | Brigade_Enterprises | Ultra_Premium_Finance_Focus
+  PROJ-MM-004 | MM-HYD-002 | FinTech_Innovation_Center | Specialized_Tech_Office | 800K_sqft | Q4_2025 | 280_Cr | Salarpuria_Sattva | High_Growth_Emerging_Sector
+  PROJ-MM-005 | MM-HYD-003 | Mixed_Use_Complex_Kondapur | Residential_Commercial_Mixed | 4M_sqft | Q2_2026 | 1200_Cr | DLF_Limited | Mega_Project_Balanced_Mix
+  PROJ-MM-006 | MM-HYD-004 | Ultra_Luxury_Office_Banjara | Premium_Executive_Office | 500K_sqft | Q3_2026 | 350_Cr | SOBHA_Limited | Exclusive_HNI_Corporate
+  PROJ-MM-007 | MM-HYD-005 | Hospitality_Business_District | Hotel_Office_Retail | 1.5M_sqft | Q1_2027 | 550_Cr | Oberoi_Realty | Premium_Hospitality_Mix
+  PROJ-MM-008 | MM-HYD-006 | Startup_Hub_Expansion | Co_Working_Incubation | 600K_sqft | Q4_2025 | 180_Cr | 91Springboard_Ventures | Affordable_Growth_Ready
+
+  # UPCOMING_PROJECT_FEASIBILITY_EXPERT_ANALYSIS
+  ProjectFeasibilityAnalysis{project_id, project_name, market_readiness, demand_potential, rental_absorption_months, expert_recommendation, risk_factors}:
+    PROJ-MM-001 | TechHub_Phase_II | Ready_High_Demand | 95%_Absorption_Likely | 8_to_12_months | Strong_Buy_Investment | Market_Saturation_Risk_Low
+    PROJ-MM-002 | Green_Office_Tower | Premium_Segment_Ready | 85%_Absorption_Expected | 12_to_16_months | Good_ESG_Focused | Higher_Operating_Cost
+    PROJ-MM-003 | Financial_District | Excellent_Market_Fit | 98%_Absorption_Expected | 6_to_10_months | Excellent_Strong_Buy | Interest_Rate_Sensitivity
+    PROJ-MM-004 | FinTech_Center | Emerging_High_Potential | 80%_Absorption_Expected | 10_to_14_months | Very_Good_Niche_Play | Sector_Volatility_Risk
+    PROJ-MM-005 | Mixed_Use_Kondapur | Strong_Market_Fit | 88%_Absorption_Expected | 14_to_18_months | Good_Scale_Play | Execution_Timeline_Risk
+    PROJ-MM-006 | Ultra_Luxury_Banjara | Exclusive_Niche | 75%_Absorption_Expected | 16_to_22_months | Selective_Ultra_Premium | Limited_Market_Pool
+    PROJ-MM-008 | Startup_Hub | High_Momentum | 90%_Absorption_Expected | 8_to_12_months | Very_Good_Growth_Trend | Startup_Sector_Volatility
+
+# ============================================================================
+# 15. RESTAURANTS & HOTELS ECOSYSTEM (Expert Classification & Meal Costs)
+# ============================================================================
+
+RestaurantHotelEcosystem[List]{establishment_id, market_id, establishment_name, restaurant_type, cuisine_type, avg_meal_cost_per_person, dine_in_avg_bill, avg_rating_google, expert_assessment}:
+  REST-001 | MM-HYD-001 | Tejas_Palace | North_Indian_Casual | Indian_Multi | 350_INR | 550_INR | 4.3_stars | Quality_Traditional_Consistency
+  REST-002 | MM-HYD-001 | Fusion_Kitchen_Lab | Contemporary_Fusion | Global_Fusion | 650_INR | 1100_INR | 4.5_stars | Trendy_Young_Professional_Favorite
+  REST-003 | MM-HYD-001 | Dragon_Palace_Express | Asian_Fast_Casual | Chinese_Pan_Asian | 380_INR | 650_INR | 4.2_stars | Quick_Lunch_Quality_Good
+  REST-004 | MM-HYD-001 | Coffee_Culture_Cafe | Cafe_Quick_Bite | Coffee_Snacks | 250_INR | 400_INR | 4.4_stars | Young_Professional_Hangout
+  REST-005 | MM-HYD-002 | Elysium_Fine_Dining | Fine_Dining_Premium | French_Contemporary | 1800_INR | 2500_INR | 4.7_stars | Expert_Top_Tier_Excellence
+  REST-006 | MM-HYD-002 | Corporate_Business_Bistro | Business_Casual | Continental_Indian | 950_INR | 1400_INR | 4.4_stars | Business_Lunch_Professional
+  REST-007 | MM-HYD-002 | Premium_Steakhouse | Premium_Casual | Meat_International | 1200_INR | 1800_INR | 4.6_stars | Premium_Dining_Consistent_Quality
+  REST-008 | MM-HYD-004 | Michelin_Class_Le_Prestige | Michelin_Style | Fine_Dining_French | 3500_INR | 5500_INR | 4.8_stars | Expert_Elite_Culinary_Excellence
+  REST-009 | MM-HYD-004 | Exclusive_Club_Dining | Private_Club_Dining | International_Gourmet | 2500_INR | 4000_INR | 4.9_stars | Expert_Ultra_HNI_Exclusive
+  REST-010 | MM-HYD-005 | Premium_Indian_Heritage | Heritage_Fine_Dining | Indian_Regional | 1100_INR | 1600_INR | 4.5_stars | Cultural_Excellence_Premium
+  REST-011 | MM-HYD-005 | Contemporary_Lounge | Modern_Casual | Fusion_International | 850_INR | 1300_INR | 4.4_stars | Aspirational_Young_Affluent
+  REST-012 | MM-HYD-006 | Startup_Cafe_Nexus | Casual_Creative_Space | Eclectic_Global | 380_INR | 600_INR | 4.3_stars | Community_Hub_Young_Founders
+  REST-013 | MM-HYD-006 | Budget_Authentic_Kitchen | Affordable_Quick | Indian_Street | 200_INR | 350_INR | 4.1_stars | Value_For_Money_Daily_Staple
+
+  # HOTELS_RESTAURANT_ANALYSIS_BY_MARKET
+  HotelRestaurantDensity[List]{market_id, fine_dining_count, casual_dining_count, quick_service_count, cafe_bakery_count, total_establishments, avg_monthly_covers_estimate}:
+    MM-HYD-001 | 5_Fine_Dining | 12_Casual_Dining | 18_QSR | 8_Cafes | 43_Total_Restaurants | 85000_Covers_Monthly
+    MM-HYD-002 | 12_Fine_Dining | 18_Casual_Dining | 15_QSR | 12_Cafes | 57_Total_Restaurants | 125000_Covers_Monthly
+    MM-HYD-003 | 4_Fine_Dining | 10_Casual_Dining | 12_QSR | 6_Cafes | 32_Total_Restaurants | 58000_Covers_Monthly
+    MM-HYD-004 | 8_Fine_Dining | 8_Casual_Dining | 5_QSR | 4_Cafes | 25_Total_Restaurants | 42000_Covers_Monthly
+    MM-HYD-005 | 6_Fine_Dining | 14_Casual_Dining | 10_QSR | 8_Cafes | 38_Total_Restaurants | 72000_Covers_Monthly
+    MM-HYD-006 | 2_Fine_Dining | 8_Casual_Dining | 20_QSR | 12_Cafes | 42_Total_Restaurants | 98000_Covers_Monthly
+
+  # HOTEL_SEGMENT_ANALYSIS
+  HotelSegmentByMarket[List]{market_id, budget_hotels_count, mid_range_hotels_count, premium_hotels_count, luxury_hotels_count, avg_room_rate_premium, avg_room_rate_luxury, occupancy_rate}:
+    MM-HYD-001 | 8_Budget | 12_Mid_Range | 4_Premium | 2_Luxury | 4500_to_6500_INR | 8000_to_12000_INR | 68%_Occupancy
+    MM-HYD-002 | 5_Budget | 10_Mid_Range | 8_Premium | 4_Luxury | 5500_to_8000_INR | 10000_to_15000_INR | 75%_Occupancy
+    MM-HYD-004 | 2_Budget | 3_Mid_Range | 6_Premium | 5_Luxury | 7000_to_10000_INR | 15000_to_25000_INR | 80%_Occupancy
+    MM-HYD-005 | 4_Budget | 8_Mid_Range | 6_Premium | 3_Luxury | 6000_to_8500_INR | 12000_to_18000_INR | 72%_Occupancy
+    MM-HYD-006 | 6_Budget | 10_Mid_Range | 2_Premium | 1_Luxury | 4000_to_6000_INR | 9000_to_13000_INR | 65%_Occupancy
+
+# ============================================================================
+# 16. ZOMATO & SWIGGY DELIVERY ECOSYSTEM (Expert Data Analysis 2025)
+# ============================================================================
+
+FoodDeliveryEcosystemAnalysis[List]{delivery_id, market_id, platform_name, active_restaurants, daily_orders_estimate, avg_order_value_inr, delivery_time_minutes, platform_market_share_pct}:
+  DEL-MM-001 | MM-HYD-001 | Zomato | 285_Restaurants | 12500_Daily_Orders | 420_INR_Avg | 28_minutes | 52%_Market_Share
+  DEL-MM-002 | MM-HYD-001 | Swiggy | 265_Restaurants | 11800_Daily_Orders | 410_INR_Avg | 30_minutes | 48%_Market_Share
+  DEL-MM-003 | MM-HYD-002 | Zomato | 420_Restaurants | 18500_Daily_Orders | 580_INR_Avg | 26_minutes | 55%_Market_Share
+  DEL-MM-004 | MM-HYD-002 | Swiggy | 395_Restaurants | 16200_Daily_Orders | 560_INR_Avg | 28_minutes | 45%_Market_Share
+  DEL-MM-005 | MM-HYD-003 | Zomato | 180_Restaurants | 8200_Daily_Orders | 380_INR_Avg | 32_minutes | 51%_Market_Share
+  DEL-MM-006 | MM-HYD-003 | Swiggy | 165_Restaurants | 7600_Daily_Orders | 370_INR_Avg | 35_minutes | 49%_Market_Share
+  DEL-MM-007 | MM-HYD-004 | Zomato | 95_Restaurants | 3500_Daily_Orders | 850_INR_Avg | 24_minutes | 54%_Market_Share
+  DEL-MM-008 | MM-HYD-004 | Swiggy | 88_Restaurants | 3100_Daily_Orders | 820_INR_Avg | 26_minutes | 46%_Market_Share
+  DEL-MM-009 | MM-HYD-005 | Zomato | 210_Restaurants | 9800_Daily_Orders | 620_INR_Avg | 27_minutes | 53%_Market_Share
+  DEL-MM-010 | MM-HYD-005 | Swiggy | 198_Restaurants | 8900_Daily_Orders | 600_INR_Avg | 29_minutes | 47%_Market_Share
+  DEL-MM-011 | MM-HYD-006 | Zomato | 185_Restaurants | 14200_Daily_Orders | 310_INR_Avg | 30_minutes | 50%_Market_Share
+  DEL-MM-012 | MM-HYD-006 | Swiggy | 175_Restaurants | 13100_Daily_Orders | 300_INR_Avg | 32_minutes | 50%_Market_Share
+
+  # FOOD_DELIVERY_CUISINE_PREFERENCES_BY_MARKET
+  CuisinePreferenceAnalysis[List]{market_id, #1_popular_cuisine, %_orders, #2_popular_cuisine, %_orders, #3_popular_cuisine, %_orders, emerging_trend}:
+    MM-HYD-001 | Chinese_North_Indian | 32% | Continental_Fusion | 24% | South_Indian_Biryani | 20% | Health_Salad_Bowls_Growing_8%
+    MM-HYD-002 | North_Indian_Continental | 28% | Asian_Fusion | 26% | Fine_Dining_Premium | 18% | Premium_Healthy_Options_14%
+    MM-HYD-003 | Chinese_Fast_Casual | 35% | North_Indian | 22% | South_Indian | 18% | Budget_Health_Bowls_12%
+    MM-HYD-004 | Continental_Fine_Dining | 35% | Asian_Premium | 25% | International_Gourmet | 22% | Vegan_Organic_Premium_15%
+    MM-HYD-005 | North_Indian | 26% | Continental | 24% | Asian_Chinese | 22% | Healthy_Premium_Options_18%
+    MM-HYD-006 | Chinese_Fast_Casual | 38% | North_Indian | 24% | Street_Food_Budget | 20% | Quick_Affordable_Bowl_Trend_16%
+
+  # ZOMATO_SWIGGY_EXPERT_REVIEW_ANALYSIS
+  DeliveryPlatformExpertReview[List]{market_id, platform_name, avg_food_rating, hygiene_complaint_rate_pct, delivery_reliability_rating, customer_satisfaction_nps, expert_assessment}:
+    MM-HYD-001 | Zomato | 4.35_Stars | 1.2%_Low_Complaints | 4.4_Stars | 68_NPS_Good | Balanced_Reliability_Food_Quality_Focus
+    MM-HYD-001 | Swiggy | 4.32_Stars | 1.4%_Slightly_Higher | 4.3_Stars | 65_NPS_Good | Fast_Delivery_Strong_Tech_Good_Reliability
+    MM-HYD-002 | Zomato | 4.42_Stars | 0.9%_Very_Low | 4.5_Stars | 72_NPS_Very_Good | Premium_Restaurants_Higher_Standards
+    MM-HYD-002 | Swiggy | 4.38_Stars | 1.1%_Low | 4.4_Stars | 70_NPS_Very_Good | Consistent_Premium_Market_Strong_Performance
+    MM-HYD-004 | Zomato | 4.58_Stars | 0.6%_Exceptional | 4.6_Stars | 78_NPS_Excellent | Ultra_Premium_Strict_Quality_Standards
+    MM-HYD-004 | Swiggy | 4.55_Stars | 0.7%_Exceptional | 4.5_Stars | 76_NPS_Excellent | Premium_Focus_Very_High_Standards
+    MM-HYD-006 | Zomato | 4.18_Stars | 2.1%_Higher | 4.2_Stars | 58_NPS_Moderate | Volume_Play_Quality_Varies_More
+    MM-HYD-006 | Swiggy | 4.15_Stars | 2.2%_Higher | 4.1_Stars | 56_NPS_Moderate | Budget_Segment_Variable_Quality
+
+  # DELIVERY_ORDER_VALUE_TREND_BY_TIME
+  OrderValueTimingAnalysis[List]{market_id, breakfast_time_avg_order, lunch_time_avg_order, snack_time_avg_order, dinner_time_avg_order, late_night_avg_order}:
+    MM-HYD-001 | 280_INR_7_to_11am | 520_INR_12_to_2pm | 320_INR_3_to_6pm | 550_INR_7_to_10pm | 380_INR_10pm_plus
+    MM-HYD-002 | 350_INR_7_to_11am | 680_INR_12_to_2pm | 420_INR_3_to_6pm | 720_INR_7_to_10pm | 480_INR_10pm_plus
+    MM-HYD-004 | 550_INR_7_to_11am | 1100_INR_12_to_2pm | 650_INR_3_to_6pm | 1200_INR_7_to_10pm | 750_INR_10pm_plus
+    MM-HYD-005 | 400_INR_7_to_11am | 650_INR_12_to_2pm | 450_INR_3_to_6pm | 750_INR_7_to_10pm | 520_INR_10pm_plus
+    MM-HYD-006 | 210_INR_7_to_11am | 380_INR_12_to_2pm | 250_INR_3_to_6pm | 420_INR_7_to_10pm | 300_INR_10pm_plus
+
+  # EXPERT_INSIGHTS_DELIVERY_ECOSYSTEM
+  DeliveryEcosystemExpertInsights{market_id, market_name, growth_trend, customer_behavior_insight, profitability_outlook, future_opportunity}:
+    MM-HYD-001 | HITEC_City | Rapid_Growth_18%_YoY | Tech_Worker_Convenience_Driven | Healthy_Margins_Subscriber_Growth | Cloud_Kitchen_Aggregation_Opportunity
+    MM-HYD-002 | Gachibowli | Stable_Growth_12%_YoY | Premium_Customer_Quality_Focused | Premium_Pricing_Power | Ghost_Kitchen_Premium_Concept
+    MM-HYD-003 | Kondapur | Healthy_Growth_15%_YoY | Mixed_Volume_Quality_Blend | Balanced_Margins | Multi_Cuisine_Hub_Potential
+    MM-HYD-004 | Banjara_Hills | Niche_Growth_8%_YoY | Ultra_Premium_Exclusive_Rare | High_Margins_Low_Volume | Michelin_Star_Delivery_Niche
+    MM-HYD-005 | Jubilee_Hills | Strong_Growth_14%_YoY | Family_Conscious_Community | Good_Margins | Healthy_Premium_Concept_Growth
+    MM-HYD-006 | Koramangala | Explosive_Growth_28%_YoY | Budget_Volume_Focused_Young | Volume_Margins_Churn | Budget_Cloud_Kitchen_Aggregation
+
+  # RESTAURANT_SUCCESS_FACTORS_DELIVERY_PLATFORM
+  RestaurantSuccessFactorsDelivery[List]{market_id, critical_success_factor_1, critical_success_factor_2, critical_success_factor_3, profitability_challenge, expert_recommendation}:
+    MM-HYD-001 | Fast_Delivery_Speed | Quality_Consistency | Competitive_Pricing | Delivery_Commission_25_to_30% | Focus_Volume_Efficiency_Scaling
+    MM-HYD-002 | Premium_Quality_Standards | Brand_Reputation | Customer_Experience | Premium_Platform_Fees | Maintain_Premium_Brand_Resist_Discounting
+    MM-HYD-004 | Exclusivity_Experience | Premium_Positioning | Selective_Distribution | High_Delivery_Cost_Ratio | Limited_Strategic_Partnership_Elite_Platforms
+    MM-HYD-006 | Price_Affordability | Speed_Convenience | High_Order_Volume | Thin_Margins_Dependency | Hybrid_Cloud_Kitchen_Direct_Model
+

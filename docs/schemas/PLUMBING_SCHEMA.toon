@@ -1,0 +1,56 @@
+# Format: TOON
+# Goal: Define standard plumbing fixtures, pipe sizes, and precise wet-area layouts.
+# Reference: Standard sizes (Kohler/Jaquar/Grohe specs) and CPVC/PVC pipe norms.
+
+# -----------------------------------------------------------------------------
+# 1. PIPE & FITTING STANDARDS
+# -----------------------------------------------------------------------------
+PlumbingLineType[List]{code, description, material, standard_dia_mm, color_code}:
+  L-COLD | Cold Water Supply | CPVC | 20, 25, 32 | White/Yellow_Stripe
+  L-HOT | Hot Water Supply | CPVC_Heavy | 20, 25 | Red_Stripe
+  L-DRN-GRY | Grey Water Drain (Sink/Shower/AC) | PVC | 40, 50, 75 | Grey
+  L-DRN-BLK | Black Water Drain (WC) | PVC | 110 | Grey
+  L-VENT | Vent Pipe | PVC | 50, 75 | Grey
+
+# -----------------------------------------------------------------------------
+# 2. FIXTURE LIBRARY
+# -----------------------------------------------------------------------------
+FixtureType[List]{id, category, connection_type, standard_height_from_ffl_mm, outlet_dia_mm}:
+  # SHOWER
+  FIX-SH-Mixer | Shower | Wall_Mixer_2_Inlet | 1050 | -
+  FIX-SH-Overhead | Shower | Wall_Arm_Output | 2100 | -
+  FIX-SH-Spout | Shower | Wall_Spout_Output | 750 | -
+  # BASIN
+  FIX-WB-Counter | Basin | Bottle_Trap_Wall | 450 (Drain) | 32
+  FIX-WB-Tap | Tap | Pillar_Cock / Wall_Mixer | 1050 (Wall) / 850 (Counter) | -
+  # WC (COMMODE)
+  FIX-WC-WallHung | Commode | Concealed_Tank_Inlet | 1000 (Tank Center) | 110
+  FIX-WC-HealthF | Faucet | Wall_Point | 450 | -
+
+# -----------------------------------------------------------------------------
+# 3. WET & DRY AREA ZONING (Crucial for Design)
+# -----------------------------------------------------------------------------
+BathroomZoning[List]{zone_name, type, floor_slope_ratio, sunken_depth_mm, waterproofing_spec}:
+  Shower_Cubicle | Wet_Zone | 1:80 | 20 (Drop from dry area) | Double_Coat_Epoxy
+  WC_Area | Semi_Wet_Zone | 1:100 | 0 (Level with vanity) | Cement_Based_Slurry
+  Vanity_Dry | Dry_Zone | 0 (Level) | 0 | Optional
+
+  Separation_Detail:
+    Glass_Partition_Fixed | Between Shower and WC | Height 2100mm
+    Threshhold_Stone | Under Glass Partition | Height 20mm (Water stopper)
+
+# -----------------------------------------------------------------------------
+# 4. AS-BUILT PLUMBING MAP
+# -----------------------------------------------------------------------------
+PlumbingLayoutInstance[List]{room_id, wall_ref_id}:
+  ROOM-002-BATH | W-E-01 (Shower Wall)
+
+  OutletPoint[List]{fixture_ref, x_pos, y_pos, pipe_type}:
+    FIX-SH-Mixer (Hot) | 900 | 1050 | L-HOT
+    FIX-SH-Mixer (Cold) | 1050 | 1050 | L-COLD
+  
+  ConcealedPipeRun[List]{type, start_x, start_y, end_x, end_y, depth_mm}:
+    L-COLD | 1050 | 0 | 1050 | 1050 | 40
+    
+  FloorTrap[List]{x_pos, y_pos, description}:
+    1200 | 1200 | Main shower drain, slope 1:100 towards this point

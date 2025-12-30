@@ -1,0 +1,50 @@
+# Propmubi Wall Finishes & Construction Schema
+# Format: TOON
+# Goal: Define wall treatments, structure, load-bearing capacity, and paint specifications.
+
+# -----------------------------------------------------------------------------
+# 1. WALL CONSTRUCTION & PHYSICS (The Core)
+# -----------------------------------------------------------------------------
+WallConstructionType[List]{id, material, thickness_mm, load_bearing_capacity, acoustic_rating_stc, drill_bit_type}:
+  WC-01 | Red_Brick_Masonry | 230 (9 inch) | Heavy_Load (Kitchen Cabinets OK) | 50 | Masonry_Carbide
+  WC-02 | AAC_Block_Lightweight | 150 (6 inch) | Medium_Load (Use Fisher SX Plugs) | 40 | Low_Impact_Drill
+  WC-03 | RCC_Shear_Wall | 150-200 | Very_Heavy_Load | 60 | SDS_Hammer_Drill (Diamond Tip)
+  WC-04 | Drywall_Gypsum | 100 | Light_Load (Toggle Bolts Only) | 35 | Wood/Metal_Bit
+  WC-05 | Partition_Ply_Glass | 75 | No_Load | 25 | Glass_Bit
+
+# -----------------------------------------------------------------------------
+# 2. SURFACE PREPARATION LAYERS
+# -----------------------------------------------------------------------------
+WallSurfaceLayer[List]{type, thickness_mm, drying_time_hrs, purpose}:
+  L-01 | Cement_Plaster_Rough | 12 | 48 | Base adhesion
+  L-02 | Gypsum_Plaster_Smooth | 6 | 24 | Levelling
+  L-03 | Wall_Putty_Acrylic | 1-2 | 4 | Fine smoothness
+  L-04 | Primer_Coat | 0.1 | 2 | Bonding for paint
+
+# -----------------------------------------------------------------------------
+# 3. PAINT SPECIFICATIONS
+# -----------------------------------------------------------------------------
+PaintProduct[List]{id, brand, product_name, sheen_level, washability, voc_level}:
+  PNT-01 | AsianPaints | Royale_Luxury_Emulsion | Soft_Sheen/Eggshell | High_Washable | Low_VOC
+  PNT-02 | Dulux | Velvet_Touch_Pearl_Glo | High_Gloss | Medium_Washable | Medium_VOC
+  PNT-03 | Berger | Easy_Clean | Matte | Scrub_Resistant | Low_VOC
+
+# -----------------------------------------------------------------------------
+# 4. COLOR PALETTE
+# -----------------------------------------------------------------------------
+ColorShade[List]{code, name, hex_value, family, mood}:
+  CLR-WHT-01 | Absolute_White | #FFFFFF | Neutral | Clean, Spacious
+  CLR-BGE-01 | Natural_Linen | #F5F5DC | Warm_Neutral | Cozy
+
+# -----------------------------------------------------------------------------
+# 5. TEXTURE & APPLICATION
+# -----------------------------------------------------------------------------
+WallTreatment[List]{id, type, description, depth_mm}:
+  TXT-01 | Texture_Paint | Sandtex_Matt_Stucco | 1-2
+  CLD-01 | Wall_Paneling | Fluted_WPC_Panel | 12
+
+RoomFinishSchedule[List]{room_id, wall_orientation, constr_type, finish_ref}:
+  ROOM-001 | North | WC-01 (Red Brick) | PNT-01 + CLR-WHT-01
+  ROOM-001 | South | WC-03 (RCC Shear) | CLD-01 (Paneling)
+  # Note: RCC Shear wall requires special drilling for paneling framework.
+

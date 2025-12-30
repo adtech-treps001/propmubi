@@ -1,0 +1,58 @@
+# Propmubi Price Sheet & Costing Schema
+# Format: TOON
+# Goal: Comprehensive "Cost Sheet" generator for Apartments AND PLOTS.
+
+# -----------------------------------------------------------------------------
+# 1. PRICING COMPONENTS (Apartment & Plot)
+# -----------------------------------------------------------------------------
+PriceComponentType[List]{code, name, charge_type, is_gst_applicable, gst_rate_pct}:
+  # BASE
+  PR-BASE | Basic_Sale_Price (BSP) | Per_SFT_or_SQYD | true | 5.0 (Apt) / 0 (Plot)
+  
+  # PLOT SPECIFIC CHARGES
+  PR-PLOT-COR | Corner_Plot_Premium | Per_SQYD | false | 0 (Land Component)
+  PR-PLOT-RD | Wide_Road_Facing_Premium | Per_SQYD | false | 0
+  PR-PLOT-EAST | East_Facing_Plot_Premium | Per_SQYD | false | 0
+  PR-PLOT-DEV | Development_Charges | Per_SQYD | true | 18.0 (Service)
+  
+  # APARTMENT CHARGES (Existing structure)
+  PR-PLC-FLR | Floor_Rise_Charge | Per_SFT | true | 5.0
+  # ... (amenities/car park etc.)
+
+# -----------------------------------------------------------------------------
+# 2. PRICING LOGIC MATRIX
+# -----------------------------------------------------------------------------
+PricingLogicMatrix[List]{project_ref, component_code, condition, value}:
+  # PLOT LOGIC
+  P-SAYUK-PLOTS | PR-PLOT-COR | Corner == Yes | 500 INR/sqyd
+  P-SAYUK-PLOTS | PR-PLOT-EAST | Facing == East | 200 INR/sqyd
+  P-SAYUK-PLOTS | PR-PLOT-RD | RoadWidth > 40ft | 300 INR/sqyd
+
+# -----------------------------------------------------------------------------
+# 3. COST SHEET INSTANCES (Apartment vs Plot)
+# -----------------------------------------------------------------------------
+
+# A. APARTMENT (Existing)
+UnitCostSheet{unit_ref, type, base_rate, area, calculated_total}:
+  U-A-1505 | Apartment | 8500 (/sft) | 1926 sft | 1,85,61,650
+  # ... breakdown ...
+
+# B. PLOT (Land Parcel)
+UnitCostSheet{unit_ref, type, base_rate, area, calculated_total}:
+  PLT-101 (East, Corner, 60ft Road) | Plot | 65000 (/sqyd) | 300 sqyd | 2,05,50,000
+
+  CostBreakdown[List]{component_ref, description, rate_applied, amount_base, gst_amt, total_amt}:
+    PR-BASE | Basic Land Cost | 65,000 | 1,95,00,000 | 0 (No GST on Land) | 1,95,00,000
+    
+    # PLOT PREMIUMS
+    PR-PLOT-COR | Corner Premium | 500 | 1,50,000 | 0 | 1,50,000
+    PR-PLOT-EAST | East Facing Premium | 200 | 60,000 | 0 | 60,000
+    PR-PLOT-RD | 60ft Road Premium | 300 | 90,000 | 0 | 90,000
+    
+    # INFRA
+    PR-PLOT-DEV | Development Charges (Infra) | 1000 | 3,00,000 | 54,000 (18%) | 3,54,000
+    
+    # CHARGES
+    PR-CORPUS | Corpus Fund | 500 | 1,50,000 | 0 | 1,50,000
+    PR-LEGAL | Documentation | - | 25,000 | 4,500 | 29,500
+

@@ -1,0 +1,230 @@
+    "type": "FeatureCollection",
+    "name": "My Home Sayuk - Detailed GIS V2",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "id": "project-boundary-sayuk",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            78.3489,
+                            17.4201
+                        ],
+                        [
+                            78.3550,
+                            17.4201
+                        ],
+                        [
+                            78.3550,
+                            17.4250
+                        ],
+                        [
+                            78.3489,
+                            17.4250
+                        ],
+                        [
+                            78.3489,
+                            17.4201
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "type": "project_boundary",
+                "name": "My Home Sayuk",
+                "total_area_acres": 25.5,
+                "master_plan_overlay_url": "https://assets.propmubi.com/sayuk/master_plan.png"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "lake-nearby-01",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            78.3400,
+                            17.4150
+                        ],
+                        [
+                            78.3420,
+                            17.4150
+                        ],
+                        [
+                            78.3420,
+                            17.4170
+                        ],
+                        [
+                            78.3400,
+                            17.4170
+                        ],
+                        [
+                            78.3400,
+                            17.4150
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "type": "environmental_feature",
+                "subtype": "Lake",
+                "name": "Tellapur Lake",
+                "influence": "Cooling Effect, Mosquito Risk",
+                "distance_to_project_meters": 500
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "tower-block-a",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            78.3500,
+                            17.4210
+                        ],
+                        [
+                            78.3510,
+                            17.4210
+                        ],
+                        [
+                            78.3510,
+                            17.4220
+                        ],
+                        [
+                            78.3500,
+                            17.4220
+                        ],
+                        [
+                            78.3500,
+                            17.4210
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "type": "structure_footprint",
+                "subtype": "HighRiseTower",
+                "structure_id": "uuid-tower-A",
+                "name": "Block A",
+                "height_meters": 120,
+                "orientation_main_facade": "North",
+                "airflow_primary_direction": "NE-to-SW",
+                "shadow_impact_zones": [
+                    "PoolArea",
+                    "BlockB-Ground"
+                ],
+                "unit_variants_map": {
+                    "Corner-NW": "3BHK-TypeA",
+                    "Corner-NE": "3BHK-TypeB",
+                    "Center-N": "2BHK-TypeC"
+                }
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "plot-105",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            78.3530,
+                            17.4230
+                        ],
+                        [
+                            78.3532,
+                            17.4230
+                        ],
+                        [
+                            78.3532,
+                            17.4232
+                        ],
+                        [
+                            78.3530,
+                            17.4232
+                        ],
+                        [
+                            78.3530,
+                            17.4230
+                        ]
+                    ]
+                ]
+            },
+            "properties": {
+                "type": "plot_boundary",
+                "subtype": "VillaPlot",
+                "unit_instance_id": "uuid-plot-105",
+                "plot_number": "105",
+                "status": "Available",
+                "area_sqyd": 400,
+                "facing": "East",
+                "soil_type": "Red Soil",
+                "vastu_rating": 95
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "poi-school-01",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    78.3450,
+                    17.4180
+                ]
+            },
+            "properties": {
+                "type": "point_of_interest",
+                "category": "Education",
+                "subcategory": "International School",
+                "name": "Manthan School",
+                "rating": 4.8
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "poi-transit-01",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    78.3600,
+                    17.4300
+                ]
+            },
+            "properties": {
+                "type": "point_of_interest",
+                "category": "PublicTransport",
+                "subcategory": "MetroStation",
+                "name": "Miyapur Terminal",
+                "status": "Operational"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "poi-nature-01",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    78.3580,
+                    17.4250
+                ]
+            },
+            "properties": {
+                "type": "point_of_interest",
+                "category": "Nature",
+                "subcategory": "Park",
+                "name": "Tellapur Urban Forest Park"
+            }
+        }
+    ]
+}

@@ -1,0 +1,504 @@
+# ============================================================================
+# SIMPLIFIED PROPERTY DOCUMENT VERIFICATION SCHEMA
+# ============================================================================
+# Purpose: Programmatic property verification for 5 states
+# States: Andhra Pradesh, Karnataka, Telangana, Maharashtra, Tamil Nadu
+# Features: Generic abstraction, state mapping, dependency graph, scoring, solutions
+# ============================================================================
+
+# ============================================================================
+# 1. GENERIC DOCUMENT ABSTRACTION (Plain English Domain Terms)
+# ============================================================================
+
+GenericDocumentTypes[List]{
+  doc_id,
+  generic_name,
+  plain_english_description,
+  document_category,
+  criticality_level,
+  purpose,
+  who_issues,
+  required_for_property_types
+}:
+  # OWNERSHIP & TITLE DOCUMENTS
+  DOC-001 | Sale_Deed | Legal_agreement_proving_you_bought_the_property | OWNERSHIP | CRITICAL | Proves_ownership_transfer_from_seller_to_buyer | Sub_Registrar_Office | ALL
+  DOC-002 | Title_Deed | Document_showing_legal_ownership_history | OWNERSHIP | CRITICAL | Establishes_clear_ownership_chain | Sub_Registrar_Office | ALL
+  DOC-003 | Encumbrance_Certificate | Certificate_confirming_no_loans_or_legal_issues_on_property | OWNERSHIP | CRITICAL | Verifies_property_is_debt_free_and_dispute_free | Sub_Registrar_Office | ALL
+  DOC-004 | Mutation_Record | Official_record_updating_your_name_as_new_owner_in_government_registry | OWNERSHIP | HIGH | Updates_ownership_in_revenue_records_for_tax_purposes | Revenue_Department | ALL
+  DOC-005 | Power_of_Attorney | Legal_authorization_if_someone_else_handles_transaction_for_you | OWNERSHIP | HIGH | Allows_third_party_to_act_on_behalf_of_owner | Notary_Public | IF_REQUIRED
+
+  # LAND RECORDS DOCUMENTS
+  DOC-006 | Land_Ownership_Record | Government_record_showing_who_owns_the_land | LAND_RECORDS | CRITICAL | Primary_revenue_record_of_land_ownership | Revenue_Department | PLOT_VILLA
+  DOC-007 | Land_Survey_Map | Official_map_showing_land_boundaries_and_measurements | LAND_RECORDS | HIGH | Shows_exact_plot_dimensions_and_location | Survey_Department | PLOT_VILLA
+  DOC-008 | Land_Tax_Receipt | Proof_that_land_taxes_have_been_paid | LAND_RECORDS | MEDIUM | Confirms_no_pending_tax_dues_on_land | Revenue_Department | PLOT_VILLA
+  DOC-009 | Agricultural_Conversion_Certificate | Permission_to_convert_farm_land_to_residential_use | LAND_RECORDS | HIGH | Legally_converts_agricultural_land_to_non_agricultural | Revenue_Department | PLOT_IF_AGRICULTURAL
+  DOC-010 | Land_Possession_Certificate | Certificate_confirming_physical_possession_of_land | LAND_RECORDS | MEDIUM | Proves_actual_possession_not_just_ownership | Revenue_Department | PLOT_VILLA
+
+  # BUILDING APPROVAL DOCUMENTS
+  DOC-011 | Building_Plan_Approval | Official_approval_of_construction_design_before_building | BUILDING | CRITICAL | Legal_permission_to_construct_as_per_approved_plan | Municipal_Corporation | APARTMENT_VILLA
+  DOC-012 | Building_Completion_Certificate | Certificate_that_construction_finished_as_per_approved_plan | BUILDING | CRITICAL | Confirms_construction_completed_according_to_plan | Municipal_Corporation | APARTMENT_VILLA
+  DOC-013 | Occupancy_Certificate | Certificate_that_building_is_safe_to_live_in | BUILDING | CRITICAL | Legal_permission_to_occupy_the_building | Municipal_Corporation | APARTMENT_VILLA
+  DOC-014 | Structural_Stability_Certificate | Engineer_certificate_that_building_is_structurally_sound | BUILDING | MEDIUM | Confirms_building_will_not_collapse_safe_structure | Licensed_Engineer | APARTMENT_VILLA
+  DOC-015 | Fire_Safety_Certificate | Certificate_that_building_has_fire_safety_measures | BUILDING | HIGH | Confirms_fire_extinguishers_exits_safety_compliant | Fire_Department | APARTMENT_COMMERCIAL
+
+  # DEVELOPER & PROJECT DOCUMENTS
+  DOC-016 | Developer_Registration | Registration_of_builder_with_real_estate_authority | DEVELOPER | CRITICAL | Ensures_builder_is_legally_registered_and_accountable | RERA_Authority | APARTMENT_LAYOUT
+  DOC-017 | Project_Registration | Registration_of_specific_project_with_real_estate_authority | DEVELOPER | CRITICAL | Ensures_project_is_approved_and_monitored | RERA_Authority | APARTMENT_LAYOUT
+  DOC-018 | Allotment_Letter | Letter_from_builder_confirming_unit_is_allotted_to_you | DEVELOPER | HIGH | Confirms_which_specific_unit_is_yours | Builder_Developer | APARTMENT
+  DOC-019 | Sale_Agreement | Contract_between_you_and_builder_with_payment_terms | DEVELOPER | HIGH | Legal_contract_before_final_sale_deed | Builder_Developer | APARTMENT
+  DOC-020 | Project_Completion_Certificate | Certificate_that_entire_project_is_finished | DEVELOPER | HIGH | Confirms_entire_building_complex_is_completed | Municipal_Corporation | APARTMENT_LAYOUT
+
+  # MUNICIPAL & TAX DOCUMENTS
+  DOC-021 | Property_Tax_Receipt | Proof_that_property_taxes_are_paid | MUNICIPAL | MEDIUM | Shows_no_pending_municipal_tax_dues | Municipal_Corporation | ALL
+  DOC-022 | Property_Tax_Assessment | Official_document_showing_property_value_for_tax | MUNICIPAL | MEDIUM | Government_valuation_of_property_for_tax_calculation | Municipal_Corporation | ALL
+  DOC-023 | Water_Connection_Certificate | Permission_and_connection_for_water_supply | MUNICIPAL | LOW | Confirms_legal_water_connection_to_property | Water_Board | ALL
+  DOC-024 | Sewerage_Connection_Certificate | Permission_and_connection_for_sewage_system | MUNICIPAL | LOW | Confirms_legal_sewage_connection | Municipal_Corporation | ALL
+  DOC-025 | Property_ID_Number | Unique_identification_number_for_property | MUNICIPAL | HIGH | Unique_property_identifier_in_municipal_records | Municipal_Corporation | ALL
+
+  # CLEARANCE & NOC DOCUMENTS
+  DOC-026 | Bank_Loan_Clearance_Certificate | Certificate_from_bank_that_loan_is_fully_paid | CLEARANCE | CRITICAL_IF_LOAN | Confirms_no_mortgage_or_loan_pending | Bank_Financial_Institution | IF_LOAN_EXISTS
+  DOC-027 | Environmental_Clearance | Permission_that_project_does_not_harm_environment | CLEARANCE | HIGH | Required_for_large_projects_near_forest_water | Environment_Ministry | LAYOUT_COMMERCIAL
+  DOC-028 | Pollution_Control_Clearance | Certificate_that_property_meets_pollution_norms | CLEARANCE | MEDIUM | Required_for_industrial_commercial_properties | Pollution_Control_Board | COMMERCIAL_INDUSTRIAL
+  DOC-029 | Airport_Authority_NOC | Permission_if_property_near_airport | CLEARANCE | HIGH_IF_NEAR_AIRPORT | Required_if_within_airport_vicinity | Airport_Authority | IF_NEAR_AIRPORT
+  DOC-030 | Forest_Department_NOC | Permission_if_property_near_forest_area | CLEARANCE | HIGH_IF_NEAR_FOREST | Required_if_near_protected_forest | Forest_Department | IF_NEAR_FOREST
+
+  # FINANCIAL DOCUMENTS
+  DOC-031 | Stamp_Duty_Payment_Receipt | Receipt_proving_stamp_duty_tax_paid_during_registration | FINANCIAL | CRITICAL | Mandatory_payment_for_legal_registration | Government_Treasury | ALL
+  DOC-032 | Registration_Fee_Receipt | Receipt_proving_registration_fee_paid | FINANCIAL | CRITICAL | Mandatory_fee_for_property_registration | Sub_Registrar_Office | ALL
+  DOC-033 | Property_Valuation_Certificate | Official_document_stating_property_market_value | FINANCIAL | MEDIUM | Used_for_stamp_duty_loan_calculation | Government_Valuer | ALL
+  DOC-034 | Home_Loan_Documents | Documents_related_to_home_loan_if_taken | FINANCIAL | HIGH_IF_LOAN | Loan_agreement_sanction_letter_disbursement | Bank_Financial_Institution | IF_LOAN_EXISTS
+
+  # IDENTITY & VERIFICATION DOCUMENTS
+  DOC-035 | Owner_Identity_Proof | Government_ID_proof_of_property_owner | IDENTITY | HIGH | Verifies_identity_of_buyer_and_seller | Government_Authority | ALL
+  DOC-036 | Owner_Address_Proof | Proof_of_residential_address_of_owner | IDENTITY | MEDIUM | Verifies_current_residence_of_parties | Government_Authority | ALL
+  DOC-037 | PAN_Card | Permanent_Account_Number_for_tax_purposes | IDENTITY | HIGH | Mandatory_for_property_transactions_above_threshold | Income_Tax_Department | ALL
+  DOC-038 | Unique_Land_ID | Unique_digital_ID_for_land_parcel | IDENTITY | CRITICAL_2025 | New_mandatory_requirement_like_Aadhaar_for_land | Revenue_Department | ALL
+
+# ============================================================================
+# 2. STATE-SPECIFIC TERMINOLOGY MAPPING
+# ============================================================================
+
+StateTerminologyMapping[List]{
+  doc_id,
+  generic_term,
+  andhra_pradesh_term,
+  karnataka_term,
+  telangana_term,
+  maharashtra_term,
+  tamil_nadu_term,
+  portal_verification_url
+}:
+  DOC-001 | Sale_Deed | Sale_Deed | Sale_Deed | Sale_Deed | Sale_Deed | Sale_Deed | registration.[state].gov.in
+  DOC-002 | Title_Deed | Title_Deed | Title_Deed | Title_Deed | Title_Deed | Title_Deed | registration.[state].gov.in
+  DOC-003 | Encumbrance_Certificate | EC_Form_16 | EC_Form_16 | EC_Form_16 | EC_Form_15 | EC_Certificate | registration.[state].gov.in
+  DOC-004 | Mutation_Record | Mutation_Entry | Mutation_Extract | Mutation_Entry | Mutation_Entry_7_12_Updated | Mutation_Patta_Transfer | revenue.[state].gov.in
+  DOC-005 | Power_of_Attorney | POA_Document | POA_Document | POA_Document | POA_Document | POA_Document | notary_registration
+
+  DOC-006 | Land_Ownership_Record | Adangal_1B_Record | Bhoomi_RTC_Record_of_Rights | Adangal_Pahani | 7_12_Extract_Saat_Bara | Patta_Chitta_Combined | meebhoomi.ap.gov.in OR bhoomi.karnataka.gov.in
+  DOC-007 | Land_Survey_Map | FMB_Field_Measurement_Book | FMB_Sketch_Plan | FMB_Field_Measurement_Book | Village_Form_Map | FMB_Field_Measurement_Book | revenue.[state].gov.in
+  DOC-008 | Land_Tax_Receipt | Land_Revenue_Receipt | Land_Revenue_Receipt | Land_Revenue_Receipt | Land_Revenue_Receipt | Patta_Chitta_Tax_Receipt | revenue.[state].gov.in
+  DOC-009 | Agricultural_Conversion_Certificate | Agriculture_NOC_NA_Order | NA_Order_Conversion | Agriculture_NOC_NA_Order | NA_Order_Non_Agricultural | Nilam_Conversion_Order | revenue.[state].gov.in
+  DOC-010 | Land_Possession_Certificate | Possession_Certificate | Possession_Certificate_Bhoomi | Possession_Certificate | Possession_Certificate | Possession_Certificate_Adangal | revenue.[state].gov.in
+
+  DOC-011 | Building_Plan_Approval | Building_Permission_BPA | Building_Plan_Sanction | Building_Permission_BPA | IOD_Intimation_of_Disapproval_or_BP | Building_Approval_Plan | municipal.[state].gov.in
+  DOC-012 | Building_Completion_Certificate | Building_Completion_Certificate | Completion_Certificate | Building_Completion_Certificate | Completion_Certificate | Completion_Certificate | municipal.[state].gov.in
+  DOC-013 | Occupancy_Certificate | Occupancy_Certificate_OC | Occupancy_Certificate_BBMP_OC | Occupancy_Certificate_OC | Occupancy_Certificate_BMC_OC | Occupancy_Certificate | municipal.[state].gov.in
+  DOC-014 | Structural_Stability_Certificate | Structural_Audit_Report | Structural_Stability_Certificate | Structural_Audit_Report | Structural_Audit_Report | Structural_Stability_Certificate | licensed_engineer
+  DOC-015 | Fire_Safety_Certificate | Fire_NOC | Fire_NOC_KSNDMC | Fire_NOC | Fire_NOC_Maharashtra_Fire | Fire_NOC | fire.[state].gov.in
+
+  DOC-016 | Developer_Registration | RERA_AP_Builder_Registration | RERA_Karnataka_Builder_Reg | RERA_TS_Builder_Registration | MahaRERA_Builder_Registration | TN_RERA_Builder_Registration | rera.[state].gov.in
+  DOC-017 | Project_Registration | RERA_AP_Project_Number | RERA_Karnataka_Project_Number | RERA_TS_Project_Number | MahaRERA_Project_Registration | TN_RERA_Project_Number | rera.[state].gov.in
+  DOC-018 | Allotment_Letter | Allotment_Letter | Allotment_Letter | Allotment_Letter | Allotment_Letter | Allotment_Letter | builder_issued
+  DOC-019 | Sale_Agreement | Agreement_for_Sale | Sale_Agreement | Agreement_for_Sale | Agreement_for_Sale | Agreement_for_Sale | builder_issued
+  DOC-020 | Project_Completion_Certificate | Project_Completion_Certificate | Project_Completion_Certificate | Project_Completion_Certificate | Occupation_Certificate_Full_Project | Project_Completion_Certificate | municipal.[state].gov.in
+
+  DOC-021 | Property_Tax_Receipt | Property_Tax_Receipt_GHMC_or_Municipal | BBMP_Property_Tax_Khata | GHMC_Property_Tax_Receipt | Municipal_Corporation_Property_Tax | Corporation_Property_Tax_Receipt | municipal.[state].gov.in
+  DOC-022 | Property_Tax_Assessment | Property_Assessment_Value | BBMP_Assessment_Value | Property_Assessment_Value | Ready_Reckoner_Rate | Guideline_Value_Registration_Value | municipal.[state].gov.in
+  DOC-023 | Water_Connection_Certificate | Water_Board_Connection_NOC | BWSSB_Water_Connection | Water_Board_Connection_NOC | Water_Supply_Connection | Metro_Water_Connection_Certificate | waterboard.[state].gov.in
+  DOC-024 | Sewerage_Connection_Certificate | Sewerage_Connection_Certificate | BWSSB_Sewerage_Connection | Sewerage_Connection_Certificate | Sewerage_Connection_NOC | Sewerage_Board_Connection | municipal.[state].gov.in
+  DOC-025 | Property_ID_Number | Property_Identification_Number_PIN | BBMP_Khata_Number_PID | GHMC_Property_Number | GIS_Based_Property_ID | Assessment_Number_Door_Number | municipal.[state].gov.in
+
+  DOC-026 | Bank_Loan_Clearance_Certificate | Bank_NOC_Loan_Closure | Bank_NOC_Loan_Closure | Bank_NOC_Loan_Closure | Bank_NOC_No_Dues | Bank_NOC_Loan_Closure_Certificate | bank_issued
+  DOC-027 | Environmental_Clearance | Environmental_Clearance_EC | Environmental_Clearance_EC_KSPCB | Environmental_Clearance_EC | Environmental_Clearance_EC_MPCB | Environmental_Clearance_TNPCB | moef.gov.in OR spcb.[state].gov.in
+  DOC-028 | Pollution_Control_Clearance | APPCB_Pollution_NOC | KSPCB_Consent_to_Establish | TSPCB_Pollution_NOC | MPCB_Consent_for_Establishment | TNPCB_Consent_Order | spcb.[state].gov.in
+  DOC-029 | Airport_Authority_NOC | AAI_NOC_if_applicable | AAI_NOC_Bangalore_Airport | AAI_NOC_if_applicable | AAI_NOC_Mumbai_Airport | AAI_NOC_Chennai_Airport | aai.aero
+  DOC-030 | Forest_Department_NOC | Forest_Department_NOC | Forest_Department_NOC_Karnataka | Forest_Department_NOC | Forest_Department_NOC_Maharashtra | Forest_Department_NOC_TN | forest.[state].gov.in
+
+  DOC-031 | Stamp_Duty_Payment_Receipt | Stamp_Duty_Challan_Receipt | Stamp_Duty_Payment_Receipt | Stamp_Duty_Challan_Receipt | Stamp_Duty_ePayment_Receipt | Stamp_Duty_Payment_Challan | igrs.[state].gov.in
+  DOC-032 | Registration_Fee_Receipt | Registration_Fee_Receipt | Registration_Fee_Receipt | Registration_Fee_Receipt | Registration_Fee_Receipt | Registration_Fee_Receipt | registration.[state].gov.in
+  DOC-033 | Property_Valuation_Certificate | Market_Value_Certificate | Guidance_Value_Certificate | Market_Value_Certificate | Ready_Reckoner_Valuation | Guideline_Value_Certificate | registration.[state].gov.in
+  DOC-034 | Home_Loan_Documents | Home_Loan_Sanction_Letter | Home_Loan_Agreement | Home_Loan_Sanction_Letter | Home_Loan_Sanction_Agreement | Home_Loan_Documents_Bundle | bank_issued
+
+  DOC-035 | Owner_Identity_Proof | Aadhaar_Card_Voter_ID | Aadhaar_Card_Voter_ID | Aadhaar_Card_Voter_ID | Aadhaar_Card_Voter_ID_Passport | Aadhaar_Card_Voter_ID | uidai.gov.in
+  DOC-036 | Owner_Address_Proof | Address_Proof_Utility_Bill | Address_Proof_Utility_Bill | Address_Proof_Utility_Bill | Address_Proof_Ration_Card | Address_Proof_Ration_Card | government_issued
+  DOC-037 | PAN_Card | PAN_Card_Permanent_Account_Number | PAN_Card | PAN_Card | PAN_Card | PAN_Card | incometax.gov.in
+  DOC-038 | Unique_Land_ID | Unique_Land_Parcel_ID_ULPIN | Unique_Property_ID_UPID | Unique_Land_Parcel_ID | Unique_Property_ID_ULPIN | Unique_Land_ID_ULPIN | dilrmp.gov.in
+
+# ============================================================================
+# 3. DOCUMENT DEPENDENCY GRAPH (Tree Structure)
+# ============================================================================
+
+DocumentDependencyTree[List]{
+  doc_id,
+  document_name,
+  depends_on_docs,
+  is_prerequisite_for,
+  verification_sequence,
+  can_proceed_without,
+  blocking_level
+}:
+  # ROOT LEVEL - Start Here
+  DOC-035 | Owner_Identity_Proof | [] | [ALL_DOCUMENTS] | STEP_1_FIRST | NO | ABSOLUTE_BLOCKER
+  DOC-037 | PAN_Card | [] | [DOC-001, DOC-031, DOC-032] | STEP_1_FIRST | NO | ABSOLUTE_BLOCKER
+
+  # LAND RECORDS LEVEL
+  DOC-006 | Land_Ownership_Record | [DOC-035] | [DOC-001, DOC-003, DOC-004] | STEP_2 | NO | CRITICAL_BLOCKER
+  DOC-007 | Land_Survey_Map | [DOC-006] | [DOC-011, DOC-001] | STEP_2 | NO | CRITICAL_BLOCKER
+  DOC-038 | Unique_Land_ID | [DOC-006] | [DOC-001] | STEP_2_2025_MANDATORY | NO | ABSOLUTE_BLOCKER_2025
+
+  # OWNERSHIP DOCUMENTS LEVEL
+  DOC-001 | Sale_Deed | [DOC-006, DOC-035, DOC-037, DOC-038] | [DOC-002, DOC-003, DOC-004] | STEP_3 | NO | ABSOLUTE_BLOCKER
+  DOC-003 | Encumbrance_Certificate | [DOC-001] | [DOC-004, DOC-034] | STEP_4 | NO | CRITICAL_BLOCKER
+  DOC-002 | Title_Deed | [DOC-001] | [DOC-034] | STEP_4 | NO | CRITICAL_BLOCKER
+  DOC-004 | Mutation_Record | [DOC-001, DOC-003, DOC-031, DOC-032] | [DOC-021, DOC-022] | STEP_5 | NO | HIGH_BLOCKER
+
+  # BUILDING APPROVAL LEVEL
+  DOC-009 | Agricultural_Conversion_Certificate | [DOC-006] | [DOC-011] | STEP_2_IF_AGRICULTURAL | YES_IF_NON_AGRICULTURAL | CONDITIONAL_BLOCKER
+  DOC-027 | Environmental_Clearance | [DOC-007] | [DOC-011] | STEP_2_IF_LARGE_PROJECT | YES_IF_SMALL | CONDITIONAL_BLOCKER
+  DOC-011 | Building_Plan_Approval | [DOC-006, DOC-007, DOC-027] | [DOC-012, DOC-016, DOC-017] | STEP_3_IF_CONSTRUCTION | YES_IF_PLOT_ONLY | CRITICAL_BLOCKER
+  DOC-012 | Building_Completion_Certificate | [DOC-011] | [DOC-013, DOC-020] | STEP_4_IF_CONSTRUCTION | NO | CRITICAL_BLOCKER
+  DOC-013 | Occupancy_Certificate | [DOC-012, DOC-015, DOC-014] | [DOC-001_FOR_APARTMENT] | STEP_5_IF_CONSTRUCTION | NO | ABSOLUTE_BLOCKER
+
+  # DEVELOPER DOCUMENTS LEVEL
+  DOC-016 | Developer_Registration | [DOC-035] | [DOC-017] | STEP_2_IF_BUILDER_PROJECT | YES_IF_INDIVIDUAL | CONDITIONAL_BLOCKER
+  DOC-017 | Project_Registration | [DOC-016, DOC-011] | [DOC-018, DOC-019] | STEP_3_IF_BUILDER_PROJECT | YES_IF_INDIVIDUAL | CONDITIONAL_BLOCKER
+  DOC-018 | Allotment_Letter | [DOC-017] | [DOC-019, DOC-001] | STEP_4_IF_BUILDER_PROJECT | YES_IF_RESALE | CONDITIONAL_BLOCKER
+  DOC-019 | Sale_Agreement | [DOC-018] | [DOC-001] | STEP_5_IF_BUILDER_PROJECT | YES_IF_RESALE | HIGH_BLOCKER
+
+  # FINANCIAL CLEARANCE LEVEL
+  DOC-031 | Stamp_Duty_Payment_Receipt | [DOC-001, DOC-033, DOC-037] | [DOC-032, DOC-004] | STEP_3_DURING_REGISTRATION | NO | ABSOLUTE_BLOCKER
+  DOC-032 | Registration_Fee_Receipt | [DOC-031] | [DOC-001_FINAL] | STEP_3_DURING_REGISTRATION | NO | ABSOLUTE_BLOCKER
+  DOC-026 | Bank_Loan_Clearance_Certificate | [DOC-034_IF_LOAN_EXISTS] | [DOC-001] | STEP_3_IF_LOAN_EXISTS | YES_IF_NO_LOAN | CRITICAL_IF_LOAN
+  DOC-034 | Home_Loan_Documents | [DOC-002, DOC-003, DOC-013] | [DOC-026] | OPTIONAL_IF_TAKING_LOAN | YES | OPTIONAL
+
+  # MUNICIPAL & UTILITY LEVEL
+  DOC-025 | Property_ID_Number | [DOC-001, DOC-004] | [DOC-021, DOC-022] | STEP_6 | NO | HIGH_BLOCKER
+  DOC-021 | Property_Tax_Receipt | [DOC-025] | [ONGOING_MAINTENANCE] | STEP_7_ONGOING | NO | MEDIUM_BLOCKER
+  DOC-023 | Water_Connection_Certificate | [DOC-013, DOC-025] | [UTILITY_SERVICE] | STEP_7_UTILITY | YES | LOW_BLOCKER
+  DOC-024 | Sewerage_Connection_Certificate | [DOC-013, DOC-025] | [UTILITY_SERVICE] | STEP_7_UTILITY | YES | LOW_BLOCKER
+
+  # SAFETY & CLEARANCE LEVEL
+  DOC-014 | Structural_Stability_Certificate | [DOC-012] | [DOC-013] | STEP_4_IF_CONSTRUCTION | RECOMMENDED | MEDIUM_BLOCKER
+  DOC-015 | Fire_Safety_Certificate | [DOC-012] | [DOC-013] | STEP_4_IF_MULTISTORY | YES_IF_INDEPENDENT | CONDITIONAL_BLOCKER
+  DOC-028 | Pollution_Control_Clearance | [DOC-007] | [DOC-011] | STEP_2_IF_COMMERCIAL_INDUSTRIAL | YES_IF_RESIDENTIAL | CONDITIONAL_BLOCKER
+  DOC-029 | Airport_Authority_NOC | [DOC-007] | [DOC-011] | STEP_2_IF_NEAR_AIRPORT | YES_IF_NOT_NEAR | CONDITIONAL_BLOCKER
+  DOC-030 | Forest_Department_NOC | [DOC-007] | [DOC-011] | STEP_2_IF_NEAR_FOREST | YES_IF_NOT_NEAR | CONDITIONAL_BLOCKER
+
+# ============================================================================
+# 4. KEY FIELDS TO READ IN EACH DOCUMENT
+# ============================================================================
+
+DocumentKeyFieldsToVerify[List]{
+  doc_id,
+  document_name,
+  critical_fields_to_check,
+  red_flags_warning_signs,
+  common_mistakes_to_avoid
+}:
+  DOC-001 | Sale_Deed | [Sale_Deed_Number, Registration_Date, Seller_Name, Buyer_Name, Property_Description, Sale_Consideration_Amount, Stamp_Duty_Paid, Property_Survey_Number, Boundaries_North_South_East_West, Signature_of_Parties, Sub_Registrar_Seal] | [Signature_Mismatch, Date_Inconsistency, Amount_Mismatch_with_Payment, Missing_Seal, Unregistered_Deed] | [Check_all_names_match_exactly, Verify_property_survey_number_matches_land_records, Ensure_registration_number_is_verifiable_online]
+
+  DOC-003 | Encumbrance_Certificate | [Property_Survey_Number, Owner_Name, Period_of_EC_From_To, List_of_Transactions, Any_Mortgage_Loan_Mentioned, Any_Legal_Case_Mentioned, Issue_Date, Certificate_Number] | [Recent_Mortgage_Not_Cleared, Legal_Case_Pending, Short_EC_Period_Less_Than_30_Years, Missing_Transactions] | [Get_EC_for_minimum_30_years_to_see_full_history, Check_every_transaction_in_chain, Verify_no_loan_or_mortgage_exists]
+
+  DOC-006 | Land_Ownership_Record | [Survey_Number, Village_Name, Owner_Name, Extent_of_Land_Acres_Guntas, Land_Classification_Dry_Wet_Garden, Khata_Number_or_Account_Number, Boundaries, Encumbrance_Status] | [Name_Mismatch_with_Seller, Land_Area_Mismatch, Agricultural_Land_Without_Conversion, Encumbrance_Shown, Multiple_Owners_Without_Consent] | [Verify_owner_name_exactly_matches_seller, Check_land_extent_matches_sale_deed, For_agricultural_land_get_conversion_certificate]
+
+  DOC-011 | Building_Plan_Approval | [Approval_Number, Approval_Date, Applicant_Name, Survey_Number, Approved_Built_Up_Area, Number_of_Floors, Setback_Requirements, Sanctioning_Authority, Validity_Period] | [Expired_Approval, Name_Mismatch, Construction_Exceeds_Approved_Area, Unapproved_Floors_Added] | [Check_approval_not_expired, Verify_construction_matches_approved_plan, Ensure_no_unauthorized_modifications]
+
+  DOC-013 | Occupancy_Certificate | [OC_Number, Issue_Date, Building_Name_Address, Survey_Number, Approved_for_Occupancy_Yes_No, Number_of_Units, Issuing_Authority, Building_Usage_Residential_Commercial] | [Missing_OC_for_New_Building, Temporary_OC_Not_Permanent, Usage_Type_Mismatch, Unauthorized_Occupancy] | [Ensure_permanent_OC_not_temporary, Check_usage_matches_intended_purpose, Verify_OC_online_on_municipal_portal]
+
+  DOC-016 | Developer_Registration | [RERA_Registration_Number, Developer_Name, Registration_Date, Validity_Period, Registered_Projects_List, Contact_Details, Compliance_Status] | [Expired_Registration, Developer_Blacklisted, Previous_Project_Delays, Non_Compliance_Notice] | [Verify_RERA_number_online_on_official_portal, Check_developer_track_record, Ensure_registration_is_active_not_expired]
+
+  DOC-017 | Project_Registration | [RERA_Project_Number, Project_Name, Project_Address, Survey_Numbers, Total_Units, Project_Area, Expected_Completion_Date, Approval_Status, Approved_Layout_Plan] | [Project_Not_Registered, Delayed_Project_Past_Completion_Date, Mismatch_in_Unit_Count, Approval_Pending] | [Verify_project_number_on_RERA_portal, Check_project_completion_timeline, Ensure_all_approvals_are_in_place]
+
+  DOC-026 | Bank_Loan_Clearance_Certificate | [Bank_Name, Loan_Account_Number, Borrower_Name, Property_Address, Loan_Amount, Closure_Date, NOC_Issue_Date, Bank_Seal_Signature, Statement_No_Dues_Pending] | [Loan_Not_Fully_Closed, Missing_Bank_Seal, Conditional_NOC, Outstanding_Interest_Pending] | [Verify_NOC_directly_with_bank, Ensure_unconditional_no_dues_statement, Check_loan_closure_certificate_separately]
+
+  DOC-031 | Stamp_Duty_Payment_Receipt | [Challan_Number, Payment_Date, Payer_Name, Property_Details, Stamp_Duty_Amount_Paid, Payment_Mode, Transaction_ID, Treasury_Acknowledgement] | [Insufficient_Stamp_Duty_Paid, Payment_Name_Mismatch, Fake_Challan, Payment_Not_Reflected_in_System] | [Verify_challan_online_on_government_portal, Calculate_correct_stamp_duty_as_per_state_rates, Ensure_payment_in_buyer_name]
+
+  DOC-004 | Mutation_Record | [New_Owner_Name, Old_Owner_Name, Survey_Number, Mutation_Order_Number, Mutation_Date, Extent_of_Land, Revenue_Office_Seal, Remarks] | [Mutation_Not_Done_After_Sale, Wrong_Name_Entered, Pending_Mutation_Application, Multiple_Mutations_Conflict] | [Apply_for_mutation_within_30_days_of_registration, Verify_mutation_entry_in_revenue_records, Ensure_name_matches_sale_deed_exactly]
+
+  DOC-038 | Unique_Land_ID | [ULPIN_Number_14_Digit, Survey_Number, Village_Code, State_Code, District_Code, Linked_to_Digital_Land_Record, Issue_Date, Verification_Status] | [ULPIN_Not_Generated, ULPIN_Not_Linked_to_Property, Mismatch_in_Survey_Number, Invalid_ULPIN_Format] | [Mandatory_from_2025_for_registration, Generate_ULPIN_from_state_land_records_portal, Verify_ULPIN_matches_property_survey_number]
+
+# ============================================================================
+# 5. LEGAL SCORE & RISK SCORE ALGORITHMS
+# ============================================================================
+
+LegalScoreCalculation[Map]{
+  Description | Calculates_legal_validity_score_0_to_100_based_on_document_completeness_and_authenticity
+
+  ScoreComponents[List]{
+    component_name,
+    weight_percentage,
+    calculation_method,
+    max_points
+  }:
+    Ownership_Documents_Completeness | 30% | COUNT_CRITICAL_OWNERSHIP_DOCS_PRESENT_DIVIDE_BY_TOTAL_CRITICAL | 30
+    Building_Approvals_Completeness | 25% | COUNT_BUILDING_DOCS_PRESENT_IF_APPLICABLE_DIVIDE_BY_REQUIRED | 25
+    RERA_Compliance | 15% | CHECK_RERA_REGISTRATION_VALID_AND_VERIFIED_ONLINE | 15
+    Financial_Clearance | 15% | CHECK_NO_LOANS_PENDING_STAMP_DUTY_PAID_TAX_CLEAR | 15
+    Identity_Verification | 10% | CHECK_ALL_IDENTITY_DOCS_MATCH_AND_VERIFIED | 10
+    State_Specific_Requirements | 5% | CHECK_STATE_SPECIFIC_MANDATORY_DOCS_PRESENT | 5
+
+  ScoreBands[List]{
+    score_range,
+    interpretation,
+    recommendation
+  }:
+    90_to_100 | EXCELLENT_Legally_Sound | Proceed_with_confidence_all_documents_in_order
+    75_to_89 | GOOD_Minor_Issues | Proceed_but_address_missing_documents_before_final_payment
+    60_to_74 | FAIR_Moderate_Concerns | Consult_lawyer_get_missing_critical_documents_before_proceeding
+    40_to_59 | POOR_Significant_Gaps | High_risk_do_not_proceed_until_major_issues_resolved
+    0_to_39 | CRITICAL_Major_Legal_Issues | DO_NOT_PROCEED_consult_legal_expert_immediately
+}
+
+RiskScoreCalculation[Map]{
+  Description | Calculates_fraud_and_legal_risk_score_0_to_100_where_higher_score_means_higher_risk
+
+  RiskFactors[List]{
+    risk_factor,
+    weight_percentage,
+    detection_criteria,
+    max_risk_points
+  }:
+    Document_Authenticity_Risk | 25% | CHECK_FOR_FAKE_SEALS_SIGNATURES_UNVERIFIABLE_NUMBERS | 25
+    Title_Chain_Risk | 20% | CHECK_FOR_GAPS_IN_OWNERSHIP_CHAIN_DISPUTED_TITLE | 20
+    Financial_Encumbrance_Risk | 20% | CHECK_FOR_LOANS_MORTGAGES_TAX_DUES_PENDING | 20
+    Approval_Compliance_Risk | 15% | CHECK_FOR_MISSING_APPROVALS_UNAUTHORIZED_CONSTRUCTION | 15
+    Developer_Track_Record_Risk | 10% | CHECK_DEVELOPER_PAST_DELAYS_COMPLAINTS_LITIGATION | 10
+    Location_Specific_Risk | 10% | CHECK_FOR_DISPUTED_AREA_ACQUISITION_LAND_ENCROACHMENT | 10
+
+  RiskBands[List]{
+    risk_range,
+    interpretation,
+    recommendation
+  }:
+    0_to_15 | LOW_RISK_Safe_Investment | Proceed_with_normal_due_diligence
+    16_to_35 | MODERATE_RISK_Some_Concerns | Address_specific_risk_factors_before_proceeding
+    36_to_60 | HIGH_RISK_Serious_Issues | Do_not_proceed_without_resolving_major_risks_consult_expert
+    61_to_100 | CRITICAL_RISK_Avoid | DO_NOT_INVEST_high_probability_of_fraud_or_legal_dispute
+
+  CombinedVerdict[List]{
+    legal_score_range,
+    risk_score_range,
+    final_verdict,
+    action_recommendation
+  }:
+    90_to_100_Legal | 0_to_15_Risk | GREEN_LIGHT_Excellent_Property | PROCEED_Best_case_scenario_safe_to_buy
+    75_to_89_Legal | 0_to_35_Risk | YELLOW_LIGHT_Good_with_Minor_Issues | PROCEED_WITH_CAUTION_Fix_minor_issues_first
+    60_to_74_Legal | 16_to_35_Risk | ORANGE_LIGHT_Fair_with_Concerns | HOLD_Get_expert_opinion_resolve_issues_before_buying
+    Below_60_Legal | Above_35_Risk | RED_LIGHT_High_Risk | DO_NOT_PROCEED_Too_risky_look_for_another_property
+}
+
+# ============================================================================
+# 6. ACTIONABLE SOLUTIONS: HOW TO OBTAIN OR CORRECT DOCUMENTS
+# ============================================================================
+
+DocumentObtentionSolutions[List]{
+  doc_id,
+  document_name,
+  if_missing_how_to_obtain,
+  typical_processing_time,
+  estimated_cost_inr,
+  online_portal_link,
+  offline_process,
+  documents_required_to_apply
+}:
+  DOC-001 | Sale_Deed | Visit_Sub_Registrar_Office_with_seller_and_buyer_both_parties_present_with_documents | 1_day_same_day_registration | Stamp_Duty_5_to_7_percent_plus_Registration_1_percent | https://registration.[state].gov.in | Visit_jurisdictional_sub_registrar_office_book_slot_online | [Identity_Proof, Address_Proof, PAN, Seller_Title_Docs, EC, Payment_Receipts]
+
+  DOC-003 | Encumbrance_Certificate | Apply_online_on_state_registration_portal_or_visit_sub_registrar_office | 1_to_3_days_online_7_days_offline | 100_to_300_rupees_based_on_years | https://registration.[state].gov.in/ec | Visit_sub_registrar_office_fill_Form_16_application_pay_fee | [Property_Survey_Number, Village_Name, Owner_Name, Period_Required_Years]
+
+  DOC-006 | Land_Ownership_Record | Access_online_via_state_land_records_portal_download_RTC_or_visit_revenue_office | Instant_online_3_to_7_days_offline | Free_online_50_to_200_offline | https://meebhoomi.ap.gov.in OR https://bhoomi.karnataka.gov.in | Visit_Tahsildar_or_Revenue_Office_request_land_record_extract | [Survey_Number, Village_Name, Owner_Aadhaar_or_Name]
+
+  DOC-004 | Mutation_Record | Apply_at_revenue_office_after_sale_deed_registration_submit_application_with_sale_deed_copy | 30_to_90_days_varies_by_state | 100_to_500_rupees | https://revenue.[state].gov.in | Visit_Tahsildar_office_submit_mutation_application_with_sale_deed_EC | [Registered_Sale_Deed, EC, Identity_Proof, Application_Form]
+
+  DOC-011 | Building_Plan_Approval | Apply_to_municipal_corporation_submit_building_plan_designed_by_licensed_architect | 30_to_90_days | 5000_to_50000_based_on_area | https://municipal.[state].gov.in | Visit_municipal_office_submit_plan_drawings_site_documents | [Land_Ownership_Proof, Architect_Designed_Plan, Site_Survey, NOCs_if_required]
+
+  DOC-013 | Occupancy_Certificate | Apply_to_municipal_corporation_after_construction_completion_with_completion_certificate | 15_to_60_days | 500_to_5000_rupees | https://municipal.[state].gov.in | Submit_application_to_municipal_office_with_completion_certificate | [Building_Completion_Certificate, Approved_Plan, Fire_NOC, Structural_Certificate]
+
+  DOC-016 | Developer_Registration | Developer_applies_online_on_state_RERA_portal_with_company_documents | 30_to_60_days | 10000_to_50000_rupees | https://rera.[state].gov.in | Not_applicable_only_online_process_available | [Company_Registration, PAN, Land_Documents, Past_Projects_if_any, Affidavit]
+
+  DOC-017 | Project_Registration | Developer_registers_project_on_RERA_portal_after_obtaining_building_approvals | 30_to_90_days | 10_to_15_rupees_per_sqm_capped_at_7_lakhs | https://rera.[state].gov.in | Not_applicable_mandatory_online_registration | [Building_Approval, Land_Title, Project_Plan, Financial_Details, Timeline]
+
+  DOC-026 | Bank_Loan_Clearance_Certificate | Request_bank_after_paying_full_loan_amount_with_interest_closure_request | 7_to_15_days | Free_to_1000_rupees | Bank_net_banking_portal | Visit_bank_branch_submit_loan_closure_request_in_writing | [Loan_Account_Number, Identity_Proof, Final_Payment_Receipt]
+
+  DOC-031 | Stamp_Duty_Payment_Receipt | Pay_online_via_state_IGRS_portal_or_purchase_stamp_paper_or_pay_at_bank | Same_day_instant | 5_to_7_percent_of_property_value | https://igrs.[state].gov.in | Pay_at_designated_bank_or_treasury_or_buy_stamp_paper_from_authorized_vendor | [Property_Details, Sale_Value, Buyer_Seller_Details, PAN_Card]
+
+  DOC-038 | Unique_Land_ID | Generated_automatically_when_accessing_digital_land_records_or_apply_on_state_portal | Instant_to_7_days | Free | https://dilrmp.gov.in OR state_revenue_portal | Visit_revenue_office_request_ULPIN_generation_for_property | [Survey_Number, Village_Code, Land_Record_Extract, Owner_Identity]
+
+  DOC-009 | Agricultural_Conversion_Certificate | Apply_to_revenue_department_for_NA_order_non_agricultural_conversion | 60_to_180_days | 5000_to_100000_based_on_area_and_state | https://revenue.[state].gov.in | Visit_Tahsildar_or_District_Collector_office_submit_conversion_application | [Land_Ownership_Proof, Land_Record, Survey_Map, Purpose_Affidavit, Conversion_Fee_Payment]
+
+  DOC-015 | Fire_Safety_Certificate | Apply_to_state_fire_department_after_installing_fire_safety_equipment | 15_to_45_days | 2000_to_20000_based_on_building_size | https://fire.[state].gov.in | Visit_fire_department_office_request_inspection_and_NOC | [Building_Plan, Fire_Equipment_Installation_Details, Occupancy_Certificate_if_available]
+
+DocumentCorrectionSolutions[List]{
+  issue_type,
+  problem_description,
+  solution_steps,
+  authority_to_approach,
+  typical_resolution_time,
+  legal_recourse_if_needed
+}:
+  Name_Mismatch | Owner_name_in_land_record_different_from_sale_deed | [Get_Name_Correction_Affidavit, Submit_to_Revenue_Office, Provide_Identity_Proof_Linking_Both_Names, Update_Mutation_Record] | Revenue_Department_Tahsildar | 30_to_60_days | File_petition_in_civil_court_if_revenue_office_refuses
+
+  Missing_Encumbrance_Certificate | EC_not_available_or_shows_gaps | [Apply_for_fresh_EC_for_30_years, Check_all_registration_offices_where_property_existed, Get_certified_statement_from_sub_registrar] | Sub_Registrar_Office | 7_to_15_days | Legal_notice_if_seller_concealed_information
+
+  Expired_Building_Approval | Building_plan_approval_validity_expired_before_construction | [Apply_for_fresh_approval_or_renewal, Submit_updated_plans_if_rules_changed, Pay_renewal_fees] | Municipal_Corporation | 30_to_90_days | File_appeal_with_municipal_commissioner
+
+  No_Occupancy_Certificate | Building_occupied_without_OC | [Apply_for_OC_immediately, Get_structural_audit_done, Obtain_fire_NOC, Pay_penalty_if_applicable] | Municipal_Corporation | 30_to_60_days_plus_penalty | Apply_for_regularization_under_amnesty_scheme_if_available
+
+  RERA_Project_Not_Registered | Builder_has_not_registered_project_with_RERA | [File_complaint_with_RERA_authority, Request_refund_or_demand_registration, Check_RERA_portal_for_status] | State_RERA_Authority | 60_to_180_days | File_case_in_RERA_tribunal_for_refund_and_compensation
+
+  Agricultural_Land_Not_Converted | Land_still_classified_as_agricultural_cannot_build | [Apply_for_NA_conversion_immediately, Check_eligibility_for_conversion_in_area, Pay_conversion_charges] | Revenue_Department_District_Collector | 90_to_180_days | File_writ_petition_in_High_Court_if_rejected_without_reason
+
+  Pending_Bank_Loan | Property_has_existing_mortgage_loan_not_cleared | [Request_seller_to_clear_loan_before_sale, Arrange_buyer_pays_directly_to_bank_for_closure, Get_NOC_from_bank_before_registration] | Bank_Legal_Department | 15_to_30_days | Legal_notice_to_seller_for_breach_of_contract
+
+  Disputed_Title | Property_ownership_is_disputed_multiple_claimants | [Check_court_records_for_pending_cases, Get_legal_opinion_from_property_lawyer, Verify_title_chain_thoroughly, DO_NOT_PROCEED_if_dispute_active] | Civil_Court_Revenue_Court | 1_to_5_years_litigation | File_suit_for_declaration_of_title_or_avoid_property
+
+  Stamp_Duty_Underpaid | Insufficient_stamp_duty_paid_during_registration | [Pay_deficit_stamp_duty_with_penalty_at_sub_registrar, File_rectification_application, Get_updated_sale_deed_endorsed] | Sub_Registrar_Office | 15_to_30_days | Pay_penalty_as_per_stamp_act_avoid_legal_issues_later
+
+  Missing_ULPIN_2025 | Property_does_not_have_Unique_Land_ID_required_from_2025 | [Access_state_land_records_portal, Generate_ULPIN_online_using_survey_number, Link_ULPIN_to_property_before_registration] | Revenue_Department_Digital_Portal | Instant_to_7_days | Mandatory_compliance_registration_will_be_rejected_without_ULPIN
+
+# ============================================================================
+# 7. VISUAL GRAPH REPRESENTATION (For Tree/Graph Visualization)
+# ============================================================================
+
+DocumentGraphVisualization[Map]{
+  Description | Visual_representation_of_document_dependencies_as_directed_acyclic_graph_DAG
+
+  GraphNodes[List]{node_id, node_label, node_type, criticality_color}:
+    N001 | Owner_Identity | ROOT | GREEN
+    N002 | PAN_Card | ROOT | GREEN
+    N003 | Land_Records | LAND | BLUE
+    N004 | Survey_Map | LAND | BLUE
+    N005 | ULPIN | LAND | RED_2025
+    N006 | Sale_Deed | OWNERSHIP | ORANGE
+    N007 | EC_Certificate | OWNERSHIP | ORANGE
+    N008 | Title_Deed | OWNERSHIP | ORANGE
+    N009 | Mutation | OWNERSHIP | YELLOW
+    N010 | Building_Approval | BUILDING | PURPLE
+    N011 | Completion_Cert | BUILDING | PURPLE
+    N012 | Occupancy_Cert | BUILDING | PURPLE
+    N013 | RERA_Developer | RERA | PINK
+    N014 | RERA_Project | RERA | PINK
+    N015 | Allotment_Letter | DEVELOPER | BROWN
+    N016 | Stamp_Duty | FINANCIAL | CYAN
+    N017 | Registration_Fee | FINANCIAL | CYAN
+    N018 | Bank_NOC | FINANCIAL | CYAN
+    N019 | Property_Tax | MUNICIPAL | GREY
+    N020 | Fire_NOC | SAFETY | LIGHTBLUE
+
+  GraphEdges[List]{from_node, to_node, edge_type, dependency_strength}:
+    N001 | N003 | REQUIRES | STRONG
+    N001 | N002 | REQUIRES | STRONG
+    N003 | N005 | REQUIRES | STRONG_2025
+    N003 | N006 | REQUIRES | STRONG
+    N005 | N006 | REQUIRES | STRONG_2025
+    N006 | N007 | REQUIRES | STRONG
+    N006 | N008 | REQUIRES | STRONG
+    N007 | N009 | REQUIRES | MEDIUM
+    N006 | N016 | REQUIRES | STRONG
+    N016 | N017 | REQUIRES | STRONG
+    N003 | N010 | REQUIRES_IF_BUILDING | CONDITIONAL
+    N010 | N011 | REQUIRES | STRONG
+    N011 | N012 | REQUIRES | STRONG
+    N012 | N006 | REQUIRES_FOR_APARTMENT | CONDITIONAL
+    N013 | N014 | REQUIRES | STRONG
+    N014 | N015 | REQUIRES | STRONG
+    N015 | N006 | REQUIRES | MEDIUM
+    N018 | N006 | BLOCKS_IF_PENDING | CRITICAL
+    N009 | N019 | ENABLES | MEDIUM
+    N011 | N020 | REQUIRES_IF_MULTISTORY | CONDITIONAL
+
+  GraphLegend[Map]{
+    Node_Colors[Map]{
+      GREEN | Root_Identity_Documents
+      BLUE | Land_Records_Foundation
+      RED | New_Mandatory_2025_Requirements
+      ORANGE | Critical_Ownership_Documents
+      YELLOW | Revenue_Update_Documents
+      PURPLE | Building_Construction_Documents
+      PINK | RERA_Regulatory_Documents
+      BROWN | Developer_Project_Documents
+      CYAN | Financial_Payment_Documents
+      GREY | Municipal_Ongoing_Documents
+      LIGHTBLUE | Safety_Clearance_Documents
+    }
+
+    Edge_Types[Map]{
+      REQUIRES | Direct_prerequisite_must_exist_before_next
+      BLOCKS | Prevents_next_step_if_missing_or_pending
+      ENABLES | Allows_next_step_but_not_mandatory
+      CONDITIONAL | Required_only_under_specific_conditions
+    }
+
+    Dependency_Strength[Map]{
+      STRONG | Absolute_blocker_cannot_proceed_without_this
+      MEDIUM | Important_but_can_be_obtained_in_parallel
+      WEAK | Nice_to_have_recommended_but_not_blocking
+      CONDITIONAL | Depends_on_property_type_or_situation
+    }
+  }
+}
+
+# ============================================================================
+# 8. PROPERTY TYPE-SPECIFIC VERIFICATION CHECKLIST
+# ============================================================================
+
+PropertyTypeChecklist[List]{
+  property_type,
+  must_have_critical_docs,
+  recommended_docs,
+  optional_docs,
+  state_specific_additions,
+  typical_legal_score_threshold,
+  typical_risk_score_threshold
+}:
+  RESIDENTIAL_PLOT | [DOC-001, DOC-003, DOC-006, DOC-007, DOC-038, DOC-031, DOC-032, DOC-004, DOC-035, DOC-037] | [DOC-009, DOC-008, DOC-021, DOC-025] | [DOC-010, DOC-033] | AP_KA_TG_Adangal_FMB_MH_7_12_TN_Patta_Chitta | 75+ | <25
+
+  INDEPENDENT_VILLA | [DOC-001, DOC-003, DOC-006, DOC-007, DOC-011, DOC-012, DOC-013, DOC-038, DOC-031, DOC-032, DOC-004, DOC-035, DOC-037] | [DOC-014, DOC-021, DOC-025, DOC-009] | [DOC-015, DOC-023, DOC-024] | Same_as_Plot_plus_Building_Approvals | 80+ | <20
+
+  APARTMENT_BUILDER_NEW | [DOC-001, DOC-003, DOC-013, DOC-016, DOC-017, DOC-018, DOC-019, DOC-031, DOC-032, DOC-035, DOC-037, DOC-020] | [DOC-015, DOC-021, DOC-025, DOC-014] | [DOC-023, DOC-024, DOC-034] | RERA_Registration_Mandatory_All_States | 85+ | <15
+
+  APARTMENT_RESALE | [DOC-001, DOC-003, DOC-002, DOC-013, DOC-004, DOC-031, DOC-032, DOC-035, DOC-037, DOC-021] | [DOC-025, DOC-026, DOC-017] | [DOC-023, DOC-024] | Check_Society_Membership_Documents | 80+ | <20
+
+  COMMERCIAL_SHOP_OFFICE | [DOC-001, DOC-003, DOC-013, DOC-015, DOC-027, DOC-031, DOC-032, DOC-035, DOC-037, DOC-011, DOC-012] | [DOC-028, DOC-021, DOC-016, DOC-017] | [DOC-034] | Commercial_License_Trade_License_Required | 80+ | <25
+
+  AGRICULTURAL_LAND | [DOC-006, DOC-007, DOC-003, DOC-001, DOC-008, DOC-038, DOC-031, DOC-032, DOC-035, DOC-037] | [DOC-004, DOC-021] | [DOC-010] | AP_Adangal_KA_RTC_TG_Pahani_MH_7_12_TN_Chitta | 70+ | <30
+
+  LAYOUT_DEVELOPMENT | [DOC-001, DOC-006, DOC-007, DOC-011, DOC-027, DOC-016, DOC-017, DOC-031, DOC-032, DOC-035, DOC-037, DOC-038] | [DOC-009, DOC-030, DOC-029, DOC-024] | [DOC-028] | Layout_Approval_EC_Sewerage_Road_Handover | 85+ | <20
+
+# ============================================================================
+# 9. STATE-SPECIFIC QUICK REFERENCE
+# ============================================================================
+
+StateSpecificQuickGuide[List]{
+  state_name,
+  land_records_portal,
+  registration_portal,
+  rera_portal,
+  municipal_portal,
+  stamp_duty_rate,
+  registration_fee_rate,
+  unique_critical_document,
+  processing_time_days
+}:
+  Andhra_Pradesh | https://meebhoomi.ap.gov.in | https://registration.ap.gov.in | https://rera.ap.gov.in | https://cdma.ap.gov.in | 5%_Sale_2%_Gift | 1% | Adangal_1B_FMB | 7_to_14
+
+  Karnataka | https://landrecords.karnataka.gov.in/service3 | https://kaveri.karnataka.gov.in | https://rera.karnataka.gov.in | https://bbmpeaasthi.karnataka.gov.in | 5%_Sale_2%_Gift | 1% | Bhoomi_RTC_Khata_Certificate | 8_to_15
+
+  Telangana | https://dharani.telangana.gov.in | https://registration.telangana.gov.in | https://rera.telangana.gov.in | https://www.ghmc.gov.in | 5%_Sale_2%_Gift | 1% | Adangal_Pahani_FMB | 7_to_12
+
+  Maharashtra | https://mahabhulekh.maharashtra.gov.in | https://igrmaharashtra.gov.in | https://maharera.mahaonline.gov.in | https://portal.mcgm.gov.in | 6%_Male_5%_Female_plus_1%_Metro | 1% | 7_12_Extract_Saat_Bara | 8_to_14
+
+  Tamil_Nadu | https://eservices.tn.gov.in/eservicesnew | https://tnreginet.gov.in | https://rera.tn.gov.in | https://chennaicorporation.gov.in | 7%_Sale_2%_Gift | 1% | Patta_Chitta_Adangal | 10_to_16
+
+# ============================================================================
+# END OF SIMPLIFIED SCHEMA
+# ============================================================================

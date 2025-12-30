@@ -1,0 +1,38 @@
+# Propmubi Property (Web-Listing) Data Schema
+# Format: TOON
+# Goal: Comprehensive Marketing & Sales Data for Real Estate (Builders, Projects, Units).
+
+# -----------------------------------------------------------------------------
+# 1. BUILDER / DEVELOPER
+# -----------------------------------------------------------------------------
+Builder{id, name, slug, est_year, reputation_score, total_projects}:
+  B-001 | My Home Constructions | my-home | 1995 | 4.8 | 25
+
+# -----------------------------------------------------------------------------
+# 2. PROJECT (Master Development)
+# -----------------------------------------------------------------------------
+Project{id, builder_ref, name, type, status, rera_id, total_acres}:
+  P-SAYUK | B-001 | My Home Sayuk | GatedCommunity | UnderConstruction | P02400005678 | 25.5
+
+  # TOWER GROUPS (The Clusters)
+  # Sayuk has distinct clusters with different floor plan logics
+  TowerGroup[List]{id, name, tower_ids, description, structure_schema_ref}:
+    GRP-01 | Lake View Towers | [A, B, C, D, E, F] | Premium 3BHKs facing lake | TOWER_STRUCTURE_SCHEMA.toon#LAY-GRP-A
+    GRP-02 | Garden View Towers | [G, H, I, J, K, L] | Standard 2BHK/3BHK cluster | TOWER_STRUCTURE_SCHEMA.toon#LAY-GRP-B
+
+  Location{city, district, pincode, lat, lng}:
+    Hyderabad | Tellapur | 500019 | 17.4201 | 78.3489
+
+# -----------------------------------------------------------------------------
+# 3. UNIT TEMPLATE (The Product)
+# -----------------------------------------------------------------------------
+UnitTemplate{id, project_ref, code, type, facing, sbu_sft, carpet_sft}:
+  T-3BHK-E | P-SAYUK | 3BHK-E-TypeA | Apartment | East | 1926 | 1350
+  T-3BHK-W | P-SAYUK | 3BHK-W-TypeB | Apartment | West | 1926 | 1350
+  T-2BHK-N | P-SAYUK | 2BHK-N-TypeC | Apartment | North | 1350 | 950
+
+# -----------------------------------------------------------------------------
+# 4. UNIT INSTANCE
+# -----------------------------------------------------------------------------
+UnitInstance{id, template_ref, unit_no, floor_no, status, total_price}:
+  U-A-101 | T-3BHK-E | A-101 | 1 | Available | 16500000

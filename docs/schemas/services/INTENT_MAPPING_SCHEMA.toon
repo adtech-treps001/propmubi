@@ -1,0 +1,437 @@
+# Propmubi Intent Mapping & Detection Schema
+# Format: TOON
+# Goal: Real-time intent detection and mapping for buyers at each stage of purchase journey
+# Based on: Behavioral signals, life events, digital activities, and market dynamics
+
+# ============================================================================
+# 1. INTENT DETECTION FRAMEWORK
+# ============================================================================
+
+# 1.1 CORE INTENT SCORING
+IntentScoringModel[List]{lead_id, overall_intent_score, intent_confidence_pct, primary_intent_type, secondary_intents, intent_recency_hours}:
+  LEAD-001 | 92/100 | 94% | Active_Buyer_Ready_to_Commit | [End_User_Self_Occupied, Property_Upgrade] | 2_hours
+  LEAD-002 | 78/100 | 87% | Investment_Buyer_Evaluating | [Portfolio_Diversification, NRI_Returns] | 24_hours
+  LEAD-003 | 45/100 | 62% | Window_Shopping_Early_Stage | [First_Time_Exploration, Budget_Uncertain] | 72_hours
+  LEAD-004 | 65/100 | 79% | Relocating_Professional | [Job_Change, Family_Relocation] | 12_hours
+  LEAD-005 | 38/100 | 55% | Curious_Passive | [Future_Planning, Market_Research] | 168_hours
+
+# 1.2 INTENT CATEGORY MAPPING
+IntentCategoryFramework[List]{intent_code, intent_name, buyer_behavior, timeline, decision_speed, engagement_depth}:
+  INT-001 | Active_Buyer_High_Intent | Multiple_Property_Visits_Negotiating | 7-30_days | Fast | Deep_Engagement
+  INT-002 | Active_Buyer_Medium_Intent | Site_Visit_Booking_Questioning | 30-60_days | Medium | Medium_Engagement
+  INT-003 | Evaluating_Comparing | Multiple_Inquiries_Competitor_Checking | 60-90_days | Slow | Medium_Engagement
+  INT-004 | Early_Stage_Curious | Website_Browsing_Content_Consuming | 90-180_days | Very_Slow | Light_Engagement
+  INT-005 | Passive_Not_Buying | Occasional_Browsing_No_Action | 180_days_Plus | N/A | Minimal_Engagement
+
+# ============================================================================
+# 2. BEHAVIORAL INTENT SIGNALS (Real-Time Detection)
+# ============================================================================
+
+BehavioralSignalDetection[List]{signal_id, lead_id, signal_type, signal_value, weight, detected_timestamp, signal_strength}:
+  SIG-001 | LEAD-001 | Site_Visit_Frequency | 5_visits_in_2_days | 0.25 | 2025-12-10_16:45 | Very_Strong
+  SIG-002 | LEAD-001 | Content_Consumption | Watched_Full_Video_8.5min | 0.15 | 2025-12-10_17:30 | Very_Strong
+  SIG-003 | LEAD-001 | Price_Query | Requested_Loan_Quote_Dashboard | 0.20 | 2025-12-11_10:00 | Very_Strong
+  SIG-004 | LEAD-001 | Outreach_Response | Answered_Agent_Call_18min | 0.18 | 2025-12-10_14:45 | Strong
+  SIG-005 | LEAD-001 | Document_Engagement | Downloaded_Brochure_Opened_3x | 0.12 | 2025-12-11_15:30 | Strong
+
+  # SIGNAL CATEGORIES & WEIGHTS
+  SignalWeightMatrix{signal_category, high_intent_weight, medium_intent_weight, low_intent_weight}:
+    Purchase_Financial_Signal | 0.35 | 0.20 | 0.05
+    Property_Exploration_Signal | 0.25 | 0.30 | 0.20
+    Engagement_Response_Signal | 0.20 | 0.25 | 0.15
+    Life_Event_Signal | 0.15 | 0.15 | 0.10
+    Competitor_Activity_Signal | 0.05 | 0.10 | 0.50
+
+# ============================================================================
+# 3. LIFE EVENT TRIGGERS (Primary Intent Drivers)
+# ============================================================================
+
+LifeEventTrigger[List]{event_id, lead_id, event_type, event_date, detected_date, confidence_pct, intent_boost_points}:
+  EVT-001 | LEAD-001 | Job_Promotion_New_Role | 2025-11-20 | 2025-12-01_via_LinkedIn | 98% | +20
+  EVT-002 | LEAD-002 | Relocation_New_Job_Hyderabad | 2025-12-05 | 2025-12-05_via_Email | 95% | +25
+  EVT-003 | LEAD-004 | Marriage_Life_Stage_Change | 2025-12-15 | 2025-12-10_via_Website | 88% | +18
+  EVT-004 | LEAD-003 | First_Child_Family_Expansion | 2026-03-Expected | 2025-12-15_via_Call | 75% | +15
+  EVT-005 | LEAD-005 | Salary_Increment_Bonus_Season | 2025-12-20_Expected | Not_Yet_Detected | 0% | 0
+
+  # LIFE EVENT CATEGORIES & IMPACT
+  LifeEventImpact{event_category, typical_intent_boost, timeline_urgency, property_preference_change}:
+    Career_Transition | +20_points | High_Urgent | May_Change_Location
+    Relocation_Life_Event | +25_points | Very_Urgent | New_City_Preference
+    Family_Expansion | +15_points | Medium_Urgent | Size_Upgrade_Needed
+    Marriage_Partnership | +18_points | Medium_Urgent | Joint_Decision_Dual_Income
+    Financial_Milestone | +10_points | Low_Urgent | Budget_Increase
+
+# ============================================================================
+# 4. PURCHASE INTENT SIGNAL BREAKDOWN (Detailed Analysis)
+# ============================================================================
+
+# 4.1 DIGITAL BEHAVIOR INTENT SIGNALS
+DigitalBehaviorSignals[List]{lead_id, signal_type, metric, value, interpretation}:
+  LEAD-001 | Search_Frequency | Website_Visits_30days | 8 | Very_High_Intent
+  LEAD-001 | Search_Pattern | Query_Types | Price_Financing_Possession | Research_Heavy
+  LEAD-001 | Content_Engagement | Video_Completion_Rate | 85% | Very_Interested
+  LEAD-001 | Page_Time | Average_Session_Duration | 12_minutes | High_Engagement
+  LEAD-002 | App_Usage | Daily_Active_Check | 3_times_per_week | Regular_Follower
+  LEAD-003 | Link_Clicks | Email_Click_Rate | 0% | Low_Interest
+
+  # DIGITAL INTENT SCORING COMPONENTS
+  DigitalIntentScore{lead_id, recency_score, frequency_score, engagement_depth_score, purchase_signal_score, total_digital_intent}:
+    LEAD-001 | 30/30 | 25/25 | 20/20 | 18/25 | 93/100
+    LEAD-002 | 20/30 | 20/25 | 15/20 | 15/25 | 70/100
+    LEAD-003 | 10/30 | 8/25 | 5/20 | 5/25 | 28/100
+
+# 4.2 SOCIAL & NETWORK INTENT SIGNALS
+SocialNetworkSignals[List]{lead_id, signal_type, source, signal_value, interpretation}:
+  LEAD-001 | Network_Activity | LinkedIn | Changed_Job_Location_Hyderabad | Strong_Relocation_Intent
+  LEAD-002 | Peer_Influence | Friend_Recommendation | 3_Friends_Invested_Same_Project | Social_Proof_Impact
+  LEAD-004 | Social_Sharing | Sent_Property_Link_to_Spouse | Shared_2_Units_on_WhatsApp | Joint_Decision_Process
+  LEAD-003 | Community_Engagement | Zero_Social_Sharing | No_Network_Activity | Low_Social_Intent
+
+# 4.3 FINANCIAL INTENT SIGNALS
+FinancialIntentSignals[List]{lead_id, signal_type, value, timing, interpretation}:
+  LEAD-001 | Loan_Quote_Request | 2.5Cr_Home_Loan | 2025-12-11_10:00 | Active_Financing_Exploration
+  LEAD-001 | Investment_Capital | Moved_Funds_to_Bank | Deposited_50L | Liquidity_Preparation
+  LEAD-002 | EMI_Affordability | EMI_Input_Calculator | 75L_Loan_8.5pct | Affordability_Checking
+  LEAD-003 | Price_Sensitivity | Inquired_Budget_Units | Only_Under_25L | Budget_Constrained
+
+# 4.4 COMPETITOR & MARKET SIGNALS
+CompetitorSignals[List]{lead_id, competitor_name, interaction_type, timing, signal_interpretation}:
+  LEAD-001 | Prestige_Constructions | Site_Visit | 2025-12-05 | Comparing_Alternatives
+  LEAD-002 | DLF_Residential | Downloaded_Brochure | 2025-12-10 | Evaluating_Options
+  LEAD-003 | Brigade_Projects | Inquiry_Page_Visit | 2025-12-08 | Market_Research_Early_Stage
+
+# ============================================================================
+# 5. INTENT STAGE PROGRESSION (Buyer Journey Mapping)
+# ============================================================================
+
+IntentJourneyStage[List]{lead_id, stage_sequence, stage_name, entry_trigger, behaviors, average_duration, exit_criteria}:
+  LEAD-001 | 1 | Awareness | Website_Search | Content_Consumption | 7_days | Schedules_Site_Visit
+  LEAD-001 | 2 | Consideration | Site_Visit_Completed | Asks_Questions_Compares | 14_days | Expresses_Interest_Levels
+  LEAD-001 | 3 | Decision | Price_Negotiation | Reviews_Documents | 7_days | Commits_or_Disengages
+  LEAD-001 | 4 | Action | Agreement_Signed | Payment_Processing | 30_days | Registration_Complete
+
+  # STAGE-SPECIFIC BEHAVIORS & SIGNALS
+  StageBehaviorMapping{stage_name, primary_behaviors, intent_indicators, intervention_needed}:
+    Awareness | Website_Browsing_Content_Search | Passive_Information_Seeking | Educational_Content
+    Consideration | Site_Visit_Query_Comparison | Active_Evaluation_With_Consideration | Personalized_Offer
+    Decision | Negotiation_Document_Review | High_Purchase_Readiness | Closing_Support
+    Action | Payment_Documentation_Legal | Commitment_Execution | Legal_And_Admin_Support
+
+# ============================================================================
+# 6. REAL-TIME INTENT DETECTION ENGINE
+# ============================================================================
+
+RealTimeIntentMonitoring[List]{monitoring_id, lead_id, event_timestamp, detected_intent_change, confidence_pct, action_triggered}:
+  RTMON-001 | LEAD-001 | 2025-12-10_16:45 | Low_to_Medium_Intent | 82% | Send_Follow_Up_Video
+  RTMON-002 | LEAD-001 | 2025-12-11_10:00 | Medium_to_High_Intent | 92% | Assign_to_Close_Agent
+  RTMON-003 | LEAD-002 | 2025-12-12_14:30 | Static_Medium_Intent | 78% | Send_Financing_Options
+  RTMON-004 | LEAD-003 | 2025-12-15_18:30 | Low_Intent_No_Change | 45% | Send_General_Market_Content
+
+# ============================================================================
+# 7. INTENT-BASED ACTION WORKFLOW (Automation Rules)
+# ============================================================================
+
+IntentActionMapping[List]{intent_score_range, intent_label, recommended_action, contact_frequency, touchpoint_sequence, success_metric}:
+  90-100 | Hot_High_Intent | Assign_to_Senior_Agent_Immediate_Call | Daily | Video_Demo_→_Site_Visit_→_Negotiation | Close_Within_30_days
+  75-89 | Warm_Medium_Intent | Send_Personalized_Offer_Email | Every_3_days | Content_→_Schedule_Demo_→_Site_Visit | Close_Within_60_days
+  60-74 | Interested_Developing_Intent | Send_Nurture_Content_Monthly | Weekly | Educational_→_Comparison_→_Self_Tour | Close_Within_90_days
+  45-59 | Curious_Early_Stage | Send_General_Market_Updates | Bi_Weekly | Awareness_→_Blog_→_Newsletter | Engagement_Tracking
+  0-44 | Not_Interested_Passive | Add_to_Drip_Campaign | Monthly | Annual_Market_Update | Re_Engagement_Opportunity
+
+# ============================================================================
+# 8. INTENT CONFIDENCE & VALIDATION
+# ============================================================================
+
+IntentConfidenceValidation[List]{lead_id, calculated_intent_score, validation_method_1, validation_method_2, final_intent_confidence, recommendation}:
+  LEAD-001 | 92 | Behavioral_Scoring_94pct | Financial_Verification_98pct | 94% | Definitely_Hot_Close_Ready
+  LEAD-002 | 78 | Behavioral_Scoring_87pct | Market_Signal_80pct | 87% | Warm_Move_to_Active_nurture
+  LEAD-003 | 45 | Behavioral_Scoring_62pct | Financial_Verification_48pct | 55% | Uncertain_Monitor_Carefully
+  LEAD-004 | 65 | Behavioral_Scoring_79pct | Life_Event_Confirmed_75pct | 77% | Developing_High_Potential
+
+# ============================================================================
+# 9. INTENT CHANGE ALERTS (Dynamic Updates)
+# ============================================================================
+
+IntentChangeAlert[List]{alert_id, lead_id, previous_intent_score, new_intent_score, change_magnitude, change_reason, alert_priority}:
+  ALERT-001 | LEAD-001 | 45 | 92 | +47_points | Life_Event_Job_Change + Digital_Behavior_Search | Critical_High
+  ALERT-002 | LEAD-002 | 55 | 78 | +23_points | Financial_Signal_Loan_Quote_Request | High
+  ALERT-003 | LEAD-005 | 38 | 35 | -3_points | Decreased_Website_Engagement | Low
+  ALERT-004 | LEAD-003 | 65 | 42 | -23_points | Competitor_Visit_DLF_Prestige | Medium
+
+# ============================================================================
+# 10. INTENT METRICS & ANALYTICS
+# ============================================================================
+
+IntentAnalytics[List]{period, avg_intent_score_all_leads, high_intent_leads_count, medium_intent_leads_count, low_intent_leads_count, intent_conversion_rate}:
+  2025_Q4_Dec | 58 | 145 | 220 | 85 | 8.2%
+  2025_Q3_Oct | 52 | 120 | 180 | 80 | 7.5%
+  2025_Q2_Jul | 48 | 95 | 150 | 75 | 6.8%
+
+  # INTENT TO CONVERSION CORRELATION
+  IntentConversionCorrelation{intent_score_range, leads_in_range, conversions, conversion_rate_pct, avg_deal_value}:
+    90-100 | 145 | 115 | 79.3% | 1.95Cr
+    75-89 | 220 | 135 | 61.4% | 1.48Cr
+    60-74 | 180 | 65 | 36.1% | 1.12Cr
+    45-59 | 95 | 15 | 15.8% | 58L
+    0-44 | 85 | 2 | 2.4% | 32L
+
+# ============================================================================
+# 11. INDIA-SPECIFIC INTENT DATA PROVIDERS & SOURCES
+# ============================================================================
+
+IndiaIntentDataProviders[List]{provider_id, provider_name, data_type, coverage_pct_india, update_frequency, intent_signal_quality, api_availability}:
+  INTENT-PROV-001 | CIBIL | Financial_Intent_Credit_Behavior | 85%_Salaried_Professionals | Real_Time | Very_High | API_Available
+  INTENT-PROV-002 | LinkedIn_India | Career_Job_Change_Relocation | 45%_Urban_Professionals | Real_Time | Very_High | API_Available_Limited
+  INTENT-PROV-003 | Google_Analytics_India | Website_Search_Behavior | 95%_Online_Traffic | Real_Time | High | API_Available
+  INTENT-PROV-004 | MagicBricks_Data | Property_Search_Intent | 70%_Active_Buyers | Real_Time | Very_High | Partnership_Needed
+  INTENT-PROV-005 | 99acres_Data | Property_Inquiry_Intent | 65%_Active_Buyers | Real_Time | Very_High | Partnership_Needed
+  INTENT-PROV-006 | Housing_com_Data | Property_Comparison_Intent | 55%_Active_Buyers | Real_Time | High | Partnership_Needed
+  INTENT-PROV-007 | RERA_Database | Property_Launch_Registration | 80%_Regulated_Projects | Weekly | High | Government_Access
+  INTENT-PROV-008 | RBI_Banking_Data | Loan_Disbursement_Trends | 78%_Formal_Sector | Monthly | Medium | Aggregated_Only
+  INTENT-PROV-009 | GST_NEFT_Payments | Transaction_Intent | 85%_Formal_Sector | Monthly | High | Aggregated_Research
+  INTENT-PROV-010 | Facebook_India_Ads | Property_Ad_Engagement | 92%_Facebook_Users | Real_Time | Medium | API_Limited
+  INTENT-PROV-011 | Twitter_News_Sentiment | Market_Sentiment_News | 35%_Urban_Professionals | Real_Time | Low | API_Available
+  INTENT-PROV-012 | Equifax_TransUnion | Financial_Health_Intent | 60%_Credit_Active | Real_Time | Very_High | API_Available
+  INTENT-PROV-013 | Moneycontrol_BSE_NSE | Investment_Intent_Trading | 25%_Investors | Real_Time | High | Data_Feed_Available
+  INTENT-PROV-014 | Times_Property_News | Market_Intent_News | 40%_News_Readers | Daily | Medium | Web_Scraping
+  INTENT-PROV-015 | NestAway_Rental_Data | Relocation_Intent | 30%_Mobile_Professionals | Real_Time | High | Partnership_Needed
+  INTENT-PROV-016 | Zomato_Swiggy_Location | Lifestyle_Location_Preference | 50%_Urban_Consumers | Real_Time | Medium | Inference_Only
+  INTENT-PROV-017 | OLX_Quikr_Sell_Data | Relocation_Moving_Intent | 35%_Selling_Goods | Real_Time | Medium | Data_Inference
+  INTENT-PROV-018 | Electricity_Boards_Data | Address_Change_Relocation | 70%_Utility_Users | Monthly | High | Government_Restricted
+  INTENT-PROV-019 | Vehicle_Registration_Data | Income_Lifestyle_Proxy | 80%_Vehicle_Owners | Quarterly | Medium | Government_Restricted
+  INTENT-PROV-020 | Mobile_Telecom_Data | Location_Tower_Data | 95%_Mobile_Users | Real_Time | Low | Aggregated_Inference
+
+  # INTENT_DATA_SOURCE_PRIORITY_MATRIX
+  IndiaIntentSourcePriority{priority_rank, data_source, intent_accuracy, timeliness_hours, cost_per_lead_inr, recommended_use}:
+    RANK-001 | MagicBricks_99acres_Housing | 92% | 1_to_4 | 15_to_30 | Active_Buyer_Detection
+    RANK-002 | CIBIL_Equifax_TransUnion | 88% | 24_to_72 | 25_to_50 | Financial_Readiness
+    RANK-003 | LinkedIn_Job_Change_Data | 85% | 24 | 20_to_40 | Career_Driven_Relocation
+    RANK-004 | Google_Analytics_Behavior | 78% | 1 | 5_to_15 | Early_Stage_Interest
+    RANK-005 | Facebook_Instagram_Engagement | 65% | 1 | 10_to_25 | Demographic_Targeting
+    RANK-006 | RERA_New_Launch_Data | 95% | 24 | 40_to_80 | Project_Specific_Intent
+    RANK-007 | Utility_Telecom_Change | 70% | 30_to_60 | 10_to_20 | Relocation_Intent
+    RANK-008 | News_Media_Sentiment | 55% | 1 | 5_to_10 | Market_Sentiment_Indicator
+
+  # INDIA_REGIONAL_INTENT_VARIATION
+  IndiaRegionalIntentVariation{region, primary_intent_driver, secondary_driver, seasonal_pattern, data_provider_strength}:
+    North_Delhi_NCR | Job_Transfer_Relocation | Family_Expansion | Jan_Mar_Jul_Sep | LinkedIn_MagicBricks_Strong
+    South_Hyderabad_Bangalore | Tech_Sector_Relocation | Investment_Returns | Jun_Nov_Dec | Google_Equifax_Very_Strong
+    West_Mumbai_Pune | Investment_Portfolio | Upgrade_Self_Occupied | Feb_Apr_Oct_Dec | CIBIL_Facebook_Strong
+    East_Kolkata_Guwahati | Family_Expansion | Self_Occupied | Mar_May_Nov_Dec | Google_Housing_Medium
+    Central_Indore_Nagpur | Investment_Emerging_Market | Affordable_First_Buy | Apr_Jun_Oct_Nov | 99acres_MagicBricks_Medium
+
+# ============================================================================
+# 12. INTENT DETECTION METHODS & ALGORITHMS (India-Optimized)
+# ============================================================================
+
+IntentDetectionMethods[List]{method_id, method_name, data_inputs, algorithm_type, accuracy_pct, processing_speed_ms, complexity}:
+  METHOD-001 | Rule_Based_Heuristic | Behavioral_Signals | Threshold_Matching | 72% | 10 | Very_Low
+  METHOD-002 | Behavioral_Scoring_Weighted | 15_Behavioral_Signals | Linear_Weighted_Sum | 78% | 25 | Low
+  METHOD-003 | Logistic_Regression | 20_Features | Statistical_Classification | 82% | 50 | Low
+  METHOD-004 | Random_Forest_Ensemble | 40_Features | Tree_Based_Ensemble | 87% | 100 | Medium
+  METHOD-005 | Gradient_Boosting_XGBoost | 60_Features | Advanced_Ensemble | 91% | 150 | Medium_High
+  METHOD-006 | Neural_Network_Deep_Learning | 100_Features | Deep_Learning_3Layer | 93% | 300 | High
+  METHOD-007 | LSTM_Temporal_Sequence | 50_Features_Temporal | Recurrent_Neural_Network | 89% | 250 | High
+  METHOD-008 | Bayesian_Network | 25_Features_Causal | Probabilistic_Graphical_Model | 85% | 75 | Medium
+  METHOD-009 | Isolation_Forest_Anomaly | Outlier_High_Intent | Anomaly_Detection | 79% | 80 | Medium
+  METHOD-010 | Ensemble_Multi_Model | All_30_Features | Voting_Stacking | 95% | 500 | Very_High
+
+  # INTENT_DETECTION_METHOD_COMPARISON
+  MethodComparisonMatrix{method_name, false_positive_rate, false_negative_rate, india_relevance, implementation_ease, data_requirement}:
+    Rule_Based | 18% | 22% | Medium | Very_Easy | Minimal
+    Weighted_Scoring | 15% | 18% | High | Easy | Moderate
+    Logistic_Regression | 12% | 15% | High | Easy | Moderate
+    Random_Forest | 8% | 10% | Very_High | Medium | High
+    XGBoost | 5% | 7% | Very_High | Medium_Hard | Very_High
+    Neural_Network | 4% | 6% | Very_High | Hard | Very_High
+    LSTM_Temporal | 6% | 5% | Very_High | Very_Hard | Very_High
+    Bayesian_Network | 10% | 12% | High | Hard | High
+    Ensemble_Hybrid | 3% | 4% | Excellent | Very_Hard | Critical
+    Isolation_Forest | 7% | 9% | Medium | Medium | High
+
+  # RECOMMENDED_METHOD_BY_USE_CASE
+  RecommendedDetectionMethod{use_case, recommended_method, reasoning, accuracy_expectation, implementation_timeline}:
+    Real_Time_Lead_Scoring | XGBoost_or_Neural_Network | Speed_Accuracy_Balance | 90_to_94% | 2_to_4_weeks
+    Batch_Intent_Calculation | Ensemble_Hybrid | Highest_Accuracy | 95% | 4_to_8_weeks
+    MVP_Quick_Launch | Weighted_Behavioral_Scoring | Quick_Implementation | 75_to_80% | 1_week
+    Long_Term_Production | Ensemble_with_Deep_Learning | Best_Long_Term_ROI | 94_to_96% | 8_to_12_weeks
+    India_Specific_Tailor | LSTM_Temporal_XGBoost_Hybrid | Captures_Time_Patterns | 92_to_95% | 6_to_10_weeks
+    Constraint_Resource_Limited | Random_Forest_Linear_Model | Good_Accuracy_Low_Compute | 85_to_88% | 2_to_3_weeks
+
+  # INTENT_SIGNAL_FEATURE_ENGINEERING_INDIA
+  IndiaIntentFeatureEngineering{feature_id, feature_name, calculation_method, data_source, feature_importance_rank, business_relevance}:
+    FEAT-001 | Property_Search_Recency_Days | Days_Since_Last_Search | MagicBricks_99acres | 1_Critical | Direct_Purchase_Signal
+    FEAT-002 | Property_Inquiry_Frequency_7d | Count_Inquiries_Per_Week | Portal_Data | 2_Critical | Active_Intent_Signal
+    FEAT-003 | CIBIL_Score_Recent | Latest_Credit_Score | CIBIL_API | 3_Critical | Financial_Capacity
+    FEAT-004 | Home_Loan_Query_Flag | Requested_Loan_Quote | Bank_Data_Portal | 4_Very_High | Financial_Preparation
+    FEAT-005 | LinkedIn_Job_Change_Recency | Days_Since_Job_Change | LinkedIn_API | 5_Very_High | Life_Event_Driver
+    FEAT-006 | Age_Income_Proxy_Score | Derived_from_Credit_Profile | CIBIL_Equifax | 6_Very_High | Demographic_Readiness
+    FEAT-007 | Site_Visit_Scheduled | Has_Booked_Site_Visit | CRM_System | 7_Very_High | Intent_Confirmation
+    FEAT-008 | Email_Open_Rate_30d | Opens_Out_of_Sends | Email_Platform | 8_High | Engagement_Signal
+    FEAT-009 | WhatsApp_Engagement_Recency | Days_Since_WhatsApp_Message | WhatsApp_API | 9_High | India_Specific_Channel
+    FEAT-010 | Competitor_Interaction_Count | Visits_to_Competitor_Sites | Analytics | 10_High | Comparison_Shopping_Signal
+    FEAT-011 | Location_Search_Specificity | Focused_on_Specific_Micro_Market | Search_Data | 11_High | Location_Preferences
+    FEAT-012 | Budget_Query_History | Inquired_within_Budget_Range | Portal_Data | 12_High | Price_Sensitivity
+    FEAT-013 | Marital_Status_Change_Signal | Marriage_Detected_via_LinkedIn | LinkedIn_API | 13_Medium | Family_Life_Event
+    FEAT-014 | NRI_Status_Remittance | Sent_Money_to_India | Banking_Aggregator | 14_Medium | NRI_Investor_Intent
+    FEAT-015 | Vehicle_Purchase_Recent | Purchased_Vehicle_Last_2yr | Registration_Data | 15_Medium | Income_Lifestyle_Proxy
+
+  # INDIA_TEMPORAL_INTENT_PATTERNS
+  IndiaBuyingCyclePatterns{month, peak_intent_category, intent_multiplier, reason, recommended_contact_frequency}:
+    January | New_Year_Resolution_Upgrade | 1.8x | Tax_Planning_Bonus | High_Weekly
+    February | Valentine_Marriage_Planning | 1.6x | Engagement_Wedding_Season | Medium_Bi_Weekly
+    March | Financial_Year_End_Tax_Saving | 2.1x | Investment_Deadline | Very_High_Daily
+    April | New_Financial_Year_Budget | 1.5x | New_Salary_Increment | Medium_Bi_Weekly
+    May | Summer_Vacation_Exploration | 1.2x | Family_Holiday_Property | Low_Weekly
+    June | Monsoon_Slow_Period | 0.6x | Weather_Construction_Pause | Low_Monthly
+    July | Post_Monsoon_Interest | 1.3x | Construction_Visibility | Low_Bi_Weekly
+    August | Pre_Festival_Buying | 1.4x | Diwali_Planning | Medium_Bi_Weekly
+    September | Diwali_Festival_Peak | 2.2x | Auspicious_Buying_Season | Very_High_Daily
+    October | Diwali_Continuation_Wedding | 2.0x | Festival_Wedding_Season | High_Weekly
+    November | Post_Diwali_Momentum | 1.7x | Investment_Completion | High_Bi_Weekly
+    December | Year_End_Urgency_Tax | 2.3x | Fiscal_Closing_Deadline | Very_High_Daily
+
+  # INDIA_INTENT_SEASONAL_ADJUSTMENT
+  IndiaSeasonalIntentAdjustment{month, intent_score_adjustment, contact_strategy, content_focus, resource_allocation}:
+    Q1_Jan_Mar | +35_percent | Aggressive_Daily | Tax_Planning_Investment_Returns | Maximum_Resources_Sales_Team
+    Q2_Apr_May | -15_percent | Moderate_Bi_Weekly | School_Summer_Vacation_Budget | Standard_Resources
+    Q3_Jun_Aug | -40_percent | Light_Monthly | Content_Only_No_Outbound | Minimal_Resources
+    Q4_Sep_Dec | +45_percent | Maximum_Daily | Festival_Wedding_Year_End | Maximum_Resources_Plus_Contractors
+
+# ============================================================================
+# 13. FAMILY LIFECYCLE INTENT MAPPING (Marriage, Children, School Enrollment)
+# ============================================================================
+
+FamilyLifecycleIntentDriver[List]{family_stage_id, lifecycle_stage, age_range, primary_intent_driver, property_preference, school_proximity_critical, timeline_months}:
+  FAMILY-001 | Newly_Married | 25-30 | Marriage_Joint_Decision | 2BHK_Rental_or_Purchase | Not_Critical | 6_to_18
+  FAMILY-002 | Young_Couple_No_Children | 28-35 | Stability_Upgrade | 3BHK_Investment | Not_Critical | 12_to_24
+  FAMILY-003 | First_Child_Planning | 30-37 | Child_Arrival_Preparation | 3BHK_Large_Space | Becoming_Critical | 6_to_12
+  FAMILY-004 | School_Going_Child | 35-42 | School_Proximity_Quality | 3BHK_4BHK_Good_Area | Very_Critical_95pct | 3_to_6
+  FAMILY-005 | Multiple_Children_School | 38-48 | School_Options_Siblings | 4BHK_Plus_Community | Very_Critical_98pct | 2_to_4
+  FAMILY-006 | Teen_Higher_Education | 45-55 | College_Proximity_Autonomy | 4BHK_Plus_Study_Space | Critical_Colleges | 2_to_3
+  FAMILY-007 | Empty_Nest_Post_Children | 50-60 | Downsizing_or_Investment | 2BHK_3BHK_Luxury | Not_Critical | 6_to_12
+  FAMILY-008 | Post_Retirement | 60_Plus | Lifestyle_Healthcare | 2BHK_Senior_Friendly | Not_Critical | 3_to_6
+
+  # FAMILY_LIFECYCLE_INTENT_BOOST
+  FamilyLifecycleIntentBoost{stage_name, months_to_purchase, intent_score_boost, intent_urgency, engagement_method}:
+    Marriage_Wedding_Planning | 6_to_12_months | +25_points | High | Couple_Joint_Messaging
+    First_Child_Pregnancy_Detected | 6_months_before_birth | +30_points | Very_High | Family_Growth_Content
+    Child_Admission_School_Enrollment | 2_to_3_months_before | +35_points | Critical | School_Specific_Content
+    Second_Child_on_Way | 12_months_before_birth | +20_points | High | Family_Space_Content
+    Teen_College_Preparation | 12_to_18_months_before | +18_points | Medium | Education_Location_Content
+    Retirement_Planning | 24_months_before | +22_points | High | Lifestyle_Security_Content
+
+  # MARRIAGE_LIFECYCLE_TEMPORAL_PATTERN
+  MarriageIntentTemporal{months_from_marriage, marriage_anniversary_boost, intent_multiplier, recommended_messaging, property_stage}:
+    0_to_3_months | Honeymoon_Early_Focus | 1.2x | New_Home_Excitement | Rental_or_Short_Term
+    3_to_6_months | First_Settlement_Joint_Decision | 2.8x | Joint_Planning_Budget_Setting | Active_Search_Phase
+    6_to_12_months | Stability_Seeking_Purchase | 3.2x | Home_Ownership_Security | Negotiation_Phase
+    12_to_24_months | Settling_Permanent_Base | 2.5x | Long_Term_Investment | Post_Purchase
+    24_to_36_months | First_Child_Preparation | 3.5x | Space_Growth_Upgrade | Active_Purchase_Intent
+
+  # CHILDREN_SCHOOL_INTENT_TRIGGER
+  ChildrenSchoolIntentMapping[List]{child_id, child_age_months, school_admission_start_age, months_to_admission, intent_boost_points, school_search_behavior}:
+    CHILD-001 | 36_months_3years | 60_months_5years_KG | 24_months_high_search | +20 | School_Research_2yrs_Prior
+    CHILD-002 | 48_months_4years | 60_months_5years_KG | 12_months_high_search | +28 | School_Location_Critical_Moving
+    CHILD-003 | 18_months | 60_months_5years | 42_months_moderate | +12 | Area_Selection_Important
+    CHILD-004 | 60_months_5years | 72_months_6years_1st_Grade | 12_months_very_high | +35 | Micro_Market_School_Match
+    CHILD-005 | 120_months_10years | 180_months_15years_Secondary | 60_months_moderate | +15 | School_Curriculum_Fit
+
+  # SCHOOL_ZONE_PREFERENCE_BY_MICROMARKET
+  SchoolZonePreference[List]{micromarket_id, micromarket_name, quality_schools_count, school_names, office_proximity_min, intent_score_multiplier}:
+    MICRO-001 | Gachibowli_Financial_Hub | 12 | GEAR_Narayana_Sri_Chaitanya_Delhi_Public | 5_to_15km_Office | 2.1x
+    MICRO-002 | Kondapur_IT_Corridor | 10 | BHEL_School_Vidyaranya_Cambridge | 2_to_10km_Office | 2.3x
+    MICRO-003 | Hitec_City_Tech_Hub | 14 | Delhi_Public_Campus_Trio_Internation | 1_to_8km_Office | 2.4x
+    MICRO-004 | Banjara_Hills_Premium | 8 | Hyderabad_Public_School_St_Marys | 8_to_20km_Office | 1.8x
+    MICRO-005 | Jubilee_Hills_Upscale | 9 | Oakridge_International_Meridian | 10_to_25km_Office | 1.9x
+    MICRO-006 | Koramangala_Emerging | 6 | Vidyaranya_Sri_Chaitanya_OPTIONS | 15_to_30km_Office | 1.5x
+
+  # OFFICE_COMMUTE_INTENT_MICROMARKET
+  OfficeCommuteIntentMapping[List]{lead_id, office_location, office_sector, commute_preference_minutes, matching_micromarket, commute_score_multiplier, intent_boost}:
+    LEAD-001 | Gachibowli | Financial_Services | 15_to_20_minutes | Gachibowli_Kondapur | 2.8x | +40_points
+    LEAD-002 | Hitec_City | IT_Services | 10_to_15_minutes | Hitec_City_Kondapur | 2.9x | +42_points
+    LEAD-003 | Banjara_Hills | Corporate_HQ | 20_to_30_minutes | Banjara_Hills_Jubilee_Hills | 2.2x | +30_points
+    LEAD-004 | Madhapur | Tech_Startup | 5_to_12_minutes | Hitec_City_Kondapur | 2.7x | +38_points
+    LEAD-005 | NASSCOM_Area | IT_Park | 8_to_18_minutes | Gachibowli_Hitec_City | 2.5x | +35_points
+
+  # OFFICE_WORKING_SPOUSE_DUAL_INCOME
+  DualIncomeOfficeMapping[List]{lead_id, spouse1_office_location, spouse1_sector, spouse2_office_location, spouse2_sector, optimal_micromarket, commute_index}:
+    LEAD-001 | Gachibowli | Finance | Banjara_Hills | IT | Gachibowli_Adjacent | 2.1_Excellent
+    LEAD-002 | Hitec_City | IT | Hitec_City | IT | Hitec_City_Kondapur | 2.8_Perfect
+    LEAD-003 | Madhapur | Tech | Gachibowli | Finance | Kondapur_Central | 2.3_Very_Good
+    LEAD-004 | Downtown_Hyderabad | Admin | Jubilee_Hills | Corporate | Banjara_Jubilee | 2.0_Good
+    LEAD-005 | WFH_Remote | Tech | Hitec_City | IT | Hitec_City_Surroundings | 2.5_Excellent
+
+  # FAMILY_WORKING_STATUS_INTENT_VARIATION
+  FamilyWorkingStatusIntent{family_type, spouse1_working, spouse2_working, children_school, primary_intent_driver, property_budget_level, intent_score_adjustment}:
+    Single_Income_One_Child | Yes | No | In_School | Stability_School_Proximity | 50L_to_1Cr | +15_points
+    Dual_Income_No_Child | Yes | Yes | No_Children | Investment_Commute_Optimization | 80L_to_1.5Cr | +25_points
+    Dual_Income_One_Child | Yes | Yes | In_School | School_Commute_Optimization | 75L_to_1.2Cr | +35_points
+    Dual_Income_Multiple_Children | Yes | Yes | Multiple_Schools | Space_School_Choice | 1Cr_to_2Cr | +40_points
+    Single_Parent_One_Child | Yes | No | In_School | Affordable_School_Access | 35L_to_80L | +20_points
+    Retired_One_Spouse_Working | Retired | Yes | Adult_Children | Healthcare_Commute | 60L_to_1Cr | +10_points
+
+# ============================================================================
+# 14. TEMPORAL FAMILY MILESTONE PATTERNS (Month-by-Month)
+# ============================================================================
+
+FamilyMilestoneTemporalPattern[List]{month, marriage_season_intensity, school_admission_phase, child_birth_season, family_event_boost, specific_triggers}:
+  January | 0.4x_Wedding_Offseason | New_School_Year_Starts | Low_Birth_Month | 1.1x | New_Year_Resolution_Couple_Plans
+  February | 1.8x_Wedding_Season_Valentine | Admission_Inquiries_Begin | Low_Birth_Month | 2.2x | Valentine_Engagement_Wedding_Planning
+  March | 1.2x_Wedding_Season_Cont | School_Admission_Peak_Deadline | Low_Birth_Month | 1.5x | Financial_Year_End_Budget_Allocation
+  April | 0.6x_Post_Wedding | New_Academic_Year_Begins | Peak_Birth_Months_9mo_ago_June | 1.8x | Financial_New_Year_Bonuses
+  May | 0.5x_Summer_Holiday_Focus | Summer_Break_Family_House_Hunt | Peak_Birth_Month | 1.2x | School_Holidays_Family_Property_Search
+  June | 0.7x_Monsoon_Wedding_Pause | Mid_Summer_Break_Period | High_Birth_Month | 0.8x | Monsoon_Construction_Pause_No_Activity
+  July | 0.8x_Post_Monsoon_Wedding | School_Break_Ends_Prep | High_Birth_Month | 1.0x | Pre_School_Re_Opening_House_Hunt
+  August | 1.3x_Wedding_Pre_Monsoon | School_Opening_Admission_Finalization | Medium_Birth_Month | 1.9x | Diwali_Planning_Wedding_Season_Start
+  September | 2.1x_Peak_Wedding_Season | Post_School_Opening_Settlement | Medium_Birth_Month | 2.8x | Diwali_Festival_Auspicious_Marriage
+  October | 2.3x_Peak_Wedding_Festival | School_Year_Stabilization | Low_Birth_Month | 3.0x | Diwali_Peak_Wedding_Season_Festival
+  November | 1.9x_Wedding_Continuation | Diwali_Post_Festival_Settling | Low_Birth_Month | 2.2x | Festival_Completion_Year_End_Planning
+  December | 2.0x_Year_End_Wedding_Rush | Summer_Break_Family_Bonding | Lowest_Birth_Month | 3.1x | Year_End_Urgency_Babies_From_Mar_Apr
+
+  # FAMILY_MILESTONE_INTENT_TIMELINE_MAPPING
+  FamilyMilestoneTimeline{milestone_event, expected_month_occurrence, months_prior_house_search_starts, months_post_house_purchase, total_purchase_window_months}:
+    Engagement_Wedding_Planning | Sep_Oct_Feb | 3_to_6_months_before | Not_Applicable | 6_to_12
+    Wedding_Marriage_Ceremony | Sep_Oct_Feb_Actual | Concurrent_During | 3_to_6_post | 9_to_18
+    Honeymoon_Return_Settlement | 1_month_post_wedding | N/A | 1_to_3 | 2_to_6
+    First_Child_Pregnancy_Detected | Any_Month | 6_months_before_due | Urgent_Post_Birth | 6_months_window
+    Child_Birth_Actual | Sep_Apr_High | Not_Needed_Already | 3_to_6_months_post | 3_to_6
+    Child_School_Admission_Preparation | 2_years_prior | 24_months_before | Less_Urgent | 24_months_search
+    Child_First_Day_School | June_May_April | 12_months_search_before | Settled_Post | 12_months_intensive
+    Second_Child_Planning | Any_Month | 12_months_before | Within_Year | 12_months_planning
+    Teenager_College_Preparation | June_May | 12_to_18_months_before | Post_College | 18_months_search
+
+  # SCHOOL_ADMISSION_CRITICAL_MONTHS_BY_CITY
+  SchoolAdmissionCriticalMonths[List]{academic_year, school_admission_start, school_admission_peak, school_admission_deadline, property_search_months_before, house_move_deadline}:
+    2025_2026_Batch | June_15 | July_Aug | Aug_31 | Feb_Mar_Apr_May | Jun_30_Move_Deadline
+    2026_2027_Batch | Jun_16 | Jul_Aug | Sep_15 | Mar_Apr_May_Jun | Jun_30_Move_Deadline
+    2027_2028_Batch | Jun_15 | Jul_Sep | Oct_15 | Mar_Apr_May_Jun | Jun_30_Move_Deadline
+
+# ============================================================================
+# 15. FAMILY_STRUCTURE_MICROMARKET_MATCHING (Geographic Intent Mapping)
+# ============================================================================
+
+FamilyStructureMicromarketOptimal[List]{family_structure, children_count, school_requirement, optimal_micromarket, secondary_micromarket, school_diversity_score, commute_efficiency_score}:
+  Nuclear_Young_Couple | 0 | Not_Required | Hitec_City_Kondapur | Gachibowli | N/A | 2.8
+  Nuclear_One_School_Child | 1 | High_Primary | Gachibowli_Kondapur | Hitec_City | 95% | 2.7
+  Nuclear_Multiple_School_Children | 2_Plus | Very_High_Diverse | Gachibowli | Kondapur | 92% | 2.5
+  Extended_Family_Multi_Generation | 2_to_4 | High_Primary_Secondary | Banjara_Hills | Jubilee_Hills | 88% | 2.2
+  Single_Parent_One_Child | 1 | High_Affordable | Koramangala_Emerging | Gachibowli_Outer | 80% | 2.4
+  Blended_Family_Step_Children | 3_Plus | Very_High | Gachibowli | Banjara_Hills | 85% | 2.3
+
+  # MICROMARKET_FAMILY_AMENITIES_RANKING
+  MicromarketFamilyAmenities[List]{micromarket_id, micromarket_name, quality_schools_count, hospitals_count, parks_count, shopping_proximity_km, family_amenity_score}:
+    MICRO-001 | Gachibowli | 12_Schools | 8_Hospitals | 5_Parks | 2_km_3_Malls | 9.2/10_Excellent
+    MICRO-002 | Kondapur | 10_Schools | 6_Hospitals | 4_Parks | 1.5_km_2_Malls | 8.8/10_Very_Good
+    MICRO-003 | Hitec_City | 14_Schools | 9_Hospitals | 6_Parks | 3_km_4_Malls | 9.4/10_Excellent
+    MICRO-004 | Banjara_Hills | 8_Schools | 7_Hospitals | 8_Parks | 2.5_km_3_Malls | 8.9/10_Very_Good
+    MICRO-005 | Jubilee_Hills | 9_Schools | 8_Hospitals | 10_Parks | 1.8_km_4_Malls | 9.1/10_Excellent
+    MICRO-006 | Koramangala | 6_Schools | 5_Hospitals | 3_Parks | 0.5_km_5_Cafes | 7.8/10_Good
+
+  # SAFETY_COMMUTE_FAMILY_INTENT_BOOST
+  SafetyCommuteToSchoolIntent{lead_id, child_age, school_location, gated_community_preference, womens_safety_concern, commute_mode_preference, location_match_score}:
+    LEAD-001 | 5_years_KG | Gachibowli_School | Yes_Gated_Community_Critical | High_Concern | Own_Vehicle_Drop | 95/100_Perfect
+    LEAD-002 | 8_years_3rd_Grade | Hitec_City_School | Yes_Preferred | Medium_Concern | School_Bus_Safe_Route | 88/100_Very_Good
+    LEAD-003 | 4_years_Pre_KG | Within_2km_Walking | Yes_Essential | Very_High_Concern | Walking_Safe_Zone | 92/100_Very_Good
+    LEAD-004 | 14_years_9th_Grade | Independent_Metro_Access | No_Age_Appropriate | Low_Concern | Public_Transport_Metro | 78/100_Good
+    LEAD-005 | 10_years_5th_Grade | Bikeable_Distance | No_Active_Family | Low_Concern | Bicycle_School_Commute | 82/100_Good

@@ -1,0 +1,162 @@
+# Propmubi Global Market Intelligence & Aggregator Schema
+# Format: TOON
+# Goal: Comprehensive coverage of all property types across local/global micro-markets.
+
+# -----------------------------------------------------------------------------
+# 1. GLOBAL RESEARCH AGGREGATORS (The Data Universe)
+# -----------------------------------------------------------------------------
+
+# A. GLOBAL TIER (International Coverage)
+GlobalResearchProviderEnum = [
+  "Knight_Frank_Global",
+  "JLL_Jones_Lang_LaSalle",
+  "CBRE_Group",
+  "Colliers_International",
+  "Savills_Worldwide",
+  "Cushman_Wakefield",
+  "CoreLogic",
+  "Zillow_Research (US)",
+  "Rightmove_Analytics (UK)",
+  "Domain_Group (Australia)"
+]
+
+# B. INDIA NATIONAL TIER (Expanded)
+IndiaNationalProviderEnum = [
+  "Anarock_Property_Consultants",
+  "Knight_Frank_India",
+  "JLL_India",
+  "CBRE_South_Asia",
+  "Colliers_India",
+  "PropEquity",
+  "Liases_Foras",
+  "Square_Yards_Research",
+  "Housing_com_Data_Labs",
+  "PropTiger_Research",
+  "Track2Realty",
+  "RoofandFloor_Analytics",
+  "Makaan_IQ",
+  "IndiaProperty_com"
+]
+
+# C. INDIA PLATFORM AGGREGATORS
+PlatformAggregatorEnum = [
+  "99acres_PropIndex",
+  "MagicBricks_PropWorth",
+  "Housing_com_Insights",
+  "NoBroker_Analytics",
+  "CommonFloor_Data",
+  "Sulekha_Property_Trends",
+  "Quikr_Homes_Data"
+]
+
+# D. INDIA INDUSTRY BODIES & GOVT
+IndustryBodyEnum = [
+  "CREDAI_National",
+  "CREDAI_Hyderabad",
+  "CREDAI_Bangalore",
+  "CREDAI_Mumbai",
+  "CREDAI_Pune",
+  "CREDAI_NCR",
+  "NAREDCO",
+  "RERA_Telangana",
+  "RERA_Karnataka",
+  "RERA_Maharashtra",
+  "Ministry_Housing_Urban_Affairs",
+  "RBI_Housing_Finance_Reports"
+]
+
+# -----------------------------------------------------------------------------
+# 2. GEOGRAPHIC HIERARCHY
+# -----------------------------------------------------------------------------
+Country[List]{code, name, currency}:
+  IN | India | INR
+
+City[List]{city_id, country_ref, name, tier}:
+  CITY-HYD | IN | Hyderabad | Tier_1
+  CITY-BLR | IN | Bangalore | Tier_1
+  CITY-MUM | IN | Mumbai | Tier_1
+
+CityZone[List]{zone_id, city_ref, name, direction}:
+  HYD-WEST | CITY-HYD | Western_Corridor | West
+  HYD-EAST | CITY-HYD | Eastern_Suburbs | East
+
+MicroMarket[List]{market_id, zone_ref, local_name, pincode}:
+  MM-HYD-W-01 | HYD-WEST | Gachibowli | 500032
+  MM-HYD-W-04 | HYD-WEST | Tellapur | 500019
+  MM-HYD-E-01 | HYD-EAST | Ghatkesar | 501301
+
+# -----------------------------------------------------------------------------
+# 3. PROPERTY TYPE SEGMENTATION
+# -----------------------------------------------------------------------------
+PropertyTypeEnum = [
+  "Apartment_1BHK", "Apartment_2BHK", "Apartment_3BHK", "Apartment_4BHK_Plus",
+  "Independent_Villa", "Row_House", "Duplex_Villa",
+  "Residential_Plot", "Villa_Plot", "Farmland",
+  "Office_Space", "Retail_Shop", "Warehouse"
+]
+
+# -----------------------------------------------------------------------------
+# 4. PRICING INTELLIGENCE MATRIX
+# -----------------------------------------------------------------------------
+PricingIntelligence[List]{market_ref, property_type, builder_tier, metric_unit, avg_price, data_sources}:
+  MM-HYD-W-01 | Apartment_3BHK | Tier_1_Premium | per_sft | 9500 | [PropEquity, Knight_Frank, 99acres]
+  MM-HYD-W-04 | Residential_Plot | Tier_1_Premium | per_sqyd | 75000 | [PropEquity, Knight_Frank]
+  MM-HYD-E-01 | Farmland | Any | per_sqyd | 8000 | [PropEquity, MagicBricks]
+
+# -----------------------------------------------------------------------------
+# 5. RESEARCH REPORT REGISTRY & PUBLICATION CALENDAR
+# -----------------------------------------------------------------------------
+ResearchReport[List]{report_id, provider_ref, title, publish_date, frequency, coverage_scope, url}:
+  # NATIONAL QUARTERLY REPORTS
+  RPT-N-001 | Anarock | "India Residential Market Q4 2024" | 2024-12-01 | Quarterly | National | .../anarock_q4.pdf
+  RPT-N-002 | Knight_Frank | "India Real Estate H2 2024" | 2024-12-15 | Half_Yearly | National | .../kf_h2.pdf
+  RPT-N-003 | PropEquity | "Top 8 Cities Market Pulse Q4" | 2024-11-25 | Quarterly | Top_8_Cities | .../pe_q4.pdf
+  
+  # CITY-LEVEL REPORTS
+  RPT-C-001 | JLL_India | "Hyderabad Office Market Q4 2024" | 2024-12-10 | Quarterly | CITY-HYD | .../jll_hyd_office.pdf
+  RPT-C-002 | CREDAI_Hyderabad | "Hyderabad Residential Outlook 2025" | 2024-12-05 | Annual | CITY-HYD | .../credai_hyd_2025.pdf
+  RPT-C-003 | Liases_Foras | "Mumbai Price Monitor Dec 2024" | 2024-12-01 | Monthly | CITY-MUM | .../lf_mum_dec.pdf
+  
+  # MICRO-MARKET DEEP DIVES
+  RPT-M-001 | PropEquity | "Gachibowli Micro-Market Analysis" | 2024-10-20 | Bi_Annual | MM-HYD-W-01 | .../pe_gachi.pdf
+  RPT-M-002 | Anarock | "Tellapur Gated Communities Report" | 2024-11-10 | Annual | MM-HYD-W-04 | .../anarock_tellapur.pdf
+  RPT-M-003 | Track2Realty | "Pharma City Impact on Ghatkesar" | 2024-09-15 | One_Time | MM-HYD-E-01 | .../t2r_pharma.pdf
+
+# -----------------------------------------------------------------------------
+# 6. DATA INGESTION STRATEGY (How We Pull Market Dynamics)
+# -----------------------------------------------------------------------------
+DataIngestionStrategy[List]{source_type, method, frequency, automation_level}:
+  
+  # A. STRUCTURED REPORTS (PDFs/Excel)
+  Research_Reports | OCR_PDF_Parsing + Manual_QA | Weekly | Semi_Automated
+    Tools: [Adobe_Extract_API, Tabula, Manual_Review]
+    Target_Metrics: [Avg_Price, YoY_Growth, Inventory, Launches]
+  
+  # B. PLATFORM APIs (Real-Time)
+  99acres_API | REST_API_Integration | Daily | Fully_Automated
+    Endpoints: [/pricing/micro-market, /inventory/city, /trends/zone]
+  
+  MagicBricks_Scraper | Web_Scraping (Selenium) | Daily | Automated_with_Monitoring
+    Target_Pages: [City_Overview, Locality_Trends, Price_Heatmap]
+  
+  # C. GOVERNMENT PORTALS (Compliance Data)
+  RERA_Portal_Scraper | Headless_Browser + OCR | Weekly | Semi_Automated
+    Data_Points: [New_Registrations, Complaints, Project_Status]
+  
+  # D. SOCIAL SENTIMENT (Buyer Pulse)
+  Google_Reviews_Scraper | Places_API | Monthly | Automated
+  Twitter_Sentiment | Keyword_Monitoring (#Hyderabad #RealEstate) | Daily | Automated
+
+# -----------------------------------------------------------------------------
+# 7. MARKET DYNAMICS TRACKER (The Live Pulse)
+# -----------------------------------------------------------------------------
+MarketDynamics[List]{market_ref, metric, current_value, mom_change, yoy_change, last_updated, data_sources}:
+  # GACHIBOWLI
+  MM-HYD-W-01 | Avg_Price_3BHK | 9500/sft | +1.5% | +8% | 2024-12-10 | [99acres, PropEquity]
+  MM-HYD-W-01 | Inventory_Months | 18 | +2mo | +3mo | 2024-12-10 | [PropEquity, Anarock]
+  MM-HYD-W-01 | New_Launches_Q4 | 3_Projects | - | -5 | 2024-12-10 | [RERA_TS, CREDAI]
+  
+  # TELLAPUR
+  MM-HYD-W-04 | Avg_Price_Plot | 75000/sqyd | +3% | +15% | 2024-12-10 | [MagicBricks, Knight_Frank]
+  MM-HYD-W-04 | Buyer_Sentiment | Positive | - | - | 2024-12-10 | [Google_Reviews, Platform_Queries]
+

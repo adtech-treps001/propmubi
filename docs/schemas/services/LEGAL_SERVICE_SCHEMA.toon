@@ -1,0 +1,71 @@
+# Propmubi Legal Service & Score Schema
+# Format: TOON
+# Goal: Connect users with Lawyer Aggregators, track verification requests, and generate Property Legal Scores.
+
+# -----------------------------------------------------------------------------
+# 1. LEGAL PARTNER & SOURCE ENUMS
+# -----------------------------------------------------------------------------
+# Popular Legal Tech & Aggregators in India
+LegalSourceEnum = [
+  "VakilSearch",
+  "LegalRaasta",
+  "LawRato",
+  "MyAdvo",
+  "NoBroker_Legal",
+  "MagicBricks_Legal",
+  "99Acres_Legal",
+  "IndiaFilings",
+  "Independent_Advocate",
+  "Custom_Law_Firm"
+]
+
+LegalProfileRoleEnum = [
+  "Property_Lawyer",
+  "Civil_Litigator",
+  "Documentation_Specialist",
+  "RERA_Consultant",
+  "Notary_Public"
+]
+
+# -----------------------------------------------------------------------------
+# 2. LEGAL PARTNER NETWORK
+# -----------------------------------------------------------------------------
+LegalPartner[List]{id, profile_name, source_type, role, verification_badge, rating_stars, completed_cases}:
+  LGL-001 | VakilSearch_Premium_Team | VakilSearch | Property_Lawyer | Verified_Partner | 4.8 | 5000+
+  LGL-002 | Adv_Rajesh_Kumar | Independent_Advocate | Civil_Litigator | Bar_Council_Verified | 4.9 | 150
+  LGL-003 | LegalRaasta_Corp_Desk | LegalRaasta | Documentation_Specialist | Verified_Partner | 4.6 | 3200
+  LGL-004 | Lex_Juris_Associates | Custom_Law_Firm | RERA_Consultant | Elite_Firm | 5.0 | 450
+  
+  # PARTNER PROFILE DETAILS (Rich Metadata for User Selection)
+  PartnerProfile{partner_ref, bio, languages, city_base, consultation_fee}:
+    LGL-002 | Senior Advocate at Telangana High Court, 15 years exp in Land Disputes. | [English, Telugu, Hindi] | Hyderabad | 2500_INR
+    LGL-004 | Boutique firm specializing in RERA compliance and large township titles. | [English] | Mumbai | 10000_INR
+
+# -----------------------------------------------------------------------------
+# 3. VERIFICATION CASE (The Transaction)
+# -----------------------------------------------------------------------------
+VerificationCase[List]{case_id, property_ref, user_ref, assigned_partner_ref, status, created_at}:
+  CASE-5501 | P-SAYUK-U-101 | USR-99 | LGL-002 | In_Review | 2025-12-12
+  
+  SharedDocuments[List]{case_ref, doc_record_ref, access_level}:
+    CASE-5501 | REC-1001 (RERA Cert) | Read_Only
+    CASE-5501 | REC-1009 (Sale Deed Draft) | Comment_Allowed
+
+# -----------------------------------------------------------------------------
+# 4. LEGAL VERDICT (The Output)
+# -----------------------------------------------------------------------------
+LegalVerdict[List]{verdict_id, case_ref, lawyer_ref, final_legal_score, title_status, summary}:
+  VER-5502 | CASE-XXX | LGL-003 | 9.5/10 | Clear_Marketable_Title | Link documents clean.
+
+  VerdictPoints[List]{verdict_ref, category, is_flagged, comment}:
+    VER-5502 | Ownership_Chain | false | Flow of title valid.
+    VER-5502 | Deviation | true | Minor setback deviation.
+
+  VerifiedAttachments[List]{verdict_ref, doc_type, lawyer_file_url}:
+    VER-5502 | DOC-EC | .../ec_verified.pdf
+
+# -----------------------------------------------------------------------------
+# 5. AUTOMATED DOCUMENT SCORE
+# -----------------------------------------------------------------------------
+AutoDocAnalysis[List]{doc_ref, ai_doc_score, risk_flags}:
+  REC-1009 | 4.5/10 | [Keyword: "Dispute"]

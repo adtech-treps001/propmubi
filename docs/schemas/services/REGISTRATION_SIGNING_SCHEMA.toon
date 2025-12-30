@@ -1,0 +1,57 @@
+# Propmubi Property Registration & Digital Signing Schema
+# Format: TOON
+# Goal: Automate Sale Agreement generation, E-Stamping, and Digital/Biometric Signing.
+
+# -----------------------------------------------------------------------------
+# 1. SERVICE PROVIDERS (E-Sign & E-Stamp)
+# -----------------------------------------------------------------------------
+DigitalSignProviderEnum = [
+  "Leegality",
+  "DocuSign_India",
+  "Zoho_Sign",
+  "DigiIO",
+  "SafeScrypt",
+  "eMudhra"
+]
+
+StampDutyPartnerEnum = [
+  "SHCIL_E_Stamp" , # (Stock Holding Corp)
+  "GRAS_System" , # (Govt Receipt Accounting System)
+  "IGRS_Telangana_Portal",
+  "Physical_Vendor_Manual"
+]
+
+# -----------------------------------------------------------------------------
+# 2. DOCUMENT TEMPLATE ENGINE
+# Auto-fill templates using Project + Unit + Buyer data.
+# -----------------------------------------------------------------------------
+AgreementTemplate[List]{template_id, project_ref, doc_type, version, placeholders_list}:
+  TMPL-ATS-SAYUK | P-SAYUK | Agreement_To_Sale | v2.1 | [BUYER_NAME, UNIT_NO, SALE_PRICE, CARPET_AREA]
+  TMPL-SD-SAYUK | P-SAYUK | Sale_Deed_Final | v1.0 | [BUYER_PAN, SURVEY_NO, BOUNDARIES]
+
+# -----------------------------------------------------------------------------
+# 3. GENERATION & SIGNING WORKFLOW
+# -----------------------------------------------------------------------------
+RegistrationWorkflow[List]{workflow_id, unit_ref, buyer_ref, status, current_step}:
+  REG-FLOW-101 | U-A-101 | LEAD-001 | In_Progress | E_Stamping
+
+  # A. DRAFT GENERATION
+  DraftDocument{auto_generated_url, template_ref, data_source_snapshot_json}:
+    https://.../draft_ats_101.pdf | TMPL-ATS-SAYUK | {buyer: "Rahul", price: 1.65Cr}
+
+  # B. STAMP DUTY PAYMENT
+  StampDutyTransaction{provider, circle_rate_value, stamp_duty_amt, challan_no, cert_url}:
+    IGRS_Telangana | 6500_per_sft | 9,90,000 | CHLN-TS-998877 | https://.../estamp_cert.pdf
+
+  # C. SIGNING CEREMONY (Remote/Hybrid)
+  SigningSession{provider, method, signers_status}:
+    Leegality | Aadhaar_ESign_OTP | {Buyer: Signed, Builder: Pending}
+    # For Sale Deed (Physical Presence Mandatory)
+    PhysicalSlotBooking | IGRS_SubRegistrar_Office_Serilingampally | 2025-12-20_10:00AM
+
+# -----------------------------------------------------------------------------
+# 4. DIGITAL VAULT (Post-Registration)
+# Storing the final signed artifact.
+# -----------------------------------------------------------------------------
+VaultRecord[List]{doc_type, final_file_url, digital_signature_hash, storage_ref}:
+  Registered_Sale_Deed | https://vault.propmubi.com/.../deed_signed.pdf | sha256:99aa... | S3_GLACIER_DEEP_ARCHIVE

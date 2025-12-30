@@ -1,0 +1,64 @@
+# Propmubi Vastu Shastra Schema
+# Format: TOON
+# Goal: Definitive rules engine for Vastu compliance, scoring, defects, and remedies.
+# Reference: 'Applied Vastu', 'MahaVastu' principles.
+
+# -----------------------------------------------------------------------------
+# 1. DIRECTIONAL ENERGY MAP (The Grid)
+# Mapping the 8/16 zones to Elements and Deities.
+# -----------------------------------------------------------------------------
+ZoneEnergy[List]{direction_code, name, element, deity, attribute, color_remedy}:
+  NE | Ishana (North-East) | Water | Shiva/Jupiter | Wisdom, Clarity | Blue/White
+  E | Indra (East) | Air/Wood | Sun | Social Conn., Vitality | Green
+  SE | Agni (South-East) | Fire | Venus | Cash Flow, Zeal | Red/Orange
+  S | Yama (South) | Fire/Earth | Mars | Fame, Relaxation | Red
+  SW | Nairitya (South-West) | Earth | Rahu | Stability, Skill, Relationships | Yellow
+  W | Varuna (West) | Space/Metal | Saturn | Gains, Profit | White/Grey
+  NW | Vayu (North-West) | Air | Moon | Support, Banking | White/Cream
+  N | Kubera (North) | Water | Mercury | Opportunity, Money | Blue
+
+# -----------------------------------------------------------------------------
+# 2. ACTIVITY COMPLIANCE MATRIX (The Rules)
+# Defining where activities MUST, CAN, or MUST NOT happen.
+# -----------------------------------------------------------------------------
+ActivityRule[List]{activity_type, ideal_zones, allowed_zones, forbidden_zones, critical_defect_weight}:
+  # KEY ROOMS
+  MasterBedroom | [SW] | [S, W] | [NE, SE] | 10 (High_Priority)
+  Kitchen_Hob | [SE] | [S, NW (Alternate)] | [NE, SW] | 9
+  Puja_Mandir | [NE] | [N, E] | [S, SW (Strict No)] | 9
+  Toilets | [WNW, SSW, ESE] | [W, S] | [NE (Brahmasthan), SW] | 10
+
+  # FEATURES
+  Entrance_MainDoor | [N, NE, E] | [W (Specific Padas only)] | [S, SW, SE] | 10
+  Staircase | [S, SW, W] | [NW, SE] | [NE (Heavy Weight Block)] | 8
+  Underground_Water | [NE, N, E] | [-] | [SE, SW, NW] | 8
+  Overhead_Tank | [SW, W] | [S] | [NE] | 7
+
+# -----------------------------------------------------------------------------
+# 3. DEFECT ANALYSIS & SCORING
+# -----------------------------------------------------------------------------
+DefectType[List]{code, description, severity_level, score_penalty}:
+  DEF-01 | Toilet_in_NE | Critical | -25 (Major Health/Wealth loss)
+  DEF-02 | Kitchen_in_NE | Critical | -20 (Mental stress, Money loss)
+  DEF-03 | MasterBed_in_NE | High | -15 (Health issues for couple)
+  DEF-04 | Cut_in_NE | Critical | -20 (Growth blocked)
+  DEF-05 | Extended_SW | High | -15 (Financial debts)
+
+# -----------------------------------------------------------------------------
+# 4. REMEDIAL MEASURES (Correction without Demolition)
+# -----------------------------------------------------------------------------
+Remedy[List]{defect_ref, cure_type, description, implementation_note}:
+  # TOILET REMEDIES
+  DEF-01 (Toilet in NE) | Metal_Strip | Insert Aluminium Strip around WC seat | Blocks negative energy field
+  DEF-01 (Toilet in NE) | Color_Therapy | Use Blue/White tiles, avoid Yellow/Red | Balances Water element
+
+  # KITCHEN REMEDIES
+  DEF-02 (Kitchen in NE) | Stone_Slab | Place Yellow Jaisalmer Stone under Burner | Earth absorbs excess Fire
+
+  # BEDROOM REMEDIES
+  DEF-03 (Bed in NE) | Relocation | Move bed to SW corner of the room | Micro-zoning within the room
+  General_Sleep | Orientation | Sleep with Head towards South or East | Magnetic alignment
+
+  # ENTRANCE REMEDIES
+  Entrance_South | Metal_Pyramid | Install Lead Helix/Pyramid at threshold | Grounds the unstable energy
+

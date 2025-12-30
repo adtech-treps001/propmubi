@@ -1,0 +1,44 @@
+# Propmubi Tower & Structure Schema
+# Format: TOON
+# Goal: Define vertical stacking logic for different Tower Groups.
+
+# -----------------------------------------------------------------------------
+# 1. GROUP DEFINITIONS (Logic Containers)
+# -----------------------------------------------------------------------------
+
+# --- GROUP A: PREMIUM TOWERS (Block A to F) ---
+# High-end, larger floor plates, 3BHK focus
+TowerLogicDefinition[List]{group_id, description, max_floors}:
+  LAY-GRP-A | Premium Lake View | 35
+
+  FloorStack[List]{floor_range_start, floor_range_end, layout_type}:
+    0 | 0 | Lobby_Grand_DoubleHeight
+    1 | 14 | Typical_Premium_3BHK
+    15 | 15 | Refuge_Area
+    16 | 29 | Typical_Premium_3BHK
+    30 | 30 | Refuge_Area
+    31 | 35 | Sky_Villas_Duplex
+
+  UnitMapping[List]{layout_type, unit_suffix, template_ref}:
+    Typical_Premium_3BHK | 01 | T-3BHK-E-Prem
+    Typical_Premium_3BHK | 02 | T-3BHK-W-Prem
+    Sky_Villas_Duplex | 01 | T-5BHK-Sky
+
+# --- GROUP B: STANDARD TOWERS (Block G to L) ---
+# Budget-friendly, mixed 2BHK/3BHK
+TowerLogicDefinition[List]{group_id, description, max_floors}:
+  LAY-GRP-B | Standard Garden View | 30
+
+  FloorStack[List]{floor_range_start, floor_range_end, layout_type}:
+    0 | 0 | Lobby_Standard
+    1 | 10 | Mixed_2BHK_3BHK
+    11 | 11 | Refuge_Area
+    12 | 20 | Mixed_2BHK_3BHK
+    21 | 21 | Refuge_Area
+    22 | 30 | Club_Floors_Compact
+
+  UnitMapping[List]{layout_type, unit_suffix, template_ref}:
+    Mixed_2BHK_3BHK | 01 | T-3BHK-E-Std
+    Mixed_2BHK_3BHK | 02 | T-2BHK-N-Std
+    Mixed_2BHK_3BHK | 03 | T-2BHK-S-Std
+

@@ -1,0 +1,429 @@
+{
+    "project": {
+        "name": "My Home Sayuk",
+        "location": "Tellapur, Hyderabad",
+        "totalTowers": 12,
+        "floorsPerTower": 40,
+        "totalUnits": 3780,
+        "rera": "P01100004593",
+        "possession": "December 2025"
+    },
+    "floorPlans": {
+        "2BHK": {
+            "type": "2 BHK",
+            "totalArea": "1355-2710 sq.ft",
+            "carpetArea": "1220 sq.ft",
+            "rooms": [
+                {
+                    "id": "living",
+                    "name": "Living Room",
+                    "dimensions": "14'6\" × 12'0\"",
+                    "area": "174 sq.ft",
+                    "vastu": "East/North (Excellent)",
+                    "direction": "NE",
+                    "features": [
+                        "Large windows",
+                        "Natural light",
+                        "Spacious layout"
+                    ]
+                },
+                {
+                    "id": "master",
+                    "name": "Master Bedroom",
+                    "dimensions": "12'0\" × 11'0\"",
+                    "area": "132 sq.ft",
+                    "vastu": "South-West (Ideal)",
+                    "direction": "SW",
+                    "features": [
+                        "Attached bathroom",
+                        "Wardrobe space",
+                        "Window view"
+                    ]
+                },
+                {
+                    "id": "bedroom2",
+                    "name": "Bedroom 2",
+                    "dimensions": "11'0\" × 10'0\"",
+                    "area": "110 sq.ft",
+                    "vastu": "North-West (Good)",
+                    "direction": "NW",
+                    "features": [
+                        "Good ventilation",
+                        "Wardrobe provision"
+                    ]
+                },
+                {
+                    "id": "kitchen",
+                    "name": "Kitchen",
+                    "dimensions": "9'0\" × 8'0\"",
+                    "area": "72 sq.ft",
+                    "vastu": "South-East (Perfect)",
+                    "direction": "SE",
+                    "features": [
+                        "Modular kitchen ready",
+                        "Granite platform",
+                        "Utility balcony access"
+                    ]
+                },
+                {
+                    "id": "dining",
+                    "name": "Dining Area",
+                    "dimensions": "10'0\" × 8'0\"",
+                    "area": "80 sq.ft",
+                    "vastu": "West (Good)",
+                    "direction": "W",
+                    "features": [
+                        "Adjacent to kitchen",
+                        "Family space"
+                    ]
+                },
+                {
+                    "id": "bath1",
+                    "name": "Master Bath",
+                    "dimensions": "7'0\" × 5'0\"",
+                    "area": "35 sq.ft",
+                    "vastu": "West/North-West",
+                    "direction": "NW",
+                    "features": [
+                        "Premium fittings",
+                        "Vanity basin"
+                    ]
+                },
+                {
+                    "id": "bath2",
+                    "name": "Common Bath",
+                    "dimensions": "6'0\" × 5'0\"",
+                    "area": "30 sq.ft",
+                    "vastu": "North-West",
+                    "direction": "NW",
+                    "features": [
+                        "Standard fittings",
+                        "Wall tiles"
+                    ]
+                },
+                {
+                    "id": "balcony",
+                    "name": "Balcony",
+                    "dimensions": "8'0\" × 4'0\"",
+                    "area": "32 sq.ft",
+                    "vastu": "East/North (Best)",
+                    "direction": "E",
+                    "features": [
+                        "Morning sunlight",
+                        "Scenic view"
+                    ]
+                }
+            ],
+            "specifications": {
+                "flooring": "800x800mm vitrified tiles",
+                "walls": "ACC Block with acrylic emulsion paint",
+                "doors": "Hardwood frame with teak finish",
+                "windows": "UPVC with safety grills",
+                "electrical": "Concealed copper wiring",
+                "plumbing": "Concealed CPVC pipes"
+            }
+        },
+        "2.5BHK": {
+            "type": "2.5 BHK",
+            "totalArea": "1573-3145 sq.ft",
+            "carpetArea": "1416 sq.ft",
+            "rooms": [
+                {
+                    "id": "living",
+                    "name": "Living Room",
+                    "dimensions": "16'0\" × 13'0\"",
+                    "area": "208 sq.ft",
+                    "vastu": "East/North (Excellent)",
+                    "direction": "NE",
+                    "features": [
+                        "Spacious layout",
+                        "Premium flooring",
+                        "Natural ventilation"
+                    ]
+                },
+                {
+                    "id": "master",
+                    "name": "Master Bedroom",
+                    "dimensions": "13'0\" × 12'0\"",
+                    "area": "156 sq.ft",
+                    "vastu": "South-West (Ideal)",
+                    "direction": "SW",
+                    "features": [
+                        "Attached bathroom",
+                        "Large wardrobe",
+                        "Balcony access"
+                    ]
+                },
+                {
+                    "id": "bedroom2",
+                    "name": "Bedroom 2",
+                    "dimensions": "12'0\" × 11'0\"",
+                    "area": "132 sq.ft",
+                    "vastu": "North-West (Good)",
+                    "direction": "NW",
+                    "features": [
+                        "Good size",
+                        "Window view",
+                        "Wardrobe space"
+                    ]
+                },
+                {
+                    "id": "study",
+                    "name": "Study/Utility Room",
+                    "dimensions": "8'0\" × 7'0\"",
+                    "area": "56 sq.ft",
+                    "vastu": "West (Good)",
+                    "direction": "W",
+                    "features": [
+                        "Flexible space",
+                        "Work from home ready",
+                        "Storage options"
+                    ]
+                },
+                {
+                    "id": "kitchen",
+                    "name": "Kitchen",
+                    "dimensions": "10'0\" × 9'0\"",
+                    "area": "90 sq.ft",
+                    "vastu": "South-East (Perfect)",
+                    "direction": "SE",
+                    "features": [
+                        "Spacious layout",
+                        "Black granite platform",
+                        "Modern amenities"
+                    ]
+                },
+                {
+                    "id": "dining",
+                    "name": "Dining Area",
+                    "dimensions": "11'0\" × 9'0\"",
+                    "area": "99 sq.ft",
+                    "vastu": "West (Good)",
+                    "direction": "W",
+                    "features": [
+                        "Family dining space",
+                        "Well-lit area"
+                    ]
+                },
+                {
+                    "id": "bath1",
+                    "name": "Master Bath",
+                    "dimensions": "8'0\" × 6'0\"",
+                    "area": "48 sq.ft",
+                    "vastu": "West/North-West",
+                    "direction": "NW",
+                    "features": [
+                        "Premium sanitary ware",
+                        "Vanity basin",
+                        "Shower area"
+                    ]
+                },
+                {
+                    "id": "bath2",
+                    "name": "Common Bath",
+                    "dimensions": "7'0\" × 5'0\"",
+                    "area": "35 sq.ft",
+                    "vastu": "North-West",
+                    "direction": "NW",
+                    "features": [
+                        "Standard fittings",
+                        "Wall tiles"
+                    ]
+                },
+                {
+                    "id": "balcony",
+                    "name": "Balcony",
+                    "dimensions": "10'0\" × 5'0\"",
+                    "area": "50 sq.ft",
+                    "vastu": "East/North (Best)",
+                    "direction": "E",
+                    "features": [
+                        "Spacious",
+                        "Scenic view",
+                        "Morning sun"
+                    ]
+                }
+            ],
+            "specifications": {
+                "flooring": "800x800mm double-charged vitrified tiles",
+                "walls": "RCC frame with ACC Block, premium paint",
+                "doors": "Hardwood frame with melamine polish",
+                "windows": "UPVC with safety features",
+                "electrical": "100% DG backup, concealed wiring",
+                "plumbing": "Premium fixtures, concealed piping"
+            }
+        },
+        "3BHK": {
+            "type": "3 BHK",
+            "totalArea": "1926-4524 sq.ft",
+            "carpetArea": "1733 sq.ft",
+            "rooms": [
+                {
+                    "id": "living",
+                    "name": "Living Room",
+                    "dimensions": "18'0\" × 14'0\"",
+                    "area": "252 sq.ft",
+                    "vastu": "East/North (Excellent)",
+                    "direction": "NE",
+                    "features": [
+                        "Grand entrance",
+                        "Premium flooring",
+                        "Excellent natural light"
+                    ]
+                },
+                {
+                    "id": "master",
+                    "name": "Master Bedroom",
+                    "dimensions": "14'0\" × 13'0\"",
+                    "area": "182 sq.ft",
+                    "vastu": "South-West (Ideal)",
+                    "direction": "SW",
+                    "features": [
+                        "Luxurious space",
+                        "Walk-in wardrobe",
+                        "Attached premium bath"
+                    ]
+                },
+                {
+                    "id": "bedroom2",
+                    "name": "Bedroom 2",
+                    "dimensions": "13'0\" × 12'0\"",
+                    "area": "156 sq.ft",
+                    "vastu": "South (Good)",
+                    "direction": "S",
+                    "features": [
+                        "Spacious",
+                        "Attached bathroom",
+                        "Wardrobe provision"
+                    ]
+                },
+                {
+                    "id": "bedroom3",
+                    "name": "Bedroom 3",
+                    "dimensions": "12'0\" × 11'0\"",
+                    "area": "132 sq.ft",
+                    "vastu": "North-West (Good)",
+                    "direction": "NW",
+                    "features": [
+                        "Good ventilation",
+                        "Window view",
+                        "Storage space"
+                    ]
+                },
+                {
+                    "id": "kitchen",
+                    "name": "Kitchen",
+                    "dimensions": "11'0\" × 10'0\"",
+                    "area": "110 sq.ft",
+                    "vastu": "South-East (Perfect)",
+                    "direction": "SE",
+                    "features": [
+                        "Premium modular kitchen",
+                        "Granite platform",
+                        "Ample storage"
+                    ]
+                },
+                {
+                    "id": "dining",
+                    "name": "Dining Area",
+                    "dimensions": "12'0\" × 10'0\"",
+                    "area": "120 sq.ft",
+                    "vastu": "West (Good)",
+                    "direction": "W",
+                    "features": [
+                        "Spacious family dining",
+                        "Well-connected layout"
+                    ]
+                },
+                {
+                    "id": "bath1",
+                    "name": "Master Bath",
+                    "dimensions": "9'0\" × 7'0\"",
+                    "area": "63 sq.ft",
+                    "vastu": "West/North-West",
+                    "direction": "NW",
+                    "features": [
+                        "Premium fixtures",
+                        "Separate shower",
+                        "Vanity area"
+                    ]
+                },
+                {
+                    "id": "bath2",
+                    "name": "Attached Bath",
+                    "dimensions": "7'0\" × 6'0\"",
+                    "area": "42 sq.ft",
+                    "vastu": "North-West",
+                    "direction": "NW",
+                    "features": [
+                        "Modern fittings",
+                        "Wall tiles",
+                        "Shower"
+                    ]
+                },
+                {
+                    "id": "bath3",
+                    "name": "Common Bath",
+                    "dimensions": "7'0\" × 5'0\"",
+                    "area": "35 sq.ft",
+                    "vastu": "North",
+                    "direction": "N",
+                    "features": [
+                        "Standard amenities",
+                        "Quality fittings"
+                    ]
+                },
+                {
+                    "id": "balcony1",
+                    "name": "Main Balcony",
+                    "dimensions": "12'0\" × 5'0\"",
+                    "area": "60 sq.ft",
+                    "vastu": "East/North (Best)",
+                    "direction": "E",
+                    "features": [
+                        "Panoramic view",
+                        "Spacious",
+                        "Morning sunlight"
+                    ]
+                },
+                {
+                    "id": "balcony2",
+                    "name": "Utility Balcony",
+                    "dimensions": "6'0\" × 4'0\"",
+                    "area": "24 sq.ft",
+                    "vastu": "West",
+                    "direction": "W",
+                    "features": [
+                        "Service area",
+                        "Utility space"
+                    ]
+                }
+            ],
+            "specifications": {
+                "flooring": "Premium 800x800mm vitrified tiles",
+                "walls": "RCC shear walls with premium finish",
+                "doors": "Hardwood with melamine spray polish",
+                "windows": "UPVC with safety grills and mosquito mesh",
+                "electrical": "100% DG backup, smart home ready",
+                "plumbing": "Premium sanitary ware, concealed CPVC",
+                "security": "24/7 CCTV, intercom, video door phone"
+            }
+        }
+    },
+    "amenities": [
+        "Swimming Pool",
+        "Gymnasium",
+        "Clubhouse",
+        "Children's Play Area",
+        "Landscaped Gardens",
+        "Jogging Track",
+        "Indoor Games",
+        "Party Hall",
+        "24/7 Security",
+        "Power Backup",
+        "Water Treatment Plant",
+        "Sewage Treatment Plant",
+        "Ample Parking",
+        "Rainwater Harvesting"
+    ]
+}

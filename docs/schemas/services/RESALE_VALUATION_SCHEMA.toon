@@ -1,0 +1,53 @@
+# Propmubi Property Value Assessment (Resale & Rental)
+# Format: TOON
+# Goal: Automated Valuation Model (AVM) and Rental Yield prediction based on granular data.
+
+# -----------------------------------------------------------------------------
+# 1. VALUATION AGGREAGTORS
+# -----------------------------------------------------------------------------
+ValuationPartnerEnum = [
+  "Liases_Foras",
+  "PropStack",
+  "MagicBricks_PropWorth",
+  "Housing_Data_Science",
+  "Jones_Lang_LaSalle_JLL",
+  "CBRE_Valuation",
+  "Propmubi_AVM_Engine"
+]
+
+# -----------------------------------------------------------------------------
+# 2. PROPERTY SCORECARD (The Input)
+# Feeding our rich schema data into the valuation engine.
+# -----------------------------------------------------------------------------
+ValuationInputVector{unit_ref, features_json}:
+  U-A-101 | {
+    "carpet_area": 1350,
+    "floor": 15,
+    "facing": "East",
+    "vastu_score": 95,
+    "view_type": "Lake_View",
+    "legal_status": "Clear_Title_Verified",
+    "inspection_score": 8.5
+  }
+
+# -----------------------------------------------------------------------------
+# 3. VALUATION OUTPUT
+# -----------------------------------------------------------------------------
+PropertyValuationReport{unit_ref, valuation_date, provider_ref, confidence_score}:
+  U-A-101 | 2025-12-12 | Liases_Foras | High (Data Rich)
+
+  # MARKET VALUE
+  MarketValueEstimates{scenario, price_per_sft, total_value}:
+     Quick_Sale (30 Days) | 8200 | 1.58Cr
+     Fair_Market_Value | 8500 | 1.63Cr
+     Premium_Ask (6 Months) | 9000 | 1.73Cr
+
+  # RENTAL YIELD PREDICTION
+  RentalPotential{monthly_rent_expected, annual_yield_pct, tenant_type}:
+     45,000 | 3.5% | Family / Corp_Lease
+
+# -----------------------------------------------------------------------------
+# 4. INVESTMENT ANALYTICS
+# -----------------------------------------------------------------------------
+InvestmentROI{unit_ref, purchase_price, current_val, cagr_pct, appreciation_driver}:
+  U-A-101 | 1.25Cr (Launch) | 1.63Cr (Now) | 12.5% | "Metro Connectivity + IT Hub proximity"

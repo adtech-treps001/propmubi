@@ -1,0 +1,85 @@
+# Propmubi Fintech & Mortgage Schema
+# Format: TOON
+# Goal: End-to-End Digital Mortgage (Home Loan) Application, Underwriting, and Disbursement.
+
+# -----------------------------------------------------------------------------
+# 1. CREDIT BUREAU & ACCOUNT AGGREGATOR ENUMS
+# -----------------------------------------------------------------------------
+CreditBureauEnum = [
+  "CIBIL_TransUnion",
+  "Experian_India",
+  "Equifax_India",
+  "CRIF_High_Mark"
+]
+
+AccountAggregatorEnum = [
+  "Anumati_AA" , # (Perfios)
+  "OneMoney_AA",
+  "NADL_AA" , # (NESL Asset Data)
+  "Finvu_AA",
+  "CAMS_Finserv_AA",
+  "PhonePe_AA",
+  "Yodlee_Envestnet", # (Global Aggregator)
+  "Setu_AA"
+]
+
+# -----------------------------------------------------------------------------
+# 2. BANKING & AGGREGATOR PARTNERS
+# -----------------------------------------------------------------------------
+BankPartnerEnum = [
+  "SBI_Home_Loans",
+  "HDFC_Bank_Ltd",
+  "ICICI_Bank_Mortgages",
+  "Kotak_Mahindra_Bank",
+  "Axis_Bank",
+  "Bajaj_Housing_Finance",
+  "LIC_Housing_Finance",
+  "PNB_Housing",
+  "Union_Bank_of_India",
+  "Bank_of_Baroda",
+  "Godrej_Capital"
+]
+
+LoanAggregatorEnum = [
+  "Paisabazaar",
+  "Andromeda_Loans",
+  "BankBazaar",
+  "MyMoneyMantra",
+  "SwitchMyLoan",
+  "Cred_Cash",
+  "Propmubi_Direct_Connect"
+]
+
+# -----------------------------------------------------------------------------
+# 3. BORROWER FINANCIAL DOSSIER
+# -----------------------------------------------------------------------------
+BorrowerDossier{lead_ref, pan_hash, credit_score_provider, credit_score, income_aa_provider, income_verified_amount}:
+  LEAD-001 | sha256:abc... | CIBIL_TransUnion | 785 | Anumati_AA | 1.8Cr_PA
+  LEAD-002 | sha256:xyz... | Experian_India | 810 | OneMoney_AA | 25L_PA
+
+  # DOCUMENT VAULT
+  DocVaultMap[List]{category, doc_type, source, verification_status}:
+     KYC | Aadhaar_Masked | DigiLocker | Verified
+     Income | Bank_Stmt_12M | Anumati_AA | Verified
+     Income | ITR_3Yrs | ClearTax_API | Verified
+
+# -----------------------------------------------------------------------------
+# 4. LOAN APPLICATION WORKFLOW
+# -----------------------------------------------------------------------------
+LoanApplication[List]{app_id, user_ref, unit_ref, requested_amt, status}:
+  LN-APP-9001 | USR-99 | U-A-101 | 1.5Cr | Processing
+  
+  RateQuoteRequest[List]{app_ref, target_bank, quote_status}:
+    LN-APP-9001 | SBI_Home_Loans | Offer_Received
+
+# -----------------------------------------------------------------------------
+# 5. LOAN OFFERS
+# -----------------------------------------------------------------------------
+LoanOffer[List]{offer_id, bank_name, interest_rate, type, tenure_years, emi}:
+  OFFER-SBI-01 | SBI | 8.35% | Floating | 20 | 1,28,000
+
+# -----------------------------------------------------------------------------
+# 6. DISBURSEMENT
+# -----------------------------------------------------------------------------
+DisbursementRequest[List]{app_ref, milestone_ref, demand_amt, status}:
+  LN-APP-9001 | 5th_Slab_Demand | 12,50,000 | Disbursed_RTGS

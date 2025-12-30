@@ -1,0 +1,17 @@
+
+  # VERTICAL TRANSPORT
+  Lifts[List]{type, count, brand, capacity_pax}:
+    Passenger | 4 | Schindler | 13
+    Service | 1 | Schindler | 20 (Stretcher)
+  
+  Stairs[List]{type, width_feet, location_desc}:
+    Main_Stair | 4.0 | Near Lift Lobby
+    Fire_Exit | 3.5 | End of Corridor West
+
+  # UNIT POSITIONS (The Clock)
+  UnitPosition[List]{unit_suffix, template_ref, entrance_position, opposite_element}:
+    01 | T-3BHK-E | NE_Corner | Neighbor_Door_02
+    02 | T-3BHK-W | NW_Corner | Neighbor_Door_01
+    03 | T-2BHK-N | SW_Corner | Lift_Lobby_Wall
+    04 | T-2BHK-S | SE_Corner | Service_Shaft
+

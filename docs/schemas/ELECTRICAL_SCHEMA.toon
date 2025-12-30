@@ -1,0 +1,60 @@
+# Goal: Define standardized electrical modules (Sockets, Switches) and Switchboard configurations.
+# Reference: NEMA / IS Standards (like Legrand, Schneider, Anchor layouts).
+
+# -----------------------------------------------------------------------------
+# 1. COMPONENT LIBRARY (The Atoms)
+# -----------------------------------------------------------------------------
+ElectricalModule[List]{id, type, size_units, amperage_rating, label}:
+  MOD-SW-1 | Switch_1Way | 1M | 6A | Standard Light Switch
+  MOD-SW-2 | Switch_2Way | 1M | 6A | Staircase/Bed Switch
+  MOD-SKT-Uni | Socket_Universal | 2M | 6A/13A | Universal 3-Pin
+  MOD-SKT-Pwr | Socket_Power | 2M | 16A/25A | Heavy Duty (AC/Geyser)
+  MOD-REG-Fan | Regulator_Stepped | 2M | - | Fan Regulator
+  MOD-DATA | Port_RJ45 | 1M | - | Ethernet Cat6
+  MOD-HDMI | Port_HDMI | 1M | - | HDMI Keystone
+  MOD-USB | Port_USB_Dual | 1M | 2.1A | USB A+C Charger
+  MOD-BLNK | Blank_Plate | 1M | - | Filler for unused slots
+
+# -----------------------------------------------------------------------------
+# 2. SWITCHBOARD PLATES (The Containers)
+# How manufacturers standardize sizes (e.g., '4 Module Plate').
+# -----------------------------------------------------------------------------
+SwitchBoardPlate[List]{size_code, total_module_capacity, dimensions_mm_w_h, grid_layout}:
+  PLAT-1M | 1M | 86x86 | 1x1
+  PLAT-2M | 2M | 86x86 | 2x1 (Horizontal)
+  PLAT-3M | 3M | 118x86 | 3x1 (Horizontal)
+  PLAT-4M | 4M | 146x86 | 4x1 (Horizontal)
+  PLAT-6M | 6M | 224x86 | 6x1 (Horizontal)
+  PLAT-8M-H | 8M | 240x86 | 8x1 (Horizontal - Long)
+  PLAT-8M-S | 8M_Square | 146x146 | 4x2 (Two Rows of 4)
+  PLAT-12M | 12M | 224x146 | 6x2 (Two Rows of 6)
+  PLAT-18M | 18M | 224x224 | 6x3 (Three Rows of 6)
+
+# -----------------------------------------------------------------------------
+# 3. AS-BUILT PLACEMENT (The Instance)
+# -----------------------------------------------------------------------------
+field_mapping:
+  # Manufacturer Series (e.g., Legrand Arteor, Schneider Zencelo) 
+  series_enum: [Legrand_Arteor, Schneider_Zencelo, Anchor_Roma, GM_Modular]
+
+SwitchBoardInstance[List]{unique_id, wall_ref_id, center_x, center_y, plate_model_ref, series, modules_config}:
+  SB-Main-BedSide-L | W-N-01 | 450 | 750 | PLAT-4M | Legrand_Arteor
+    modules: [MOD-SW-2, MOD-SW-1, MOD-SKT-Uni]
+    # Configuration: 
+    # Slot 1 (1M): 2-Way Switch (for Main Light)
+    # Slot 2 (1M): 1-Way Switch (for Bed Lamp)
+    # Slot 3+4 (2M): Universal Socket (for Phone Charger)
+    # Total Used: 1 + 1 + 2 = 4M (Fits in 4M Plate)
+
+  SB-TV-Unit | W-N-01 | 2200 | 450 | PLAT-8M-H | GM_Modular
+    modules: [MOD-SKT-Uni, MOD-SKT-Uni, MOD-SKT-Uni, MOD-DATA, MOD-HDMI]
+    # Configuration:
+    # 3x Universal Sockets (2M each = 6M)
+    # 1x LAN Port (1M)
+    # 1x HDMI Port (1M)
+    # Total Used: 6 + 1 + 1 = 8M (Fits in 8M Horizontal Plate)
+    
+  SB-AC | W-E-01 | 3500 | 2200 | PLAT-2M | Anchor_Roma
+    modules: [MOD-SKT-Pwr]
+    # AC Power Socket (16A/25A) takes 2M space.
+

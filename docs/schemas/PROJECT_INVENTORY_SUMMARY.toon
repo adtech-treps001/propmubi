@@ -1,0 +1,53 @@
+# Propmubi Project Inventory Summary
+# Format: TOON
+# Goal: Optimized Rollup of Total Project Inventory for fast UI Filtering & Status Visualization.
+# Purpose: Power the "Select Tower -> Select Floor -> Select Unit" UI flow efficiently.
+
+ProjectInventory{project_id, name, total_units, available_units}:
+  P-SAYUK | My Home Sayuk | 3500 | 450
+
+# -----------------------------------------------------------------------------
+# 1. TOWER GROUP ROLLUP
+# -----------------------------------------------------------------------------
+TowerGroupInventory[List]{group_id, name, tower_list, unit_mix_desc}:
+  GRP-A | Premium Lake View | [A, B, C, D, E, F] | 3BHK, 4BHK Sky Villas
+  GRP-B | Standard Garden View | [G, H, I, J, K, L] | 2BHK, 3BHK Compact
+
+# -----------------------------------------------------------------------------
+# 2. DETAILED AVAILABILITY MATRIX (The Core Index)
+# Hierarchy: Group -> Tower -> FloorType -> UnitVariant -> StatusCounts
+# -----------------------------------------------------------------------------
+InventoryMatrix[List]{group_id, tower_id, floor_type_ref, unit_variant_ref, total, avail_sale, avail_rent, sold}:
+  
+  # --- TOWER A (Premium) ---
+  # Standard Floors (1-14, 16-29) - 28 Floors x 6 Units = 168 Units
+  GRP-A | TWR-A | Typical_Premium_3BHK | T-3BHK-E-Prem | 56 | 12 | 5 | 39
+  GRP-A | TWR-A | Typical_Premium_3BHK | T-3BHK-W-Prem | 56 | 8 | 2 | 46
+  GRP-A | TWR-A | Typical_Premium_3BHK | T-4BHK-Corner | 56 | 2 | 0 | 54
+
+  # Sky Villa Floors (31-35) - 5 Floors x 2 Units = 10 Units
+  GRP-A | TWR-A | Sky_Villas_Duplex | T-5BHK-Sky | 10 | 1 | 0 | 9
+
+  # --- TOWER G (Standard) ---
+  # Standard Floors (1-10) - 10 Floors x 8 Units = 80 Units
+  GRP-B | TWR-G | Mixed_2BHK_3BHK | T-2BHK-N-Std | 40 | 15 | 8 | 17
+  GRP-B | TWR-G | Mixed_2BHK_3BHK | T-2BHK-S-Std | 40 | 20 | 10 | 10
+
+# -----------------------------------------------------------------------------
+# 3. UNIT TYPE FILTER INDEX (Cross-Tower Lookup)
+# "Show me all 3BHK East units in the whole project"
+# -----------------------------------------------------------------------------
+UnitTypeIndex[List]{variant_ref, description, total_count, available_count, price_range}:
+  T-3BHK-E-Prem | 3BHK East Premium (1926 sft) | 336 | 45 | 1.6Cr - 1.8Cr
+  T-2BHK-N-Std | 2BHK North Standard (1350 sft) | 240 | 85 | 1.1Cr - 1.2Cr
+  T-5BHK-Sky | 5BHK Sky Villa (4500 sft) | 60 | 4 | 5.5Cr+
+
+# -----------------------------------------------------------------------------
+# 4. FLOOR MAP VISUALIZATION DATA
+# Compressed representation of a floor 'Strip' for UI rendering
+# -----------------------------------------------------------------------------
+FloorStripData:
+  # UI Pattern: [Unit1:Status] [Unit2:Status] ...
+  Pattern_Typ_Prem_3BHK: [01:Avail, 02:Sold, 03:Sold, 04:Rent, 05:Avail, 06:Sold]
+  Pattern_Sky_Villa: [01:Sold, 02:Avail]
+
