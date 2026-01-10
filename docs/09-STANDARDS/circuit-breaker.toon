@@ -1,0 +1,158 @@
+# ============================================================================
+# ⚡ CIRCUIT BREAKER CONFIGURATION
+# ============================================================================
+
+[metadata]
+version = "2.0.0"
+module = "circuit-breaker"
+description = "Circuit breaker patterns and failure detection"
+last_updated = "2025-12-11"
+
+# ============================================================================
+# 🔌 GLOBAL CIRCUIT BREAKER SETTINGS
+# ============================================================================
+[circuit_breaker]
+enabled = true
+default_pattern = "half_open"
+failure_threshold = 5
+success_threshold = 3
+timeout_ms = 30000
+half_open_max_calls = 1
+sliding_window_size = 10
+minimum_number_of_calls = 5
+slow_call_duration_threshold_ms = 5000
+slow_call_rate_threshold = 50.0
+writable_stack_trace_enabled = false
+
+# ============================================================================
+# 📊 CIRCUIT BREAKER STATES & TRANSITIONS
+# ============================================================================
+[circuit_breaker.states]
+# CLOSED: Normal operation, requests pass through
+closed = { allows_requests = true, records_metrics = true, description = "Circuit is closed - service operational" }
+# OPEN: Failures exceeded, reject all requests
+open = { allows_requests = false, records_metrics = true, description = "Circuit is open - requests rejected immediately" }
+# HALF_OPEN: Testing recovery, allow limited requests
+half_open = { allows_requests = true, max_concurrent_calls = 1, records_metrics = true, description = "Circuit is half-open - testing recovery" }
+
+# ============================================================================
+# 🎯 IMPACT LEVEL CONFIGURATIONS
+# ============================================================================
+[circuit_breaker.impact_levels.low]
+failure_threshold = 10
+success_threshold = 5
+timeout_ms = 10000
+half_open_max_calls = 3
+slow_call_rate_threshold = 80.0
+description = "Low-impact service failure - lenient thresholds"
+
+[circuit_breaker.impact_levels.medium]
+failure_threshold = 7
+success_threshold = 4
+timeout_ms = 20000
+half_open_max_calls = 2
+slow_call_rate_threshold = 60.0
+description = "Medium-impact service failure - moderate thresholds"
+
+[circuit_breaker.impact_levels.high]
+failure_threshold = 5
+success_threshold = 3
+timeout_ms = 30000
+half_open_max_calls = 1
+slow_call_rate_threshold = 50.0
+description = "High-impact service failure - strict thresholds"
+
+[circuit_breaker.impact_levels.critical]
+failure_threshold = 3
+success_threshold = 2
+timeout_ms = 60000
+half_open_max_calls = 0
+slow_call_rate_threshold = 30.0
+stop_circuit_breaker = true
+description = "Critical service failure - immediate isolation"
+
+# ============================================================================
+# 🔄 CIRCUIT BREAKER BEHAVIOR POLICIES
+# ============================================================================
+[circuit_breaker.behaviors.continue]
+on_failure = "retry"
+on_open = "continue_with_fallback"
+max_open_duration_ms = 30000
+description = "Continue operation with fallback when circuit opens"
+
+[circuit_breaker.behaviors.open_after_threshold]
+on_failure = "retry_then_open"
+on_open = "reject_immediately"
+max_open_duration_ms = 60000
+description = "Open circuit after threshold and reject requests"
+
+[circuit_breaker.behaviors.stop_immediately]
+on_failure = "stop_all"
+on_open = "reject_immediately"
+max_open_duration_ms = 120000
+escalate_to = "incident_management"
+description = "Immediately stop and escalate to incident management"
+
+# ============================================================================
+# 📈 CIRCUIT BREAKER METRICS TRACKING
+# ============================================================================
+[circuit_breaker.metrics]
+track_success_count = true
+track_failure_count = true
+track_slow_calls = true
+track_call_duration = true
+track_total_calls = true
+reset_metrics_on_state_change = true
+metrics_window_size_ms = 60000
+
+# ============================================================================
+# 🚨 FAILURE DETECTION RULES
+# ============================================================================
+[circuit_breaker.failure_detection]
+count_timeouts_as_failure = true
+count_slow_calls_as_failure = true
+ignore_exceptions = []
+record_all_exceptions = true
+
+[circuit_breaker.failure_detection.ignored_errors]
+temporary_errors = ["ECONNREFUSED", "ETIMEDOUT", "ERR_HTTP2_STREAM_CANCEL"]
+transient_failures = ["ENOTFOUND"]
+
+[circuit_breaker.failure_detection.counted_errors]
+critical_errors = ["FATAL", "CRITICAL", "UNRECOVERABLE"]
+permanent_errors = ["EACCES", "EBUSY", "EPERM"]
+
+# ============================================================================
+# 🔐 CIRCUIT BREAKER RECOVERY STRATEGIES
+# ============================================================================
+[circuit_breaker.recovery.exponential_backoff]
+initial_wait_ms = 1000
+multiplier = 2.0
+max_wait_ms = 60000
+jitter = true
+
+[circuit_breaker.recovery.linear_backoff]
+initial_wait_ms = 5000
+increment_ms = 5000
+max_wait_ms = 60000
+
+[circuit_breaker.recovery.fixed_backoff]
+wait_ms = 30000
+jitter = false
+
+# ============================================================================
+# 📊 CIRCUIT BREAKER MONITORING & ALERTING
+# ============================================================================
+[circuit_breaker.monitoring]
+log_state_changes = true
+log_every_nth_failure = 5
+alert_on_open = true
+alert_on_half_open = false
+metrics_export_enabled = true
+metrics_export_interval_ms = 60000
+
+[circuit_breaker.monitoring.alert_thresholds]
+high_failure_rate_percent = 50
+sustained_errors_count = 10
+mean_response_time_ms = 5000
+p99_response_time_ms = 10000

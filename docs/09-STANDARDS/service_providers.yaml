@@ -1,0 +1,251 @@
+# Service Providers Configuration
+# Defines available 3rd party vendors for SMS, Payment, KYC, Tax, and Email.
+# Expert Review: Top-tier global and regional integrations used by Fortune 500 & High-Growth Startups.
+
+providers:
+  # ==========================================
+  # 1. COMMUNICATION (SMS, WhatsApp, Voice)
+  # ==========================================
+  communication:
+    twilio:
+      name: "Twilio"
+      type: "global_aggregator"
+      regions: ["global"]
+      features: ["sms", "whatsapp", "voice", "verify_api"]
+      popularity: "market_leader"
+
+    infobip:
+      name: "Infobip"
+      type: "global_aggregator"
+      regions: ["eu", "asia", "latam"]
+      features: ["omnichannel", "viber", "whatsapp"]
+      popularity: "very_high"
+
+    msg91:
+      name: "MSG91"
+      type: "regional_aggregator"
+      regions: ["india"]
+      features: ["otp_optimized", "transactional_sms"]
+      popularity: "market_leader_india"
+
+    gupshup:
+      name: "Gupshup"
+      type: "regional_aggregator"
+      regions: ["india", "latam", "sea"]
+      features: ["whatsapp_enterprise", "bot_platform"]
+
+    aws_sns:
+      name: "AWS SNS"
+      type: "cloud_native"
+      regions: ["global"]
+      features: ["bulk_sms", "push_notifications"]
+
+    sinch:
+      name: "Sinch"
+      type: "global_aggregator"
+      regions: ["us", "eu"]
+      features: ["voice", "sms"]
+
+  # ==========================================
+  # 2. EMAIL DELIVERY (Transactional)
+  # ==========================================
+  email:
+    sendgrid:
+      name: "SendGrid (Twilio)"
+      type: "email_api"
+      regions: ["global"]
+      features: ["marketing", "transactional"]
+      popularity: "market_leader"
+
+    aws_ses:
+      name: "Amazon SES"
+      type: "cloud_native"
+      regions: ["global"]
+      features: ["high_scale", "low_cost"]
+
+    postmark:
+      name: "Postmark"
+      type: "email_api"
+      regions: ["global"]
+      features: ["high_deliverability", "developer_focused"]
+
+    mailgun:
+      name: "Mailgun"
+      type: "email_api"
+      regions: ["global"]
+      features: ["complex_routing"]
+
+  # ==========================================
+  # 3. PAYMENT GATEWAYS & PROCESSORS
+  # ==========================================
+  payment:
+    stripe:
+      name: "Stripe"
+      type: "global_processor"
+      regions: ["global", "us", "eu", "uk", "sg", "br"]
+      features: ["payment_intents", "connect", "billing", "radar"]
+      popularity: "dev_standard"
+
+    adyen:
+      name: "Adyen"
+      type: "enterprise_processor"
+      regions: ["global", "eu"]
+      features: ["pos", "unified_commerce"]
+      popularity: "enterprise_leader" # Uber/Spotify use Adyen
+
+    paypal:
+      name: "PayPal"
+      type: "wallet_processor"
+      regions: ["global"]
+      features: ["pay_later", "venmo"]
+
+    razorpay:
+      name: "Razorpay"
+      type: "regional_processor"
+      regions: ["india"]
+      features: ["upi", "subscriptions", "payment_links"]
+
+    phonepe:
+      name: "PhonePe PG"
+      type: "regional_processor"
+      regions: ["india"]
+      features: ["upi_intent", "qr_codes"]
+
+    mercadopago:
+      name: "Mercado Pago"
+      type: "regional_processor"
+      regions: ["latam", "brazil", "mexico", "argentina"]
+      features: ["pix", "boleto"]
+
+    square:
+      name: "Square"
+      type: "omnichannel"
+      regions: ["us", "uk", "ca", "au", "jp"]
+      features: ["pos_integration"]
+
+    paddle:
+      name: "Paddle"
+      type: "merchant_of_record"
+      regions: ["global_saas"]
+      features: ["tax_remittance", "saas_billing"]
+      use_case: "global_compliance_simplified"
+
+    gocardless:
+      name: "GoCardless"
+      type: "direct_debit"
+      regions: ["uk", "eu", "us", "au"]
+      features: ["bank_to_bank", "ach", "sepa"]
+
+  # ==========================================
+  # 4. IDENTITY VERIFICATION (KYC / AML)
+  # ==========================================
+  identity:
+    persona:
+      name: "Persona"
+      type: "comprehensive_identity"
+      regions: ["global"]
+      features: ["dynamic_flows", "document_verify", "government_id"]
+      popularity: "modern_favorite"
+
+    sumsub:
+      name: "Sumsub"
+      type: "comprehensive_identity"
+      regions: ["global", "eu"]
+      features: ["1_click_verification", "crypto_compliance"]
+
+    jumio:
+      name: "Jumio"
+      type: "document_verification"
+      regions: ["global"]
+      features: ["liveness", "id_check"]
+
+    onfido:
+      name: "Onfido"
+      type: "document_verification"
+      regions: ["eu", "global"]
+      features: ["video_verification"]
+
+    socure:
+      name: "Socure"
+      type: "predictive_identity"
+      regions: ["us"]
+      features: ["auto_approval_rates", "fraud_protection"]
+
+    plaid_identity:
+      name: "Plaid Identity"
+      type: "bank_identity"
+      regions: ["us", "uk", "ca", "eu"]
+      features: ["verify_by_bank_login"]
+
+    signzy:
+      name: "Signzy"
+      type: "regional_kyc"
+      regions: ["india"]
+      features: ["pan", "aadhaar", "video_kyc"]
+
+    hyperverge:
+      name: "HyperVerge"
+      type: "ai_kyc"
+      regions: ["india", "sea"]
+      features: ["passive_liveness"]
+
+  # ==========================================
+  # 5. TAX & COMPLIANCE
+  # ==========================================
+  tax:
+    stripe_tax:
+      name: "Stripe Tax"
+      type: "integrated_tax"
+      features: ["automatic_calculation"]
+    
+    avalara:
+      name: "Avalara"
+      type: "enterprise_tax"
+      regions: ["global"]
+      features: ["complex_nexus", "filing"]
+
+    taxjar:
+      name: "TaxJar (Stripe)"
+      type: "tax_filing"
+      regions: ["us"]
+      features: ["sales_tax_reporting"]
+
+  # ==========================================
+  # 6. MARKET RESEARCH & INTELLIGENCE
+  # ==========================================
+  market_research:
+    knight_frank:
+      name: "Knight Frank"
+      type: "global_consultancy"
+      regions: ["global", "india"]
+      features: ["wealth_reports", "micro_market_analysis"]
+    
+    jll:
+      name: "JLL (Jones Lang LaSalle)"
+      type: "global_consultancy"
+      regions: ["global", "india"]
+      features: ["commercial_intel", "residential_trends"]
+
+    cbre:
+      name: "CBRE"
+      type: "global_consultancy"
+      regions: ["global", "india"]
+      features: ["investment_management", "market_forecasts"]
+
+    anarock:
+      name: "Anarock"
+      type: "regional_specialist"
+      regions: ["india", "gcc"]
+      features: ["real_time_inventory", "consumer_sentiment"]
+
+    propequity:
+      name: "PropEquity"
+      type: "data_analytics"
+      regions: ["india"]
+      features: ["raw_pricing_data", "absorption_rates"]
+
+    liases_foras:
+      name: "Liases Foras"
+      type: "non_conflicted_research"
+      regions: ["india"]
+      features: ["price_corrections", "risk_rating"]

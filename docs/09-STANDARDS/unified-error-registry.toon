@@ -1,0 +1,399 @@
+# ============================================================================
+# 🚨 UNIFIED ERROR CODE REGISTRY
+# ============================================================================
+
+[errors]
+version = "2.0.0"
+description = "Unified error code system across all providers"
+error_categories = ["retry", "critical", "fatal"]
+default_category = "retry"
+circuit_breaker_threshold = 5
+circuit_breaker_timeout_seconds = 30
+circuit_breaker_half_open_max_attempts = 3
+
+# ============================================================================
+# 📊 ERROR CATEGORIES MAPPING TABLE
+# ============================================================================
+[errors.category_mapping]
+retry = { priority = 1, icon = "🔄", color = "#3B82F6", auto_recovery = true, escalation_level = 1, max_retries = 3 }
+critical = { priority = 2, icon = "⚠️", color = "#F59E0B", auto_recovery = false, escalation_level = 3, max_retries = 1 }
+fatal = { priority = 3, icon = "💀", color = "#DC2626", auto_recovery = false, escalation_level = 5, max_retries = 0 }
+
+# ============================================================================
+# 🌐 HTTP STATUS CODE TO ERROR CATEGORY MAPPING
+# ============================================================================
+[errors.http_status_mapping]
+# 4xx Client Errors
+400 = { category = "retry", severity = "low", default_codes = ["VAL-001-001", "VAL-001-002", "VAL-001-003"] }
+401 = { category = "retry", severity = "medium", default_codes = ["AUT-001-001", "AUT-001-002", "AUT-001-003"] }
+403 = { category = "critical", severity = "high", default_codes = ["AUT-001-008", "AUT-001-009", "AUT-002-001"] }
+404 = { category = "retry", severity = "low", default_codes = ["RES-001-001"] }
+405 = { category = "critical", severity = "medium", default_codes = ["RES-001-006"] }
+408 = { category = "retry", severity = "medium", default_codes = ["AUT-001-011"] }
+409 = { category = "retry", severity = "low", default_codes = ["RES-001-002", "RES-001-007", "RES-001-008"] }
+410 = { category = "critical", severity = "medium", default_codes = ["RES-001-003", "RES-001-004", "RES-001-010"] }
+413 = { category = "retry", severity = "low", default_codes = ["VAL-001-015"] }
+423 = { category = "retry", severity = "low", default_codes = ["RES-001-005"] }
+429 = { category = "retry", severity = "medium", default_codes = ["RAT-001-001", "RAT-001-002", "RAT-001-003"] }
+451 = { category = "fatal", severity = "critical", default_codes = ["AUT-002-010"] }
+
+# 5xx Server Errors
+500 = { category = "retry", severity = "medium", default_codes = ["SRV-001-001", "SRV-001-004", "SRV-001-005"] }
+502 = { category = "retry", severity = "medium", default_codes = ["NET-001-001", "NET-001-003", "SRV-001-008"] }
+503 = { category = "retry", severity = "medium", default_codes = ["SRV-001-002", "SRV-001-003", "RES-001-011"] }
+504 = { category = "retry", severity = "medium", default_codes = ["NET-001-002"] }
+508 = { category = "critical", severity = "high", default_codes = ["NET-001-006"] }
+525 = { category = "critical", severity = "high", default_codes = ["NET-001-004"] }
+
+# ============================================================================
+# 🔗 HTTP STATUS CODE TO ERROR CODE MAPPING (Detailed)
+# ============================================================================
+[errors.http_to_error_mapping]
+400 = ["VAL-001-001", "VAL-001-002", "VAL-001-003", "VAL-001-004", "VAL-001-005", "VAL-001-006", "VAL-001-007", "VAL-001-008", "VAL-001-009", "VAL-001-010", "VAL-001-011", "VAL-001-012", "VAL-001-013", "VAL-001-014", "AUT-002-003", "NET-001-005"]
+401 = ["AUT-001-001", "AUT-001-002", "AUT-001-003", "AUT-001-004", "AUT-001-005", "AUT-001-006", "AUT-001-007", "AUT-001-012", "AUT-001-013"]
+403 = ["AUT-001-008", "AUT-001-009", "AUT-001-010", "AUT-002-001", "AUT-002-002", "AUT-002-004", "AUT-002-005", "AUT-002-006", "AUT-002-007", "AUT-002-008", "AUT-002-009", "QUO-001-001", "QUO-001-002", "QUO-001-003", "QUO-001-004", "QUO-001-005", "QUO-001-006", "QUO-001-007", "QUO-001-008", "QUO-001-009", "QUO-001-010", "RES-001-009"]
+404 = ["RES-001-001"]
+405 = ["RES-001-006"]
+408 = ["AUT-001-011"]
+409 = ["RES-001-002", "RES-001-007", "RES-001-008"]
+410 = ["RES-001-003", "RES-001-004", "RES-001-010"]
+413 = ["VAL-001-015"]
+423 = ["RES-001-005"]
+429 = ["AUT-001-014", "RAT-001-001", "RAT-001-002", "RAT-001-003", "RAT-001-004", "RAT-001-005", "RAT-001-006", "RAT-001-007", "RAT-001-008", "RAT-001-009", "RAT-001-010"]
+451 = ["AUT-002-010"]
+500 = ["SRV-001-001", "SRV-001-004", "SRV-001-005", "SRV-001-006", "SRV-001-007", "RES-001-012"]
+502 = ["NET-001-001", "NET-001-003", "SRV-001-008"]
+503 = ["SRV-001-002", "SRV-001-003", "RES-001-011"]
+504 = ["NET-001-002"]
+508 = ["NET-001-006"]
+525 = ["NET-001-004"]
+
+# ============================================================================
+# 🔄 ERROR CODE TO HTTP STATUS MAPPING (Reverse Lookup)
+# ============================================================================
+[errors.error_to_http_mapping]
+# Authentication Errors
+AUT-001-001 = 401
+AUT-001-002 = 401
+AUT-001-003 = 401
+AUT-001-004 = 401
+AUT-001-005 = 401
+AUT-001-006 = 401
+AUT-001-007 = 401
+AUT-001-008 = 403
+AUT-001-009 = 403
+AUT-001-010 = 403
+AUT-001-011 = 408
+AUT-001-012 = 401
+AUT-001-013 = 401
+AUT-001-014 = 429
+
+# Authorization Errors
+AUT-002-001 = 403
+AUT-002-002 = 403
+AUT-002-003 = 400
+AUT-002-004 = 403
+AUT-002-005 = 403
+AUT-002-006 = 403
+AUT-002-007 = 403
+AUT-002-008 = 403
+AUT-002-009 = 403
+AUT-002-010 = 451
+
+# Rate Limiting Errors
+RAT-001-001 = 429
+RAT-001-002 = 429
+RAT-001-003 = 429
+RAT-001-004 = 429
+RAT-001-005 = 429
+RAT-001-006 = 429
+RAT-001-007 = 429
+RAT-001-008 = 429
+RAT-001-009 = 429
+RAT-001-010 = 429
+
+# Quota Errors
+QUO-001-001 = 403
+QUO-001-002 = 403
+QUO-001-003 = 403
+QUO-001-004 = 403
+QUO-001-005 = 403
+QUO-001-006 = 403
+QUO-001-007 = 403
+QUO-001-008 = 403
+QUO-001-009 = 403
+QUO-001-010 = 403
+
+# Validation Errors
+VAL-001-001 = 400
+VAL-001-002 = 400
+VAL-001-003 = 400
+VAL-001-004 = 400
+VAL-001-005 = 400
+VAL-001-006 = 400
+VAL-001-007 = 400
+VAL-001-008 = 400
+VAL-001-009 = 400
+VAL-001-010 = 400
+VAL-001-011 = 400
+VAL-001-012 = 400
+VAL-001-013 = 400
+VAL-001-014 = 400
+VAL-001-015 = 413
+
+# Resource Errors
+RES-001-001 = 404
+RES-001-002 = 409
+RES-001-003 = 410
+RES-001-004 = 410
+RES-001-005 = 423
+RES-001-006 = 405
+RES-001-007 = 409
+RES-001-008 = 409
+RES-001-009 = 403
+RES-001-010 = 410
+RES-001-011 = 503
+RES-001-012 = 500
+
+# Server Errors
+SRV-001-001 = 500
+SRV-001-002 = 503
+SRV-001-003 = 503
+SRV-001-004 = 500
+SRV-001-005 = 500
+SRV-001-006 = 500
+SRV-001-007 = 500
+SRV-001-008 = 502
+
+# Network Errors
+NET-001-001 = 502
+NET-001-002 = 504
+NET-001-003 = 502
+NET-001-004 = 525
+NET-001-005 = 400
+NET-001-006 = 508
+
+# ============================================================================
+# 📋 ERROR CODES TO VALUES MAPPING TABLE
+# ============================================================================
+[errors.code_mapping]
+# Authentication Errors
+AUT-001-001 = { category = "retry", severity = "medium", http_status = 401 }
+AUT-001-002 = { category = "retry", severity = "medium", http_status = 401 }
+AUT-001-003 = { category = "retry", severity = "medium", http_status = 401 }
+AUT-001-004 = { category = "critical", severity = "high", http_status = 401 }
+AUT-001-005 = { category = "critical", severity = "high", http_status = 401 }
+AUT-001-006 = { category = "retry", severity = "medium", http_status = 401 }
+AUT-001-007 = { category = "critical", severity = "high", http_status = 401 }
+AUT-001-008 = { category = "critical", severity = "high", http_status = 403 }
+AUT-001-009 = { category = "fatal", severity = "critical", http_status = 403 }
+AUT-001-010 = { category = "retry", severity = "low", http_status = 403 }
+AUT-001-011 = { category = "retry", severity = "medium", http_status = 408 }
+AUT-001-012 = { category = "retry", severity = "low", http_status = 401 }
+AUT-001-013 = { category = "retry", severity = "medium", http_status = 401 }
+AUT-001-014 = { category = "critical", severity = "high", http_status = 429 }
+
+# Authorization Errors
+AUT-002-001 = { category = "critical", severity = "high", http_status = 403 }
+AUT-002-002 = { category = "critical", severity = "medium", http_status = 403 }
+AUT-002-003 = { category = "critical", severity = "medium", http_status = 400 }
+AUT-002-004 = { category = "critical", severity = "high", http_status = 403 }
+AUT-002-005 = { category = "critical", severity = "high", http_status = 403 }
+AUT-002-006 = { category = "critical", severity = "high", http_status = 403 }
+AUT-002-007 = { category = "retry", severity = "low", http_status = 403 }
+AUT-002-008 = { category = "critical", severity = "medium", http_status = 403 }
+AUT-002-009 = { category = "critical", severity = "medium", http_status = 403 }
+AUT-002-010 = { category = "fatal", severity = "critical", http_status = 451 }
+
+# Rate Limiting Errors
+RAT-001-001 = { category = "retry", severity = "low", http_status = 429 }
+RAT-001-002 = { category = "retry", severity = "low", http_status = 429 }
+RAT-001-003 = { category = "retry", severity = "low", http_status = 429 }
+RAT-001-004 = { category = "critical", severity = "high", http_status = 429 }
+RAT-001-005 = { category = "critical", severity = "high", http_status = 429 }
+RAT-001-006 = { category = "retry", severity = "medium", http_status = 429 }
+RAT-001-007 = { category = "retry", severity = "medium", http_status = 429 }
+RAT-001-008 = { category = "retry", severity = "low", http_status = 429 }
+RAT-001-009 = { category = "critical", severity = "high", http_status = 429 }
+RAT-001-010 = { category = "critical", severity = "high", http_status = 429 }
+
+# Quota Errors
+QUO-001-001 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-002 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-003 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-004 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-005 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-006 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-007 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-008 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-009 = { category = "critical", severity = "high", http_status = 403 }
+QUO-001-010 = { category = "fatal", severity = "critical", http_status = 403 }
+
+# Validation Errors
+VAL-001-001 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-002 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-003 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-004 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-005 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-006 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-007 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-008 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-009 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-010 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-011 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-012 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-013 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-014 = { category = "retry", severity = "low", http_status = 400 }
+VAL-001-015 = { category = "retry", severity = "low", http_status = 413 }
+
+# Resource Errors
+RES-001-001 = { category = "retry", severity = "low", http_status = 404 }
+RES-001-002 = { category = "retry", severity = "low", http_status = 409 }
+RES-001-003 = { category = "critical", severity = "medium", http_status = 410 }
+RES-001-004 = { category = "retry", severity = "low", http_status = 410 }
+RES-001-005 = { category = "retry", severity = "low", http_status = 423 }
+RES-001-006 = { category = "critical", severity = "medium", http_status = 405 }
+RES-001-007 = { category = "retry", severity = "low", http_status = 409 }
+RES-001-008 = { category = "retry", severity = "low", http_status = 409 }
+RES-001-009 = { category = "critical", severity = "high", http_status = 403 }
+RES-001-010 = { category = "critical", severity = "medium", http_status = 410 }
+RES-001-011 = { category = "retry", severity = "low", http_status = 503 }
+RES-001-012 = { category = "fatal", severity = "critical", http_status = 500 }
+
+# Server Errors
+SRV-001-001 = { category = "retry", severity = "medium", http_status = 500 }
+SRV-001-002 = { category = "retry", severity = "medium", http_status = 503 }
+SRV-001-003 = { category = "critical", severity = "high", http_status = 503 }
+SRV-001-004 = { category = "critical", severity = "high", http_status = 500 }
+SRV-001-005 = { category = "retry", severity = "low", http_status = 500 }
+SRV-001-006 = { category = "critical", severity = "high", http_status = 500 }
+SRV-001-007 = { category = "fatal", severity = "critical", http_status = 500 }
+SRV-001-008 = { category = "retry", severity = "medium", http_status = 502 }
+
+# Network Errors
+NET-001-001 = { category = "retry", severity = "low", http_status = 502 }
+NET-001-002 = { category = "retry", severity = "medium", http_status = 504 }
+NET-001-003 = { category = "critical", severity = "high", http_status = 502 }
+NET-001-004 = { category = "critical", severity = "high", http_status = 525 }
+NET-001-005 = { category = "critical", severity = "medium", http_status = 400 }
+NET-001-006 = { category = "critical", severity = "high", http_status = 508 }
+
+# ============================================================================
+# 🔄 RETRY CONFIGURATION (Repeated fields kept at top)
+# ============================================================================
+[errors.retry_config]
+default_strategy = "exponential"
+default_max_attempts = 3
+default_backoff_base = 2.0
+default_jitter = 0.1
+
+[errors.retry_config.strategies.exponential]
+base_delay_ms = 1000
+max_delay_ms = 30000
+exponent = 2.0
+jitter_percentage = 0.25
+
+[errors.retry_config.strategies.fixed]
+delay_ms = 2000
+jitter_percentage = 0.1
+
+[errors.retry_config.strategies.immediate]
+delay_ms = 0
+max_attempts = 1
+
+# ============================================================================
+# ⚡ CIRCUIT BREAKER CONFIGURATION (Repeated fields kept at top)
+# ============================================================================
+[errors.circuit_breaker]
+enabled = true
+failure_threshold = 5
+success_threshold = 3
+timeout_ms = 30000
+half_open_max_calls = 1
+sliding_window_size = 10
+minimum_number_of_calls = 5
+slow_call_duration_threshold_ms = 5000
+slow_call_rate_threshold = 50.0
+writable_stack_trace_enabled = false
+
+[errors.circuit_breaker.impact_levels]
+low = { failure_threshold = 10, timeout_ms = 10000 }
+medium = { failure_threshold = 7, timeout_ms = 20000 }
+high = { failure_threshold = 5, timeout_ms = 30000 }
+critical = { failure_threshold = 3, timeout_ms = 60000, stop_circuit_breaker = true }
+
+# ============================================================================
+# 📊 ERROR CATEGORIES CONFIGURATION (Repeated fields kept at top)
+# ============================================================================
+[errors.categories.retry]
+description = "Temporary errors that can be automatically retried"
+max_retries = 3
+backoff_strategy = "exponential"
+notify_on_failure = false
+escalation_level = 1
+auto_recovery = true
+circuit_breaker_behavior = "continue"
+
+[errors.categories.critical]
+description = "Critical errors requiring immediate attention and manual intervention"
+max_retries = 1
+backoff_strategy = "fixed"
+notify_on_failure = true
+escalation_level = 3
+auto_recovery = false
+circuit_breaker_behavior = "open_after_threshold"
+
+[errors.categories.fatal]
+description = "Fatal errors causing system instability requiring emergency procedures"
+max_retries = 0
+notify_on_failure = true
+escalation_level = 5
+auto_recovery = false
+circuit_breaker_behavior = "stop_immediately"
+requires_rollback = true
+data_loss_possible = true
+
+# ============================================================================
+# 🗺️ HTTP STATUS CODE TO ERROR CATEGORY SUMMARY
+# ============================================================================
+[errors.http_category_summary]
+400 = "retry"
+401 = "retry"
+403 = "critical"
+404 = "retry"
+405 = "critical"
+408 = "retry"
+409 = "retry"
+410 = "critical"
+413 = "retry"
+423 = "retry"
+429 = "retry"
+451 = "fatal"
+500 = "retry"
+502 = "retry"
+503 = "retry"
+504 = "retry"
+508 = "critical"
+525 = "critical"
+
+# ============================================================================
+# 🔴 AUTHENTICATION ERRORS (Full definitions)
+# ============================================================================
+[errors.authentication]
+AUT-001-001 = { name = "MissingAuthToken", description = "Authentication token is required", http_status = 401, category = "retry", retryable = true, retry_after = 60, circuit_breaker_impact = "low" }
+AUT-001-002 = { name = "InvalidTokenFormat", description = "Token format is invalid", http_status = 401, category = "retry", retryable = true, circuit_breaker_impact = "low" }
+AUT-001-003 = { name = "ExpiredToken", description = "Token has expired", http_status = 401, category = "retry", retryable = true, retry_strategy = "immediate", retry_max = 1, circuit_breaker_impact = "low" }
+AUT-001-004 = { name = "RevokedToken", description = "Token has been revoked", http_status = 401, category = "critical", retryable = false, circuit_breaker_impact = "medium", stop_circuit_breaker = false }
+AUT-001-005 = { name = "InvalidSignature", description = "Token signature verification failed", http_status = 401, category = "critical", retryable = false, circuit_breaker_impact = "high", stop_circuit_breaker = false }
+AUT-001-006 = { name = "MissingCredentials", description = "Required credentials are missing", http_status = 401, category = "retry", retryable = true, circuit_breaker_impact = "low" }
+AUT-001-007 = { name = "InvalidCredentials", description = "Credentials are invalid", http_status = 401, category = "critical", retryable = false, circuit_breaker_impact = "medium", stop_circuit_breaker = false }
+AUT-001-008 = { name = "AccountLocked", description = "Account is locked/temporarily disabled", http_status = 403, category = "critical", retryable = false, circuit_breaker_impact = "high", stop_circuit_breaker = true }
+AUT-001-009 = { name = "AccountSuspended", description = "Account is suspended", http_status = 403, category = "fatal", retryable = false, circuit_breaker_impact = "critical", stop_circuit_breaker = true }
+AUT-001-010 = { name = "MFARequired", description = "Multi-factor authentication required", http_status = 403, category = "retry", retryable = true, retry_strategy = "immediate", circuit_breaker_impact = "low" }
+AUT-001-011 = { name = "MFATimeout", description = "MFA verification timed out", http_status = 408, category = "retry", retryable = true, retry_strategy = "exponential", retry_max = 3, circuit_breaker_impact = "low" }
+AUT-001-012 = { name = "InvalidMFAToken", description = "MFA token is invalid", http_status = 401, category = "retry", retryable = true, circuit_breaker_impact = "low" }
+AUT-001-013 = { name = "SessionExpired", description = "Session has expired", http_status = 401, category = "retry", retryable = true, retry_strategy = "immediate", retry_max = 1, circuit_breaker_impact = "low" }
+AUT-001-014 = { name = "TooManyAttempts", description = "Too many failed authentication attempts", http_status = 429, category = "critical", retryable = false, retry_after = 300, circuit_breaker_impact = "high", stop_circuit_breaker = true }
+
+# ... (Rest of the error definitions remain the same as before)
+# ============================================================================

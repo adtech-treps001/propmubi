@@ -1,0 +1,322 @@
+# Regional Configuration Modules
+# Expert Review: Global Architect Perspective (Amazon/Google/Microsoft Standard)
+# Covers Compliance, Cloud Infrastructure Mapping, Strict Payment Rails, and Major Financial Hubs
+
+regions:
+  # ==========================================
+  # ASIA PACIFIC (APAC)
+  # ==========================================
+  india:
+    name: "India"
+    code: "IN"
+    flag: "🇮🇳"
+    financial_hubs: ["Mumbai (Bandra Kurla Complex)", "GIFT City (IFSC)", "Bangalore (Fintech)"]
+    cloud_infrastructure:
+      aws_region: "ap-south-1"      # Mumbai
+      gcp_region: "asia-south1"     # Mumbai
+      azure_region: "centralindia"  # Pune
+    auth:
+      mobile_format: "indian"
+      country_code: "+91"
+      mobile_regex: "^[6-9]\\d{9}$"
+      otp_length: 6
+    ui:
+      currency: "INR"
+      currency_symbol: "₹"
+      date_format: "DD/MM/YYYY"
+      time_zone: "Asia/Kolkata"
+      default_languages: ["english", "hindi"]
+      extra_languages: ["tamil", "telugu", "kannada", "marathi", "bengali", "gujarati"]
+    data:
+      tax_id_name: "GSTIN"
+      personal_id_name: "PAN"
+      address_format: 
+        type: "flat_locality_city_state"
+        zip_label: "Pincode"
+        state_label: "State"
+    integration_requirements:
+      payment_methods: 
+        primary: "UPI"
+        card_networks: ["RuPay", "Visa", "MasterCard"]
+        banking_rails: ["NetBanking", "eNACH"]
+        wallets: ["PhonePe", "GooglePay", "Paytm"]
+      sms_compliance: "DLT_REGISTRATION_MANDATORY"
+      kyc_standards: ["VideoKYC", "AadhaarXML", "DigiLocker"]
+    compliance:
+      data_residency_required: true
+      privacy_law: "DPDP_ACT_2023"
+      server_location: "IN_ONLY"
+
+  singapore:
+    name: "Singapore"
+    code: "SG"
+    flag: "🇸🇬"
+    financial_hubs: ["Raffles Place", "Marina Bay Financial Centre"]
+    cloud_infrastructure:
+      aws_region: "ap-southeast-1"
+      gcp_region: "asia-southeast1"
+      azure_region: "southeastasia"
+    auth:
+      country_code: "+65"
+      mobile_regex: "^[89]\\d{7}$"
+      govt_id_login: "SingPass"
+    ui:
+      currency: "SGD"
+      currency_symbol: "S$"
+      date_format: "DD/MM/YYYY"
+    integration_requirements:
+      payment_methods: 
+        primary: "Credit Card"
+        banking_rails: ["PayNow", "GIRO"]
+        wallets: ["GrabPay"]
+    compliance:
+      data_residency_required: true
+      privacy_law: "PDPA"
+      monetary_authority_guidelines: "MAS_TRM"
+
+  china:
+    name: "China (Mainland)"
+    code: "CN"
+    flag: "🇨🇳"
+    financial_hubs: ["Shanghai (Lujiazui)", "Beijing (Financial Street)", "Shenzhen (Qianhai)"]
+    cloud_infrastructure:
+      aws_region: "cn-north-1"
+      gcp_region: "N/A"
+      azure_region: "chinaeast2"
+      aliyun_region: "cn-hangzhou"
+    auth:
+      country_code: "+86"
+      allow_social: ["wechat", "alipay"]
+      mobile_mandatory: true
+    ui:
+      currency: "CNY"
+      currency_symbol: "¥"
+    integration_requirements:
+      payment_methods: 
+        primary: "WeChat Pay"
+        secondary: "Alipay"
+        card_networks: ["UnionPay"]
+      cdn_region: "CHINA_MAINLAND"
+    compliance:
+      privacy_law: "PIPL"
+      cross_border_data_transfer: "RESTRICTED"
+      internet_content_provider_license: "REQUIRED"
+
+  hong_kong:
+    name: "Hong Kong SAR"
+    code: "HK"
+    flag: "🇭🇰"
+    financial_hubs: ["Central", "Admiralty", "Kowloon"]
+    cloud_infrastructure:
+      aws_region: "ap-east-1"
+      gcp_region: "asia-east2"
+      azure_region: "eastasia"
+    auth:
+      country_code: "+852"
+      mobile_regex: "^[5689]\\d{7}$"
+    ui:
+      currency: "HKD"
+      currency_symbol: "HK$"
+    integration_requirements:
+      payment_methods:
+        primary: "Octopus"
+        banking_rails: ["FPS"] 
+    compliance:
+      privacy_law: "PDPO"
+
+  # ==========================================
+  # AMERICAS
+  # ==========================================
+  usa:
+    name: "United States"
+    code: "US"
+    flag: "🇺🇸"
+    financial_hubs: ["New York (Wall Street)", "San Francisco (Fintech)", "Chicago (Derivatives)", "Charlotte (Banking)"]
+    cloud_infrastructure:
+      aws_region: "us-east-1"
+      gcp_region: "us-central1"
+      azure_region: "eastus"
+    auth:
+      mobile_format: "us"
+      country_code: "+1"
+      mobile_regex: "^[2-9]\\d{2}[2-9]\\d{6}$"
+    ui:
+      currency: "USD"
+      currency_symbol: "$"
+      date_format: "MM/DD/YYYY"
+      measuring_system: "imperial"
+    data:
+      tax_id_name: "EIN"
+      personal_id_name: "SSN"
+      address_format:
+        type: "street_city_state_zip"
+        state_label: "State"
+        zip_label: "Zip Code"
+    integration_requirements:
+      payment_methods: 
+        primary: "Credit Card"
+        banking_rails: ["ACH", "Wire", "FedNow"]
+        wallets: ["ApplePay", "PayPal", "Venmo"]
+      tax_calculation: "AUTOMATED_NEXUS"
+    compliance:
+      privacy_law: "CCPA_CPRA"
+      accessibility: "ADA_COMPLIANCE"
+      export_control: "ITAR_EAR"
+      financial_compliance: ["SEC", "FINRA"]
+
+  brazil:
+    name: "Brazil"
+    code: "BR"
+    flag: "🇧🇷"
+    financial_hubs: ["São Paulo (Faria Lima)", "Rio de Janeiro"]
+    cloud_infrastructure:
+      aws_region: "sa-east-1"
+      gcp_region: "southamerica-east1"
+      azure_region: "brazilsouth"
+    auth:
+      country_code: "+55"
+      tax_id_login: "CPF"
+    ui:
+      currency: "BRL"
+      currency_symbol: "R$"
+      language_options: ["portuguese"]
+      date_format: "DD/MM/YYYY"
+    integration_requirements:
+      payment_methods: 
+        primary: "PIX"
+        secondary: "Boleto Bancário"
+        card_networks: ["Elo", "Visa", "MasterCard"]
+        installments_supported: true
+    compliance:
+      privacy_law: "LGPD"
+
+  # ==========================================
+  # EUROPE (EMEA)
+  # ==========================================
+  eu:
+    name: "European Union"
+    code: "EU"
+    flag: "🇪🇺"
+    financial_hubs: ["Frankfurt (ECB)", "Paris (La Defense)", "Amsterdam (Euronext Equity)", "Dublin (Tech HQ)", "Luxembourg (Fund Hub)"]
+    cloud_infrastructure:
+      aws_region: "eu-central-1"
+      gcp_region: "europe-west3"
+      azure_region: "westeurope"
+    auth:
+      mobile_format: "international"
+    ui:
+      currency: "EUR"
+      currency_symbol: "€"
+      date_format: "DD.MM.YYYY"
+      vat_display: "INCLUSIVE"
+    data:
+      tax_id_name: "VAT_ID"
+      address_format:
+        zip_label: "Postcode"
+    integration_requirements:
+      payment_methods: 
+        primary: "Credit Card"
+        banking_rails: ["SEPA_Direct_Debit", "SEPA_Instant", "iDEAL", "Sofort", "Bancontact"]
+      security: "PSD2_SCA_MANDATORY"
+    compliance:
+      privacy_law: "GDPR"
+      cookie_consent: "STRICT_OPT_IN"
+      data_residency: "EEA_ONLY"
+
+  uk:
+    name: "United Kingdom"
+    code: "UK"
+    flag: "🇬🇧"
+    financial_hubs: ["London (The City)", "London (Canary Wharf)", "Edinburgh (Asset Mgmt)"]
+    cloud_infrastructure:
+      aws_region: "eu-west-2"
+      gcp_region: "europe-west2"
+      azure_region: "uksouth"
+    auth:
+      country_code: "+44"
+      mobile_regex: "^7\\d{9}$"
+    ui:
+      currency: "GBP"
+      currency_symbol: "£"
+      date_format: "DD/MM/YYYY"
+    integration_requirements:
+      payment_methods: 
+        primary: "Credit Card"
+        banking_rails: ["BACS", "Faster_Payments", "CHAPS"]
+    compliance:
+      privacy_law: "UK_GDPR"
+      financial_regulator: "FCA"
+
+  # ==========================================
+  # MIDDLE EAST (MENA)
+  # ==========================================
+  uae:
+    name: "United Arab Emirates"
+    code: "AE"
+    flag: "🇦🇪"
+    financial_hubs: ["Dubai (DIFC - Dubai International Financial Centre)", "Abu Dhabi (ADGM - Abu Dhabi Global Market)"]
+    # Expert Note: DIFC and ADGM have their own legal frameworks (English Common Law) distinct from UAE Civil Law
+    cloud_infrastructure:
+      aws_region: "me-central-1"
+      gcp_region: "me-west1"
+      azure_region: "uaenorth"
+    auth:
+      country_code: "+971"
+      mobile_regex: "^5\\d{8}$"
+      govt_id_login: "UAE_Pass"
+    ui:
+      currency: "AED"
+      direction: "RTL"
+      language_options: ["arabic", "english"]
+    integration_requirements:
+      payment_methods: 
+        primary: "Credit Card"
+        banking_rails: ["WPS (Wage Protection System)", "UAEPGS"]
+        wallets: ["CareemPay", "ApplePay"]
+    compliance:
+      data_residency: "UAE_ONSHORE"
+      financial_free_zones: ["DIFC", "ADGM"]
+
+  saudi_arabia:
+    name: "Saudi Arabia"
+    code: "SA"
+    flag: "🇸🇦"
+    financial_hubs: ["Riyadh (KAFD - King Abdullah Financial District)"]
+    cloud_infrastructure:
+      aws_region: "me-central-1" # Using neighboring or future me-south-1
+      gcp_region: "me-central2"  # Dammam
+      azure_region: "uaenorth"   # Using neighbor for now or private zones
+    auth:
+      country_code: "+966"
+      govt_id_login: "Nafath"
+    ui:
+      currency: "SAR"
+      direction: "RTL"
+    integration_requirements:
+      payment_methods: ["Mada", "SADAD"]
+    compliance:
+      data_residency: "STRICT_SAUDI_ONSHORE"
+
+  # ==========================================
+  # GLOBAL FALLBACK
+  # ==========================================
+  global:
+    name: "Global / Rest of World"
+    code: "GL"
+    flag: "🌍"
+    financial_hubs: ["Anywhere"]
+    cloud_infrastructure:
+      aws_region: "us-east-1"
+      gcp_region: "us-central1"
+    auth:
+      mobile_format: "international"
+    ui:
+      currency: "USD"
+      date_format: "YYYY-MM-DD"
+      default_languages: ["english"]
+    integration_requirements:
+      payment_methods: 
+        primary: "Credit Card"
+        wallets: ["PayPal"]
+    compliance:
+      privacy_law: "GDPR_LITE"

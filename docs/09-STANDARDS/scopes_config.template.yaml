@@ -1,0 +1,609 @@
+# Scopes Configuration Template
+# REUSABLE TEMPLATE - Copy this to your project and customize
+# Version: 2.0.0
+# Best Practices: Multi-Tenant, Individual User, Team-Based Scopes
+
+# ==========================================
+# SCOPE HIERARCHY & ISOLATION
+# ==========================================
+# Best Practice: Strict tenant isolation at the scope level
+# Pattern: {tenant_id}:{resource_type}:{resource_id}
+
+scope_hierarchy:
+  # Isolation levels (from most to least restrictive)
+  isolation_levels:
+    - "strict"      # Complete data isolation (recommended for multi-tenant SaaS)
+    - "standard"    # Logical isolation with shared resources
+    - "shared"      # Shared resources across tenants
+  
+  default_isolation: "strict"
+  
+  # Hierarchy definition
+  # Top → Bottom: Organization → Tenant → Team → User → Resource
+  hierarchy:
+    organization:
+      pattern: "org:{org_id}"
+      isolation: "strict"
+      contains: ["tenant", "billing", "settings"]
+      
+    tenant:
+      pattern: "tenant:{tenant_id}" 
+      isolation: "strict"
+      contains: ["team", "user", "resource"]
+      aliases: ["account", "workspace", "company"]
+      
+    team:
+      pattern: "tenant:{tenant_id}:team:{team_id}"
+      isolation: "standard"
+      contains: ["user", "resource"]
+      
+    user:
+      pattern: "tenant:{tenant_id}:user:{user_id}"
+      isolation: "strict"
+      contains: ["resource", "session", "data"]
+      
+    resource:
+      pattern: "tenant:{tenant_id}:{resource_type}:{resource_id}"
+      isolation: "strict"
+      owner: "user_id or team_id"
+
+# ==========================================
+# TENANT SCOPE PATTERNS
+# ==========================================
+# Best Practice: All resources MUST be scoped to a tenant
+# Prevents: Cross-tenant data leakage
+
+tenant_scopes:
+  # Tenant-level access (admin, billing, settings)
+  tenant_admin:
+    pattern: "tenant:{tenant_id}:admin"
+    description: "Full administrative access to tenant"
+    grants:
+      - "tenant:{tenant_id}:**"
+    requires_role: "tenant_admin"
+    
+  tenant_read:
+    pattern: "tenant:{tenant_id}:read"
+    description: "Read-only access to tenant data"
+    grants:
+      - "tenant:{tenant_id}:*:read"
+    
+  tenant_write:
+    pattern: "tenant:{tenant_id}:write"
+    description: "Write access to tenant data"
+    grants:
+      - "tenant:{tenant_id}:*:write"
+      - "tenant:{tenant_id}:*:create"
+      - "tenant:{tenant_id}:*:update"
+  
+  # Team-level scopes within tenant
+  team_admin:
+    pattern: "tenant:{tenant_id}:team:{team_id}:admin"
+    description: "Team administrator within tenant"
+    grants:
+      - "tenant:{tenant_id}:team:{team_id}:**"
+    
+  team_member:
+    pattern: "tenant:{tenant_id}:team:{team_id}:member"
+    description: "Team member access"
+    grants:
+      - "tenant:{tenant_id}:team:{team_id}:*:read"
+      - "tenant:{tenant_id}:team:{team_id}:*:write"
+  
+  # Project/workspace scopes
+  workspace:
+    pattern: "tenant:{tenant_id}:workspace:{workspace_id}"
+    description: "Workspace access within tenant"
+    grants:
+      - "tenant:{tenant_id}:workspace:{workspace_id}:*"
+
+# ==========================================
+# INDIVIDUAL USER SCOPE PATTERNS
+# ==========================================
+# Best Practice: User scopes are always within a tenant context
+# Pattern: tenant:{tenant_id}:user:{user_id}:{resource}
+
+user_scopes:
+  # Self-access (most common pattern)
+  user_self:
+    pattern: "tenant:{tenant_id}:user:self"
+    description: "Access to own user data"
+    resolves_to: "tenant:{tenant_id}:user:{current_user_id}"
+    grants:
+      - "tenant:{tenant_id}:user:{current_user_id}:**"
+    excludes:
+      - "tenant:{tenant_id}:user:{current_user_id}:admin"
+  
+  # User profile access
+  user_profile:
+    pattern: "tenant:{tenant_id}:user:{user_id}:profile"
+    description: "User profile data"
+    actions: ["read", "update"]
+    
+  user_profile_read:
+    pattern: "tenant:{tenant_id}:user:{user_id}:profile:read"
+    description: "Read any user profile in tenant"
+    requires_role: "tenant_admin"
+  
+  # User settings
+  user_settings:
+    pattern: "tenant:{tenant_id}:user:self:settings"
+    description: "Own settings management"
+    actions: ["read", "update"]
+  
+  # User-owned resources
+  user_resources:
+    pattern: "tenant:{tenant_id}:user:{user_id}:resources:**"
+    description: "All resources owned by user"
+    includes:
+      - "tenant:{tenant_id}:user:{user_id}:projects"
+      - "tenant:{tenant_id}:user:{user_id}:files"
+      - "tenant:{tenant_id}:user:{user_id}:api_keys"
+  
+  # User sessions
+  user_sessions:
+    pattern: "tenant:{tenant_id}:user:self:sessions"
+    description: "Manage own sessions"
+    actions: ["read", "invalidate"]
+
+# ==========================================
+# RESOURCE SCOPE PATTERNS
+# ==========================================
+# Best Practice: Resources always belong to tenant + owner
+
+resource_scopes:
+  # Generic resource pattern
+  resource_owned:
+    pattern: "tenant:{tenant_id}:{resource_type}:{resource_id}"
+    description: "Tenant-scoped resource"
+    metadata:
+      tenant_id: "required"
+      owner_id: "required (user_id or team_id)"
+      created_at: "timestamp"
+      
+  # Shared resource pattern
+  resource_shared:
+    pattern: "tenant:{tenant_id}:{resource_type}:{resource_id}:shared"
+    description: "Resource shared within tenant"
+    shares_with: ["user_ids", "team_ids"]
+    
+  # Public resource pattern (within tenant)
+  resource_public:
+    pattern: "tenant:{tenant_id}:{resource_type}:{resource_id}:public"
+    description: "Public resource within tenant"
+    accessible_by: "all_tenant_members"
+    
+  # Personal resource pattern
+  resource_personal:
+    pattern: "tenant:{tenant_id}:user:{user_id}:{resource_type}:{resource_id}"
+    description: "Personal resource owned by user"
+    owner: "{user_id}"
+    
+  # Team resource pattern
+  resource_team:
+    pattern: "tenant:{tenant_id}:team:{team_id}:{resource_type}:{resource_id}"
+    description: "Team-owned resource"
+    owner: "{team_id}"
+    accessible_by: "team_members"
+
+# ==========================================
+# SCOPE RESOLUTION RULES
+# ==========================================
+# How scopes are evaluated and resolved at runtime
+
+resolution_rules:
+  # Order of evaluation (first match wins)
+  evaluation_order:
+    1: "explicit_deny"        # Explicit denies always win
+    2: "tenant_isolation"     # Enforce tenant boundaries
+    3: "user_context"         # Resolve user:self patterns
+    4: "role_scopes"          # Role-based scope grants
+    5: "resource_ownership"   # Owner-based access
+    6: "team_membership"      # Team-based access
+    7: "shared_access"        # Explicitly shared resources
+    8: "default_deny"         # Deny if no match
+  
+  # Dynamic scope resolution
+  dynamic_resolution:
+    enabled: true
+    patterns:
+      user_self:
+        input: "tenant:{tenant_id}:user:self"
+        output: "tenant:{tenant_id}:user:{current_user_id}"
+      
+      current_tenant:
+        input: "tenant:current"
+        output: "tenant:{current_tenant_id}"
+      
+      my_teams:
+        input: "tenant:{tenant_id}:teams:mine"
+        output: "tenant:{tenant_id}:team:{team_id_1},tenant:{tenant_id}:team:{team_id_2}"
+  
+  # Inheritance rules
+  inheritance:
+    enabled: true
+    rules:
+      # Tenant admin inherits all tenant scopes
+      - parent: "tenant:{tenant_id}:admin"
+        inherits: "tenant:{tenant_id}:**"
+      
+      # Team admin inherits all team scopes
+      - parent: "tenant:{tenant_id}:team:{team_id}:admin"
+        inherits: "tenant:{tenant_id}:team:{team_id}:**"
+      
+      # User scope inherits user-owned resources
+      - parent: "tenant:{tenant_id}:user:{user_id}"
+        inherits: "tenant:{tenant_id}:user:{user_id}:resources:**"
+
+# ==========================================
+# SCOPE VALIDATION
+# ==========================================
+# Validation rules for scope assignments
+
+validation:
+  # Required scope components
+  required_components:
+    - "tenant_id"  # Every scope MUST have a tenant context
+  
+  # Validation rules
+  rules:
+    tenant_isolation:
+      enabled: true
+      description: "Users cannot access resources from other tenants"
+      enforcement: "strict"
+      
+    owner_validation:
+      enabled: true
+      description: "Resources must have a valid owner"
+      
+    scope_depth:
+      enabled: true
+      max_depth: 10  # Maximum nesting levels
+      
+    wildcard_restrictions:
+      enabled: true
+      max_wildcards_per_scope: 3
+      admin_only_patterns:
+        - "tenant:*:**"          # Cross-tenant access
+        - "**:admin"             # Admin scopes
+        - "**:delete"            # Deletion permissions
+  
+  # Forbidden patterns
+  forbidden_patterns:
+    - "**:**"                    # Too broad
+    - "*:*:*:delete"             # Unsafe deletion
+    - "tenant:*:user:*:password" # Security risk
+
+# ==========================================
+# SCOPE ASSIGNMENT PATTERNS
+# ==========================================
+# Common patterns for assigning scopes to users/roles
+
+assignment_patterns:
+  # Pattern 1: Individual User (most restrictive)
+  individual_user:
+    description: "User with access only to their own resources"
+    scopes:
+      - "tenant:{tenant_id}:user:self:**"
+      - "tenant:{tenant_id}:public:*:read"
+    excludes:
+      - "**:admin"
+    use_case: "End users, customers"
+  
+  # Pattern 2: Team Member
+  team_member:
+    description: "User with team collaboration access"
+    scopes:
+      - "tenant:{tenant_id}:user:self:**"
+      - "tenant:{tenant_id}:team:{team_id}:**"
+      - "tenant:{tenant_id}:public:*:read"
+    use_case: "Employees, collaborators"
+  
+  # Pattern 3: Team Lead
+  team_lead:
+    description: "Team administrator"
+    scopes:
+      - "tenant:{tenant_id}:user:self:**"
+      - "tenant:{tenant_id}:team:{team_id}:admin"
+      - "tenant:{tenant_id}:team:{team_id}:**"
+      - "tenant:{tenant_id}:user:*:profile:read"  # View team members
+    use_case: "Managers, team leads"
+  
+  # Pattern 4: Tenant Admin
+  tenant_admin:
+    description: "Full tenant administrator"
+    scopes:
+      - "tenant:{tenant_id}:**"
+    excludes:
+      - "tenant:{tenant_id}:billing:delete"  # Financial safety
+    use_case: "Account owners, admins"
+  
+  # Pattern 5: Multi-Tenant User
+  multi_tenant_user:
+    description: "User with access to multiple tenants"
+    scopes:
+      - "tenant:{tenant_id_1}:user:self:**"
+      - "tenant:{tenant_id_2}:user:self:**"
+    requires: "cross_tenant_feature_enabled"
+    use_case: "Freelancers, consultants"
+  
+  # Pattern 6: Support/Service Account
+  support_account:
+    description: "Support agent with read access across tenants"
+    scopes:
+      - "tenant:*:user:*:read"
+      - "tenant:*:support:*"
+    excludes:
+      - "**:write"
+      - "**:delete"
+      - "**:billing"
+    requires_role: "support"
+    use_case: "Customer support, impersonation"
+
+# ==========================================
+# SCOPE CACHE CONFIGURATION
+# ==========================================
+# Performance optimization through caching
+
+caching:
+  enabled: true
+  
+  # Per-user scope cache
+  user_scope_cache:
+    enabled: true
+    ttl_seconds: 300          # 5 minutes
+    max_size_per_user: 1000   # Max cached scopes
+    invalidate_on:
+      - "role_change"
+      - "tenant_membership_change"
+      - "team_membership_change"
+      - "explicit_grant_revoke"
+  
+  # Tenant scope cache
+  tenant_scope_cache:
+    enabled: true
+    ttl_seconds: 600          # 10 minutes
+    max_size_per_tenant: 10000
+    invalidate_on:
+      - "tenant_settings_change"
+      - "bulk_role_update"
+  
+  # Scope evaluation cache
+  evaluation_cache:
+    enabled: true
+    ttl_seconds: 60           # 1 minute
+    cache_key_pattern: "{user_id}:{scope}:{action}"
+    
+  # Cache warming
+  warm_cache_on_login: true
+  preload_common_scopes: true
+
+# ==========================================
+# AUDIT & MONITORING
+# ==========================================
+# Track scope usage and changes
+
+audit:
+  enabled: true
+  
+  # What to log
+  log_events:
+    - "scope_granted"
+    - "scope_revoked"
+    - "scope_check_failed"
+    - "cross_tenant_attempt"  # Critical security event
+    - "admin_scope_used"
+    - "wildcard_scope_used"
+  
+  # Log details
+  log_details:
+    include_user_id: true
+    include_tenant_id: true
+    include_ip_address: true
+    include_user_agent: true
+    include_scope_details: true
+    include_timestamp: true
+  
+  # Retention
+  retention_days: 365
+  
+  # Alerts
+  alerts:
+    cross_tenant_access_attempt:
+      enabled: true
+      severity: "critical"
+      notify: ["security_team", "tenant_admin"]
+    
+    excessive_scope_failures:
+      enabled: true
+      threshold: 10  # failures in 5 minutes
+      action: "lock_account"
+    
+    admin_scope_usage:
+      enabled: true
+      notify: ["audit_log"]
+
+# ==========================================
+# SECURITY BEST PRACTICES
+# ==========================================
+# Built-in security configurations
+
+security:
+  # Tenant isolation (CRITICAL)
+  enforce_tenant_isolation:
+    enabled: true
+    mode: "strict"  # "strict" or "soft"
+    block_cross_tenant: true
+    log_violations: true
+    
+  # Scope request validation
+  validate_scope_requests:
+    enabled: true
+    max_scopes_per_request: 50
+    reject_suspicious_patterns: true
+    
+  # Least privilege principle
+  least_privilege:
+    enabled: true
+    default_deny: true
+    require_explicit_grants: true
+    auto_revoke_unused_scopes:
+      enabled: false  # Optional: revoke after N days
+      days_inactive: 90
+  
+  # Sensitive scope protection
+  sensitive_scopes:
+    patterns:
+      - "**:admin"
+      - "**:billing:**"
+      - "**:delete"
+      - "**:impersonate"
+    require_2fa: true
+    require_approval: true
+    expire_after_hours: 24
+
+# ==========================================
+# RUNTIME CONFIGURATION
+# ==========================================
+# Dynamic scope management at runtime
+
+runtime:
+  # Real-time scope updates
+  realtime_updates:
+    enabled: true
+    notification_method: "websocket"  # or "polling"
+    update_interval_seconds: 5
+    
+  # Session scope binding
+  bind_scopes_to_session:
+    enabled: true
+    refresh_on_scope_change: true
+    invalidate_on_critical_change: true
+    
+  # Temporary scopes
+  temporary_scopes:
+    enabled: true
+    max_duration_hours: 24
+    require_justification: true
+    auto_expire: true
+    
+  # Scope elevation
+  scope_elevation:
+    enabled: true
+    require_reauth: true
+    duration_minutes: 15
+    justification_required: true
+
+# ==========================================
+# PROGRAMMATIC USAGE
+# ==========================================
+# Code examples for scope checking
+
+programmatic_examples:
+  check_scope_python: |
+    # Check if user has scope
+    def has_scope(user, scope_pattern):
+        tenant_id = user.current_tenant_id
+        user_id = user.id
+        
+        # Resolve dynamic patterns
+        resolved_scope = scope_pattern
+            .replace('{tenant_id}', tenant_id)
+            .replace('{user_id}', user_id)
+            .replace('user:self', f'user:{user_id}')
+        
+        # Check against user's granted scopes
+        return scope_engine.check(user.scopes, resolved_scope)
+    
+    # Usage
+    if has_scope(user, 'tenant:{tenant_id}:projects:create'):
+        create_project()
+  
+  check_scope_typescript: |
+    // TypeScript/JavaScript example
+    function hasScope(user: User, scopePattern: string): boolean {
+      const resolvedScope = scopePattern
+        .replace('{tenant_id}', user.currentTenantId)
+        .replace('{user_id}', user.id)
+        .replace('user:self', `user:${user.id}`);
+      
+      return scopeEngine.check(user.scopes, resolvedScope);
+    }
+    
+    // Usage
+    if (hasScope(user, 'tenant:{tenant_id}:projects:create')) {
+      createProject();
+    }
+  
+  middleware_example: |
+    # Express/FastAPI middleware
+    @require_scope('tenant:{tenant_id}:projects:write')
+    def update_project(project_id):
+        # Only executes if user has scope
+        pass
+    
+    # Decorator implementation
+    def require_scope(scope_pattern):
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                user = get_current_user()
+                if not has_scope(user, scope_pattern):
+                    raise PermissionDenied()
+                return func(*args, **kwargs)
+            return wrapper
+        return decorator
+
+# ==========================================
+# MIGRATION & DEPLOYMENT
+# ==========================================
+# For existing projects adopting this template
+
+migration:
+  # Step-by-step migration
+  steps:
+    1: "Add tenant_id to all existing resources"
+    2: "Update scope patterns to include tenant context"
+    3: "Migrate user scopes to new pattern"
+    4: "Enable tenant isolation validation"
+    5: "Test with sample users from each tenant"
+    6: "Deploy with feature flag"
+    7: "Monitor for cross-tenant access attempts"
+  
+  # Backward compatibility
+  backward_compatible:
+    enabled: true  # Set true during migration
+    legacy_pattern: "resource:{id}"
+    new_pattern: "tenant:{tenant_id}:resource:{id}"
+    auto_migrate: false  # Manually migrate when ready
+
+# ==========================================
+# ENVIRONMENT-SPECIFIC OVERRIDES
+# ==========================================
+# Override settings per environment
+
+environment_overrides:
+  development:
+    security:
+      enforce_tenant_isolation: false  # Easier testing
+    caching:
+      enabled: false  # Easier debugging
+    audit:
+      enabled: false
+      
+  staging:
+    security:
+      enforce_tenant_isolation: true
+    caching:
+      enabled: true
+    audit:
+      enabled: true
+      
+  production:
+    security:
+      enforce_tenant_isolation: true
+      mode: "strict"
+    caching:
+      enabled: true
+    audit:
+      enabled: true
+      retention_days: 365

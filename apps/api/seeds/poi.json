@@ -1,0 +1,49 @@
+[
+    {
+        "id": "poi-001",
+        "project_id": "123e4567-e89b-12d3-a456-426614174000",
+        "type": "AMENITY",
+        "category": "POOL",
+        "name": "Olympic Size Pool",
+        "coordinates": {
+            "x": 10.5,
+            "y": 0,
+            "z": 5.2
+        },
+        "meta": {
+            "depth": "2m",
+            "heated": true
+        }
+    },
+    {
+        "id": "poi-002",
+        "project_id": "123e4567-e89b-12d3-a456-426614174000",
+        "type": "AMENITY",
+        "category": "GYM",
+        "name": "Sky Gym",
+        "coordinates": {
+            "x": 15.0,
+            "y": 45.0,
+            "z": 10.0
+        },
+        "meta": {
+            "floor": 15,
+            "equipment": "Technogym"
+        }
+    },
+    {
+        "id": "poi-003",
+        "project_id": "123e4567-e89b-12d3-a456-426614174000",
+        "type": "INFRA",
+        "category": "STP",
+        "name": "Sewage Treatment Plant",
+        "coordinates": {
+            "x": -20.0,
+            "y": 0,
+            "z": -5.0
+        },
+        "meta": {
+            "capacity": "500 KLD"
+        }
+    }
+]

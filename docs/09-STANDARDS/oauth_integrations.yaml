@@ -1,0 +1,724 @@
+# OAuth Integrations & Providers (Unified Architecture 2025)
+# Expert Architecture: Complete Single Source for Identity & Automation.
+# 
+# PROGRAMMATIC FILTERING:
+#   - Identity Providers: providers.filter(p => p.roles.includes('identity'))
+#   - Automation APIs: providers.filter(p => p.roles.includes('automation'))
+#   - Refresh Token Support: providers.filter(p => p.refresh_token === true)
+#
+# METADATA SCHEMA:
+#   - name: Human-readable provider name
+#   - roles: [identity, automation] - Usage classification
+#   - auth_flow: Flow type (auth_code_pkce, auth_code_standard, etc.)
+#   - refresh_token: Boolean - Supports long-lived refresh tokens
+#   - branding: { logo, color, button_text } - UI rendering data
+#   - endpoints: All OAuth URLs (auth, token, userinfo, revoke, etc.)
+#
+# STANDARDS & RFCs:
+#   Core OAuth 2.0:
+#     - RFC 6749: OAuth 2.0 Authorization Framework
+#     - RFC 6750: Bearer Token Usage
+#     - RFC 7009: Token Revocation
+#   
+#   OpenID Connect:
+#     - OpenID Connect Core 1.0 Specification
+#     - OpenID Connect Discovery 1.0
+#   
+#   Security Extensions:
+#     - RFC 7636: PKCE (Proof Key for Code Exchange)
+#     - RFC 9126: PAR (Pushed Authorization Requests)
+#     - RFC 9449: DPoP (Demonstrating Proof-of-Possession)
+#   
+#   Special Flows:
+#     - RFC 8628: Device Authorization Grant (Device Code Flow)
+#     - RFC 8693: Token Exchange (for microservices)
+#     - RFC 8252: OAuth 2.0 for Native Apps
+#   
+#   Token Standards:
+#     - RFC 7519: JSON Web Token (JWT)
+#     - RFC 7517: JSON Web Key (JWK)
+#     - RFC 8414: Authorization Server Metadata
+#
+# LOGO CONFIGURATION (SVG Theme Support):
+#   All logos use SimpleIcons CDN: https://cdn.simpleicons.org/{brand}/{hex}
+#   
+#   Theme Variants:
+#     - default: Brand color (primary use)
+#     - light_theme: Optimized for light backgrounds
+#     - dark_theme: White/light color for dark backgrounds (use FFFFFF)
+#     - monochrome: Black for print/special use (use 000000)
+#     - inverted: Provider-specific inverse (e.g., GitHub dark mode)
+#   
+#   Platform-Specific:
+#     - ios: System tinting (use base URL without color)
+#     - android: Brand color (colored variant)
+#     - web: Supports all variants
+#   
+#   Hex Color Format: 6-digit hex without '#' (e.g., 4285F4 for Google blue)
+#   Fallback: If hex omitted, returns black SVG
+
+# ==========================================
+# 1. IDENTITY PROVIDERS (The Technical Gateways)
+# ==========================================
+# EVERY integration must reference a provider defined here.
+# Uniform schema: [auth_url, token_url, api_base, scope_prefix]
+providers:
+  google:
+    name: "Google"
+    roles: ["identity", "automation"]
+    issuer: "https://accounts.google.com"
+    auth_url: "https://accounts.google.com/o/oauth2/v2/auth"
+    token_url: "https://oauth2.googleapis.com/token"
+    user_info_url: "https://openidconnect.googleapis.com/v1/userinfo"
+    par_url: "https://oauth2.googleapis.com/par"
+    device_code_url: "https://oauth2.googleapis.com/device/code"
+    revoke_url: "https://oauth2.googleapis.com/revoke"
+    api_base: "https://www.googleapis.com"
+    scope_prefix: "https://www.googleapis.com/auth/"
+    auth_flow: "auth_code_pkce"
+    supported_flows: ["auth_code_pkce", "device_code", "par", "refresh_token"]
+    refresh_token: true
+    identity_scopes: ["openid", "email", "profile"]
+    organization_login:
+      workspace_discovery: true
+      hd_parameter: "domain.com" # Hosted Domain restriction
+      admin_consent_required: false
+      use_cases: ["workspace_sso", "education_domain"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/google/4285F4" # Colored (brand)
+        light_theme: "https://cdn.simpleicons.org/google/4285F4" # For light backgrounds
+        dark_theme: "https://cdn.simpleicons.org/google/FFFFFF" # For dark backgrounds
+        monochrome: "https://cdn.simpleicons.org/google/000000" # Black
+      color: "#4285F4"
+      button_text: "Sign in with Google"
+      accessibility:
+        aria_label: "Sign in with Google Account"
+        screen_reader_text: "Continue with your Google account"
+  
+  microsoft:
+    name: "Microsoft (Azure AD)"
+    roles: ["identity", "automation"]
+    issuer: "https://login.microsoftonline.com/common/v2.0"
+    auth_url: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+    token_url: "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+    user_info_url: "https://graph.microsoft.com/oidc/userinfo"
+    par_url: "https://login.microsoftonline.com/common/oauth2/v2.0/par"
+    device_code_url: "https://login.microsoftonline.com/common/oauth2/v2.0/devicecode"
+    revoke_url: "https://login.microsoftonline.com/common/oauth2/v2.0/logout"
+    api_base: "https://graph.microsoft.com/v1.0"
+    scope_prefix: ""
+    auth_flow: "auth_code_pkce"
+    supported_flows: ["auth_code_pkce", "device_code", "par", "client_credentials", "refresh_token"]
+    refresh_token: true
+    identity_scopes: ["openid", "email", "profile"]
+    organization_login:
+      tenant_mode: "multi_tenant" # or "single_tenant" or "organizations"
+      tenant_discovery: true
+      admin_consent_required: true # For organization-wide permissions
+      tenant_id_in_issuer: true
+      use_cases: ["azure_ad_sso", "m365_organization", "enterprise_saml"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/microsoft/5E5E5E"
+        light_theme: "https://cdn.simpleicons.org/microsoft/5E5E5E"
+        dark_theme: "https://cdn.simpleicons.org/microsoft/FFFFFF"
+        monochrome: "https://cdn.simpleicons.org/microsoft/000000"
+      color: "#5E5E5E"
+      accessibility:
+        aria_label: "Sign in with Microsoft Account"
+
+  slack:
+    name: "Slack"
+    roles: ["identity", "automation"]
+    auth_url: "https://slack.com/oauth/v2/authorize"
+    token_url: "https://slack.com/api/oauth.v2.access"
+    user_info_url: "https://slack.com/api/users.identity"
+    api_base: "https://slack.com/api"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    identity_scopes: ["openid", "email", "profile"]
+    organization_login:
+      workspace_discovery: true
+      workspace_selection_ui: true
+      team_id_in_callback: true
+      use_cases: ["workspace_sso", "slack_enterprise_grid"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/slack/4A154B"
+        light_theme: "https://cdn.simpleicons.org/slack/4A154B"
+        dark_theme: "https://cdn.simpleicons.org/slack/FFFFFF"
+        platform_specific:
+          ios: "https://cdn.simpleicons.org/slack" # System tinted
+          android: "https://cdn.simpleicons.org/slack/4A154B"
+      color: "#4A154B"
+
+  meta:
+    name: "Meta (FB/IG/WA)"
+    roles: ["identity", "automation"]
+    auth_url: "https://www.facebook.com/v18.0/dialog/oauth"
+    token_url: "https://graph.facebook.com/v18.0/oauth/access_token"
+    user_info_url: "https://graph.facebook.com/me?fields=id,name,email,picture"
+    api_base: "https://graph.facebook.com/v18.0"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: false
+    identity_scopes: ["public_profile", "email"]
+    organization_login:
+      business_manager: true
+      page_admin_verification: false
+      use_cases: ["facebook_login", "business_account"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/facebook/1877F2"
+        light_theme: "https://cdn.simpleicons.org/facebook/1877F2"
+        dark_theme: "https://cdn.simpleicons.org/facebook/FFFFFF"
+      color: "#1877F2"
+
+  linkedin:
+    name: "LinkedIn"
+    roles: ["identity", "automation"]
+    auth_url: "https://www.linkedin.com/oauth/v2/authorization"
+    token_url: "https://www.linkedin.com/oauth/v2/accessToken"
+    user_info_url: "https://api.linkedin.com/v2/userinfo"
+    api_base: "https://api.linkedin.com"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    identity_scopes: ["openid", "email", "profile"]
+    organization_login:
+      organization_access: true
+      company_page_admin: false
+      use_cases: ["linkedin_sso", "company_auth"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/linkedin/0A66C2"
+        light_theme: "https://cdn.simpleicons.org/linkedin/0A66C2"
+        dark_theme: "https://cdn.simpleicons.org/linkedin/FFFFFF"
+      color: "#0A66C2"
+
+  salesforce:
+    name: "Salesforce"
+    roles: ["automation"]
+    auth_url: "https://login.salesforce.com/services/oauth2/authorize"
+    token_url: "https://login.salesforce.com/services/oauth2/token"
+    api_base: "https://{instance}.salesforce.com/services/data"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/salesforce"
+      color: "#00A1E0"
+
+  hubspot:
+    name: "HubSpot"
+    roles: ["automation"]
+    auth_url: "https://app.hubspot.com/oauth/authorize"
+    token_url: "https://api.hubapi.com/oauth/v1/token"
+    api_base: "https://api.hubapi.com"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/hubspot"
+      color: "#FF7A59"
+
+  zoho:
+    name: "Zoho"
+    roles: ["automation"]
+    auth_url: "https://accounts.zoho.com/oauth/v2/auth"
+    token_url: "https://accounts.zoho.com/oauth/v2/token"
+    api_base: "https://www.zohoapis.com"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/zoho"
+      color: "#F4ED31"
+
+  atlassian:
+    name: "Atlassian (Jira/Confluence)"
+    roles: ["identity", "automation"]
+    auth_url: "https://auth.atlassian.com/authorize"
+    token_url: "https://auth.atlassian.com/oauth/token"
+    user_info_url: "https://api.atlassian.com/me"
+    api_base: "https://api.atlassian.com"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    identity_scopes: ["read:me"]
+    organization_login:
+      cloud_id_required: true
+      site_selection: true
+      admin_managed_sites: true
+      use_cases: ["atlassian_sso", "jira_organization", "confluence_workspace"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/atlassian/0052CC"
+        light_theme: "https://cdn.simpleicons.org/atlassian/0052CC"
+        dark_theme: "https://cdn.simpleicons.org/atlassian/FFFFFF"
+      color: "#0052CC"
+
+  github:
+    name: "GitHub"
+    roles: ["identity", "automation"]
+    auth_url: "https://github.com/login/oauth/authorize"
+    token_url: "https://github.com/login/oauth/access_token"
+    user_info_url: "https://api.github.com/user"
+    api_base: "https://api.github.com"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: false
+    identity_scopes: ["read:user", "user:email"]
+    organization_login:
+      org_access: true
+      org_admin_verification: false
+      saml_sso_enforcement: true
+      use_cases: ["github_enterprise", "org_sso"]
+    branding:
+      logo:
+        default: "https://cdn.simpleicons.org/github/181717"
+        light_theme: "https://cdn.simpleicons.org/github/181717" # Black on light
+        dark_theme: "https://cdn.simpleicons.org/github/FFFFFF" # White on dark
+        inverted: "https://cdn.simpleicons.org/github/FFFFFF" # GitHub's official dark mode
+      color: "#181717"
+      dark_mode_color: "#FFFFFF"
+
+  asana:
+    name: "Asana"
+    roles: ["automation"]
+    auth_url: "https://app.asana.com/-/oauth_authorize"
+    token_url: "https://app.asana.com/-/oauth_token"
+    api_base: "https://app.asana.com/api/1.0"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/asana"
+      color: "#F06A6A"
+
+  monday:
+    name: "Monday.com"
+    roles: ["automation"]
+    auth_url: "https://auth.monday.com/oauth2/authorize"
+    token_url: "https://auth.monday.com/oauth2/token"
+    api_base: "https://api.monday.com/v2"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/mondaydotcom"
+      color: "#00CA72"
+
+  airtable:
+    name: "Airtable"
+    roles: ["automation"]
+    auth_url: "https://airtable.com/oauth2/v1/authorize"
+    token_url: "https://airtable.com/oauth2/v1/token"
+    api_base: "https://api.airtable.com/v0"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/airtable"
+      color: "#18BFFF"
+
+  stripe:
+    name: "Stripe Connect"
+    roles: ["automation"]
+    auth_url: "https://connect.stripe.com/oauth/authorize"
+    token_url: "https://connect.stripe.com/oauth/token"
+    api_base: "https://api.stripe.com/v1"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: false
+    branding:
+      logo: "https://cdn.simpleicons.org/stripe"
+      color: "#008CDD"
+
+  shopify:
+    name: "Shopify"
+    roles: ["automation"]
+    auth_url: "https://{shop}.myshopify.com/admin/oauth/authorize"
+    token_url: "https://{shop}.myshopify.com/admin/oauth/access_token"
+    api_base: "https://{shop}.myshopify.com/admin/api"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: false
+    branding:
+      logo: "https://cdn.simpleicons.org/shopify"
+      color: "#7AB55C"
+
+  xero:
+    name: "Xero"
+    roles: ["automation"]
+    auth_url: "https://login.xero.com/identity/connect/authorize"
+    token_url: "https://identity.xero.com/connect/token"
+    api_base: "https://api.xero.com/api.xro/2.0"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/xero"
+      color: "#13B5EA"
+
+  dropbox:
+    name: "Dropbox"
+    roles: ["automation"]
+    auth_url: "https://www.dropbox.com/oauth2/authorize"
+    token_url: "https://api.dropboxapi.com/oauth2/token"
+    api_base: "https://api.dropboxapi.com/2"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/dropbox"
+      color: "#0061FF"
+
+  figma:
+    name: "Figma"
+    roles: ["automation"]
+    auth_url: "https://www.figma.com/oauth"
+    token_url: "https://www.figma.com/api/oauth/token"
+    api_base: "https://api.figma.com/v1"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/figma"
+      color: "#F24E1E"
+
+  webflow:
+    name: "Webflow"
+    roles: ["automation"]
+    auth_url: "https://webflow.com/oauth/authorize"
+    token_url: "https://api.webflow.com/oauth/access_token"
+    api_base: "https://api.webflow.com/v2"
+    scope_prefix: ""
+    auth_flow: "auth_code_standard"
+    refresh_token: true
+    branding:
+      logo: "https://cdn.simpleicons.org/webflow"
+      color: "#4353FF"
+
+# ==========================================
+# 2. FEATURE INTEGRATIONS
+# ==========================================
+# Maps business value to technical providers.
+# role: [identity, productivity, marketing, crm, dev_tools, finance, storage, design]
+integrations:
+  # ====================================
+  # 2.1 IDENTITY / LOGIN INTEGRATIONS
+  # ====================================
+  # These define scopes for authentication (Sign In With X)
+  
+  identity_google:
+    provider_id: "google"
+    role: "identity"
+    name: "Sign in with Google"
+    scopes: ["openid", "email", "profile"]
+    use_case: "social_login"
+  
+  identity_google_workspace:
+    provider_id: "google"
+    role: "identity"
+    name: "Sign in with Google Workspace"
+    scopes: ["openid", "email", "profile"]
+    additional_params:
+      hd: "{domain}" # Restricts to specific workspace domain
+    use_case: "enterprise_sso"
+
+  identity_microsoft:
+    provider_id: "microsoft"
+    role: "identity"
+    name: "Sign in with Microsoft"
+    scopes: ["openid", "email", "profile"]
+    use_case: "social_login"
+
+  identity_microsoft_365:
+    provider_id: "microsoft"
+    role: "identity"
+    name: "Sign in with Microsoft 365"
+    scopes: ["openid", "email", "profile", "User.Read"]
+    additional_params:
+      tenant: "{tenant_id}"
+    use_case: "enterprise_sso"
+
+  identity_apple:
+    provider_id: "apple"
+    role: "identity"
+    name: "Sign in with Apple"
+    scopes: ["name", "email"]
+    features: ["email_relay", "privacy_first"]
+    use_case: "privacy_focused_login"
+
+  identity_github:
+    provider_id: "github"
+    role: "identity"
+    name: "Sign in with GitHub"
+    scopes: ["read:user", "user:email"]
+    use_case: "developer_login"
+
+  identity_slack:
+    provider_id: "slack"
+    role: "identity"
+    name: "Sign in with Slack"
+    scopes: ["openid", "email", "profile"]
+    use_case: "workspace_login"
+
+  identity_linkedin:
+    provider_id: "linkedin"
+    role: "identity"
+    name: "Sign in with LinkedIn"
+    scopes: ["openid", "email", "profile"]
+    use_case: "professional_login"
+
+  identity_facebook:
+    provider_id: "meta"
+    role: "identity"
+    name: "Continue with Facebook"
+    scopes: ["public_profile", "email"]
+    use_case: "social_login"
+
+  identity_atlassian:
+    provider_id: "atlassian"
+    role: "identity"
+    name: "Sign in with Atlassian"
+    scopes: ["read:me"]
+    use_case: "workspace_login"
+
+  identity_discord:
+    provider_id: "discord"
+    role: "identity"
+    name: "Login with Discord"
+    scopes: ["identify", "email"]
+    use_case: "community_login"
+
+  identity_twitter:
+    provider_id: "twitter_x"
+    role: "identity"
+    name: "Sign in with X"
+    scopes: ["users.read", "tweet.read"]
+    use_case: "social_login"
+
+  # ====================================
+  # 2.2 PRODUCTIVITY / AUTOMATION
+  # ====================================
+  google_workspace:
+    provider_id: "google"
+    name: "Google Workspace"
+    feature_scopes:
+      drive: ["drive", "drive.file", "drive.readonly"]
+      gmail: ["gmail.send", "gmail.readonly", "gmail.modify"]
+      sheets: ["spreadsheets", "spreadsheets.readonly"]
+      calendar: ["calendar", "calendar.events"]
+      youtube: ["youtube.upload", "youtube.readonly"]
+      cloud: ["cloud-platform", "devstorage.read_write"]
+
+  microsoft_365:
+    provider_id: "microsoft"
+    name: "Microsoft 365"
+    feature_scopes:
+      mail: ["Mail.Read", "Mail.Send", "Mail.ReadWrite"]
+      files: ["Files.Read.All", "Files.ReadWrite.All"]
+      teams: ["Chat.Read", "ChannelMessage.Send"]
+      planner: ["Tasks.ReadWrite"]
+
+  slack_automation:
+    provider_id: "slack"
+    name: "Slack Automation"
+    feature_scopes:
+      messaging: ["chat:write", "chat:write.public", "channels:history"]
+      admin: ["admin.teams:read", "admin.users:read"]
+
+  meta_marketing:
+    provider_id: "meta"
+    name: "Meta Marketing"
+    feature_scopes:
+      facebook: ["pages_manage_posts", "pages_read_engagement"]
+      instagram: ["instagram_content_publish", "instagram_manage_comments"]
+      whatsapp: ["whatsapp_business_messaging", "whatsapp_business_management"]
+
+  salesforce_crm:
+    provider_id: "salesforce"
+    name: "Salesforce CRM"
+    feature_scopes:
+      core: ["api", "refresh_token", "offline_access"]
+      chatter: ["chatter_api"]
+
+  hubspot_crm:
+    provider_id: "hubspot"
+    name: "HubSpot CRM"
+    feature_scopes:
+      objects: ["crm.objects.contacts.read", "crm.objects.contacts.write", "crm.objects.deals.read"]
+      workflows: ["automation", "workflow_automation"]
+
+  github_dev:
+    provider_id: "github"
+    name: "GitHub Developer"
+    feature_scopes:
+      repo: ["repo", "public_repo", "repo:status"]
+      actions: ["workflow"]
+      admin: ["admin:org", "admin:repo_hook"]
+
+  atlassian_suite:
+    provider_id: "atlassian"
+    name: "Atlassian (Jira/Confluence)"
+    feature_scopes:
+      jira: ["read:jira-work", "write:jira-work", "read:jira-user"]
+      confluence: ["read:confluence-content.all", "write:confluence-content"]
+
+  stripe_connect:
+    provider_id: "stripe"
+    name: "Stripe Connect"
+    feature_scopes:
+      full: ["read_write"]
+      read: ["read_only"]
+
+  shopify_store:
+    provider_id: "shopify"
+    name: "Shopify Store"
+    feature_scopes:
+      inventory: ["read_products", "write_products"]
+      orders: ["read_orders", "write_orders", "read_customers"]
+
+  xero_accounting:
+    provider_id: "xero"
+    name: "Xero Accounting"
+    feature_scopes:
+      accounting: ["accounting.transactions", "accounting.contacts", "offline_access"]
+
+# ==========================================
+# 3. GENERIC OAUTH FLOW STEPS
+# ==========================================
+# Defines the steps for both the Developer and the Application Runtime.
+auth_flows:
+  auth_code_standard:
+    name: "Standard Authorization Code Flow"
+    description: "Server-side apps with a secure client secret."
+    rfc: "RFC 6749 Section 4.1"
+    security_level: "standard"
+    setup_steps:
+      1: "Register App in Provider Developer Portal"
+      2: "Configure Redirect URI: https://{app_host}/api/auth/callback/{provider}"
+      3: "Generate Client ID and Client Secret"
+      4: "Enable required API scopes"
+    runtime_steps:
+      1: "Redirect User to {auth_url}?client_id={id}&scope={scopes}&redirect_uri={uri}&response_type=code"
+      2: "Handle Callback: Extract 'code' from URL params"
+      3: "Exchange Code: POST {token_url} with code, client_id, client_secret"
+      4: "Store Access Token & optional Refresh Token"
+
+  auth_code_pkce:
+    name: "Auth Code Flow with PKCE"
+    description: "Enhanced security for SPAs or Mobile apps, now standard for all."
+    rfc: "RFC 7636 (PKCE) + RFC 8252 (Native Apps)"
+    security_level: "high"
+    technical_details:
+      verifier_length: 128
+      challenge_method: "S256"
+      unphishable: true
+    setup_steps:
+      1: "Register App in Provider Developer Portal"
+      2: "Ensure 'PKCE' is enabled (if toggle exists)"
+      3: "Configure Redirect URI"
+    runtime_steps:
+      1: "Generate code_verifier (high-entropy random string)"
+      2: "Create code_challenge: base64url(sha256(code_verifier))"
+      3: "Redirect User to {auth_url} with code_challenge & code_challenge_method=S256"
+      4: "Exchange Code: POST {token_url} including code_verifier (original plain string)"
+
+  refresh_token_rotation:
+    name: "Refresh Token Flow (with Rotation)"
+    description: "Exchange a long-lived refresh token for a new access token."
+    rfc: "RFC 6749 Section 6 + Token Rotation Best Practice"
+    security_level: "high"
+    security_policy:
+      rotation: true # Previous refresh token is invalidated upon use
+      automatic_reuse_detection: true # If old RT is reused, invalidate ALL tokens for user
+    runtime_steps:
+      1: "Check Access Token expiry"
+      2: "Service: POST {token_url} with grant_type=refresh_token & refresh_token={rt}"
+      3: "Handle Response: Store NEW access_token AND NEW refresh_token"
+      4: "Purge old tokens immediately"
+
+  device_code_flow:
+    name: "OAuth 2.0 Device Authorization"
+    description: "For input-constrained devices (CLI, IoT, Smart TV)."
+    rfc: "RFC 8628"
+    security_level: "standard"
+    runtime_steps:
+      1: "App: POST {device_code_url} with client_id & scopes"
+      2: "Provider: Returns device_code, user_code, verification_uri, interval"
+      3: "App: Show user_code and verification_uri (or QR) to user"
+      4: "App: Polling {token_url} every {interval} seconds until authorized"
+      5: "User: Enters code on another device to authorize"
+
+  client_credentials:
+    name: "Client Credentials Flow"
+    description: "Server-to-server communication (No User interaction)."
+    rfc: "RFC 6749 Section 4.4"
+    security_level: "standard"
+    setup_steps:
+      1: "Create Service Account or Bot App"
+      2: "Generate Admin Credentials"
+    runtime_steps:
+      1: "Exchange Credentials: POST {token_url} with grant_type=client_credentials"
+      2: "Access Resource using resulting token"
+
+  mfa_step_up:
+    name: "OAuth MFA Step-Up"
+    description: "Triggering 2FA during the OAuth flow using 'acr_values'."
+    rfc: "OpenID Connect Core 1.0 (acr_values claim)"
+    security_level: "very_high"
+    params:
+      acr_values: "mfa" # Requesting high-assurance level
+    runtime_steps:
+      1: "Client: Redirect with acr_values=mfa"
+      2: "Provider: Challenges user for password + 2FA (SMS/TOTP/Biometric)"
+      3: "Response: id_token contains 'amr': ['mfa'] claim"
+
+  pushed_auth_requests_par:
+    name: "Pushed Authorization (PAR)"
+    description: "Most secure way to start auth flow. Prevents URL tampering."
+    rfc: "RFC 9126"
+    security_level: "very_high"
+    runtime_steps:
+      1: "Client: POST {par_url} with all auth params + client_auth"
+      2: "Provider: Validates params and returns 'request_uri' and 'expires_in'"
+      3: "Client: Redirect user to {auth_url}?request_uri={uri}"
+      4: "Continue: Same as Auth Code Flow"
+
+  dpop_token_binding:
+    name: "DPoP (Proof of Possession)"
+    description: "Binds tokens to a client's private key (Sender-Constrained Tokens)."
+    rfc: "RFC 9449"
+    security_level: "very_high"
+    runtime_steps:
+      1: "Client: Generate RSA/EC private key"
+      2: "Token Exchange: Include 'DPoP' header (signed JWT containing jti, htm, htu)"
+      3: "Provider: Returns access_token bound to the public key"
+      4: "Resource Call: Include signed DPoP header in every API call"
+
+  token_exchange:
+    name: "Token Exchange (Microservices)"
+    description: "Exchange a Social Token for an Internal Resource Token."
+    rfc: "RFC 8693"
+    security_level: "standard"
+    runtime_steps:
+      1: "Service: POST {token_url} with grant_type=urn:ietf:params:oauth:grant-type:token-exchange"
+      2: "Params: subject_token={incoming_token} & subject_token_type=urn:ietf:params:oauth:token-type:access_token"
+      3: "Result: New token scoped for the downstream internal service"
+
+  saml_federation:
+    name: "SAML 2.0 (Enterprise)"
+    description: "XML-based enterprise identity federation."
+    rfc: "SAML 2.0 Core Specification (OASIS Standard)"
+    security_level: "high"
+    runtime_steps:
+      1: "App: Send <AuthnRequest> to IdP Single Sign-On URL"
+      2: "IdP: Authenticates user and POSTs <SAMLResponse> to App Assertion Consumer Service (ACS)"
+      3: "App: Validates XML digital signature and parses attributes"
+
+

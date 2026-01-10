@@ -1,0 +1,206 @@
+{
+  "project_clarification": {
+    "requested_project": "APARNA SAROVAR ZENITH",
+    "status": "Project name appears to be a combination of two separate projects",
+    "actual_projects": [
+      {
+        "name": "APARNA ZENITH",
+        "location": "Nallagandla, Hyderabad",
+        "status": "Active project"
+      },
+      {
+        "name": "APARNA SAROVAR",
+        "location": "Nallagandla, Hyderabad", 
+        "status": "Completed project"
+      }
+    ]
+  },
+  
+  "aparna_zenith": {
+    "project_name": "Aparna Zenith",
+    "developer": "Aparna Constructions and Estates Pvt Ltd",
+    "location": "Nallagandla, Gachibowli, Hyderabad",
+    "project_type": "Residential Apartments",
+    "total_area": "26+ acres",
+    "total_units": 2140,
+    "total_towers": 12,
+    "unit_types": ["2 BHK", "3 BHK", "4 BHK"],
+    "facing": "Lake facing (Nallagandla Lake)",
+    "certification": "Pre-certified Gold-rated project",
+    "eco_friendly": true,
+    
+    "rera_information": {
+      "state": "Telangana",
+      "rera_authority": "TG-RERA",
+      "registration_status": "Registered",
+      "rera_website": "https://rera.telangana.gov.in/",
+      "search_portal": "https://rerait.telangana.gov.in/SearchList/Search",
+      "note": "Specific RERA registration number needs to be searched on portal"
+    },
+    
+    "document_links": {
+      "rera_search_portal": "https://rerait.telangana.gov.in/SearchList/Search",
+      "project_search_instructions": [
+        "1. Visit https://rerait.telangana.gov.in/SearchList/Search",
+        "2. Search for 'Aparna Zenith' or 'Aparna Constructions'",
+        "3. Select the project from search results",
+        "4. Access project documents including:",
+        "   - RERA Registration Certificate",
+        "   - Project Layout Plans", 
+        "   - Approvals and NOCs",
+        "   - Quarterly Progress Reports",
+        "   - Financial Information"
+      ],
+      "telangana_rera_main": "https://rera.telangana.gov.in/",
+      "complaint_portal": "https://rera.telangana.gov.in/complaint/",
+      "project_registration_portal": "https://rerait.telangana.gov.in/?MenuID=50"
+    },
+    
+    "website_links": {
+      "developer_website": "https://aparnaconstructions.com/",
+      "project_architect": "https://genesisplanners.in/residential/aparna-zenith/",
+      "property_portals": [
+        "https://www.99acres.com/",
+        "https://www.squareyards.com/",
+        "https://housing.com/"
+      ]
+    }
+  },
+  
+  "aparna_sarovar": {
+    "project_name": "Aparna Sarovar",
+    "developer": "Aparna Constructions and Estates Pvt Ltd",
+    "location": "Nallagandla, Gachibowli, Hyderabad",
+    "project_type": "Residential Apartments",
+    "status": "Ready to move",
+    "unit_types": ["2 BHK", "3 BHK"],
+    "area_range": "1240 sq.ft onwards",
+    
+    "rera_information": {
+      "state": "Telangana", 
+      "rera_authority": "TG-RERA",
+      "registration_status": "Registered",
+      "rera_website": "https://rera.telangana.gov.in/",
+      "search_portal": "https://rerait.telangana.gov.in/SearchList/Search"
+    },
+    
+    "document_links": {
+      "rera_search_portal": "https://rerait.telangana.gov.in/SearchList/Search",
+      "project_search_instructions": [
+        "1. Visit https://rerait.telangana.gov.in/SearchList/Search",
+        "2. Search for 'Aparna Sarovar' or 'Aparna Constructions'", 
+        "3. Select the project from search results",
+        "4. Access available project documents"
+      ]
+    }
+  },
+  
+  "related_aparna_projects": {
+    "aparna_sarovar_grande": {
+      "name": "Aparna Sarovar Grande",
+      "location": "Nallagandla, Hyderabad",
+      "total_units": 720,
+      "towers": 9,
+      "floors_per_tower": 19,
+      "area": "10+ acres",
+      "unit_types": ["3 BHK", "4 BHK"],
+      "area_range": "1920 - 3875 sq.ft",
+      "status": "Completed (2016)"
+    },
+    
+    "aparna_sarovar_zicon": {
+      "name": "Aparna Sarovar Zicon", 
+      "location": "Nallagandla, Hyderabad",
+      "total_area": "25.5 acres",
+      "total_units": 3024,
+      "towers": 14,
+      "built_up_area": "45,00,000 sq.ft",
+      "unit_types": ["2 BHK", "3 BHK", "4 BHK"],
+      "area_range": "1240 - 2765 sq.ft"
+    }
+  },
+  
+  "document_access_process": {
+    "telangana_rera_documents": {
+      "step_1": "Visit TG-RERA portal: https://rera.telangana.gov.in/",
+      "step_2": "Click on 'Registered Projects' or visit search portal directly",
+      "step_3": "Search by project name, developer name, or RERA number",
+      "step_4": "Select project from results",
+      "step_5": "Access document sections:",
+      "available_documents": [
+        "RERA Registration Certificate",
+        "Project Layout Plans",
+        "Building Approvals", 
+        "NOC Documents",
+        "Financial Information",
+        "Quarterly Progress Reports",
+        "Completion Certificate (if applicable)",
+        "Occupancy Certificate (if applicable)"
+      ]
+    },
+    
+    "direct_document_urls": {
+      "note": "Direct document URLs follow pattern:",
+      "pattern": "https://rera.telangana.gov.in/ViewDocument?DocumentId={ID}",
+      "example": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename={filename}",
+      "access_method": "Documents are accessed through project detail pages after search"
+    }
+  },
+  
+  "additional_information_sources": {
+    "aparna_constructions_official": {
+      "website": "https://aparnaconstructions.com/",
+      "contact": "Contact developer directly for brochures and floor plans"
+    },
+    
+    "architect_information": {
+      "genesis_planners": "https://genesisplanners.in/residential/aparna-zenith/",
+      "project_details": "Architectural plans and project specifications"
+    },
+    
+    "property_portals": [
+      {
+        "name": "99acres",
+        "url": "https://www.99acres.com/",
+        "search": "Search for 'Aparna Zenith' or 'Aparna Sarovar'"
+      },
+      {
+        "name": "SquareYards", 
+        "url": "https://www.squareyards.com/",
+        "features": "Price lists, floor plans, reviews"
+      },
+      {
+        "name": "Housing.com",
+        "url": "https://housing.com/",
+        "features": "Project details and market analysis"
+      }
+    ]
+  },
+  
+  "search_recommendations": {
+    "for_aparna_zenith": [
+      "Search RERA portal with: 'Aparna Zenith'",
+      "Search RERA portal with: 'Aparna Constructions Nallagandla'",
+      "Check Genesis Planners website for architectural details",
+      "Contact Aparna Constructions directly"
+    ],
+    
+    "for_aparna_sarovar": [
+      "Search RERA portal with: 'Aparna Sarovar'", 
+      "Check for multiple Sarovar projects (Grande, Zicon)",
+      "Verify project phase and location"
+    ]
+  },
+  
+  "metadata": {
+    "compiled_date": "2025-01-02",
+    "data_sources": [
+      "TG-RERA Portal",
+      "Genesis Planners",
+      "Property Portals",
+      "Web Search Results"
+    ],
+    "note": "Specific RERA registration numbers and direct document links require manual search on TG-RERA portal",
+    "recommendation": "Use the search process outlined above to access current project documents"
+  }
+}

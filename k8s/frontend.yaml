@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: propmubi-web
+  namespace: production
+  labels:
+    app: propmubi-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: propmubi-web
+  template:
+    metadata:
+      labels:
+        app: propmubi-web
+    spec:
+      containers:
+      - name: propmubi-web
+        image: gcr.io/propmubi-production/propmubi-web:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: propmubi-web
+  namespace: production
+spec:
+  type: LoadBalancer
+  selector:
+    app: propmubi-web
+  ports:
+  - port: 80
+    targetPort: 3000

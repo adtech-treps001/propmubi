@@ -1,0 +1,1203 @@
+# React & React Native Component Libraries - December 2025
+# TOON Format (Terse Object-Oriented Notation)
+# Optimized for LLM component selection
+# 
+# Format: name: Display Name @stars★ [platforms] <type>
+#   url: package URL
+#   for: primary use cases
+#   has: key features (optional)
+#   npm: weekly downloads (optional)
+#   trend: growth indicator (optional) ↑ rising | ↓ declining | → stable
+#
+# Data sources: npm trends, GitHub stars, 2025 developer surveys
+
+# =============================================================================
+# ENUMS - Standard values for platforms and types
+# =============================================================================
+
+@platform: web | node | react-native | expo | wasm | electron | ios | android | universal
+@type: design-system | component-library | headless-primitives | copy-paste-components
+@type: http-client | data-fetching | graphql-client | rpc-client | realtime
+@type: navigation | animation | gesture | camera | audio | video | sensor | biometric
+@type: storage | security | ml-inference | ar | vr | ar-vr | native-module | jsi-binding
+@type: wasm-runtime | error-handling | crash-reporting | push-notifications | testing
+
+# =============================================================================
+# WEB UI LIBRARIES
+# Material, Ant Design, and headless primitives for web applications
+# =============================================================================
+
+web_ui:
+  # Fully-styled design systems
+  mui: Material UI @108000★ [web] <design-system>
+    url: https://mui.com
+    for: material design apps, enterprise, data grids
+    npm: 3.3M weekly
+    trend: → stable, enterprise standard
+  antd: Ant Design @94000★ [web] <design-system>
+    url: https://ant.design
+    for: enterprise dashboards, admin panels, Chinese market
+    npm: 1.1M weekly
+    trend: → stable, strong in enterprise
+  
+  # Copy-paste / hybrid approach (FASTEST GROWING in 2025)
+  shadcn: shadcn/ui @83000★ [web] <copy-paste-components>
+    url: https://ui.shadcn.com
+    for: custom design systems, startups, accessible apps
+    built_on: Radix UI, Tailwind CSS
+    npm: 200K+ weekly (via npx, not traditional install)
+    trend: ↑ EXPLODING - surpassed MUI in GitHub stars 2025
+    # Note: Most popular new UI choice in 2025, used by Vercel
+  
+  # Component libraries
+  chakra: Chakra UI @38700★ [web] <component-library>
+    url: https://chakra-ui.com
+    for: rapid prototyping, accessibility-first, theming
+    npm: 533K weekly
+    trend: → stable
+  mantine: Mantine @28000★ [web] <component-library>
+    url: https://mantine.dev
+    for: full-stack apps, rich features, 100+ components, hooks
+    npm: 490K weekly
+    trend: ↑ rising fast - v7 release popular
+  nextui: NextUI @22000★ [web] <component-library>
+    url: https://nextui.org
+    for: modern design, Tailwind-based, sub-40KB gzipped
+    npm: growing
+    trend: ↑ rising - performance focused
+    
+  # Headless primitives (unstyled, max flexibility)
+  headless: Headless UI @27000★ [web] <headless-primitives>
+    url: https://headlessui.dev
+    for: tailwind projects, custom designs
+    built_by: Tailwind Labs
+    npm: 1.8M weekly
+    trend: → stable
+  radix: Radix UI @17000★ [web] <headless-primitives>
+    url: https://radix-ui.com
+    for: custom styling, maximum flexibility, design systems
+    npm: 130K weekly (primitives combined much higher)
+    trend: ↑ rising - shadcn foundation
+    # Note: Foundation for shadcn/ui, excellent accessibility
+  react_aria: React Aria @13000★ [web|react-native] <headless-primitives>
+    url: https://react-spectrum.adobe.com/react-aria/
+    for: accessibility experts, custom components, enterprise
+    built_by: Adobe
+    trend: ↑ growing - accessibility focus
+
+# =============================================================================
+# MOBILE UI LIBRARIES
+# React Native specific design systems and component libraries
+# =============================================================================
+
+mobile_ui:
+  react_native_paper: React Native Paper @13000★ [react-native] <design-system>
+    url: https://callstack.github.io/react-native-paper/
+    for: material design mobile, cross-platform consistency
+    trend: → stable
+  tamagui: Tamagui @11000★ [react-native|web] <component-library>
+    url: https://tamagui.dev
+    for: universal apps, performance, compile-time optimization
+    trend: ↑ rising - universal app standard
+    # Note: Best choice for true universal (web + native) apps
+  nativebase: NativeBase @6000★ [react-native|web] <component-library>
+    url: https://nativebase.io
+    for: cross-platform apps, code sharing web+mobile
+    trend: → stable
+  rn_ui_lib: React Native UI Lib @6000★ [react-native] <component-library>
+    url: https://wix.github.io/react-native-ui-lib/
+    for: branded mobile apps, production apps
+    built_by: Wix
+    trend: → stable
+  gluestack: gluestack-ui @4000★ [react-native|web|expo] <component-library>
+    url: https://gluestack.io
+    for: expo projects, universal design systems
+    trend: ↑ rising - NativeBase successor
+
+# =============================================================================
+# NAVIGATION
+# Routing for web and mobile applications
+# =============================================================================
+
+navigation:
+  # Mobile navigation
+  react_navigation: React Navigation @24000★ [react-native] <navigation>
+    url: https://reactnavigation.org
+    for: mobile navigation, tab bars, drawers
+    navigators: stack, native-stack, drawer, bottom-tabs, material-top-tabs
+    npm: 1.5M weekly
+    trend: → stable, de facto RN standard
+  expo_router: Expo Router @8000★ [react-native|expo] <navigation>
+    url: https://docs.expo.dev/router/introduction/
+    for: file-based routing, expo apps, universal links
+    trend: ↑ rising - Next.js-like DX for native
+    
+  # Web routing
+  react_router: React Router @55500★ [web] <navigation>
+    url: https://reactrouter.com
+    for: SPA routing, nested routes, data loading
+    npm: 19.8M weekly
+    trend: → stable - v7 merged with Remix
+  tanstack_router: TanStack Router @12000★ [web] <navigation>
+    url: https://tanstack.com/router
+    for: type-safe routing, search params, file-based
+    npm: 826K weekly
+    trend: ↑ RISING FAST - best TypeScript DX
+    # Note: Growing 25+ stars/day, strongest type safety
+
+# =============================================================================
+# HTTP CLIENTS
+# Making HTTP requests from web and mobile apps
+# =============================================================================
+
+http:
+  axios: Axios @108000★ [web|node|react-native] <http-client>
+    url: https://axios-http.com
+    for: REST APIs, interceptors, request/response transformation
+    has: promise-based, interceptors, automatic-json, cancellation
+    npm: 50M+ weekly
+    trend: → stable - industry default
+  ky: Ky @16000★ [web] <http-client>
+    url: https://github.com/sindresorhus/ky
+    for: modern fetch wrapper, small bundle, retry
+    npm: 2M+ weekly
+    trend: ↑ rising - modern alternative
+  superagent: SuperAgent @17000★ [web|node|react-native] <http-client>
+    url: https://github.com/ladjs/superagent
+    for: fluent API, auto-retry, streaming
+    trend: → stable
+  got: Got @15000★ [node] <http-client>
+    url: https://github.com/sindresorhus/got
+    for: node.js HTTP, streaming, pagination
+    trend: → stable
+  ofetch: ofetch @4800★ [web|node|react-native] <http-client>
+    url: https://github.com/unjs/ofetch
+    for: universal fetch, auto-retry, Nuxt ecosystem
+    trend: ↑ rising
+
+# =============================================================================
+# DATA FETCHING
+# Server state management and caching
+# =============================================================================
+
+data_fetching:
+  tanstack_query: TanStack Query @47000★ [web|react-native] <data-fetching>
+    url: https://tanstack.com/query
+    for: server state, caching, background updates
+    has: caching, background-refetch, pagination, infinite-queries, devtools
+    npm: 11.7M weekly
+    trend: ↑ DOMINANT - replaced Redux for server state
+    # Note: De facto standard for server state in 2025
+  swr: SWR @31000★ [web|react-native] <data-fetching>
+    url: https://swr.vercel.app
+    for: stale-while-revalidate, simple API, real-time
+    built_by: Vercel
+    npm: 3.5M weekly
+    trend: → stable - Vercel ecosystem
+  rtk_query: RTK Query @11000★ [web|react-native] <data-fetching>
+    url: https://redux-toolkit.js.org/rtk-query/overview
+    for: redux apps, auto-generated hooks, normalized cache
+    part_of: Redux Toolkit
+    npm: (bundled with RTK)
+    trend: → stable - for Redux users
+
+# =============================================================================
+# GRAPHQL CLIENTS
+# GraphQL data fetching and state management
+# =============================================================================
+
+graphql:
+  apollo: Apollo Client @19000★ [web|react-native] <graphql-client>
+    url: https://www.apollographql.com/docs/react/
+    for: full-featured GraphQL, caching, subscriptions
+    npm: 1.5M weekly
+    trend: → stable
+  relay: Relay @18000★ [web|react-native] <graphql-client>
+    url: https://relay.dev
+    for: large apps, compiler-driven, pagination, performance
+    built_by: Meta
+    trend: → stable - Meta's choice
+  urql: URQL @8600★ [web|react-native] <graphql-client>
+    url: https://formidable.com/open-source/urql/
+    for: lightweight GraphQL, extensible, ssr
+    trend: ↑ rising - simpler than Apollo
+
+# =============================================================================
+# RPC CLIENTS
+# Type-safe API communication
+# =============================================================================
+
+rpc:
+  trpc: tRPC @36000★ [web|react-native] <rpc-client>
+    url: https://trpc.io
+    for: end-to-end typesafe APIs, full-stack TypeScript
+    npm: 1.2M weekly
+    trend: ↑ HOT - full-stack TS standard
+    # Note: Most popular choice for Next.js + TypeScript backends
+  connect: Connect RPC @3000★ [web|node|react-native] <rpc-client>
+    url: https://connectrpc.com
+    for: modern gRPC alternative, browser-friendly, Buf ecosystem
+    trend: ↑ rising
+  grpc_web: gRPC-Web @9000★ [web] <rpc-client>
+    url: https://github.com/grpc/grpc-web
+    for: gRPC in browsers, protobuf
+    trend: → stable
+
+# =============================================================================
+# REALTIME
+# WebSocket and real-time communication
+# =============================================================================
+
+realtime:
+  socket_io: Socket.IO Client @62000★ [web|node|react-native] <realtime>
+    url: https://socket.io
+    for: bidirectional events, rooms, namespaces, fallbacks
+    npm: 5M+ weekly
+    trend: → stable - industry standard
+  partykit: PartyKit @new [web] <realtime>
+    url: https://partykit.io
+    for: multiplayer, collaborative apps, edge functions
+    trend: ↑ rising - modern alternative
+  ws: ws @22000★ [node] <realtime>
+    url: https://github.com/websockets/ws
+    for: node.js WebSocket server/client, raw websockets
+    npm: 85M+ weekly
+    trend: → stable
+  use_websocket: react-use-websocket @1800★ [web] <realtime>
+    url: https://github.com/robtaussig/react-use-websocket
+    for: React WebSocket hooks, reconnection
+    trend: → stable
+  pusher: pusher-js @2500★ [web|react-native|node] <realtime>
+    url: https://github.com/pusher/pusher-js
+    for: Pusher channels, presence channels, hosted
+    trend: → stable
+
+# =============================================================================
+# STORAGE
+# Local storage solutions for web and mobile
+# =============================================================================
+
+storage:
+  localforage: localForage @25000★ [web] <storage>
+    url: https://localforage.github.io/localForage/
+    for: offline storage, IndexedDB wrapper, async API
+    npm: 3M+ weekly
+    trend: → stable
+  mmkv: react-native-mmkv @6500★ [react-native] <storage>
+    url: https://github.com/mrousavy/react-native-mmkv
+    for: fast key-value storage, 30x faster than AsyncStorage
+    has: synchronous, encryption, multi-process, jsi-binding
+    npm: growing
+    trend: ↑ HOT - new RN storage standard
+    # Note: Built on Tencent's MMKV (WeChat), 30x faster than AsyncStorage
+  async_storage: @react-native-async-storage/async-storage @4800★ [react-native] <storage>
+    url: https://react-native-async-storage.github.io/async-storage/
+    for: simple key-value, drop-in replacement, legacy support
+    npm: 900K+ weekly
+    trend: → stable - being replaced by MMKV
+  idb_keyval: idb-keyval @2500★ [web] <storage>
+    url: https://github.com/jakearchibald/idb-keyval
+    for: simple IndexedDB, tiny bundle (~600 bytes)
+    trend: → stable
+  mmkv_storage: react-native-mmkv-storage @1800★ [react-native] <storage>
+    url: https://github.com/ammarahm-ed/react-native-mmkv-storage
+    for: encrypted storage, hooks support, redux-persist
+    trend: → stable
+  encrypted_storage: react-native-encrypted-storage @1000★ [react-native] <storage>
+    url: https://github.com/emeraldsanto/react-native-encrypted-storage
+    for: secure storage using keychain/keystore
+    trend: → stable
+
+# =============================================================================
+# SECURITY & AUTH
+# Authentication and credential management
+# =============================================================================
+
+security:
+  nextauth: NextAuth.js / Auth.js @25000★ [web] <security>
+    url: https://authjs.dev
+    for: Next.js auth, multiple providers, session management
+    npm: 1M+ weekly
+    trend: ↑ rising - rebranded as Auth.js for framework-agnostic
+  clerk: @clerk/clerk-react @4000★ [web|react-native] <security>
+    url: https://clerk.com
+    for: drop-in auth UI, user management, hosted
+    trend: ↑ HOT - fastest growing auth solution
+    # Note: Best DX for auth in 2025, handles all edge cases
+  keychain: react-native-keychain @3200★ [react-native] <security>
+    url: https://github.com/oblador/react-native-keychain
+    for: secure credentials, keychain/keystore, biometric unlock
+    has: biometric-unlock, access-control, keychain-sharing
+    trend: → stable
+  firebase_auth: @react-native-firebase/auth @12000★ [react-native] <security>
+    url: https://rnfirebase.io/auth/usage
+    for: Firebase authentication, social login, phone auth
+    trend: → stable
+  supabase_auth: @supabase/supabase-js [web|react-native] <security>
+    url: https://supabase.com/docs/guides/auth
+    for: open-source Firebase alternative, Postgres-backed
+    trend: ↑ rising - Firebase alternative
+  auth0: react-native-auth0 @500★ [react-native] <security>
+    url: https://github.com/auth0/react-native-auth0
+    for: Auth0 integration, enterprise SSO
+    trend: → stable
+
+# =============================================================================
+# BIOMETRICS
+# Fingerprint, Face ID, and biometric authentication
+# =============================================================================
+
+biometrics:
+  touch_id: react-native-touch-id @1400★ [react-native] <biometric>
+    url: https://github.com/naoufal/react-native-touch-id
+    for: Touch ID/Face ID iOS, fingerprint Android
+    has: touch-id, face-id, fingerprint, passcode-fallback
+    trend: → stable
+  expo_local_auth: expo-local-authentication [expo] <biometric>
+    url: https://docs.expo.dev/versions/latest/sdk/local-authentication/
+    for: Expo biometrics, Face ID, fingerprint
+    trend: ↑ rising with Expo adoption
+  fingerprint_scanner: react-native-fingerprint-scanner @800★ [react-native] <biometric>
+    url: https://github.com/hieuvp/react-native-fingerprint-scanner
+    for: fingerprint auth, Face ID
+    trend: → stable
+  rn_biometrics: react-native-biometrics @700★ [react-native] <biometric>
+    url: https://github.com/SelfLender/react-native-biometrics
+    for: Face ID, Touch ID, fingerprint, key generation
+    has: face-id, touch-id, fingerprint, key-generation, signatures
+    biometry_types: TouchID, FaceID, Biometrics
+    trend: → stable
+
+# =============================================================================
+# ERROR HANDLING & CRASH REPORTING
+# Error boundaries and production monitoring
+# =============================================================================
+
+error_handling:
+  react_error_boundary: react-error-boundary @7000★ [web|react-native] <error-handling>
+    url: https://github.com/bvaughn/react-error-boundary
+    for: React error boundaries, fallback UI, error recovery
+    npm: 5M+ weekly
+    trend: → stable - standard solution
+  sentry: @sentry/react-native @1700★ [react-native|web] <crash-reporting>
+    url: https://docs.sentry.io/platforms/react-native/
+    for: full-stack error tracking, performance monitoring
+    has: crash-reporting, performance, session-replay, breadcrumbs, source-maps
+    npm: 800K+ weekly
+    trend: ↑ rising - most feature-complete
+    # Note: Best-in-class for production error monitoring
+  crashlytics: @react-native-firebase/crashlytics @12000★ [react-native] <crash-reporting>
+    url: https://rnfirebase.io/crashlytics/usage
+    for: Firebase ecosystem, free tier, Google integration
+    trend: → stable
+  bugsnag: @bugsnag/react-native @400★ [react-native] <crash-reporting>
+    url: https://docs.bugsnag.com/platforms/react-native/
+    for: error monitoring, stability scoring, release health
+    trend: → stable
+
+# =============================================================================
+# NOTIFICATIONS
+# Push notifications and local notifications
+# =============================================================================
+
+notifications:
+  firebase_messaging: @react-native-firebase/messaging @12000★ [react-native] <push-notifications>
+    url: https://rnfirebase.io/messaging/usage
+    for: FCM push notifications, cross-platform, topics
+    has: fcm, topics, background-messages, data-messages
+    trend: → stable - industry standard
+  notifee: Notifee @2000★ [react-native] <local-notifications>
+    url: https://notifee.app
+    for: rich local notifications, channels, triggers
+    has: channels, actions, triggers, foreground-service
+    trend: ↑ rising - best local notifications
+    # Note: By the react-native-firebase team, excellent DX
+  expo_notifications: expo-notifications @8000★ [react-native|expo] <push-notifications>
+    url: https://docs.expo.dev/versions/latest/sdk/notifications/
+    for: Expo apps, easy setup, Expo push service
+    trend: ↑ rising with Expo
+  rn_notifications: react-native-notifications @3100★ [react-native] <push-notifications>
+    url: https://github.com/wix/react-native-notifications
+    for: reliable notifications, iOS/Android, production-tested
+    built_by: Wix
+    trend: → stable
+  rn_push_notification: react-native-push-notification @6800★ [react-native] <push-notifications>
+    url: https://github.com/zo0r/react-native-push-notification
+    for: legacy projects only
+    note: ⚠️ No longer actively maintained - use Notifee or Firebase
+    trend: ↓ declining
+
+# =============================================================================
+# CAMERA
+# Camera access and image capture
+# =============================================================================
+
+camera:
+  vision_camera: react-native-vision-camera @8600★ [react-native] <camera>
+    url: https://github.com/mrousavy/react-native-vision-camera
+    for: high-performance camera, frame processors, ML integration
+    has: photo, video, frame-processors, qr-scanning, 60fps
+    trend: ↑ HOT - modern camera standard
+    # Note: Best-in-class, by Marc Rousavy (also created MMKV)
+  image_picker: react-native-image-picker @8300★ [react-native] <camera>
+    url: https://github.com/react-native-image-picker/react-native-image-picker
+    for: image/video selection, camera capture, simple API
+    npm: 500K+ weekly
+    trend: → stable
+  expo_camera: expo-camera @8000★ [react-native|expo] <camera>
+    url: https://docs.expo.dev/versions/latest/sdk/camera/
+    for: Expo apps, quick setup, barcode scanning
+    trend: ↑ rising with Expo
+  camera_kit: react-native-camera-kit @1900★ [react-native] <camera>
+    url: https://github.com/teslamotors/react-native-camera-kit
+    for: lightweight camera, barcode scanning, simple use cases
+    built_by: Tesla
+    trend: → stable
+
+# =============================================================================
+# AUDIO
+# Audio playback and recording
+# =============================================================================
+
+audio:
+  track_player: react-native-track-player @3300★ [react-native] <audio>
+    url: https://github.com/doublesymmetry/react-native-track-player
+    for: music apps, background audio, streaming, podcasts
+    has: background-playback, media-controls, queue, streaming
+    trend: ↑ rising - best for music apps
+    # Note: Production-ready for Spotify-like apps
+  expo_av: expo-av @8000★ [react-native|expo] <audio>
+    url: https://docs.expo.dev/versions/latest/sdk/av/
+    for: Expo audio/video, unified API, simple playback
+    trend: ↑ rising with Expo
+  sound: react-native-sound @2800★ [react-native] <audio>
+    url: https://github.com/zmxv/react-native-sound
+    for: audio clips, sound effects, simple playback
+    trend: → stable
+  audio_toolkit: react-native-audio-toolkit @1000★ [react-native] <audio>
+    url: https://github.com/react-native-audio-toolkit/react-native-audio-toolkit
+    for: recording, playback, streaming
+    trend: → stable
+
+# =============================================================================
+# VIDEO
+# Video playback and streaming
+# =============================================================================
+
+video:
+  video_js: video.js @38000★ [web] <video>
+    url: https://videojs.com
+    for: HTML5 video, plugins, HLS/DASH streaming
+    npm: 800K+ weekly
+    trend: → stable - web video standard
+  react_player: react-player @9500★ [web] <video>
+    url: https://github.com/cookpete/react-player
+    for: multiple sources, YouTube/Vimeo/Twitch/SoundCloud
+    npm: 600K+ weekly
+    trend: → stable
+  rn_video: react-native-video @7200★ [react-native] <video>
+    url: https://github.com/react-native-video/react-native-video
+    for: video playback, streaming, DRM, subtitles
+    has: streaming, drm, subtitles, pip, background-audio
+    trend: → stable
+
+# =============================================================================
+# AI / ML INFERENCE
+# On-device machine learning and AI
+# =============================================================================
+
+ai_inference:
+  mediapipe: MediaPipe @28000★ [web|react-native] <ml-inference>
+    url: https://developers.google.com/mediapipe
+    for: pose detection, hand tracking, face mesh, segmentation
+    has: pose, hands, face, object-detection, segmentation
+    trend: → stable - Google's ML solution
+  tfjs_react_native: @tensorflow/tfjs-react-native @18000★ [react-native] <ml-inference>
+    url: https://github.com/tensorflow/tfjs/tree/master/tfjs-react-native
+    for: TensorFlow.js models, GPU acceleration
+    has: gpu-webgl, model-loading, transfer-learning
+    trend: → stable
+  onnx_runtime_rn: onnxruntime-react-native @15000★ [react-native] <ml-inference>
+    url: https://onnxruntime.ai/docs/get-started/with-javascript/react-native.html
+    for: ONNX models, cross-framework, optimized inference
+    has: onnx-models, optimized-inference, quantization
+    trend: ↑ rising - production ML standard
+  rn_transformers: react-native-transformers @300★ [react-native|expo] <ml-inference>
+    url: https://github.com/nicksenger/react-native-transformers
+    for: Hugging Face models, on-device LLM, offline
+    has: huggingface-models, text-generation, offline
+    trend: ↑ rising - on-device LLM growing
+  mlkit: react-native-mlkit @200★ [react-native] <ml-inference>
+    url: https://github.com/nicksenger/react-native-mlkit
+    for: Google ML Kit, text recognition, barcode
+    has: text-recognition, barcode-scanning, face-detection
+    trend: → stable
+
+# =============================================================================
+# SENSORS
+# Device sensors and location
+# =============================================================================
+
+sensors:
+  geolocation: react-native-geolocation-service @1600★ [react-native] <sensor>
+    url: https://github.com/Agontuk/react-native-geolocation-service
+    for: GPS location, background location, high accuracy
+    has: current-position, watch-position, high-accuracy, background
+    trend: → stable
+  expo_location: expo-location [expo] <sensor>
+    url: https://docs.expo.dev/versions/latest/sdk/location/
+    for: Expo location, geofencing, background tracking
+    trend: ↑ rising with Expo
+  rn_sensors: react-native-sensors @900★ [react-native] <sensor>
+    url: https://react-native-sensors.github.io/
+    for: accelerometer, gyroscope, magnetometer
+    sensors: accelerometer, gyroscope, magnetometer, barometer
+    trend: → stable
+  expo_sensors: expo-sensors @8000★ [react-native|expo] <sensor>
+    url: https://docs.expo.dev/versions/latest/sdk/sensors/
+    for: Expo sensor access, pedometer
+    sensors: accelerometer, gyroscope, magnetometer, barometer, pedometer
+    trend: ↑ rising with Expo
+  compass: react-native-compass-heading @100★ [react-native] <sensor>
+    url: https://github.com/nicko170/react-native-compass-heading
+    for: compass heading, true north
+    trend: → stable
+
+# =============================================================================
+# AR / VR
+# Augmented and virtual reality
+# =============================================================================
+
+ar_vr:
+  viro: @reactvision/viro @6500★ [react-native] <ar-vr>
+    url: https://github.com/ReactVision/viro
+    for: AR/VR apps, ARKit/ARCore, 3D scenes, physics
+    has: arkit, arcore, vr-cardboard, 3d-objects, physics
+    trend: → stable - best RN AR/VR option
+    # Note: Formerly ViroReact, community-maintained
+  react_native_arkit: react-native-arkit @1700★ [react-native] <ar>
+    url: https://github.com/react-native-ar/react-native-arkit
+    for: iOS ARKit only
+    note: ⚠️ Looking for maintainers - recommend ViroReact
+    trend: ↓ declining
+  expo_three: expo-three @700★ [react-native|expo] <ar-vr>
+    url: https://github.com/expo/expo-three
+    for: Three.js in Expo, 3D graphics
+    trend: → stable
+
+# =============================================================================
+# NATIVE MODULES
+# Building custom native functionality
+# =============================================================================
+
+native_modules:
+  turbo_modules: React Native Turbo Modules @120000★ [react-native] <native-module>
+    url: https://reactnative.dev/docs/turbo-modules
+    for: custom native modules, new architecture, JSI
+    has: jsi-binding, codegen, type-safety, lazy-loading
+    languages: kotlin, swift, objective-c, java
+    trend: ↑ rising - new architecture adoption
+  expo_modules: Expo Modules API @8000★ [react-native|expo] <native-module>
+    url: https://docs.expo.dev/modules/overview/
+    for: Expo native modules, Swift/Kotlin DSL
+    languages: kotlin, swift
+    trend: ↑ rising - easiest native module DX
+    # Note: Much simpler than traditional native modules
+  create_rn_library: create-react-native-library @2000★ [react-native] <native-module>
+    url: https://github.com/callstack/react-native-builder-bob
+    for: library scaffolding, turbo modules, publishing
+    built_by: Callstack
+    trend: → stable
+
+# =============================================================================
+# C++ / JSI BINDINGS
+# Low-level native communication
+# =============================================================================
+
+cpp_bindings:
+  jsi: React Native JSI @120000★ [react-native] <jsi-binding>
+    url: https://reactnative.dev/docs/turbo-native-modules-jsi
+    for: direct JS-native communication, synchronous calls
+    has: synchronous, no-bridge, c++-api, host-objects
+    trend: → standard - foundation of new arch
+  nitro_modules: Nitro Modules @1000★ [react-native] <jsi-binding>
+    url: https://github.com/mrousavy/nitro
+    for: high-performance native modules, codegen
+    has: codegen, type-safe, synchronous, c++-interop
+    trend: ↑ rising - by MMKV/VisionCamera creator
+    # Note: Next-gen native modules by Marc Rousavy
+  quick_base64: react-native-quick-base64 @400★ [react-native] <jsi-binding>
+    url: https://github.com/nickmccurdy/react-native-quick-base64
+    for: fast base64, JSI example
+    trend: → stable
+
+# =============================================================================
+# WASM
+# WebAssembly integration
+# =============================================================================
+
+wasm:
+  assemblyscript: AssemblyScript @17000★ [web|wasm] <wasm-runtime>
+    url: https://www.assemblyscript.org
+    for: TypeScript to WASM, web workers, compute-intensive
+    trend: → stable
+  rn_webassembly: react-native-webassembly @400★ [react-native] <wasm-runtime>
+    url: https://github.com/nickmccurdy/react-native-webassembly
+    for: WASM in React Native, wasm3 runtime
+    has: wasm-execution, jsi-binding, import-object
+    trend: → stable
+  polygen: Polygen @200★ [react-native] <wasm-runtime>
+    url: https://github.com/nickmccurdy/polygen
+    for: AOT compiled WASM, near-native performance
+    has: aot-compilation, wasm2c, jsi-glue
+    built_by: Callstack
+    trend: → experimental
+
+# =============================================================================
+# TABLES & DATA GRIDS
+# Data display and manipulation
+# =============================================================================
+
+tables:
+  tanstack_table: TanStack Table @26000★ [web|react-native] <component-library>
+    url: https://tanstack.com/table
+    for: headless tables, sorting, filtering, pagination
+    npm: 2M+ weekly
+    trend: ↑ DOMINANT - headless table standard
+    # Note: Formerly React Table v8, most flexible option
+  ag_grid: AG Grid @13000★ [web] <component-library>
+    url: https://www.ag-grid.com
+    for: enterprise data grids, Excel-like features, virtualization
+    npm: 800K+ weekly
+    trend: → stable - enterprise standard
+    # Note: Free community version, paid enterprise
+  material_react_table: Material React Table @1500★ [web] <component-library>
+    url: https://www.material-react-table.com
+    for: MUI + TanStack Table, batteries-included
+    trend: ↑ rising - best MUI table
+  react_data_grid: react-data-grid @7000★ [web] <component-library>
+    url: https://adazzle.github.io/react-data-grid/
+    for: Excel-like editing, virtualization
+    trend: → stable
+
+# =============================================================================
+# CHARTS & VISUALIZATION
+# Data visualization libraries
+# =============================================================================
+
+charts:
+  recharts: Recharts @24800★ [web] <component-library>
+    url: https://recharts.org
+    for: declarative charts, composable, SVG-based
+    npm: 3M+ weekly
+    trend: → stable - most popular React charts
+  visx: visx @20000★ [web] <component-library>
+    url: https://airbnb.io/visx/
+    for: low-level D3 primitives, custom visualizations
+    built_by: Airbnb
+    npm: 500K+ weekly
+    trend: → stable - max flexibility
+  nivo: Nivo @14000★ [web] <component-library>
+    url: https://nivo.rocks
+    for: beautiful charts, server-side rendering, Canvas/SVG
+    npm: 400K+ weekly
+    trend: ↑ rising - best defaults
+  echarts: Apache ECharts @62000★ [web] <component-library>
+    url: https://echarts.apache.org
+    for: massive datasets, WebGL, 3D charts
+    npm: 1M+ weekly
+    trend: → stable - large data visualization
+  victory: Victory @11000★ [web|react-native] <component-library>
+    url: https://formidable.com/open-source/victory/
+    for: cross-platform charts, animations
+    npm: 200K+ weekly
+    trend: → stable
+  rn_gifted_charts: react-native-gifted-charts @1800★ [react-native] <component-library>
+    url: https://github.com/nickmccurdy/react-native-gifted-charts
+    for: React Native charts, animations
+    trend: ↑ rising
+
+# =============================================================================
+# FORMS & VALIDATION
+# Form management and schema validation
+# =============================================================================
+
+forms:
+  react_hook_form: React Hook Form @43900★ [web|react-native] <component-library>
+    url: https://react-hook-form.com
+    for: performant forms, uncontrolled inputs, minimal re-renders
+    npm: 15M weekly
+    trend: ↑ DOMINANT - form library standard
+    # Note: Best performance, works with any validation library
+  zod: Zod @40000★ [web|node|react-native] <component-library>
+    url: https://zod.dev
+    for: schema validation, TypeScript inference, runtime checking
+    npm: 41M weekly
+    trend: ↑ EXPLOSIVE GROWTH - validation standard
+    # Note: TypeScript-first, replaced Yup for most projects
+  formik: Formik @34000★ [web|react-native] <component-library>
+    url: https://formik.org
+    for: form state, validation, legacy projects
+    npm: 3M weekly
+    trend: → stable - being replaced by RHF
+  yup: Yup @23500★ [web|react-native] <component-library>
+    url: https://github.com/jquense/yup
+    for: schema validation, Formik integration
+    npm: 7.7M weekly
+    trend: → stable - being replaced by Zod
+  valibot: Valibot @8000★ [web|react-native] <component-library>
+    url: https://valibot.dev
+    for: smallest validation library, tree-shakeable, Zod alternative
+    npm: 1.6M weekly
+    trend: ↑ RISING FAST - smallest bundle, best tree-shaking
+    # Note: 98% smaller than Zod, functional API
+
+# =============================================================================
+# STATE MANAGEMENT
+# Client-side state management
+# =============================================================================
+
+state:
+  zustand: Zustand @50000★ [web|react-native] <component-library>
+    url: https://zustand-demo.pmnd.rs
+    for: simple state, minimal boilerplate, no providers
+    npm: 4.5M weekly
+    trend: ↑ HOT - simplest global state
+    # Note: Most recommended state library in 2025
+  jotai: Jotai @20500★ [web|react-native] <component-library>
+    url: https://jotai.org
+    for: atomic state, derived state, minimal API
+    npm: 2.1M weekly
+    trend: ↑ rising - atomic state leader
+    # Note: By same team as Zustand, atoms vs stores
+  mobx: MobX @28000★ [web|react-native] <component-library>
+    url: https://mobx.js.org
+    for: observable state, automatic tracking, OOP style
+    npm: 1.2M weekly
+    trend: → stable
+  redux_toolkit: Redux Toolkit @11000★ [web|react-native] <component-library>
+    url: https://redux-toolkit.js.org
+    for: complex state, enterprise apps, middleware, devtools
+    npm: 8M+ weekly (react-redux)
+    trend: → stable - for complex apps only
+    # Note: Still valid for very large apps, but overkill for most
+  recoil: Recoil @19500★ [web|react-native] <component-library>
+    url: https://recoiljs.org
+    for: atomic state, React-like API
+    built_by: Meta
+    trend: ↓ declining - Meta discontinued
+    # Note: ⚠️ Discontinued by Meta, use Jotai instead
+  valtio: Valtio @9500★ [web|react-native] <component-library>
+    url: https://valtio.pmnd.rs
+    for: proxy-based state, mutable syntax, simple mental model
+    npm: 600K weekly
+    trend: → stable
+  legend_state: Legend State @3000★ [web|react-native] <component-library>
+    url: https://legendapp.com/open-source/state/
+    for: fast state, persistence, sync, fine-grained reactivity
+    trend: ↑ rising - performance focus
+
+# =============================================================================
+# ANIMATION
+# Animation libraries for web and mobile
+# =============================================================================
+
+animation:
+  framer_motion: Framer Motion / Motion @30000★ [web] <animation>
+    url: https://motion.dev
+    for: declarative animations, gestures, layout animations
+    npm: 12M monthly (fastest growing animation lib)
+    trend: ↑ DOMINANT - web animation standard
+    # Note: Rebranded to "Motion", now framework-agnostic
+  lottie: lottie-react / lottie-react-native @30000★ [web|react-native] <animation>
+    url: https://airbnb.io/lottie/
+    for: After Effects animations, complex vector animations
+    built_by: Airbnb
+    npm: 1M+ weekly (combined)
+    trend: → stable
+  react_spring: react-spring @29000★ [web|react-native] <animation>
+    url: https://react-spring.dev
+    for: spring animations, physics-based, natural motion
+    npm: 856K weekly
+    trend: → stable
+  reanimated: React Native Reanimated @9000★ [react-native] <animation>
+    url: https://docs.swmansion.com/react-native-reanimated/
+    for: native animations, 60fps, gesture handler integration
+    npm: 800K+ weekly
+    trend: → standard for RN animation
+    # Note: Required for production RN animations
+  gsap: GSAP @23000★ [web] <animation>
+    url: https://gsap.com
+    for: complex timelines, SVG animation, scroll-triggered
+    npm: 1M weekly
+    trend: → stable - professional animation
+  moti: Moti @4000★ [react-native|web] <animation>
+    url: https://moti.fyi
+    for: universal animations, Reanimated wrapper, simpler API
+    trend: → stable
+
+# =============================================================================
+# DRAG & DROP
+# Drag and drop functionality
+# =============================================================================
+
+drag_drop:
+  dnd_kit: dnd kit @14000★ [web] <component-library>
+    url: https://dndkit.com
+    for: accessible drag and drop, sortable lists, tree views
+    npm: 1.5M weekly
+    trend: ↑ RISING - modern DnD standard
+    # Note: Replaced react-beautiful-dnd as recommended solution
+  react_beautiful_dnd: react-beautiful-dnd @34000★ [web] <component-library>
+    url: https://github.com/atlassian/react-beautiful-dnd
+    built_by: Atlassian
+    npm: 1.2M weekly
+    note: ⚠️ No longer maintained - use dnd-kit instead
+    trend: ↓ declining
+  rn_draggable_flatlist: react-native-draggable-flatlist @2000★ [react-native] <component-library>
+    url: https://github.com/nickmccurdy/react-native-draggable-flatlist
+    for: React Native sortable lists, gesture-based
+    trend: → stable
+
+# =============================================================================
+# DATE & TIME
+# Date manipulation and pickers
+# =============================================================================
+
+dates:
+  dayjs: Day.js @48000★ [web|node|react-native] <component-library>
+    url: https://day.js.org
+    for: Moment.js alternative, 2KB, same API
+    npm: 20M+ weekly
+    trend: → stable - date library standard
+  date_fns: date-fns @35000★ [web|node|react-native] <component-library>
+    url: https://date-fns.org
+    for: date manipulation, tree-shakeable, functional
+    npm: 25M+ weekly
+    trend: → stable
+  react_datepicker: react-datepicker @8200★ [web] <component-library>
+    url: https://reactdatepicker.com
+    for: date picking, range selection, time picker
+    npm: 2M+ weekly
+    trend: → stable
+  rn_date_picker: react-native-date-picker @2200★ [react-native] <component-library>
+    url: https://github.com/henninghall/react-native-date-picker
+    for: native date picker, iOS/Android, modal/inline
+    trend: → stable
+
+# =============================================================================
+# RICH TEXT EDITORS
+# Text editing and WYSIWYG
+# =============================================================================
+
+editors:
+  tiptap: Tiptap @30000★ [web] <component-library>
+    url: https://tiptap.dev
+    for: collaborative editing, extensible, ProseMirror-based
+    npm: 500K+ weekly
+    trend: ↑ HOT - modern editor standard
+    # Note: Best balance of features and customization
+  lexical: Lexical @20000★ [web] <component-library>
+    url: https://lexical.dev
+    for: extensible editor, accessibility, framework-agnostic
+    built_by: Meta
+    npm: 400K+ weekly
+    trend: ↑ rising - Meta's new editor
+  slate: Slate @30000★ [web] <component-library>
+    url: https://www.slatejs.org
+    for: custom rich text, framework for building editors
+    npm: 300K+ weekly
+    trend: → stable
+  quill: react-quill @7000★ [web] <component-library>
+    url: https://github.com/zenoamaro/react-quill
+    for: simple WYSIWYG, Quill wrapper, quick setup
+    npm: 400K+ weekly
+    trend: → stable
+
+# =============================================================================
+# VIRTUALIZATION
+# Rendering large lists efficiently
+# =============================================================================
+
+virtualization:
+  tanstack_virtual: TanStack Virtual @6000★ [web|react-native] <component-library>
+    url: https://tanstack.com/virtual
+    for: headless virtualization, any element, tables
+    npm: 900K+ weekly
+    trend: ↑ rising - modern virtualization
+  react_window: react-window @16000★ [web] <component-library>
+    url: https://react-window.vercel.app
+    for: lightweight virtualization, lists/grids
+    npm: 1.5M+ weekly
+    trend: → stable
+  react_virtualized: react-virtualized @26000★ [web] <component-library>
+    url: https://bvaughn.github.io/react-virtualized/
+    for: feature-rich virtualization, AutoSizer
+    npm: 1.2M weekly
+    trend: → stable - more features than react-window
+  flashlist: FlashList @5800★ [react-native] <component-library>
+    url: https://shopify.github.io/flash-list/
+    for: fast React Native lists, FlatList replacement
+    built_by: Shopify
+    npm: 250K+ weekly
+    trend: ↑ HOT - RN list standard
+    # Note: 10x faster than FlatList, drop-in replacement
+
+# =============================================================================
+# FILE UPLOAD
+# File and image uploads
+# =============================================================================
+
+file_upload:
+  react_dropzone: react-dropzone @11000★ [web] <component-library>
+    url: https://react-dropzone.js.org
+    for: drag and drop uploads, file validation, hooks-based
+    npm: 2.5M+ weekly
+    trend: → stable
+  filepond: react-filepond @15000★ [web] <component-library>
+    url: https://pqina.nl/filepond/
+    for: beautiful uploads, image editing, plugins
+    npm: 200K+ weekly
+    trend: → stable
+  rn_document_picker: react-native-document-picker @1300★ [react-native] <component-library>
+    url: https://github.com/rnmods/react-native-document-picker
+    for: document picking, iOS/Android, multiple selection
+    trend: → stable
+
+# =============================================================================
+# TOAST & NOTIFICATIONS (UI)
+# In-app notifications and toasts
+# =============================================================================
+
+toast:
+  sonner: Sonner @10000★ [web] <component-library>
+    url: https://sonner.emilkowal.ski
+    for: minimal setup, beautiful defaults, stack behavior
+    npm: 800K+ weekly
+    trend: ↑ HOT - new toast standard
+    # Note: By shadcn creator, best defaults
+  react_toastify: react-toastify @13000★ [web] <component-library>
+    url: https://fkhadra.github.io/react-toastify/
+    for: feature-rich, auto-close, promise-based
+    npm: 2.5M+ weekly
+    trend: → stable
+  react_hot_toast: react-hot-toast @10000★ [web] <component-library>
+    url: https://react-hot-toast.com
+    for: simple API, customizable, lightweight
+    npm: 1M+ weekly
+    trend: → stable
+  burnt: Burnt @1500★ [react-native] <component-library>
+    url: https://github.com/nandorojo/burnt
+    for: React Native toasts, native feel
+    trend: → stable
+
+# =============================================================================
+# ICONS
+# Icon libraries
+# =============================================================================
+
+icons:
+  lucide: Lucide React @12000★ [web|react-native] <component-library>
+    url: https://lucide.dev
+    for: modern icons, tree-shakeable, Feather fork
+    npm: 4M+ weekly
+    trend: ↑ HOT - fastest growing icon lib
+    # Note: Used by shadcn/ui, best modern choice
+  heroicons: Heroicons @22000★ [web] <component-library>
+    url: https://heroicons.com
+    for: Tailwind projects, solid/outline variants
+    built_by: Tailwind Labs
+    npm: 1M+ weekly
+    trend: → stable
+  react_icons: react-icons @12000★ [web] <component-library>
+    url: https://react-icons.github.io/react-icons/
+    for: multiple icon packs in one import
+    npm: 3M+ weekly
+    trend: → stable
+  rn_vector_icons: react-native-vector-icons @17000★ [react-native] <component-library>
+    url: https://github.com/oblador/react-native-vector-icons
+    for: React Native icons, multiple packs
+    npm: 500K+ weekly
+    trend: → stable
+  phosphor: Phosphor Icons @5000★ [web|react-native] <component-library>
+    url: https://phosphoricons.com
+    for: flexible weights, large collection (6K+ icons)
+    npm: 400K+ weekly
+    trend: ↑ rising
+
+# =============================================================================
+# PDF
+# PDF generation and viewing
+# =============================================================================
+
+pdf:
+  react_pdf_renderer: @react-pdf/renderer @15000★ [web|node] <component-library>
+    url: https://react-pdf.org
+    for: generating PDFs from React components
+    npm: 500K+ weekly
+    trend: → stable
+  react_pdf: react-pdf @10000★ [web] <component-library>
+    url: https://github.com/wojtekmaj/react-pdf
+    for: viewing PDFs, pdf.js wrapper, pagination
+    npm: 800K+ weekly
+    trend: → stable
+  rn_pdf: react-native-pdf @1600★ [react-native] <component-library>
+    url: https://github.com/wonday/react-native-pdf
+    for: viewing PDFs on mobile
+    trend: → stable
+
+# =============================================================================
+# MAPS
+# Map rendering and geospatial
+# =============================================================================
+
+maps:
+  rn_maps: react-native-maps @15000★ [react-native] <component-library>
+    url: https://github.com/react-native-maps/react-native-maps
+    for: React Native maps, Google/Apple Maps, markers
+    npm: 350K+ weekly
+    trend: → stable - RN maps standard
+  react_map_gl: react-map-gl @7800★ [web] <component-library>
+    url: https://visgl.github.io/react-map-gl/
+    for: vector tiles, 3D maps, large datasets, Mapbox
+    npm: 300K+ weekly
+    trend: → stable
+  react_leaflet: React Leaflet @5200★ [web] <component-library>
+    url: https://react-leaflet.js.org
+    for: open source maps, customizable, free
+    npm: 350K+ weekly
+    trend: → stable
+  google_maps: @react-google-maps/api @1800★ [web] <component-library>
+    url: https://react-google-maps-api-docs.netlify.app
+    for: Google Maps integration, Places API
+    npm: 400K+ weekly
+    trend: → stable
+
+# =============================================================================
+# 3D GRAPHICS
+# 3D rendering and WebGL
+# =============================================================================
+
+3d:
+  react_three_fiber: React Three Fiber @28000★ [web|react-native] <component-library>
+    url: https://docs.pmnd.rs/react-three-fiber
+    for: 3D scenes, WebGL, games, declarative Three.js
+    npm: 1M+ weekly
+    trend: ↑ rising - 3D for React standard
+  drei: @react-three/drei @8500★ [web|react-native] <component-library>
+    url: https://github.com/pmndrs/drei
+    for: R3F helpers, common 3D components, controls
+    npm: 600K+ weekly
+    trend: → stable
+  rapier: @react-three/rapier @1500★ [web] <component-library>
+    url: https://github.com/pmndrs/react-three-rapier
+    for: physics in 3D, R3F physics engine
+    trend: → stable
+
+# =============================================================================
+# MARKDOWN
+# Markdown rendering and processing
+# =============================================================================
+
+markdown:
+  mdx: MDX @18000★ [web] <component-library>
+    url: https://mdxjs.com
+    for: markdown + JSX, documentation, blogs
+    npm: 800K+ weekly
+    trend: → stable
+  react_markdown: react-markdown @13000★ [web] <component-library>
+    url: https://remarkjs.github.io/react-markdown/
+    for: rendering markdown, plugin support, remark ecosystem
+    npm: 2M+ weekly
+    trend: → stable
+  rn_markdown: react-native-markdown-display @700★ [react-native] <component-library>
+    url: https://github.com/iamacup/react-native-markdown-display
+    for: markdown in React Native
+    trend: → stable
+
+# =============================================================================
+# TESTING
+# Testing utilities and frameworks
+# =============================================================================
+
+testing:
+  playwright: Playwright @70000★ [web] <testing>
+    url: https://playwright.dev
+    for: e2e testing, cross-browser, auto-waiting
+    npm: 6M+ weekly
+    trend: ↑ DOMINANT - replaced Cypress for many
+    # Note: Faster, better DX than Cypress
+  vitest: Vitest @14000★ [web] <testing>
+    url: https://vitest.dev
+    for: Vite projects, fast tests, Jest-compatible API
+    npm: 10M+ weekly
+    trend: ↑ HOT - Jest replacement
+    # Note: 10x faster than Jest, native ESM
+  testing_library: React Testing Library @19000★ [web|react-native] <testing>
+    url: https://testing-library.com/react
+    for: component testing, user-centric tests
+    npm: 10M+ weekly
+    trend: → stable - component testing standard
+  cypress: Cypress @48000★ [web] <testing>
+    url: https://www.cypress.io
+    for: e2e testing, component testing, dashboard
+    npm: 5M+ weekly
+    trend: → stable - losing to Playwright
+  detox: Detox @11000★ [react-native] <testing>
+    url: https://wix.github.io/Detox/
+    for: React Native e2e testing, gray box
+    built_by: Wix
+    trend: → stable
+  maestro: Maestro @6000★ [react-native] <testing>
+    url: https://maestro.mobile.dev
+    for: mobile UI testing, YAML flows, no code
+    trend: ↑ rising - simplest mobile e2e
+
+# =============================================================================
+# ADDITIONAL TRENDING LIBRARIES (2025)
+# New or rapidly growing libraries to watch
+# =============================================================================
+
+trending_2025:
+  # State & Data
+  tanstack_store: TanStack Store @new [web|react-native] <component-library>
+    url: https://tanstack.com/store
+    for: signal-based state, fine-grained reactivity
+    trend: ↑ new - by TanStack team
+  
+  # AI/LLM Integration
+  ai_sdk: Vercel AI SDK @new [web] <component-library>
+    url: https://sdk.vercel.ai
+    for: LLM streaming, chat UI, AI applications
+    npm: 500K+ weekly
+    trend: ↑ EXPLODING - AI app standard
+    # Note: Best way to build AI chat interfaces in React
+
+  # Documentation
+  fumadocs: Fumadocs @new [web] <component-library>
+    url: https://fumadocs.vercel.app
+    for: documentation sites, MDX, search
+    trend: ↑ rising - modern Docusaurus alternative
+
+  # Payments
+  stripe_react: @stripe/react-stripe-js @5000★ [web|react-native] <component-library>
+    url: https://stripe.com/docs/stripe-js/react
+    for: Stripe integration, payment forms
+    npm: 1M+ weekly
+    trend: → stable
+
+# =============================================================================
+# QUICK REFERENCE - Top Picks by Category (2025)
+# =============================================================================
+
+# UI Framework:     shadcn/ui (web) | Tamagui (universal) | Paper (RN)
+# State:            Zustand (simple) | Jotai (atomic) | TanStack Query (server)
+# Forms:            React Hook Form + Zod
+# Animation:        Framer Motion (web) | Reanimated (RN)
+# Tables:           TanStack Table (headless) | AG Grid (enterprise)
+# Charts:           Recharts (simple) | Nivo (beautiful) | ECharts (big data)
+# Testing:          Playwright (e2e) | Vitest (unit) | Testing Library (component)
+# Auth:             Clerk (hosted) | NextAuth (self-hosted)
+# Storage:          MMKV (RN) | localForage (web)
+# Camera:           Vision Camera (RN)
+# Routing:          React Router (stable) | TanStack Router (type-safe)

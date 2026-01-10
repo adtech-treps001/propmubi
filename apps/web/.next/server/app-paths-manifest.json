@@ -1,0 +1,10 @@
+{
+  "/agent/page": "app/agent/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/consumer/page": "app/consumer/page.js",
+  "/onboard/page": "app/onboard/page.js",
+  "/microsite/[subdomain]/page": "app/microsite/[subdomain]/page.js",
+  "/pitch/page": "app/pitch/page.js",
+  "/onboard/project/page": "app/onboard/project/page.js",
+  "/builder/page": "app/builder/page.js"
+}

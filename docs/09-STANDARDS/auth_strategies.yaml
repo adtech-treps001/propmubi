@@ -1,0 +1,160 @@
+# Authentication Strategy Modules
+# Expert Review: Comprehensive strategies matching industry standards (Fintech, Healthcare, Web3)
+
+strategies:
+  # ==========================================
+  # 1. CONSUMER / LOW-FRICTION STRATEGIES
+  # ==========================================
+  
+  mobile_only_otp:
+    name: "Mobile First (OTP)"
+    description: "Passwordless login using mobile number and SMS/WhatsApp OTP. De-facto standard in India/SE Asia."
+    # Used by: Uber, WhatsApp, Swiggy, Zomato, FlipKart
+    primary_identifier: "mobile_number"
+    verification_method: "otp_sms"
+    password_required: false
+    features:
+      - "auto_signup_on_otp"
+      - "whatsapp_otp_fallback"
+      - "seamless_relogin"
+
+  social_first:
+    name: "Social Login Priority"
+    description: "One-click login via Identity Providers. Maximizes conversion for consumer apps."
+    # Used by: Spotify, Medium, Pinterest, Canva
+    primary_identifier: "oauth_id"
+    verification_method: "oauth_provider"
+    password_required: false
+    providers: ["google", "apple", "facebook", "github"]
+    fallback: "email_magic_link"
+
+  magic_link:
+    name: "Email Magic Link"
+    description: "Passwordless email login via secure clickable link."
+    # Used by: Slack, Substack, Notion
+    primary_identifier: "email"
+    verification_method: "one_time_link"
+    password_required: false
+    security: "medium" # Vulnerable to email compromise
+
+  # ==========================================
+  # 2. STANDARD / SECURE STRATEGIES
+  # ==========================================
+
+  email_password_secure:
+    name: "Standard Secure Auth"
+    description: "Traditional credentials with strict password policies and optional 2FA."
+    # Used by: Amazon, Netflix, Adobe
+    primary_identifier: "email"
+    verification_method: "password"
+    password_required: true
+    password_policy:
+      min_length: 10
+      require_special_char: true
+      breach_detection: true
+    mfa_optional: true
+
+  biometric_passkey:
+    name: "Biometric / Passkeys (FIDO2)"
+    description: "Modern passwordless auth using device biometrics (FaceID/TouchID). Highest security & convenience."
+    # Used by: Google, Kayak, PayPal, eBay
+    primary_identifier: "username" # or email
+    verification_method: "webauthn"
+    password_required: false
+    fallback: "email_password_secure"
+
+  # ==========================================
+  # 3. HIGH SECURITY / COMPLIANCE STRATEGIES
+  # ==========================================
+
+  mfa_enforced:
+    name: "Strict MFA (2FA)"
+    description: "Mandatory second factor for every login or new device."
+    # Used by: Banking Apps, Cloud Consoles (AWS), GitHub (for sensitive actions)
+    primary_identifier: "email"
+    verification_method: "password"
+    second_factor: ["totp_app", "hardware_key", "sms_otp"]
+    remember_device: "limited_duration"
+
+  enterprise_sso:
+    name: "Enterprise SSO (SAML/OIDC)"
+    description: "Federated identity for corporate environments."
+    # Used by: Salesforce, Jira, Zoom
+    primary_identifier: "work_email"
+    verification_method: "idp_redirect"
+    providers: ["okta", "azure_ad", "google_workspace", "onelogin"]
+    domain_enforcement: true (e.g., only @company.com)
+
+  # ==========================================
+  # 4. SPECIALIZED / DOMAIN SPECIFIC
+  # ==========================================
+
+  fintech_kyc_india:
+    name: "Fintech Onboarding (India)"
+    description: "Auth combined with Identity Verification (KYC)."
+    # Used by: Zerodha, Groww, Paytm Money
+    flow:
+      1_auth: "mobile_only_otp"
+      2_identity: "pan_verification" (NSDL Check)
+      3_auth_link: "aadhaar_otp" (UIDAI Integration)
+      4_liveness: "selfie_video"
+    risk_level: "critical"
+
+  fintech_kyc_global:
+    name: "Fintech Onboarding (Global)"
+    description: "Standard ID Document verification flow."
+    # Used by: Coinbase, Revolut, Wise
+    flow:
+      1_auth: "email_password_secure"
+      2_mfa: "totp_setup"
+      3_doc_verify: "id_upload" (Jumio/Onfido)
+      4_proof_residence: "utility_bill_scan"
+    risk_level: "critical"
+
+  healthcare_hipaa:
+    name: "HIPAA Compliant Auth"
+    description: "High assurance auth with audit trails and auto-logout."
+    # Used by: Mayo Clinic, Epic MyChart
+    base_strategy: "email_password_secure"
+    features:
+      - "auto_logout_15min"
+      - "concurrent_session_block"
+      - "full_audit_logging"
+    
+  web3_wallet:
+    name: "Web3 Wallet Connect"
+    description: "Cryptographic signature based login."
+    # Used by: OpenSea, Uniswap, Decentraland
+    primary_identifier: "wallet_address"
+    verification_method: "signature_challenge" (SIWE - Sign in with Ethereum)
+    password_required: false
+    kyc_trigger: "on_fiat_ramp"
+
+  # ==========================================
+  # 5. CROSS-DEVICE & ADVANCED STRATEGIES
+  # ==========================================
+
+  qr_handshake:
+    name: "QR Code Login (Cross-Device)"
+    description: "Scan a QR code on Desktop using a logged-in Mobile App to authenticate instantly."
+    # Used by: WhatsApp Web, Discord, Telegram Desktop, Steam
+    primary_identifier: "session_token_transfer"
+    verification_method: "qr_scan_signature"
+    prerequisite: "logged_in_mobile_device"
+    security: "high" (Physical device proximity required)
+    flow:
+      1_desktop: "generate_dynamic_qr"
+      2_mobile: "scan_and_approve"
+      3_desktop: "session_established"
+
+  cross_device_mfa:
+    name: "Multi-Device MFA Notification"
+    description: "Push notification sent to all trusted devices to approve a new login attempt."
+    # Used by: Google (Yes, it's me), Apple, Microsoft Authenticator
+    primary_identifier: "existing_account"
+    verification_method: "device_approval_push"
+    features:
+      - "geo_location_display" # Show 'Login from Chennai, IN'"
+      - "device_type_display" # Show 'Chrome on Windows'"
+      - "number_matching" # "Tap the number 42 on your phone"
+    fallback: "totp_app"

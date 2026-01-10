@@ -1,0 +1,94 @@
+[
+  {
+    "id": "100",
+    "name": "My Home Sayuk",
+    "developer": "My Home Constructions",
+    "location": "Tellapur, Hyderabad",
+    "price_range": "\u20b9 1.2 Cr - 3.5 Cr",
+    "status": "Under Construction",
+    "image": "https://is1-3.housingcdn.com/4f2250e8/6d582823625b045371676999e52504b5/v0/fs/my_home_sayuk-tellapur-hyderabad-my_home_group.jpeg",
+    "coordinates": [
+      17.465,
+      78.298
+    ],
+    "sentiment_score": 85,
+    "verified": true
+  },
+  {
+    "id": "101",
+    "name": "Aparna Zenon",
+    "developer": "Aparna Constructions",
+    "location": "Puppalaguda, Hyderabad",
+    "price_range": "\u20b9 1.2 Cr - 3.5 Cr",
+    "status": "Under Construction",
+    "image": "https://is1-3.housingcdn.com/4f2250e8/3b2c2866993181878079820f40683d73/v0/fs/aparna_zenon-puppalaguda-hyderabad-aparna_constructions_and_estates_pvt_ltd.jpeg",
+    "coordinates": [
+      17.404,
+      78.369
+    ],
+    "sentiment_score": 90,
+    "verified": true
+  },
+  {
+    "id": "102",
+    "name": "Prestige High Fields",
+    "developer": "Prestige Group",
+    "location": "Financial District, Hyderabad",
+    "price_range": "\u20b9 1.2 Cr - 3.5 Cr",
+    "status": "Under Construction",
+    "image": "https://is1-2.housingcdn.com/4f2250e8/df3f48768d6614457635677989938634/v0/fs/prestige_high_fields-financial_district-hyderabad-prestige_group.jpeg",
+    "coordinates": [
+      17.417,
+      78.349
+    ],
+    "sentiment_score": 94,
+    "verified": true
+  },
+  {
+    "id": "103",
+    "name": "Rajapushpa Provincia",
+    "developer": "Rajapushpa Properties",
+    "location": "Narsingi, Hyderabad",
+    "price_range": "\u20b9 1.2 Cr - 3.5 Cr",
+    "status": "Under Construction",
+    "image": "https://is1-2.housingcdn.com/4f2250e8/0631853c84752530188701970222129d/v0/fs/rajapushpa_provincia-narsingi-hyderabad-rajapushpa_properties_pvt_ltd.jpeg",
+    "coordinates": [
+      17.391,
+      78.358
+    ],
+    "sentiment_score": 85,
+    "verified": true
+  },
+  {
+    "id": "104",
+    "name": "Green Valley Open Plots",
+    "developer": "Samskruthi Townships",
+    "location": "Shadnagar, Hyderabad",
+    "price_range": "\u20b9 12,000 / sq.yrd",
+    "status": "Ready to Register",
+    "type": "PLOT",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    "coordinates": [
+      17.07,
+      78.20
+    ],
+    "sentiment_score": 78,
+    "verified": true
+  },
+  {
+    "id": "105",
+    "name": "Nature's Nest Eco-Farms",
+    "developer": "Urban Farmers Co.",
+    "location": "Kadthal, Srisailam Hwy",
+    "price_range": "\u20b9 45 L / Half Acre",
+    "status": "Managed Farmland",
+    "type": "FARM",
+    "image": "https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=800&q=80",
+    "coordinates": [
+      16.95,
+      78.50
+    ],
+    "sentiment_score": 82,
+    "verified": true
+  }
+]

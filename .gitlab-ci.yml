@@ -1,0 +1,44 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  GCP_PROJECT_ID: "propmubi-production"
+  GKE_CLUSTER_NAME: "production-gke"
+  GKE_ZONE: "asia-south1"
+
+test:
+  stage: test
+  image: node:18
+  script:
+    - cd web
+    - npm ci
+    - npm test
+    - npm run lint
+  only:
+    changes:
+      - web/**/*
+
+build-frontend:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u _json_key -p "$GCR_JSON_KEY" gcr.io
+    - docker build -t gcr.io/$GCP_PROJECT_ID/propmubi-web:$CI_COMMIT_SHA ./web
+    - docker push gcr.io/$GCP_PROJECT_ID/propmubi-web:$CI_COMMIT_SHA
+  only:
+    - main
+
+deploy-frontend:
+  stage: deploy
+  image: google/cloud-sdk:latest
+  script:
+    - gcloud auth activate-service-account --key-file "$GCP_SA_KEY"
+    - gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $GKE_ZONE --project $GCP_PROJECT_ID
+    - kubectl set image deployment/propmubi-web propmubi-web=gcr.io/$GCP_PROJECT_ID/propmubi-web:$CI_COMMIT_SHA -n production
+  only:
+    - main
+  when: manual

@@ -1,0 +1,286 @@
+{
+  "rera_scraping_template": {
+    "metadata": {
+      "portal_url": "https://rerait.telangana.gov.in/SearchList/Search",
+      "scraping_method": "Manual with Advanced Search",
+      "data_structure_version": "1.0",
+      "last_updated": "2025-01-02"
+    },
+    
+    "search_parameters": {
+      "district": "Hyderabad",
+      "project_type": "Residential", 
+      "date_range": {
+        "from": "",
+        "to": ""
+      },
+      "additional_filters": {
+        "taluka": "Optional",
+        "village": "Optional",
+        "survey_number": "Optional"
+      }
+    },
+    
+    "project_data_template": {
+      "basic_info": {
+        "project_name": "",
+        "rera_number": "",
+        "promoter_name": "",
+        "location": {
+          "district": "",
+          "taluka": "",
+          "village": "",
+          "address": "",
+          "survey_numbers": []
+        }
+      },
+      
+      "project_details": {
+        "project_type": "",
+        "total_area": "",
+        "total_units": 0,
+        "total_towers": 0,
+        "floors_per_tower": 0,
+        "unit_configurations": {
+          "1bhk": {
+            "count": 0,
+            "area_range": "",
+            "price_range": ""
+          },
+          "2bhk": {
+            "count": 0,
+            "area_range": "",
+            "price_range": ""
+          },
+          "3bhk": {
+            "count": 0,
+            "area_range": "",
+            "price_range": ""
+          },
+          "4bhk": {
+            "count": 0,
+            "area_range": "",
+            "price_range": ""
+          }
+        }
+      },
+      
+      "timeline": {
+        "registration_date": "",
+        "commencement_date": "",
+        "proposed_completion_date": "",
+        "actual_completion_date": "",
+        "possession_date": "",
+        "project_status": ""
+      },
+      
+      "approvals": {
+        "building_approval": {
+          "authority": "",
+          "approval_number": "",
+          "approval_date": "",
+          "validity": ""
+        },
+        "layout_approval": {
+          "authority": "",
+          "approval_number": "",
+          "approval_date": ""
+        },
+        "environmental_clearance": {
+          "required": false,
+          "authority": "",
+          "clearance_number": "",
+          "clearance_date": ""
+        },
+        "other_nocs": []
+      },
+      
+      "financial_info": {
+        "project_cost": "",
+        "land_cost": "",
+        "construction_cost": "",
+        "bank_guarantee": {
+          "bank_name": "",
+          "guarantee_amount": "",
+          "validity": ""
+        },
+        "escrow_account": {
+          "bank_name": "",
+          "account_number": "",
+          "ifsc_code": ""
+        }
+      },
+      
+      "legal_info": {
+        "land_ownership": "",
+        "title_documents": [],
+        "encumbrance_certificate": "",
+        "litigation_status": "",
+        "compliance_status": ""
+      },
+      
+      "amenities": [],
+      
+      "contact_info": {
+        "promoter_address": "",
+        "promoter_phone": "",
+        "promoter_email": "",
+        "project_office_address": "",
+        "project_office_phone": "",
+        "website": ""
+      },
+      
+      "documents": {
+        "rera_certificate": {
+          "available": false,
+          "document_id": "",
+          "url": ""
+        },
+        "layout_plan": {
+          "available": false,
+          "document_id": "",
+          "url": ""
+        },
+        "building_plan": {
+          "available": false,
+          "document_id": "",
+          "url": ""
+        },
+        "approvals": {
+          "available": false,
+          "document_ids": [],
+          "urls": []
+        },
+        "quarterly_reports": {
+          "available": false,
+          "latest_report_date": "",
+          "document_ids": [],
+          "urls": []
+        },
+        "completion_certificate": {
+          "available": false,
+          "document_id": "",
+          "url": ""
+        },
+        "occupancy_certificate": {
+          "available": false,
+          "document_id": "",
+          "url": ""
+        }
+      },
+      
+      "progress_reports": {
+        "latest_quarter": "",
+        "construction_progress": "",
+        "units_sold": 0,
+        "units_available": 0,
+        "infrastructure_status": {
+          "roads": "",
+          "water_supply": "",
+          "electricity": "",
+          "sewerage": "",
+          "drainage": ""
+        }
+      },
+      
+      "complaints": {
+        "total_complaints": 0,
+        "resolved_complaints": 0,
+        "pending_complaints": 0,
+        "complaint_categories": []
+      }
+    },
+    
+    "scraping_instructions": {
+      "manual_steps": [
+        "1. Navigate to TG-RERA search portal",
+        "2. Select 'Registered Projects' radio button",
+        "3. Click 'Advanced Search' to expand filters",
+        "4. Select District (e.g., Hyderabad)",
+        "5. Select Project Type (e.g., Residential)",
+        "6. Complete captcha verification",
+        "7. Click Search button",
+        "8. Navigate through paginated results",
+        "9. Click on each project for detailed view",
+        "10. Extract all available information",
+        "11. Download available documents",
+        "12. Record document URLs and IDs"
+      ],
+      
+      "data_extraction_points": [
+        "Project basic information from search results",
+        "Detailed project information from project page",
+        "Document section with all available files",
+        "Progress report section",
+        "Financial information section",
+        "Complaint section if available",
+        "Contact information section"
+      ],
+      
+      "automation_challenges": [
+        "Captcha verification required for each search",
+        "Session timeout after inactivity",
+        "Rate limiting on rapid requests",
+        "JavaScript-heavy interface",
+        "Dynamic content loading"
+      ],
+      
+      "recommended_tools": [
+        "Browser automation (Playwright/Selenium)",
+        "Captcha solving services (manual intervention)",
+        "Session management",
+        "Data validation and cleaning",
+        "Document download automation"
+      ]
+    },
+    
+    "data_validation": {
+      "required_fields": [
+        "project_name",
+        "rera_number", 
+        "promoter_name",
+        "location.district",
+        "project_details.project_type",
+        "timeline.registration_date"
+      ],
+      
+      "validation_rules": {
+        "rera_number_format": "P{2-3 digits}{8-10 digits}",
+        "date_format": "DD/MM/YYYY or YYYY-MM-DD",
+        "area_format": "Number with unit (sq.ft, acres, etc.)",
+        "price_format": "₹ amount with unit (Cr, L, etc.)"
+      },
+      
+      "data_quality_checks": [
+        "RERA number uniqueness",
+        "Date consistency (registration < completion)",
+        "Area calculations (total vs unit areas)",
+        "Contact information validity",
+        "Document URL accessibility"
+      ]
+    },
+    
+    "output_formats": {
+      "json": {
+        "structure": "Nested JSON with all project data",
+        "file_naming": "rera_projects_{district}_{date}.json"
+      },
+      
+      "csv": {
+        "structure": "Flattened data for spreadsheet analysis",
+        "file_naming": "rera_projects_{district}_{date}.csv"
+      },
+      
+      "database": {
+        "tables": [
+          "projects",
+          "developers", 
+          "documents",
+          "progress_reports",
+          "complaints"
+        ],
+        "relationships": "Foreign key constraints between tables"
+      }
+    }
+  }
+}

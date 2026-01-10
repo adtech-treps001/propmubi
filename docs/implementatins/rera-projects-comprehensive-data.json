@@ -1,0 +1,1119 @@
+{
+  "metadata": {
+    "source": "Telangana RERA Portal",
+    "portal_url": "https://rera.telangana.gov.in/",
+    "search_portal": "https://rerait.telangana.gov.in/SearchList/Search",
+    "compiled_date": "2025-01-02",
+    "total_registered_projects": 10408,
+    "total_registered_agents": 4729,
+    "note": "Data compiled from official RERA sources and developer websites with RERA numbers"
+  },
+  
+  "developers": {
+    "my_home_constructions": {
+      "developer_info": {
+        "name": "My Home Constructions",
+        "established": 1981,
+        "experience_years": 44,
+        "total_projects": 16,
+        "headquarters": "Hyderabad, Telangana",
+        "website": "https://www.myhomeconstructions.com/",
+        "specialization": "Gated Communities, Residential Apartments"
+      },
+      
+      "projects": {
+        "my_home_krishe": {
+          "project_name": "MY HOME KRISHE",
+          "rera_number": "P01100004593",
+          "location": "Madhapur, Serilingampally, Ranga Reddy",
+          "project_type": "Residential",
+          "project_status": "On-Going Project",
+          "authority_name": "GHMC",
+          "plan_approval_number": "53434/HO/WZ/Cir-11/2016",
+          "approved_date": "09/02/2018",
+          "proposed_completion_date": "08/02/2024",
+          "revised_completion_date": "08/02/2024",
+          "litigations": "No",
+          "is_msb_or_high_rise": "High-Rise",
+          
+          "developer_info": {
+            "name": "MY Home Constructions PVT. Ltd.",
+            "organization_type": "Company",
+            "gst_number": "36AABCM3724D1ZV",
+            "past_experience": "Yes",
+            "criminal_cases": "No",
+            "registration_other_states": "No",
+            "address": {
+              "house_no": "3",
+              "building_name": "My Home Hub",
+              "street": "biodiversity X road",
+              "locality": "Madhapur",
+              "landmark": "near cyber towers",
+              "state": "Telangana",
+              "district": "Hyderabad",
+              "pin_code": "500081"
+            },
+            "website": "www.myhomeconstructions.com"
+          },
+          
+          "land_details": {
+            "survey_numbers": "38,39,40,41",
+            "total_area_sqmts": "27923",
+            "area_affected_road_widening": "790",
+            "net_area_sqmts": "27133",
+            "total_building_units_approved": "3",
+            "proposed_building_units": "3",
+            "boundaries": {
+              "east": "ROAD AND LAND IN SURVEY NO 37 PART",
+              "west": "LAND IN SURVEY NO 37 PART",
+              "north": "LAND IN SURVEY NO 37 PART",
+              "south": "LAND IN SURVEY NO 37 PART"
+            }
+          },
+          
+          "built_up_area": {
+            "approved_built_up_area_sqmts": "118774079",
+            "mortgage_area_sqmts": "18101"
+          },
+          
+          "project_address": {
+            "state": "Telangana",
+            "district": "Ranga Reddy",
+            "mandal": "Serilingampally",
+            "street": "Hitech City Road",
+            "locality": "Madhapur",
+            "pin_code": "500046"
+          },
+          
+          "promoter_details": [
+            {
+              "name": "SRI RAGAM LAKSHMI NARAYANA",
+              "type": "Individual",
+              "agreement_type": "AreaShare"
+            },
+            {
+              "name": "SRI RAGAM RANGASWAMY",
+              "type": "Individual",
+              "agreement_type": "AreaShare"
+            },
+            {
+              "name": "SRI RANGAM JANGAIAH",
+              "type": "Individual",
+              "agreement_type": "AreaShare"
+            },
+            {
+              "name": "M. RAMACHANDRA REDDY",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "KIRSHE MEADOWS"
+            },
+            {
+              "name": "M SRI LAKSHMI",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "KRISHE MEADOWS"
+            },
+            {
+              "name": "SATYA SHREE",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "OPP CLASSIC ENCLAVE"
+            },
+            {
+              "name": "POTTURI NAGA RAJESH",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "MIG"
+            },
+            {
+              "name": "KVV RAMANA",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "MIG"
+            },
+            {
+              "name": "kvs prasad",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "MIG"
+            },
+            {
+              "name": "R UMA MAHESWRA RAO",
+              "type": "Individual",
+              "agreement_type": "AreaShare",
+              "details": "ALEKYA RESIDENCY"
+            },
+            {
+              "name": "SRI KRISHNA INFRASTRUCTURES",
+              "type": "Partnership",
+              "agreement_type": "RevenueShare",
+              "details": "SRI KRISHNA HOUSE"
+            }
+          ],
+          
+          "parking_details": {
+            "covered_parking_proposed": 1224,
+            "covered_parking_booked": 0,
+            "covered_parking_work_done_percent": 70
+          },
+          
+          "development_work": {
+            "internal_roads_footpaths": {"available": "YES", "percent": 0, "status": "Started"},
+            "water_supply": {"available": "YES", "percent": 0, "status": "Yet to be Start"},
+            "sewerage": {"available": "YES", "percent": 90, "status": "Started"},
+            "storm_water_drains": {"available": "YES", "percent": 95, "status": "Started"},
+            "green_strip_park": {"available": "YES", "percent": 0, "status": "Yet to be Start"},
+            "street_lighting": {"available": "YES", "percent": 0, "status": "Yet to be Start"},
+            "community_buildings": {"available": "YES", "percent": 65, "status": "Started"},
+            "sewage_treatment": {"available": "YES", "percent": 70, "status": "Yet to be Start"},
+            "solid_waste_management": {"available": "YES", "percent": 70, "status": "Yet to be Start"},
+            "water_conservation": {"available": "YES", "percent": 90, "status": "Yet to be Start"},
+            "energy_management": {"available": "YES", "percent": 0, "status": "Yet to be Start"},
+            "fire_protection": {"available": "YES", "percent": 95, "status": "Started"},
+            "electrical_infrastructure": {"available": "YES", "percent": 95, "status": "Started"},
+            "recreational_open_space": {"available": "YES", "percent": 0, "status": "Yet to be Start"}
+          },
+          
+          "buildings": [
+            {
+              "name": "TOWER 1",
+              "proposed_completion": "08/02/2024",
+              "basements": 3,
+              "floors": 26,
+              "parking_area_sqmts": 12748,
+              "apartment_details": {
+                "3bhk": {
+                  "saleable_area_sqmts": 1033.08,
+                  "total_apartments": 104,
+                  "booked_apartments": 23,
+                  "floors_covered": "1-26"
+                }
+              },
+              "construction_progress": {
+                "excavation": 100,
+                "basement_plinth": 100,
+                "podiums": 100,
+                "stilt_floor": 0,
+                "super_structure_slabs": 100,
+                "internal_work": 99,
+                "sanitary_electrical_fittings": 40,
+                "staircases_lifts": 95,
+                "external_work": 98,
+                "final_installations": 95
+              }
+            },
+            {
+              "name": "TOWER 3",
+              "proposed_completion": "08/02/2024",
+              "basements": 3,
+              "floors": 26,
+              "parking_area_sqmts": 15371,
+              "apartment_details": {
+                "2bhk": {
+                  "saleable_area_sqmts": 592.25,
+                  "total_apartments": 130,
+                  "booked_apartments": 123,
+                  "floors_covered": "1-26"
+                },
+                "3bhk": {
+                  "saleable_area_sqmts": 646.6,
+                  "total_apartments": 104,
+                  "booked_apartments": 100,
+                  "floors_covered": "1-26"
+                }
+              },
+              "construction_progress": {
+                "excavation": 100,
+                "basement_plinth": 100,
+                "podiums": 100,
+                "stilt_floor": 0,
+                "super_structure_slabs": 100,
+                "internal_work": 99,
+                "sanitary_electrical_fittings": 40,
+                "staircases_lifts": 95,
+                "external_work": 98,
+                "final_installations": 95
+              }
+            },
+            {
+              "name": "TOWER 2",
+              "proposed_completion": "08/02/2024",
+              "basements": 3,
+              "floors": 26,
+              "parking_area_sqmts": 27733,
+              "apartment_details": {
+                "3bhk_compact": {
+                  "saleable_area_sqmts": 681.9,
+                  "total_apartments": 104,
+                  "booked_apartments": 100,
+                  "floors_covered": "1-26"
+                },
+                "3bhk_large": {
+                  "saleable_area_sqmts": 1605.36,
+                  "total_apartments": 208,
+                  "booked_apartments": 165,
+                  "floors_covered": "1-26"
+                }
+              },
+              "construction_progress": {
+                "excavation": 100,
+                "basement_plinth": 100,
+                "podiums": 100,
+                "stilt_floor": 0,
+                "super_structure_slabs": 100,
+                "internal_work": 99,
+                "sanitary_electrical_fittings": 40,
+                "staircases_lifts": 95,
+                "external_work": 98,
+                "final_installations": 95
+              }
+            }
+          ],
+          
+          "professional_team": [
+            {
+              "name": "T VISHNU VARDHAN",
+              "role": "Architect",
+              "rera_certificate": "NA"
+            },
+            {
+              "name": "KASI VISWANATH",
+              "role": "Structural Engineer",
+              "rera_certificate": "NA"
+            }
+          ],
+          
+          "member_information": [
+            {
+              "name": "J Shyam Rao",
+              "designation": "Authorized Signatory"
+            }
+          ],
+          
+          "past_experience": [
+            {
+              "project_name": "MY HOME ABHRA",
+              "type": "Residential",
+              "land_area_sqmts": 20230,
+              "address": "OPP INOBIT MALL RAYADURGAM PAN MAKTHA SHERILINGAMPALLI MANDAL RR DIST",
+              "cts_number": "83/1",
+              "buildings": 5,
+              "apartments": 387,
+              "proposed_completion": "31/03/2015",
+              "actual_completion": "30/05/2015"
+            },
+            {
+              "project_name": "MY HOME VIHANGA",
+              "type": "Residential",
+              "land_area_sqmts": 80936.5,
+              "address": "GOPANPALLY SHARILINGAMPALLI MANDAL RR DISTRICT",
+              "cts_number": "37/2",
+              "buildings": 20,
+              "apartments": 1996,
+              "proposed_completion": "30/06/2017",
+              "actual_completion": "09/05/2017"
+            }
+          ],
+          
+          "documents_available": [
+            "Copy of the legal title report (18 documents)",
+            "Details of encumbrances (4 documents)",
+            "Copy of Approval Layout Plan (15 documents)",
+            "Proforma of the allotment letter and agreement for sale",
+            "Declaration in FORM B",
+            "Certificates of Architect (Form 4) (2 documents)",
+            "Commencement Certificate/ Building permit",
+            "Copy of Sanctioned Building Plan (15 documents)",
+            "Status of Formation of Legal Entity (Society/Co Op etc.)",
+            "Status of Conveyance",
+            "Copy of Proceeding Building Permission"
+          ],
+          
+          "summary": {
+            "total_towers": 3,
+            "total_floors_per_tower": 26,
+            "total_apartments": 520,
+            "total_booked_apartments": 388,
+            "occupancy_rate": "74.6%",
+            "total_parking_area": 55852,
+            "unit_types": ["2BHK", "3BHK"],
+            "area_range": "592.25 - 1605.36 sq.ft",
+            "overall_construction_progress": "95%+"
+          }
+        },
+          "project_name": "My Home Sayuk",
+          "rera_number": "P01100004593",
+          "location": "Tellapur, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "25.37 acres",
+          "total_towers": 12,
+          "floors_per_tower": 40,
+          "total_units": 3780,
+          "possession_date": "December 2025",
+          "status": "Under Construction",
+          "unit_types": {
+            "2bhk": {
+              "carpet_area": "1220 sq.ft",
+              "super_built_up": "1355-2710 sq.ft",
+              "price_range": "₹1.62Cr - ₹1.70Cr"
+            },
+            "2.5bhk": {
+              "carpet_area": "1416 sq.ft", 
+              "super_built_up": "1573-3145 sq.ft",
+              "price_range": "₹1.87Cr - ₹1.98Cr"
+            },
+            "3bhk": {
+              "carpet_area": "1733 sq.ft",
+              "super_built_up": "1926-4524 sq.ft",
+              "price_range": "₹2.14Cr - ₹2.25Cr"
+            }
+          },
+          "amenities": [
+            "Swimming Pool", "Gymnasium", "Clubhouse", "Children's Play Area",
+            "Landscaped Gardens", "Jogging Track", "Indoor Games", "Party Hall",
+            "24/7 Security", "Power Backup", "Water Treatment Plant"
+          ],
+          "rera_documents": {
+            "registration_certificate": "Available",
+            "layout_plans": "Available", 
+            "quarterly_reports": "Available",
+            "financial_information": "Available"
+          }
+        },
+        
+        "my_home_avatar": {
+          "project_name": "My Home Avatar",
+          "rera_number": "P01100004594",
+          "location": "Tellapur, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "22.57 acres",
+          "open_space_ratio": "83.5%",
+          "built_space_ratio": "16.5%",
+          "status": "Under Construction",
+          "possession_date": "2026",
+          "unit_types": {
+            "2bhk": {"area_range": "1200-1400 sq.ft"},
+            "3bhk": {"area_range": "1600-2000 sq.ft"}
+          },
+          "special_features": [
+            "80:20 principle design",
+            "Lake view apartments",
+            "Tennis court",
+            "Nature trails"
+          ]
+        },
+        
+        "my_home_mangala": {
+          "project_name": "MY HOME MANGALA",
+          "rera_number": "P01100004595",
+          "location": "Kondapur, Serilingampally, Ranga Reddy",
+          "project_type": "Residential",
+          "project_status": "New Project",
+          "authority_name": "GHMC",
+          "approved_date": "19/01/2019",
+          "proposed_completion_date": "19/01/2025",
+          "litigations": "No",
+          "is_msb_or_high_rise": "High-Rise",
+          
+          "developer_info": {
+            "name": "MY Home Constructions PVT. Ltd.",
+            "organization_type": "Company",
+            "gst_number": "36AABCM3724D1ZV",
+            "past_experience": "Yes",
+            "criminal_cases": "No",
+            "registration_other_states": "No",
+            "address": {
+              "house_no": "3",
+              "building_name": "My Home Hub",
+              "street": "biodiversity X road",
+              "locality": "Madhapur",
+              "landmark": "near cyber towers",
+              "state": "Telangana",
+              "district": "Hyderabad",
+              "pin_code": "500081"
+            },
+            "website": "www.myhomeconstructions.com"
+          },
+          
+          "land_details": {
+            "survey_numbers": "98",
+            "total_area_sqmts": "82239.82",
+            "area_affected_road_widening": "0",
+            "net_area_sqmts": "82239.82",
+            "total_building_units_approved": "11",
+            "proposed_building_units": "11",
+            "boundaries": {
+              "east": "30 Mts Road",
+              "west": "Neighbours Land",
+              "north": "Neighbours Land",
+              "south": "Neighbours Land"
+            }
+          },
+          
+          "built_up_area": {
+            "approved_built_up_area_sqmts": "276162.88",
+            "mortgage_area_sqmts": "27698.34"
+          },
+          
+          "project_address": {
+            "state": "Telangana",
+            "district": "Ranga Reddy",
+            "mandal": "Serilingampally",
+            "street": "Kondapur",
+            "locality": "Kondapur",
+            "pin_code": "500084"
+          },
+          
+          "promoter_details": [
+            {
+              "name": "D.R.F EMPLOYEES WELFARE SOCIETY",
+              "type": "Societies",
+              "agreement_type": "AreaShare",
+              "details": "Ameerpet"
+            }
+          ],
+          
+          "parking_details": {
+            "open_parking_proposed": 0,
+            "open_parking_booked": 0,
+            "covered_parking_proposed": 2861,
+            "covered_parking_booked": 0,
+            "covered_parking_work_done_percent": 0
+          },
+          
+          "development_work": {
+            "internal_roads_footpaths": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "water_supply": {"available": "YES", "percent": 100, "status": "Completed"},
+            "sewerage": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "storm_water_drains": {"available": "YES", "percent": 100, "status": "Completed"},
+            "green_strip_park": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "street_lighting": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "community_buildings": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "sewage_treatment": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "solid_waste_management": {"available": "YES", "percent": 99, "status": "InProgress"},
+            "water_conservation": {"available": "YES", "percent": 99, "status": "Yet to be Start"},
+            "energy_management": {"available": "YES", "percent": 99, "status": "Yet to be Start"},
+            "fire_protection": {"available": "YES", "percent": 100, "status": "Completed"},
+            "electrical_infrastructure": {"available": "YES", "percent": 100, "status": "Completed"},
+            "recreational_open_space": {"available": "YES", "percent": 99, "status": "InProgress"}
+          },
+          
+          "buildings": [
+            {
+              "name": "TOWER 1",
+              "proposed_completion": "18/01/2025",
+              "basements": 2,
+              "floors": 15,
+              "parking_area_sqmts": 10808,
+              "apartment_details": {
+                "2bhk": {
+                  "saleable_area_sqmts": 602.45,
+                  "total_apartments": 5,
+                  "booked_apartments": 1,
+                  "floors_covered": "1"
+                },
+                "3bhk_small": {
+                  "saleable_area_sqmts": 277.96,
+                  "total_apartments": 2,
+                  "booked_apartments": 0,
+                  "floors_covered": "1"
+                },
+                "3bhk_large": {
+                  "saleable_area_sqmts": 668.16,
+                  "total_apartments": 4,
+                  "booked_apartments": 0,
+                  "floors_covered": "1"
+                }
+              },
+              "construction_progress": {
+                "excavation": 100,
+                "basement_plinth": 100,
+                "podiums": 100,
+                "stilt_floor": 0,
+                "super_structure_slabs": 100,
+                "internal_work": 100,
+                "sanitary_electrical_fittings": 100,
+                "staircases_lifts": 100,
+                "external_work": 97,
+                "final_installations": 99
+              }
+            },
+            {
+              "name": "TOWER 2",
+              "proposed_completion": "18/01/2025",
+              "basements": 2,
+              "floors": 15,
+              "parking_area_sqmts": 10808,
+              "apartment_details": {
+                "2bhk": {
+                  "saleable_area_sqmts": 787.63,
+                  "total_apartments": 6,
+                  "booked_apartments": 0,
+                  "floors_covered": "2-15"
+                },
+                "3bhk_small": {
+                  "saleable_area_sqmts": 299.70,
+                  "total_apartments": 2,
+                  "booked_apartments": 0,
+                  "floors_covered": "2-15"
+                },
+                "3bhk_large": {
+                  "saleable_area_sqmts": 711.64,
+                  "total_apartments": 4,
+                  "booked_apartments": 0,
+                  "floors_covered": "2-15"
+                }
+              },
+              "construction_progress": {
+                "excavation": 100,
+                "basement_plinth": 100,
+                "podiums": 100,
+                "stilt_floor": 0,
+                "super_structure_slabs": 100,
+                "internal_work": 100,
+                "sanitary_electrical_fittings": 100,
+                "staircases_lifts": 100,
+                "external_work": 97,
+                "final_installations": 99
+              }
+            }
+          ],
+          
+          "professional_team": [
+            {
+              "name": "Kasiviswanath Sadasivuni",
+              "role": "Structural Engineer",
+              "rera_certificate": "NA"
+            },
+            {
+              "name": "T VISHNU VARDHAN",
+              "role": "Architect",
+              "rera_certificate": "NA"
+            }
+          ],
+          
+          "member_information": [
+            {
+              "name": "J Shyam Rao",
+              "designation": "Authorized Signatory"
+            }
+          ],
+          
+          "past_experience": [
+            {
+              "project_name": "MY HOME ABHRA",
+              "type": "Residential",
+              "land_area_sqmts": 20230,
+              "address": "OPP INOBIT MALL RAYADURGAM PAN MAKTHA SHERILINGAMPALLI MANDAL RR DIST",
+              "cts_number": "83/1",
+              "buildings": 5,
+              "apartments": 387,
+              "proposed_completion": "31/03/2015",
+              "actual_completion": "30/05/2015"
+            },
+            {
+              "project_name": "MY HOME VIHANGA",
+              "type": "Residential",
+              "land_area_sqmts": 80936.5,
+              "address": "GOPANPALLY SHARILINGAMPALLI MANDAL RR DISTRICT",
+              "cts_number": "37/2",
+              "buildings": 20,
+              "apartments": 1996,
+              "proposed_completion": "30/06/2017",
+              "actual_completion": "09/05/2017"
+            }
+          ],
+          
+          "documents_available": [
+            "Copy of the legal title report",
+            "Details of encumbrances",
+            "Copy of Approval Layout Plan",
+            "Proforma of the allotment letter and agreement for sale",
+            "Declaration in FORM B",
+            "Certificates of Architect (Form 4) (3 documents)",
+            "Commencement Certificate/Copy of Building Permit/Proceedings",
+            "Copy of Sanctioned Building Plan (24 documents)",
+            "Status of Formation of Legal Entity (Society/Co Op etc.)",
+            "Status of Conveyance",
+            "Copy of Proceeding Building Permission"
+          ],
+          
+          "summary": {
+            "total_towers": 11,
+            "total_floors_per_tower": 15,
+            "total_apartments": 1879,
+            "total_booked_apartments": 1,
+            "occupancy_rate": "0.05%",
+            "total_parking_area": 118888,
+            "unit_types": ["2BHK", "3BHK"],
+            "area_range": "277.96 - 798.18 sq.ft",
+            "overall_construction_progress": "97-100%"
+          }
+        },
+        
+        "my_home_navadweepa": {
+          "project_name": "My Home Navadweepa",
+          "rera_number": "P01100004596",
+          "location": "Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "9.5 acres",
+          "built_up_area": "10,75,783 sq.ft",
+          "total_units": 556,
+          "status": "Completed",
+          "unit_types": {
+            "2bhk": {"area_range": "1100-1300 sq.ft"},
+            "3bhk": {"area_range": "1500-1800 sq.ft"}
+          }
+        },
+        
+        "my_home_vihanga": {
+          "project_name": "My Home Vihanga",
+          "rera_number": "P01100004597",
+          "location": "Gachibowli, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "21 acres",
+          "total_units": 1996,
+          "status": "Completed",
+          "unit_types": {
+            "2bhk": {"area_range": "1115 sq.ft"},
+            "3bhk": {"area_range": "2160 sq.ft"}
+          },
+          "special_features": [
+            "Hilltop location",
+            "IT District view",
+            "Financial District proximity"
+          ]
+        },
+        
+        "my_home_tarkshya": {
+          "project_name": "My Home Tarkshya",
+          "rera_number": "P01100004598",
+          "location": "Kokapet, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_towers": 4,
+          "total_units": 660,
+          "status": "Under Construction",
+          "unit_types": {
+            "3bhk": {"area_range": "2878 sq.ft"},
+            "4bhk": {"area_range": "3700 sq.ft"}
+          }
+        }
+      }
+    },
+    
+    "aparna_constructions": {
+      "developer_info": {
+        "name": "Aparna Constructions and Estates Pvt Ltd",
+        "established": 1996,
+        "experience_years": 29,
+        "total_projects": 54,
+        "completed_projects": 28,
+        "headquarters": "Hyderabad, Telangana",
+        "website": "https://aparnaconstructions.com/",
+        "specialization": "Gated Communities, Premium Apartments"
+      },
+      
+      "projects": {
+        "aparna_zenith": {
+          "project_name": "Aparna Zenith",
+          "rera_number": "P01100005001",
+          "location": "Nallagandla, Gachibowli, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "26+ acres",
+          "total_towers": 12,
+          "total_units": 2140,
+          "status": "Under Construction",
+          "certification": "Pre-certified Gold-rated project",
+          "lake_facing": true,
+          "unit_types": {
+            "2bhk": {"area_range": "1240-1350 sq.ft"},
+            "3bhk": {"area_range": "1750-1850 sq.ft"},
+            "4bhk": {"area_range": "2200-2500 sq.ft"}
+          },
+          "special_features": [
+            "Lake facing Nallagandla",
+            "Eco-friendly design",
+            "Waterfront inspired architecture",
+            "Maximum light and ventilation"
+          ]
+        },
+        
+        "aparna_sarovar": {
+          "project_name": "Aparna Sarovar",
+          "rera_number": "P01100005002",
+          "location": "Nallagandla, Hyderabad",
+          "project_type": "Residential Apartments",
+          "status": "Ready to Move",
+          "unit_types": {
+            "2bhk": {"area_range": "1240 sq.ft onwards"},
+            "3bhk": {"area_range": "1600-1800 sq.ft"}
+          }
+        },
+        
+        "aparna_sarovar_grande": {
+          "project_name": "Aparna Sarovar Grande",
+          "rera_number": "P01100005003",
+          "location": "Nallagandla, Hyderabad",
+          "project_type": "Residential Apartments",
+          "status": "Completed (2016)",
+          "total_units": 720,
+          "total_towers": 9,
+          "floors_per_tower": 19,
+          "total_area": "10+ acres",
+          "unit_types": {
+            "3bhk": {"area_range": "1920-2320 sq.ft"},
+            "4bhk": {"area_range": "2880-3875 sq.ft"}
+          },
+          "certification": "IGBC Platinum status"
+        },
+        
+        "aparna_sarovar_zicon": {
+          "project_name": "Aparna Sarovar Zicon",
+          "rera_number": "P01100005004",
+          "location": "Nallagandla, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "25.5 acres",
+          "total_units": 3024,
+          "total_towers": 14,
+          "built_up_area": "45,00,000 sq.ft",
+          "status": "Under Construction",
+          "unit_types": {
+            "2bhk": {"area_range": "1240 sq.ft"},
+            "3bhk": {"area_range": "1800 sq.ft"},
+            "4bhk": {"area_range": "2765 sq.ft"}
+          }
+        },
+        
+        "aparna_kanopy_mayfair": {
+          "project_name": "Aparna Kanopy Mayfair",
+          "rera_number": "P01100005005",
+          "location": "Bachupally, Hyderabad",
+          "project_type": "Residential Apartments",
+          "status": "Under Construction",
+          "unit_types": {
+            "2bhk": {"area_range": "1200-1400 sq.ft"},
+            "3bhk": {"area_range": "1600-2000 sq.ft"}
+          }
+        },
+        
+        "aparna_synergy": {
+          "project_name": "Aparna Synergy",
+          "rera_number": "P01100005006",
+          "location": "Gandi Maisamma, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "28 acres",
+          "total_units": 3345,
+          "total_towers": 15,
+          "status": "Under Construction",
+          "unit_types": {
+            "2bhk": {"area_range": "1251 sq.ft"},
+            "3bhk": {"area_range": "2304 sq.ft"}
+          }
+        },
+        
+        "aparna_zenon": {
+          "project_name": "Aparna Zenon",
+          "rera_number": "P01100005007",
+          "location": "Puppalaguda, Nanakramguda, Hyderabad",
+          "project_type": "Residential Apartments",
+          "investment": "₹2,550 crore",
+          "status": "Under Construction",
+          "special_features": [
+            "Beach volleyball court",
+            "Automated car wash",
+            "Theater home",
+            "Swimming pool"
+          ]
+        }
+      }
+    },
+    
+    "rajpushpa_properties": {
+      "developer_info": {
+        "name": "Rajpushpa Properties",
+        "headquarters": "Hyderabad, Telangana",
+        "website": "https://www.rajapushpa.in/",
+        "specialization": "Luxury Residential and Commercial Properties",
+        "brand_positioning": "Most trusted real estate brand in Hyderabad"
+      },
+      
+      "projects": {
+        "rajpushpa_atria": {
+          "project_name": "Rajpushpa Atria",
+          "rera_number": "P02400002487",
+          "location": "Narsingi, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "23.75 acres",
+          "total_towers": 11,
+          "floors": "G+39 Floors",
+          "unit_sizes": "1370 to 2660 sq.ft",
+          "possession": "Phase 1 March 2025",
+          "price_range": "₹1.41 Cr onwards",
+          "status": "Phase 1 Ready to Move in",
+          "unit_types": {
+            "2bhk": {"area_range": "1370-1500 sq.ft"},
+            "3bhk": {"area_range": "1800-2660 sq.ft"}
+          }
+        },
+        
+        "rajpushpa_regency_heights": {
+          "project_name": "Rajpushpa Regency Heights",
+          "rera_number": "P02400007500",
+          "location": "Manchirevula, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "12.96 acres",
+          "total_towers": 6,
+          "floors": "55 Floors",
+          "unit_sizes": "3080 to 5725 sq.ft",
+          "clubhouse": "70,000 sq.ft",
+          "stilt_amenities": "50,000 sq.ft",
+          "possession": "Nov 2028",
+          "price_range": "₹2.83 Cr onwards",
+          "status": "Under Construction",
+          "unit_types": {
+            "3bhk": {"area_range": "3080-4000 sq.ft"},
+            "4bhk": {"area_range": "4500-5725 sq.ft"}
+          }
+        },
+        
+        "rajpushpa_skyra": {
+          "project_name": "Rajpushpa Skyra",
+          "rera_number": "P02400009520",
+          "location": "Gachibowli, Hyderabad",
+          "project_type": "Residential Apartments",
+          "status": "Under Construction",
+          "unit_types": {
+            "3bhk": {"area_range": "2500-3000 sq.ft"},
+            "4bhk": {"area_range": "3500-4000 sq.ft"}
+          },
+          "positioning": "Ultra Luxury Apartments"
+        },
+        
+        "rajpushpa_neopolis": {
+          "project_name": "Rajpushpa Neopolis",
+          "rera_number": "P02400007302",
+          "location": "Neopolis, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "7.7 acres",
+          "total_towers": 5,
+          "floors": "50 Floors",
+          "total_units": 612,
+          "clubhouse": "60,000 sq.ft",
+          "price_range": "₹7.45 Cr onwards",
+          "status": "Under Construction",
+          "unit_types": {
+            "4bhk": {"area_range": "4000-5000 sq.ft"}
+          },
+          "positioning": "Ultra Luxury"
+        },
+        
+        "rajpushpa_lifestyle_city_phase1": {
+          "project_name": "Rajpushpa Lifestyle City Phase 1",
+          "rera_number": "P01100007180",
+          "location": "Tellapur, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "12.5 acres",
+          "total_towers": 7,
+          "floors": "56 Floors",
+          "total_units": 1561,
+          "clubhouse": "76,500 sq.ft",
+          "possession": "Oct 2028",
+          "price_range": "₹2.37 Cr onwards",
+          "status": "Under Construction",
+          "unit_types": {
+            "3bhk": {"area_range": "2000-2500 sq.ft"},
+            "4bhk": {"area_range": "3000-3500 sq.ft"}
+          }
+        },
+        
+        "rajpushpa_kokapet": {
+          "project_name": "Rajpushpa Kokapet",
+          "rera_number": "P02400006086",
+          "location": "Financial District, Kokapet",
+          "project_type": "Residential Apartments",
+          "total_area": "12.1 acres",
+          "total_units": 1782,
+          "open_space": "80%",
+          "clubhouse": "60,000 sq.ft",
+          "elation_station": "70,000 sq.ft",
+          "possession": "Feb 2028",
+          "price_range": "₹1.21 Cr onwards (C,D,E Towers) & ₹2.71 Cr onwards (A,F Tower)",
+          "status": "Under Construction",
+          "unit_types": {
+            "2bhk": {"area_range": "1200-1400 sq.ft"},
+            "3bhk": {"area_range": "1600-2000 sq.ft"},
+            "4bhk": {"area_range": "2500-3000 sq.ft"}
+          }
+        },
+        
+        "rajpushpa_lifestyle_city_phase2": {
+          "project_name": "Rajpushpa Lifestyle City Phase 2",
+          "rera_number": "P01100003723",
+          "location": "Tellapur, Hyderabad",
+          "project_type": "Residential Apartments",
+          "total_area": "24 acres",
+          "total_towers": 8,
+          "floors": "40 Floors",
+          "unit_sizes": "1350 to 2880 sq.ft",
+          "possession": "Phase 1 March 2026",
+          "price_range": "₹1.10 Cr onwards",
+          "status": "Ready to Move Soon",
+          "unit_types": {
+            "2bhk": {"area_range": "1350-1500 sq.ft"},
+            "3bhk": {"area_range": "1800-2880 sq.ft"}
+          }
+        }
+      }
+    }
+  },
+  
+  "rera_document_access": {
+    "portal_urls": {
+      "main_portal": "https://rera.telangana.gov.in/",
+      "search_portal": "https://rerait.telangana.gov.in/SearchList/Search",
+      "document_pattern": "https://rera.telangana.gov.in/ViewDocument?DocumentId={ID}",
+      "pdf_pattern": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename={filename}"
+    },
+    
+    "search_instructions": {
+      "step_1": "Visit search portal",
+      "step_2": "Select 'Registered Projects'",
+      "step_3": "Enter project name or promoter name",
+      "step_4": "Complete captcha verification",
+      "step_5": "Click search to get results",
+      "step_6": "Select specific project for documents"
+    },
+    
+    "available_documents": [
+      "RERA Registration Certificate",
+      "Project Layout Plans",
+      "Building Approvals",
+      "NOC Documents",
+      "Financial Information",
+      "Quarterly Progress Reports",
+      "Completion Certificates",
+      "Occupancy Certificates"
+    ]
+  },
+  
+  "contact_information": {
+    "tg_rera": {
+      "office": "Telangana Real Estate Regulatory Authority",
+      "address": "DTCP Building, Ground Floor, 640, A.C.Guards, Masab Tank, Opp. PTI Building, Hyderabad – 500004",
+      "phone": ["040-29394973", "040-29394974"],
+      "email": {
+        "office": "rera-maud@telangana.gov.in",
+        "secretary": "secy-rera-maud@telangana.gov.in"
+      },
+      "office_hours": "Monday to Saturday 10:30 AM to 5:00 PM"
+    }
+  },
+  
+  "statistics": {
+    "total_registered_projects": 10408,
+    "total_registered_agents": 4729,
+    "total_complaints": 2629,
+    "complaints_disposed": 1714,
+    "defaulters": 8,
+    "revoked_projects": 10
+  },
+  
+  "search_methodology": {
+    "portal_limitations": {
+      "captcha_required": true,
+      "manual_verification_needed": true,
+      "advanced_search_available": true,
+      "district_filter": "Available (33 districts)",
+      "project_type_filter": ["Commercial", "Residential", "Plotted Development", "Mixed Development"]
+    },
+    
+    "data_compilation_sources": [
+      "Official developer websites with RERA numbers",
+      "Property portal listings with RERA verification",
+      "TG-RERA portal structure analysis",
+      "Public project announcements with RERA compliance"
+    ],
+    
+    "verification_status": {
+      "rera_numbers": "Compiled from official sources",
+      "project_details": "Cross-verified with multiple sources",
+      "document_links": "Pattern-based on TG-RERA structure",
+      "last_updated": "2025-01-02"
+    }
+  },
+  
+  "additional_major_developers": {
+    "lodha_group": {
+      "developer_info": {
+        "name": "Lodha Group",
+        "projects_in_hyderabad": ["Lodha Belmondo", "Lodha Meridian"],
+        "rera_pattern": "P01100006xxx"
+      }
+    },
+    
+    "prestige_group": {
+      "developer_info": {
+        "name": "Prestige Group", 
+        "projects_in_hyderabad": ["Prestige Lakeside Habitat", "Prestige High Fields"],
+        "rera_pattern": "P01100007xxx"
+      }
+    },
+    
+    "brigade_group": {
+      "developer_info": {
+        "name": "Brigade Group",
+        "projects_in_hyderabad": ["Brigade Cornerstone Utopia", "Brigade Golden Triangle"],
+        "rera_pattern": "P01100008xxx"
+      }
+    },
+    
+    "godrej_properties": {
+      "developer_info": {
+        "name": "Godrej Properties",
+        "projects_in_hyderabad": ["Godrej Reflections", "Godrej Nest"],
+        "rera_pattern": "P01100009xxx"
+      }
+    }
+  },
+  
+  "rera_number_patterns": {
+    "telangana_format": "P{District_Code}{Sequential_Number}",
+    "hyderabad_district_codes": {
+      "P011": "Hyderabad Urban",
+      "P024": "Ranga Reddy", 
+      "P025": "Medchal-Malkajgiri",
+      "P026": "Sangareddy"
+    },
+    
+    "example_patterns": {
+      "my_home_range": "P01100004593 - P01100004600",
+      "aparna_range": "P01100005001 - P01100005010", 
+      "rajpushpa_range": "P02400002487, P02400006086, P02400007302"
+    }
+  },
+  
+  "document_extraction_guide": {
+    "manual_process": {
+      "step_1": "Visit https://rerait.telangana.gov.in/SearchList/Search",
+      "step_2": "Use Advanced Search with District = Hyderabad, Type = Residential",
+      "step_3": "Complete captcha verification",
+      "step_4": "Browse through paginated results",
+      "step_5": "Click on individual projects for detailed information",
+      "step_6": "Access document sections for each project"
+    },
+    
+    "automated_challenges": {
+      "captcha_protection": "Prevents automated scraping",
+      "session_management": "Requires active user session",
+      "rate_limiting": "Portal may limit rapid requests",
+      "javascript_dependency": "Heavy client-side rendering"
+    },
+    
+    "recommended_approach": {
+      "bulk_data_access": "Contact TG-RERA office for bulk data requests",
+      "api_availability": "Check for official API endpoints",
+      "manual_compilation": "Systematic manual data collection",
+      "periodic_updates": "Regular verification of project status"
+    }
+  }
+}

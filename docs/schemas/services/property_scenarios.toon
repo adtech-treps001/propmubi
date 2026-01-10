@@ -1,0 +1,1261 @@
+# PROPERTY BUYING SCENARIOS - STATE-WISE TERMINOLOGY & DECISION TREES
+
+**Comprehensive Visual Guide for Indian Real Estate Property Purchase**
+
+---
+
+## Table of Contents
+
+1. [State-wise Land Record Terminology Comparison](#1-state-wise-land-record-terminology-comparison)
+2. [Property Buying Decision Trees](#2-property-buying-decision-trees)
+   - [Scenario 1: Buying Agricultural Land](#scenario-1-buying-agricultural-land)
+   - [Scenario 2: Buying Plot in Approved Layout](#scenario-2-buying-plot-in-approved-layout)
+   - [Scenario 3: Buying Apartment Flat](#scenario-3-buying-apartment-flat)
+   - [Scenario 4: Buying Old/Ancestral House](#scenario-4-buying-oldancestral-house-50-60-years-old)
+   - [Scenario 5: Buying Property Through JDA](#scenario-5-buying-property-through-jda-joint-development-agreement)
+3. [Property Purchase Timeline Comparison](#3-property-purchase-timeline-comparison)
+
+---
+
+# 1. State-wise Land Record Terminology Comparison
+
+## Maharashtra (MH) - Most Complex State
+
+```
+Land Record System
+├── Satbara 7/12 (Primary Record)
+│   ├── 7 columns: Owner details, Survey no, Area, Assessment
+│   └── 12 columns: Cultivation details, Crop info, Revenue
+├── 8A Extract (Khata/Account)
+│   └── Shows all landholdings under one person
+├── Ferfar (Mutation Entry)
+│   ├── Old Ferfar (Historical transfers)
+│   └── New Ferfar (Recent transfers)
+├── Property Card (Malpatta/Malpatra)
+│   └── Urban property identification
+└── Utara (Certified Copy)
+    └── 10-year validity extract
+
+Purchase Requirements:
+→ Satbara 7/12 + EC + Ferfar + 8A Extract + Stamp Duty Challan
+```
+
+## Karnataka (KA) - RTC/Pahani System
+
+```
+Land Record System
+├── RTC (Record of Title & Chit) / Pahani
+│   ├── Current ownership record
+│   └── Issued by Taluk office
+├── Akarbandh (Assessment Record)
+│   └── Tax assessment details
+├── Khata Classification
+│   ├── A-Khata (BBMP approved - Premium)
+│   │   └── Legally approved properties
+│   └── B-Khata (Non-BBMP - Problematic)
+│       └── Properties without proper approvals
+└── E-Aasthi (Digital Khata System)
+    └── Online portal for records
+
+Conversion Process:
+B-Khata → A-Khata Conversion
+├── Requirements: Building Plan Approval, OC
+├── Timeline: 6-12 months
+└── Risk: High - many properties stuck in B-Khata
+
+Purchase Requirements:
+→ RTC + A-Khata + EC + Akarbandh + Conversion Certificate
+```
+
+## Telangana (TS) - Bhu Bharati System
+
+```
+Land Record System
+├── Bhu Bharati (Online Portal)
+│   ├── Revenue Department EC
+│   └── Real-time land records
+├── Pahani/Adangal (Land Entry)
+│   └── Ownership & cultivation details
+├── Village Map (Gramakharid)
+│   └── Survey number mapping
+└── Agriculture Land Special Rules
+    └── Agriculture NOC Mandatory
+        ├── Required for: Non-farmer buyers
+        └── Timeline: 2-4 months
+
+Purchase Requirements:
+→ Bhu Bharati EC + Pahani + Agriculture NOC (if agri land) + Village Map
+```
+
+## Tamil Nadu (TN) - Patta/Chitta System
+
+```
+Land Record System
+├── Patta (Ownership Record)
+│   ├── Owner name, extent, land type
+│   └── Primary ownership proof
+├── Chitta (Land Use Alterations)
+│   └── Records changes to land use
+├── Pasanmai (Encumbrance)
+│   └── Mortgages, agricultural loans
+├── Guideline Value
+│   └── Govt minimum value for stamp duty
+│       ├── Chennai Central: ₹8,000-15,000/sq.yd
+│       └── Rural TN: ₹500-2,000/sq.yd
+└── FMB Sketch (Field Measurement Book)
+    └── Survey boundaries and dimensions
+
+Purchase Requirements:
+→ Patta + Chitta + EC + Guideline Value Certificate + FMB Sketch
+```
+
+## Andhra Pradesh (AP) - ROR System
+
+```
+Land Record System
+├── Adangal (Land Record Entry)
+│   ├── Holder vs Cultivator distinction
+│   └── Primary revenue record
+├── ROR 1-B (Record of Rights)
+│   └── Title verification document
+├── Certified Adangal
+│   └── Notarized copy for legal use
+├── Market Value Certificate
+│   └── SAV (Suggestive Assessment Value)
+└── Document Translation Service
+    └── Telugu to English/Hindi
+
+Purchase Requirements:
+→ Adangal + ROR 1-B + EC + Certified Adangal + Market Value Cert
+```
+
+## West Bengal (WB) - Mouza System
+
+```
+Land Record System
+├── Mouza Map (Village Boundary Map)
+│   └── All plot numbers in mouza
+├── Porcha (ROR - Record of Rights)
+│   ├── Current occupation record
+│   └── Maintained by revenue dept
+├── Khatian Types
+│   ├── LR Khatian (Land Reform)
+│   │   └── Tenant rights protected
+│   ├── RS Khatian (Record of Survey)
+│   │   └── Cadastral survey based
+│   └── CS Khatian (Cadastral Survey)
+├── Khajna Receipt (Property Tax)
+│   └── Tax payment proof
+└── Plot Map
+    └── Individual plot location
+
+Special Feature:
+Tenant Protection Laws - VERY STRONG
+└── Bargadar Rights: Sharecroppers have hereditary rights
+    └── Risk: Original owner may not have clear title
+
+Purchase Requirements:
+→ EC (Kolkata specific) + Porcha + Mouza Map + Khajna Receipt + Plot Map
+```
+
+## Delhi (DL) - DORIS System
+
+```
+Land Record System
+├── DORIS (Delhi Online Registration System)
+│   └── Digital property search portal
+├── CERSAI Mortgage Report
+│   └── Central Registry of secured assets
+├── Naksha (Property Map)
+│   └── Site plan and location
+├── DDA Notified Property Certificate
+│   └── For DDA-developed areas
+└── MCD Property Tax Records
+    ├── North MCD
+    ├── South MCD
+    └── East MCD
+
+Purchase Requirements:
+→ DORIS Search + CERSAI Report + Naksha + DDA Certificate + MCD Tax
+```
+
+## Punjab (PB) & Haryana (HR) - Jamabandi System
+
+```
+Land Record System
+├── Jamabandi (Land Record)
+│   ├── Owner details
+│   ├── Tenant rights
+│   └── Land extent
+├── Fard (Individual Holding Statement)
+│   └── Extracted from Jamabandi
+├── Mutation Nakal (Transfer Entry Copy)
+│   └── Old to new owner transfer
+├── Inteqal (Transfer/Mutation)
+│   └── Revenue record update
+└── Inheritance Certificate
+    └── Punjab specific for succession
+
+Purchase Requirements:
+→ Jamabandi + Mutation Nakal + EC + Inheritance Cert (if inherited)
+```
+
+## Rajasthan (RJ) - Jamabandi & Survey System
+
+```
+Land Record System
+├── Jamabandi (Ownership Record)
+│   └── Owner, occupation, extent
+├── Bhulepatra (Plot Description Sheet)
+│   └── Detailed plot descriptions
+├── Mutation Certificate
+│   └── Land transfer entry
+├── Survey Map
+│   └── Government cadastral survey
+├── Mortgage Report
+│   └── Loan encumbrance details
+└── Girdawari (Crop Inspection Report)
+    └── For agricultural land
+
+Purchase Requirements:
+→ Jamabandi + Bhulepatra + EC + Mutation Cert + Survey Map
+```
+
+## Gujarat (GJ) - VF 8A System
+
+```
+Land Record System
+├── Khata VF-8A (Holdings Account)
+│   └── Land holdings account details
+├── Ferfar (Mutation Entry)
+│   └── Ownership transfer sequence
+├── Nakal Chikhalat (Certified Copy)
+│   └── Issued by Talati office
+├── 7/12 (Similar to Maharashtra)
+│   └── Revenue record extract
+└── AUDA Approval (Ahmedabad)
+    └── Urban development authority clearance
+
+Purchase Requirements:
+→ VF-8A + Ferfar + Nakal + EC + AUDA Approval (urban areas)
+```
+
+## Kerala (KL) - Pokkuvaravu System
+
+```
+Land Record System
+├── Sale Deed (Primary Document)
+│   └── Registered deed at Sub-Registrar
+├── EC (Bojanam - Encumbrance)
+│   └── Title clearance certificate
+├── Pokkuvaravu (Mutation Record)
+│   └── Kerala-specific mutation entry
+├── Transaction Report
+│   └── Transfer history document
+└── Nilam Record (Land Record)
+    └── Revenue department record
+
+Purchase Requirements:
+→ Sale Deed + Certified EC + Pokkuvaravu + Transaction Report
+```
+
+## Comparative Timeline & Cost Matrix
+
+| State | Primary Document | EC Cost | Mutation Time | Digital Availability | Risk Level |
+|-------|-----------------|---------|---------------|---------------------|------------|
+| MH | Satbara 7/12 | ₹200-500 | 3-6 months | 95% | Medium |
+| KA | RTC/Pahani | ₹150-400 | 2-5 months | 90% | High (B-Khata) |
+| TS | Bhu Bharati EC | ₹100-300 | 2-4 months | 98% | Low |
+| TN | Patta/Chitta | ₹200-400 | 3-6 months | 85% | Medium |
+| AP | Adangal/ROR 1-B | ₹150-350 | 3-5 months | 88% | Medium |
+| WB | Porcha/Khatian | ₹300-600 | 6-12 months | 70% | Very High (Tenant) |
+| DL | DORIS | ₹200-400 | 2-3 months | 95% | Low |
+| PB | Jamabandi | ₹150-300 | 3-5 months | 80% | Medium |
+| HR | Jamabandi | ₹150-300 | 3-5 months | 85% | Medium |
+| RJ | Jamabandi | ₹200-400 | 4-6 months | 85% | Medium |
+| GJ | VF-8A | ₹200-500 | 3-6 months | 87% | Medium |
+| KL | Sale Deed | ₹200-400 | 4-7 months | 82% | Medium |
+
+---
+
+# 2. Property Buying Decision Trees
+
+## Scenario 1: Buying Agricultural Land
+
+```
+START: Want to buy agricultural land
+│
+├─► Are you a FARMER by occupation?
+│   ├─► YES ──► Check State Rules
+│   │           ├─► Telangana: Agriculture NOC needed (2-4 months)
+│   │           ├─► Maharashtra: No NOC if registered farmer
+│   │           ├─► Karnataka: Farmer status certificate required
+│   │           └─► Tamil Nadu: No restriction for farmers
+│   │
+│   └─► NO ──► Non-Farmer Restrictions Apply
+│               ├─► Telangana: Agriculture NOC MANDATORY (High complexity)
+│               ├─► Punjab: Ceiling limits apply (max 17.5 acres)
+│               ├─► West Bengal: Land ceiling 7-12.5 acres
+│               └─► Some states: Complete prohibition for non-farmers
+│
+├─► Land SIZE and ZONE
+│   ├─► Less than 5 acres
+│   │   └─► Lower conversion charges if converting later
+│   │
+│   └─► More than 10 acres
+│       └─► Environmental Clearance needed for conversion
+│
+├─► VERIFY Land Records
+│   ├─► Revenue Records
+│   │   ├─► MH: Satbara 7/12 + Ferfar + 8A
+│   │   ├─► KA: RTC + Pahani
+│   │   ├─► TS: Pahani + Adangal
+│   │   ├─► TN: Patta + Chitta
+│   │   └─► Others: State-specific records
+│   │
+│   ├─► Encumbrance Certificate (13-30 years)
+│   │   └─► Check for mortgages, liens, disputes
+│   │
+│   ├─► Survey Number Verification
+│   │   └─► Physical verification on ground
+│   │
+│   └─► Tenant Rights Check ⚠️ CRITICAL
+│       ├─► West Bengal: Very high tenant protection
+│       ├─► Maharashtra: Check for tenant claims
+│       └─► Historical tenant may have ownership rights
+│
+├─► INTENDED USE?
+│   ├─► Continue Agriculture
+│   │   └─► DOCUMENTS NEEDED:
+│   │       ├─► Sale Deed (Registered)
+│   │       ├─► EC (Clear)
+│   │       ├─► Revenue Records (7/12, RTC, Patta, etc.)
+│   │       ├─► Mutation Certificate (post-purchase)
+│   │       ├─► Agriculture NOC (if non-farmer)
+│   │       └─► Tax Receipts (3 years)
+│   │
+│   │       COST BREAKDOWN:
+│   │       ├─► Land Cost: ₹5-50 Lakhs/acre (varies by location)
+│   │       ├─► Stamp Duty: 3-7% (agricultural rate - lower)
+│   │       ├─► Registration: 1% (₹10,000 cap in some states)
+│   │       └─► Legal Fees: ₹25,000-1,00,000
+│   │
+│   └─► Convert to Non-Agricultural (Future)
+│       └─► CONVERSION PROCESS:
+│           ├─► Step 1: Agriculture Department NOC (3-6 months)
+│           ├─► Step 2: Revenue Conversion Order (2-4 months)
+│           ├─► Step 3: Pay Conversion Charges (10-40% of land value)
+│           ├─► Step 4: Updated Revenue Records (1-2 months)
+│           └─► TOTAL: 8-18 months, Cost: ₹10-40 Lakhs extra
+│
+└─► RISK ASSESSMENT
+    ├─► LOW RISK (Score 3-4/10)
+    │   ├─► Clear title, single owner
+    │   ├─► No tenant claims
+    │   ├─► Recent mutation (within 5 years)
+    │   └─► Digital records available
+    │
+    ├─► MEDIUM RISK (Score 5-6/10)
+    │   ├─► Seller inherited property (partition needed)
+    │   ├─► Old records (10-20 years)
+    │   ├─► Manual records only
+    │   └─► Minor boundary disputes
+    │
+    └─► HIGH RISK (Score 7-10/10) ⚠️ AVOID or Expert Legal Help
+        ├─► Multiple owners/undivided share
+        ├─► Tenant cultivation for 20+ years
+        ├─► Missing mutations (gaps in chain)
+        ├─► Litigation pending
+        └─► Zamindari/pre-1950 origin without clear conversion
+```
+
+---
+
+## Scenario 2: Buying Plot in Approved Layout
+
+```
+START: Want to buy residential plot in layout
+│
+├─► VERIFY Layout Approval Status
+│   ├─► APPROVED Layout (SAFE)
+│   │   ├─► Municipal/DTCP Layout Approval ✓
+│   │   ├─► RERA Registration (if after 2017) ✓
+│   │   ├─► Roads handed over to municipality ✓
+│   │   └─► Infrastructure completed (water, drainage) ✓
+│   │
+│   ├─► PARTIALLY APPROVED (RISKY)
+│   │   ├─► Layout approval exists BUT
+│   │   ├─► Infrastructure not completed ⚠️
+│   │   ├─► RERA registration pending ⚠️
+│   │   └─► Risk: Delays, additional costs
+│   │
+│   └─► UNAPPROVED Layout (DANGER) 🚫
+│       ├─► No municipal approval
+│       ├─► Illegal subdivision
+│       ├─► Risk: Cannot get building permission
+│       └─► Risk: Municipal demolition possible
+│
+├─► PLOT-SPECIFIC VERIFICATION
+│   ├─► Individual Plot Documents
+│   │   ├─► Plot Sale Deed (from developer)
+│   │   ├─► Khata Certificate (A-Khata in KA)
+│   │   ├─► EC for plot survey number
+│   │   ├─► Betterment charges paid receipt
+│   │   └─► RERA Allotment Letter (if RERA project)
+│   │
+│   ├─► Mother Deed Chain
+│   │   ├─► Original Large Land Purchase by Developer
+│   │   ├─► Land Conversion Certificate (Agri to Resi)
+│   │   ├─► Layout Approval Document
+│   │   ├─► Subdivision Survey (new survey numbers)
+│   │   └─► Khata Bifurcation Order
+│   │
+│   └─► Physical Verification
+│       ├─► Plot marked on ground
+│       ├─► Road access available
+│       ├─► Boundaries clear
+│       └─► No encroachment
+│
+├─► DEVELOPER REPUTATION CHECK
+│   ├─► Track Record
+│   │   ├─► Previous projects completed on time?
+│   │   ├─► RERA complaints? (Check RERA portal)
+│   │   └─► Legal disputes against developer?
+│   │
+│   └─► Financial Stability
+│       ├─► Company financial statements
+│       └─► CIBIL/credit rating
+│
+├─► COST BREAKDOWN
+│   └─► Example: 1,200 sq.ft plot in Hyderabad approved layout
+│       ├─► Plot Cost: ₹40,00,000 (₹3,333/sq.ft)
+│       ├─► Stamp Duty: 5% = ₹2,00,000
+│       ├─► Registration: 1% = ₹40,000
+│       ├─► Legal Verification: ₹30,000
+│       ├─► Property Tax Assessment: ₹5,000
+│       └─► TOTAL: ₹42,75,000
+│
+├─► NEXT STEP: Build House on Plot
+│   └─► CONSTRUCTION APPROVAL PROCESS
+│       ├─► Step 1: Building Plan Approval (BPA)
+│       │   ├─► Architect drawings
+│       │   ├─► Structural design
+│       │   ├─► Setback compliance (Front: 6m, Side: 3m, Rear: 3m)
+│       │   ├─► Timeline: 2-4 months
+│       │   └─► Cost: ₹50,000-1,50,000
+│       │
+│       ├─► Step 2: Construction (6-12 months)
+│       │   └─► Budget: ₹1,500-3,000/sq.ft (₹18-36 Lakhs for 1,200 sq.ft)
+│       │
+│       ├─► Step 3: Completion Certificate (BCC)
+│       │   └─► Timeline: 1-2 months after completion
+│       │
+│       └─► Step 4: Occupancy Certificate (OC)
+│           └─► Timeline: 2-3 months
+│           └─► TOTAL TIMELINE: 12-24 months, Cost: ₹20-40 Lakhs
+│
+└─► RISK ASSESSMENT
+    ├─► LOW RISK ✓
+    │   ├─► DTCP + RERA approved layout
+    │   ├─► Reputed developer
+    │   ├─► A-Khata available
+    │   └─► Infrastructure completed
+    │
+    ├─► MEDIUM RISK ⚠️
+    │   ├─► Layout approved, RERA pending
+    │   ├─► New developer (no track record)
+    │   ├─► Infrastructure partially completed
+    │   └─► B-Khata (Karnataka) - need conversion
+    │
+    └─► HIGH RISK 🚫 AVOID
+        ├─► No layout approval
+        ├─► Developer has legal cases
+        ├─► No khata available
+        └─► Disputed mother land title
+```
+
+---
+
+## Scenario 3: Buying Apartment Flat
+
+```
+START: Want to buy 2/3 BHK apartment
+│
+├─► BUILDER PROJECT VERIFICATION
+│   ├─► RERA Registration ✓ MANDATORY
+│   │   ├─► Check RERA Portal: rera.ap.gov.in / maharera.mahaonline.gov.in
+│   │   ├─► Verify: Project registered? Builder registered?
+│   │   ├─► Check: Completion date committed
+│   │   ├─► Verify: 70% funds in escrow account
+│   │   └─► Red Flag: Project NOT on RERA = ILLEGAL
+│   │
+│   ├─► Land Title of Builder
+│   │   ├─► How did builder acquire land?
+│   │   │   ├─► Outright Purchase (SAFE)
+│   │   │   ├─► JDA (Joint Development Agreement) (MEDIUM RISK)
+│   │   │   └─► Long-term Lease (RISKY for buyers)
+│   │   │
+│   │   ├─► Original Land Documents
+│   │   │   ├─► Builder's Land Purchase Deed
+│   │   │   ├─► EC for land (30 years)
+│   │   │   ├─► Land Conversion Certificate (Agri to Resi)
+│   │   │   └─► JDA if applicable (check landowner share)
+│   │   │
+│   │   └─► ⚠️ If JDA Model:
+│   │       ├─► Landowner getting 40% flats, Builder 60%?
+│   │       ├─► Is your flat from builder quota or landowner quota?
+│   │       └─► Risk: Landowner-builder disputes affect buyers
+│   │
+│   ├─► Project Approvals
+│   │   ├─► Building Plan Approval (BPA) from Municipality
+│   │   ├─► Zoning Certificate (Apartment zone permitted)
+│   │   ├─► Environmental Clearance (if required)
+│   │   ├─► Fire NOC (mandatory for high-rise)
+│   │   ├─► Structural Design Approval
+│   │   └─► Occupancy Certificate (if ready-to-move)
+│   │
+│   └─► Builder Financial Health
+│       ├─► Check RERA quarterly updates
+│       ├─► Project progress on schedule?
+│       ├─► Any buyer complaints on RERA portal?
+│       └─► Builder's other projects delivered on time?
+│
+├─► FLAT-SPECIFIC DOCUMENTS
+│   ├─► UNDER CONSTRUCTION (60% of market)
+│   │   ├─► Builder-Buyer Agreement
+│   │   ├─► Allotment Letter (Flat No, Floor, Tower)
+│   │   ├─► Payment Schedule
+│   │   ├─► RERA Registration Copy
+│   │   └─► Specifications Sheet (fittings, floor area)
+│   │
+│   │   PAYMENT STRUCTURE:
+│   │   ├─► Booking: 10-20%
+│   │   ├─► During Construction: 60-70% (linked to milestones)
+│   │   ├─► On Possession: 10-20%
+│   │   └─► After OC: Final 5-10%
+│   │
+│   └─► READY-TO-MOVE (40% of market)
+│       ├─► All above documents PLUS:
+│       ├─► Sale Deed (Registered)
+│       ├─► Occupancy Certificate (OC) ✓ CRITICAL
+│       ├─► Completion Certificate (BCC)
+│       ├─► RERA Completion Certificate
+│       ├─► Undivided Share of Land (UDS) mentioned
+│       ├─► Khata Certificate (in buyer name post-purchase)
+│       └─► Possession Letter
+│
+├─► FLAT OWNERSHIP COMPONENTS
+│   ├─► Exclusive Ownership: Interior of flat unit
+│   ├─► UDS (Undivided Share): Proportionate land share
+│   │   └─► Example: 1,200 sq.ft flat = 2.5% of total land
+│   ├─► Common Areas (Shared): Lobbies, lifts, stairs, parking
+│   ├─► Parking Slot: Designated or common (check agreement)
+│   └─► Amenities: Clubhouse, gym, pool (shared ownership)
+│
+├─► APARTMENT ASSOCIATION
+│   ├─► Association Formation
+│   │   ├─► Builder must hand over common areas
+│   │   ├─► Residents form association (RWA)
+│   │   └─► Association registered under Societies Act
+│   │
+│   ├─► Maintenance Charges
+│   │   ├─► Monthly: ₹2-8 per sq.ft (₹2,400-9,600 for 1,200 sq.ft)
+│   │   ├─► Corpus Fund: One-time (₹50,000-2,00,000)
+│   │   └─► Covers: Security, housekeeping, lift, electricity
+│   │
+│   └─► Association Bylaws
+│       ├─► Pet policy
+│       ├─► Rental restrictions
+│       └─► Alteration permissions
+│
+├─► COST BREAKDOWN (Example: Bangalore 2BHK)
+│   └─► Flat: 1,200 sq.ft @ ₹6,000/sq.ft = ₹72,00,000
+│       ├─► Base Price: ₹72,00,000
+│       ├─► Parking (1 slot): ₹3,00,000
+│       ├─► Club Membership: ₹1,00,000
+│       ├─── SUBTOTAL: ₹76,00,000
+│       │
+│       ├─► Stamp Duty (5%): ₹3,80,000
+│       ├─► Registration (1%): ₹76,000
+│       ├─► GST (if under construction, 5%): ₹3,80,000
+│       ├─► Legal Verification: ₹40,000
+│       ├─► Home Loan Processing (1%): ₹76,000
+│       ├─► Corpus Fund: ₹1,00,000
+│       └─── TOTAL: ₹85,52,000
+│
+├─► HOME LOAN (if applicable - 80% buyers take loan)
+│   ├─► Loan Amount: 80% of ₹76L = ₹60,80,000
+│   ├─► Own Contribution: 20% + charges = ₹24,72,000
+│   ├─► Interest Rate: 8.5-9.5% p.a.
+│   ├─► Tenure: 20 years
+│   ├─► EMI: ~₹53,000/month
+│   └─── DOCUMENTS NEEDED:
+│       ├─► ITR (3 years)
+│       ├─► Salary slips (6 months)
+│       ├─► Bank statements (6 months)
+│       ├─► PAN, Aadhar
+│       ├─► All property documents
+│       └─► Builder NOC + RERA registration
+│
+└─► RISK ASSESSMENT
+    ├─► LOW RISK ✓ (Ready-to-move, OC available)
+    │   ├─► RERA registered project
+    │   ├─► Reputed builder
+    │   ├─► OC received
+    │   ├─► Clear land title
+    │   └─── Risk Score: 2-3/10
+    │
+    ├─► MEDIUM RISK ⚠️ (Under construction)
+    │   ├─► RERA registered
+    │   ├─── Construction 50-70% complete
+    │   ├─── Delay risk: 6-12 months
+    │   └─── Risk Score: 5-6/10
+    │
+    └─► HIGH RISK 🚫 AVOID
+        ├─── No RERA registration
+        ├─── Builder has multiple legal cases
+        ├─── Construction stalled (less than 30% complete)
+        ├─── JDA disputes between builder and landowner
+        ├─── No OC for years after completion
+        └─── Risk Score: 8-10/10
+```
+
+---
+
+## Scenario 4: Buying Old/Ancestral House (50-60 years old)
+
+```
+START: Want to buy 50-60 year old independent house
+│
+├─► ⚠️ WARNING: Very High Risk Category (Risk Score: 7-9/10)
+│   └─── Special Due Diligence Required
+│
+├─► TITLE VERIFICATION (Most Critical)
+│   ├─► Extended Encumbrance Certificate
+│   │   ├─── Get 30-year EC (not 13 years) ✓ MANDATORY
+│   │   ├─── Check for: Hidden mortgages, liens, disputes
+│   │   └─── Red Flag: Any gap in EC = title defect
+│   │
+│   ├─── Ownership Chain Verification
+│   │   ├─── How did current seller get property?
+│   │   │   ├─── Purchase (verify all past deeds)
+│   │   │   ├─── Inheritance (VERY COMPLEX)
+│   │   │   ├─── Gift (check for fraud)
+│   │   │   └─── Partition (verify all heirs consented)
+│   │   │
+│   │   └─── If INHERITED (70% of old houses):
+│   │       ├─── Original Ancestor's Purchase Deed (1960s-70s)
+│   │       ├─── Death Certificates (ALL ancestors)
+│   │       ├─── Family Tree Affidavit (all heirs identified)
+│   │       ├─── Succession Certificate (if intestate - no will)
+│   │       ├─── Will (if testamentary)
+│   │       ├─── Probate (if will exists - not mandatory but safer)
+│   │       ├─── Legal Heir Certificate
+│   │       ├─── Partition Deed (if multiple heirs)
+│   │       ├─── NOC from ALL other heirs ✓ CRITICAL
+│   │       └─── ⚠️ Missing any? = REJECT or deep legal scrutiny
+│   │
+│   ├─── Adverse Possession Check ⚠️ CRITICAL
+│   │   ├─── Has property been vacant for 12+ years?
+│   │   ├─── Any squatters/unauthorized occupants?
+│   │   ├─── Neighbors claiming ownership?
+│   │   └─── Legal principle: 12 years adverse possession = title transfer
+│   │
+│   └─── Tenant Rights Verification
+│       ├─── Any tenants living in property?
+│       ├─── Tenant there for 20+ years? = Protected tenant
+│       ├─── West Bengal/Maharashtra: Very strong tenant protection
+│       └─── Risk: Tenant cannot be evicted, reduces property value
+│
+├─► STRUCTURAL VERIFICATION
+│   ├─── Age-Related Issues
+│   │   ├─── House built in 1960s-1970s era
+│   │   ├─── Construction standards were lower
+│   │   ├─── Materials: Brick, wood (may have deteriorated)
+│   │   └─── Foundation: May not support additional floors
+│   │
+│   ├─── Mandatory Structural Audit ✓
+│   │   ├─── Hire: Licensed structural engineer (IIT/IIIT qualified)
+│   │   ├─── Check: Foundation, columns, beams, roof
+│   │   ├─── Report: Structural stability certificate
+│   │   ├─── Cost: ₹25,000-75,000
+│   │   └─── Timeline: 1-2 weeks
+│   │
+│   ├─── Common Defects in Old Houses
+│   │   ├─── Cracks in walls (settlement vs structural)
+│   │   ├─── Seepage/dampness (monsoon damage)
+│   │   ├─── Termite damage (wood structures)
+│   │   ├─── Outdated electrical wiring (fire risk)
+│   │   ├─── Plumbing leaks (corroded pipes)
+│   │   └─── Roof leakage (flat terrace waterproofing failed)
+│   │
+│   └─── Renovation/Repair Estimate
+│       ├─── Minor Repairs: ₹2-5 Lakhs
+│       ├─── Major Renovation: ₹10-25 Lakhs
+│       └─── Complete Redevelopment: ₹30-60 Lakhs
+│
+├─► APPROVAL DOCUMENTS CHECK
+│   ├─── Building Approvals (Often Missing in Old Houses!)
+│   │   ├─── BPA (Building Plan Approval)
+│   │   │   └─── For 1960s houses: Often NO approval exists
+│   │   │       ├─── Reason: Rules were lax then
+│   │   │       ├─── Risk: Cannot get extensions/alterations
+│   │   │       └─── Solution: Apply for regularization (if allowed)
+│   │   │
+│   │   ├─── Occupancy Certificate (OC)
+│   │   │   └─── Rarely available for old houses
+│   │   │       └─── Risk: Medium (less enforced for old properties)
+│   │   │
+│   │   └─── ⚠️ Unauthorized Construction
+│   │       ├─── Extensions added without approval?
+│   │       ├─── Setback violations (built too close to boundary)?
+│   │       ├─── Risk: Municipal demolition notice
+│   │       └─── Solution: Check for regularization scheme
+│   │
+│   └─── Khata/Property Tax Records
+│       ├─── Khata in whose name?
+│       ├─── Property tax paid continuously?
+│       ├─── Gap in tax payment = red flag
+│       └─── Update khata to current seller name (if not done)
+│
+├─── BOUNDARY & ENCROACHMENT
+│   ├─── Survey & Measurement
+│   │   ├─── Hire licensed surveyor
+│   │   ├─── Verify: Actual plot size matches sale deed
+│   │   ├─── Cost: ₹10,000-25,000
+│   │   └─── Red Flag: Discrepancy > 5% = dispute
+│   │
+│   ├─── Encroachment Issues (Very Common in Old Properties)
+│   │   ├─── Neighbor's wall crossed boundary?
+│   │   ├─── Public road encroaching property?
+│   │   ├─── Utility poles/transformers on property?
+│   │   └─── Risk: Cannot use encroached portion
+│   │
+│   └─── Easement Rights
+│       ├─── Does neighbor have right of way through property?
+│       ├─── Drainage passing through property?
+│       ├─── 50+ years of use = permanent easement
+│       └─── Cannot be removed even if you buy property
+│
+├─── LEGAL OPINION (Mandatory for Old Properties)
+│   └─── Hire Experienced Property Lawyer
+│       ├─── Cost: ₹50,000-2,00,000
+│       ├─── Deliverable: Legal Opinion Report
+│       ├─── Timeline: 3-4 weeks
+│       └─── Opinion Should Cover:
+│           ├─── Title clarity (marketable or defective)
+│           ├─── Succession chain verified
+│           ├─── All heirs accounted for
+│           ├─── No pending litigation
+│           ├─── Adverse possession risk
+│           ├─── Encroachment assessment
+│           └─── Recommendation: Buy / Avoid / Buy with caution
+│
+├─── COST ANALYSIS
+│   └─── Example: 1,800 sq.ft house on 2,400 sq.ft plot (Bangalore)
+│       ├─── House Value: ₹50,00,000 (₹2,778/sq.ft - discount for old age)
+│       ├─── Stamp Duty (5%): ₹2,50,000
+│       ├─── Registration (1%): ₹50,000
+│       ├─── Structural Audit: ₹50,000
+│       ├─── Legal Opinion: ₹1,00,000
+│       ├─── Survey & Verification: ₹25,000
+│       ├─── Immediate Repairs: ₹3,00,000
+│       └─── TOTAL: ₹57,75,000
+│
+│       Alternative: Buy NEW 2BHK apartment for ₹60L (less hassle)
+│
+├─── WHY BUY OLD HOUSE? (Advantages)
+│   ├─── Prime Location (old city centers)
+│   ├─── Large Plot Size (land value appreciation)
+│   ├─── Lower price per sq.ft (30-50% discount)
+│   ├─── Independent living (no apartment association)
+│   ├─── Redevelopment Potential
+│   │   ├─── Demolish old house
+│   │   ├─── Build new 3-4 floor building
+│   │   ├─── Sell/rent additional floors
+│   │   └─── Return on investment: High in 5-10 years
+│   └─── Tax Benefits (if old = no capital gains for seller)
+│
+└─── DECISION FRAMEWORK
+    ├─── BUY if:
+    │   ├─── 30-year EC is clean ✓
+    │   ├─── Complete succession chain available ✓
+    │   ├─── NOC from all heirs obtained ✓
+    │   ├─── Lawyer opinion: "Marketable title" ✓
+    │   ├─── Structural audit: "Structurally sound" ✓
+    │   ├─── No tenant/encroachment issues ✓
+    │   ├─── Prime location, redevelopment potential ✓
+    │   └─── Discount: 40%+ vs new property ✓
+    │
+    ├─── NEGOTIATE HEAVILY if:
+    │   ├─── Minor title defects (can be cured)
+    │   ├─── Structural repairs needed
+    │   ├─── Missing some approvals (can regularize)
+    │   └─── Demand 20-30% additional discount
+    │
+    └─── AVOID if:
+        ├─── Missing heirs / unclear succession 🚫
+        ├─── Adverse possession claims 🚫
+        ├─── Protected tenant in property 🚫
+        ├─── Lawyer opinion: "Defective title" 🚫
+        ├─── Structural engineer: "Unsafe structure" 🚫
+        ├─── Litigation pending 🚫
+        └─── Encroachment > 15% of property 🚫
+```
+
+---
+
+## Scenario 5: Buying Property Through JDA (Joint Development Agreement)
+
+```
+START: Landowner pooling land with builder (or buying from JDA project)
+│
+├─► UNDERSTANDING JDA MODEL
+│   └─── Two Parties:
+│       ├─── LANDOWNER
+│       │   ├─── Contributes: Land (valued at market rate)
+│       │   ├─── Receives: X% of built-up area (flats/plots)
+│       │   ├─── Bears: Usually no construction cost
+│       │   └─── Typical Share: 30-50% of developed area
+│       │
+│       └─── BUILDER/DEVELOPER
+│           ├─── Contributes: Construction cost, expertise, marketing
+│           ├─── Receives: Y% of built-up area
+│           ├─── Bears: Full construction & approval costs
+│           └─── Typical Share: 50-70% of developed area
+│
+├─► JDA STRUCTURE TYPES
+│   ├─── Type 1: Direct JDA (Most Common)
+│   │   ├─── Landowner + Builder agreement
+│   │   ├─── Power of Attorney to builder
+│   │   ├─── Builder gets development rights
+│   │   └─── Post-construction: Area split as agreed
+│   │
+│   ├─── Type 2: SPV (Special Purpose Vehicle)
+│   │   ├─── New company formed for project
+│   │   ├─── Landowner: Gets equity shares (land as capital)
+│   │   ├─── Builder: Gets equity shares (cash capital)
+│   │   ├─── Profits shared post-sales as per shareholding
+│   │   └─── More professional but complex
+│   │
+│   └─── Type 3: Long-term Lease
+│       ├─── Landowner leases land for 99 years
+│       ├─── Builder pays lease rent + revenue share
+│       ├─── Flat buyers get leasehold (not freehold)
+│       └─── ⚠️ Risk: Leasehold less attractive, resale difficult
+│
+├─► BUYER'S PERSPECTIVE: Buying Flat in JDA Project
+│   │
+│   ├─── CRITICAL QUESTION: Which quota is your flat from?
+│   │   │
+│   │   ├─── BUILDER QUOTA (Lower Risk)
+│   │   │   ├─── Builder selling his 60% share
+│   │   │   ├─── Builder-Buyer direct agreement
+│   │   │   ├─── Sale Deed from Builder
+│   │   │   └─── Risk: Builder defaults = project stops
+│   │   │
+│   │   └─── LANDOWNER QUOTA (Higher Risk)
+│   │       ├─── Landowner received 40% flats, now selling
+│   │       ├─── OR landowner selling before completion
+│   │       ├─── Sale Deed from Landowner
+│   │       └─── Risks:
+│   │           ├─── Landowner-builder dispute = buyer caught
+│   │           ├─── Builder may not complete project
+│   │           └─── Share disputes delay allotment
+│   │
+│   ├─── DOCUMENTS TO VERIFY (JDA Projects)
+│   │   ├─── 1. Original Land Documents
+│   │   │   ├─── Landowner's land purchase deed
+│   │   │   ├─── EC for land (30 years)
+│   │   │   ├─── Land conversion certificate
+│   │   │   └─── Clear title verification
+│   │   │
+│   │   ├─── 2. Joint Development Agreement
+│   │   │   ├─── Registered JDA document
+│   │   │   ├─── Share ratio clearly mentioned
+│   │   │   │   └─── Example: "Landowner 40% area, Builder 60% area"
+│   │   │   ├─── Flat allotment mechanism defined
+│   │   │   │   ├─── Floor-wise: Landowner gets lower floors?
+│   │   │   │   ├─── Tower-wise: Landowner gets Tower A?
+│   │   │   │   └─── Mixed: Each floor has both parties' flats
+│   │   │   ├─── Cost-sharing terms
+│   │   │   ├─── Timeline & milestones
+│   │   │   ├─── Dispute resolution mechanism
+│   │   │   └─── ⚠️ Read ENTIRE JDA - understand landowner's rights
+│   │   │
+│   │   ├─── 3. Power of Attorney (POA)
+│   │   │   ├─── Landowner gives POA to builder
+│   │   │   ├─── Scope: Development, approvals, construction
+│   │   │   ├─── Irrevocable POA (cannot be cancelled easily)
+│   │   │   └─── ⚠️ Check: POA registered & valid
+│   │   │
+│   │   ├─── 4. RERA Registration
+│   │   │   ├─── Project must be on RERA portal
+│   │   │   ├─── Check: Both landowner AND builder disclosed?
+│   │   │   ├─── JDA uploaded on RERA portal?
+│   │   │   └─── ⚠️ RERA mandatory - if not registered = ILLEGAL
+│   │   │
+│   │   ├─── 5. Project Approvals
+│   │   │   ├─── BPA in whose name? (Builder or Landowner or Both)
+│   │   │   ├─── Zoning clearance
+│   │   │   ├─── Layout approval
+│   │   │   ├─── Environmental clearance (if needed)
+│   │   │   └─── Fire NOC
+│   │   │
+│   │   └─── 6. Flat Allotment Letter
+│   │       ├─── From builder (if builder quota) OR
+│   │       ├─── From landowner (if landowner quota)
+│   │       ├─── Clearly states: Flat No, Floor, Tower, Area
+│   │       └─── Payment schedule
+│   │
+│   ├─── RISKS IN JDA PROJECTS (Common Disputes)
+│   │   │
+│   │   ├─── 1. Share Disputes (35% of JDA cases)
+│   │   │   ├─── Dispute: Built-up vs Carpet area calculation
+│   │   │   │   └─── Example: Landowner expected 40% of 1L sq.ft built-up
+│   │   │   │       Builder gives 40% of 70K carpet = shortfall
+│   │   │   ├─── Dispute: Floor allocation disagreement
+│   │   │   │   └─── Landowner wants lower floors (easier to sell)
+│   │   │   │       Builder gives upper floors
+│   │   │   └─── Impact: Buyers caught in middle, delays
+│   │   │
+│   │   ├─── 2. Builder Default (45% of JDA cases)
+│   │   │   ├─── Builder stops construction midway
+│   │   │   ├─── Reasons: Funding issues, market downturn
+│   │   │   ├─── Landowner takes back land OR
+│   │   │   ├─── Landowner finds new builder
+│   │   │   └─── Impact: Massive delays (2-5 years), buyers suffer
+│   │   │
+│   │   ├─── 3. Landowner Disputes (25% of JDA cases)
+│   │   │   ├─── Multiple landowners with different agreements
+│   │   │   ├─── Landowner family dispute (heirs disagreeing)
+│   │   │   ├─── Landowner tries to cancel JDA mid-project
+│   │   │   └─── Impact: Legal battles, project stuck
+│   │   │
+│   │   ├─── 4. Approval Delays (50% of JDA cases)
+│   │   │   ├─── BPA delayed (land title issues)
+│   │   │   ├─── RERA registration delayed (JDA disputes)
+│   │   │   ├─── OC delayed (completion disputes)
+│   │   │   └─── Impact: Timeline extends by 1-3 years
+│   │   │
+│   │   └─── 5. Quality Disputes (30% of JDA cases)
+│   │       ├─── Landowner claims builder gave poor quality flats
+│   │       ├─── Builder claims landowner got premium flats at cost
+│   │       └─── Impact: Post-possession complaints
+│   │
+│   └─── LEGAL OPINION MANDATORY
+│       ├─── Hire lawyer specializing in JDA disputes
+│       ├─── Cost: ₹75,000-2,00,000
+│       ├─── Verify:
+│       │   ├─── Landowner had clear title to land
+│       │   ├─── JDA properly registered
+│       │   ├─── No disputes between parties
+│       │   ├─── Your flat clearly allocated to seller
+│       │   └─── Builder financially stable
+│       └─── Timeline: 4-6 weeks
+│
+├─── COST IMPLICATIONS
+│   └─── JDA Flat usually 5-15% cheaper than outright builder project
+│       ├─── Reason: Higher risk perceived by market
+│       ├─── Example: 2BHK 1,200 sq.ft
+│       │   ├─── Regular Project: ₹72,00,000
+│       │   ├─── JDA Project: ₹65,00,000 (10% discount)
+│       │   └─── But Risk Premium needed
+│       │
+│       └─── Hidden Costs:
+│           ├─── Legal verification (higher): ₹1,00,000
+│           ├─── Delay risk: Rental loss if investment
+│           └─── Resale difficulty: 10-15% lower resale value
+│
+└─── DECISION FRAMEWORK
+    ├─── BUY JDA FLAT if:
+    │   ├─── Both landowner & builder financially stable ✓
+    │   ├─── JDA registered & disclosed on RERA ✓
+    │   ├─── Project 70%+ complete (lower default risk) ✓
+    │   ├─── Buying from BUILDER quota (not landowner) ✓
+    │   ├─── Lawyer opinion: Clean JDA, no disputes ✓
+    │   ├─── Significant discount: 15%+ vs regular project ✓
+    │   └─── Risk Tolerance: Medium to High
+    │
+    ├─── PROCEED WITH CAUTION if:
+    │   ├─── Project 30-70% complete ⚠️
+    │   ├─── Buying from landowner quota ⚠️
+    │   ├─── Minor disputes resolved ⚠️
+    │   └─── Demand 20-25% discount
+    │
+    └─── AVOID if:
+        ├─── Builder has history of defaults 🚫
+        ├─── Landowner-builder active disputes 🚫
+        ├─── Project less than 30% complete 🚫
+        ├─── JDA not on RERA portal 🚫
+        ├─── Multiple landowners with conflicting claims 🚫
+        └─── Your flat allocation unclear in JDA 🚫
+```
+
+---
+
+# 3. Property Purchase Timeline Comparison
+
+## Timeline 1: Agricultural Land Purchase (6-9 months)
+
+```
+Month 1-2: Property Search & Verification
+├─► Week 1-2: Identify property, preliminary inspection
+├─► Week 3-4: Request revenue records (7/12, RTC, Patta, etc.)
+├─► Week 5-6: Apply for EC (13-30 years)
+└─► Week 7-8: Verify seller ownership, tenant rights check
+
+Month 3: Legal Due Diligence
+├─► Week 9-10: Lawyer title verification
+├─► Week 11: Survey & boundary verification
+└─► Week 12: Legal opinion received
+
+Month 4: Negotiation & Agreement
+├─► Week 13-14: Price negotiation
+├─► Week 15: Token advance payment (1-5%)
+└─► Week 16: Sale agreement drafted & signed
+
+Month 5-6: Approvals (if non-farmer)
+├─► Agriculture NOC application (Telangana, etc.)
+├─► Waiting period: 2-4 months
+└─► NOC received (or proceed if farmer)
+
+Month 7: Payment & Registration
+├─► Week 25-26: Arrange finance/payment
+├─► Week 27: Stamp duty payment at Treasury
+├─► Week 28: Sale deed registration at Sub-Registrar
+└─► ✓ Ownership transferred
+
+Month 8-9: Post-Purchase
+├─► Mutation application to Revenue Dept
+├─► Updated revenue records (2-4 months)
+└─► Take physical possession
+
+TOTAL: 6-9 months (9-12 months if Agriculture NOC needed)
+```
+
+## Timeline 2: Plot in Approved Layout Purchase (3-5 months)
+
+```
+Month 1: Property Search & Verification
+├─► Week 1: Identify plot in layout
+├─► Week 2: Verify layout approval (DTCP/RERA)
+├─► Week 3: Check plot-specific documents
+│   ├─► Plot sale deed, Khata, EC
+│   └─► Mother deed chain verification
+└─► Week 4: Physical inspection, boundary check
+
+Month 2: Due Diligence
+├─► Week 5-6: Developer background check
+│   └─► RERA portal verification, past projects
+├─► Week 7: Lawyer verification
+│   └─► Title opinion, layout approval authenticity
+└─► Week 8: Decision to proceed
+
+Month 3: Booking & Agreement
+├─► Week 9: Token payment (₹50K - 2L)
+├─► Week 10: Sale agreement drafting
+├─► Week 11: Agreement signing
+└─► Week 12: Payment schedule agreed (installments or lumpsum)
+
+Month 4: Payment & Registration
+├─► Week 13-14: Payment (typically 90% before registration)
+├─► Week 15: Stamp duty payment
+├─► Week 16: Sale deed registration
+└─► ✓ Plot ownership transferred
+
+Month 5: Post-Purchase
+├─► Khata transfer to buyer name (2-4 weeks)
+├─► Mutation in revenue records (2-3 weeks)
+├─► Property tax assessment (1-2 weeks)
+└─► Possession & boundary marking
+
+TOTAL: 3-5 months
+```
+
+## Timeline 3: Apartment Purchase - Under Construction (24-48 months)
+
+```
+Month 1-2: Property Search & Booking
+├─► Week 1-3: Search projects, site visits
+├─► Week 4-6: Shortlist, compare 3-5 projects
+├─► Week 7: RERA verification, builder check
+├─► Week 8: Booking with token (₹50K - 5L)
+└─► ✓ Flat blocked for you
+
+Month 3: Agreement & Initial Payment
+├─► Week 9-10: Builder-buyer agreement drafting
+├─► Week 11: Agreement signing
+├─► Week 12: Initial payment (10-20% of flat value)
+└─► Flat allotment letter received
+
+Month 4-24: Construction Phase (Builder builds)
+├─► Periodic payments linked to milestones:
+│   ├─► Plinth level complete: 10%
+│   ├─► Slab level complete: 15%
+│   ├─► Finishing stage: 20%
+│   ├─► Before possession: 20%
+│   └─► After OC: 10%
+│
+├─► Your involvement:
+│   ├─► Monitor RERA quarterly updates
+│   ├─► Site visits every 2-3 months
+│   └─► Home loan processing (if applicable)
+│
+└─► Builder obtains:
+    ├─► BPA approvals
+    ├─► Construction completion
+    ├─► BCC (Building Completion Certificate)
+    └─► OC (Occupancy Certificate)
+
+Month 24-25: Pre-Possession
+├─► OC received by builder
+├─► Possession notice sent to buyers
+├─► Pre-possession inspection
+├─► Snag list preparation (defects to be fixed)
+└─► Final payment installment
+
+Month 25-26: Possession & Registration
+├─► Week 97-98: Possession taken
+├─► Week 99: Stamp duty & registration charges payment
+├─► Week 100-101: Sale deed registration
+├─► Week 102: Khata transfer application
+└─► ✓ Flat registered in your name
+
+Month 27-30: Post-Possession
+├─► Khata transfer completion (2-3 months)
+├─► Property tax setup
+├─► Apartment association membership
+├─► Bank NOC (if home loan fully paid later)
+└─► Enjoy your home!
+
+TOTAL: 24-48 months (depends on builder delivery timeline)
+├─► Promised: 24-30 months
+├─► Reality: 30-48 months (delays common)
+└─► Delayed projects: 60+ months
+```
+
+## Timeline 4: Apartment Purchase - Ready to Move (2-4 months)
+
+```
+Month 1: Property Search & Verification
+├─► Week 1-2: Identify ready flats, site visits
+├─► Week 3: Verify OC, RERA completion certificate
+├─► Week 4: Check builder documents, land title
+└─► Lawyer verification (parallel)
+
+Month 2: Negotiation & Agreement
+├─► Week 5-6: Price negotiation
+│   └─► Ready flats: Less negotiation room (5-10% max)
+├─► Week 7: Token payment (₹1-5L)
+├─► Week 8: Sale agreement signing
+└─► Payment terms: Usually 90% before registration
+
+Month 3: Payment & Registration
+├─► Week 9-10: Arrange payment (home loan sanction)
+├─► Week 11: Stamp duty payment
+├─► Week 12: Sale deed registration
+└─► ✓ Flat ownership transferred
+
+Month 4: Post-Purchase
+├─► Immediate possession (or within 1 week)
+├─► Khata transfer (2-4 weeks)
+├─► Property tax assessment (2-3 weeks)
+└─► Move in!
+
+TOTAL: 2-4 months
+Advantage: Immediate possession, no construction wait
+Premium: Ready flats 10-20% costlier than under-construction
+```
+
+## Timeline 5: Old/Ancestral House Purchase (6-12 months)
+
+```
+Month 1-2: Property Search & Initial Verification
+├─► Week 1-2: Identify property, preliminary inspection
+├─► Week 3-4: Request all old documents from seller
+│   ├─► Original ancestor deeds
+│   ├─► Inheritance chain documents
+│   └─► Death certificates, wills, etc.
+├─► Week 5-6: Apply for 30-year EC (NOT 13 years)
+└─► Week 7-8: Structural inspection, engineer assessment
+
+Month 3-5: Deep Legal Due Diligence (CRITICAL)
+├─► Month 3: Lawyer begins title verification
+│   ├─► Verify all deeds in chain
+│   ├─► Check succession is complete
+│   └─► Identify all legal heirs
+│
+├─► Month 4: Extended verification
+│   ├─► Adverse possession check
+│   ├─► Tenant rights verification
+│   ├─► Encroachment survey
+│   └─► Court case search
+│
+└─► Month 5: Legal opinion drafting
+    ├─► Marketable title OR Defective title
+    └─► Recommendations for proceeding
+
+Month 6-7: Structural Audit & Approvals Check
+├─► Structural engineer detailed report
+├─► Check for old BPA, OC (usually missing)
+├─► Renovation estimate if needed
+└─► Decision: Buy as-is or negotiate discount
+
+Month 8: Negotiation & Agreement
+├─► Price negotiation (heavy discount expected)
+├─► Token payment (₹1-5L)
+├─► Sale agreement with conditions
+│   └─► Example: "Seller to obtain NOC from all heirs"
+└─► Seller fulfills conditions (2-4 weeks)
+
+Month 9-10: Missing Documents Completion
+├─► Seller obtains NOCs from all legal heirs
+├─► Succession certificate (if not done)
+├─► Any pending mutations completed
+└─► Title insurance (recommended)
+
+Month 11: Payment & Registration
+├─► Final verification before payment
+├─► Stamp duty payment
+├─► Sale deed registration
+└─► ✓ Ownership transferred
+
+Month 12: Post-Purchase
+├─► Khata transfer (2-3 months)
+├─► Mutation (2-3 months)
+├─► Begin renovations if needed
+└─► Property tax update
+
+TOTAL: 6-12 months (can extend to 18 months if title issues complex)
+High Risk: Extended due diligence worth the effort
+```
+
+## Comparative Timeline Summary
+
+| Property Type | Search | Legal DD | Agreement | Payment | Registration | Post-Purchase | TOTAL |
+|---------------|--------|----------|-----------|---------|--------------|---------------|-------|
+| Agricultural Land | 2 mo | 1 mo | 1 mo | 2-3 mo | 1 mo | 2-3 mo | **6-9 mo** |
+| Approved Plot | 1 mo | 1 mo | 1 mo | - | 1 mo | 1 mo | **3-5 mo** |
+| Under-Construction Apt | 2 mo | 1 mo | 1 mo | 18-42 mo | 1 mo | 3 mo | **24-48 mo** |
+| Ready Apartment | 1 mo | 1 mo | 1 mo | - | 1 mo | 1 mo | **2-4 mo** |
+| Old/Ancestral House | 2 mo | 3-5 mo | 2 mo | 1-2 mo | 1 mo | 2-3 mo | **6-12 mo** |
+
+---
+
+**Document Version:** 1.0
+**Last Updated:** 2025
+**Coverage:** 12 Major Indian States
+**Property Types:** 5 Major Scenarios
+**Purpose:** Comprehensive buyer's guide for property purchase decision-making
+
+---
+
+**Disclaimer:** This document is for educational and informational purposes only. Property laws vary by state and are subject to change. Always consult with licensed lawyers, chartered accountants, and property consultants before making any property purchase decision. The risk percentages and timelines mentioned are approximate averages and may vary significantly based on specific cases.
+
+**Recommended Next Steps:**
+1. Identify your property type and scenario
+2. Follow the relevant decision tree
+3. Hire qualified professionals (lawyer, engineer, surveyor)
+4. Verify all documents thoroughly
+5. Check state-specific requirements on government portals (RERA, sub-registrar, revenue department)

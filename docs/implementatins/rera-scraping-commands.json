@@ -1,0 +1,137 @@
+{
+  "rera_scraping_workflow": {
+    "session_info": {
+      "start_time": "2025-01-02T10:30:00Z",
+      "target_developer": "My Home",
+      "portal_url": "https://rerait.telangana.gov.in/SearchList/Search",
+      "objective": "Extract all My Home projects with complete data"
+    },
+    
+    "command_sequence": [
+      {
+        "step": 1,
+        "action": "navigate",
+        "url": "https://rerait.telangana.gov.in/SearchList/Search",
+        "timestamp": "2025-01-02T10:30:01Z",
+        "status": "success",
+        "notes": "Navigated to RERA search portal"
+      },
+      {
+        "step": 2,
+        "action": "type",
+        "element": "Promoter Name textbox",
+        "text": "My Home",
+        "timestamp": "2025-01-02T10:30:02Z",
+        "status": "success",
+        "notes": "Entered 'My Home' in promoter name field"
+      },
+      {
+        "step": 3,
+        "action": "screenshot",
+        "element": "Captcha image",
+        "filename": "captcha_screenshot.png",
+        "timestamp": "2025-01-02T10:30:03Z",
+        "status": "success",
+        "notes": "Captured captcha image for manual reading"
+      },
+      {
+        "step": 4,
+        "action": "type",
+        "element": "Captcha textbox",
+        "text": "BFACZ",
+        "timestamp": "2025-01-02T10:30:04Z",
+        "status": "success",
+        "notes": "Entered captcha value BFACZ"
+      },
+      {
+        "step": 5,
+        "action": "click",
+        "element": "Search button",
+        "timestamp": "2025-01-02T10:30:05Z",
+        "status": "success",
+        "notes": "Clicked search button - Found 10 My Home projects",
+        "results": {
+          "total_projects": 10,
+          "projects_found": [
+            "MY HOME KRISHE",
+            "MY HOME MANGALA", 
+            "MY HOME ANKURA",
+            "MY HOME TARKSHYA",
+            "MY HOME TRIDASA",
+            "MY HOME RAKA",
+            "MY HOME VIPINA",
+            "MY HOME APAS",
+            "MY HOME DREAMS INFRASTRUCTURES AND DEVELOPERS"
+          ]
+        }
+      },
+      {
+        "step": 6,
+        "action": "click",
+        "element": "View button for MY HOME KRISHE",
+        "timestamp": "2025-01-02T10:30:06Z",
+        "status": "success",
+        "notes": "Clicked View button for first project MY HOME KRISHE",
+        "data_extracted": {
+          "project_name": "MY HOME KRISHE",
+          "rera_number": "P01100004593",
+          "comprehensive_data": "extracted_successfully",
+          "towers": 3,
+          "total_apartments": 520,
+          "construction_progress": "95%+"
+        }
+      },
+      {
+        "step": 7,
+        "action": "navigate_back",
+        "timestamp": "2025-01-02T10:35:00Z",
+        "status": "success",
+        "notes": "Navigated back to search results after extracting MY HOME KRISHE data"
+      },
+      {
+        "step": 8,
+        "action": "click",
+        "element": "View button for MY HOME MANGALA",
+        "timestamp": "2025-01-02T10:35:01Z",
+        "status": "success",
+        "notes": "Clicked View button for second project MY HOME MANGALA",
+        "data_extracted": {
+          "project_name": "MY HOME MANGALA",
+          "rera_number": "P01100004595",
+          "comprehensive_data": "extracted_successfully",
+          "towers": 11,
+          "total_apartments": 1879,
+          "construction_progress": "97-100%"
+        }
+      }
+    ],
+    
+    "extracted_data": {
+      "projects": [
+        {
+          "project_name": "MY HOME KRISHE",
+          "rera_number": "P01100004593",
+          "extraction_timestamp": "2025-01-02T10:35:00Z",
+          "status": "completed"
+        }
+      ],
+      "documents_downloaded": [],
+      "errors_encountered": []
+    },
+    
+    "replay_instructions": {
+      "prerequisites": [
+        "Browser automation tool (Playwright)",
+        "Captcha solving capability (manual intervention)",
+        "Stable internet connection",
+        "Session management"
+      ],
+      "execution_notes": [
+        "Commands recorded in sequence for exact replay",
+        "Captcha values will need manual input during replay",
+        "Wait times included for page loading",
+        "Error handling for network issues"
+      ]
+    }
+  }
+}

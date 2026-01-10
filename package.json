@@ -1,0 +1,15 @@
+{
+    "name": "propmubi-monorepo",
+    "private": true,
+    "scripts": {
+        "dev:mobile": "cd apps/mobile && npx expo start",
+        "dev:web": "cd apps/web && npm run dev",
+        "dev:api": "cd apps/api && poetry run uvicorn main:app --reload",
+        "build": "turbo run build",
+        "test": "turbo run test"
+    },
+    "devDependencies": {
+        "turbo": "^1.10.0"
+    },
+    "packageManager": "pnpm@8.0.0"
+}

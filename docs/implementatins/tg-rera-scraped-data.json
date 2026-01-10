@@ -1,0 +1,353 @@
+{
+  "page_info": {
+    "title": "Welcome to TGRERA",
+    "url": "https://rera.telangana.gov.in/",
+    "timestamp": "2026-01-02T17:21:38.246Z",
+    "scraped_date": "2025-01-02"
+  },
+  
+  "header": {
+    "organization": "Telangana Real Estate Regulatory Authority",
+    "languages": ["Telugu", "Hindi", "Urdu", "English"],
+    "accessibility_features": ["Font size controls", "Language selection"]
+  },
+  
+  "statistics": {
+    "registered_projects": "10408",
+    "registered_agents": "4729", 
+    "revoked_projects": "10",
+    "complainants": "2629",
+    "disposed_complaints": "1714",
+    "defaulters": "8",
+    "total_visitors": "285652",
+    "today_count": "1397"
+  },
+  
+  "key_services": {
+    "citizen_services": [
+      {
+        "name": "Guidelines for Citizen",
+        "url": "https://rera.telangana.gov.in/wreutifjngivbhgioqwjetiowue305-TG-RERA-5469839798jgkofdhsgbkshrig"
+      },
+      {
+        "name": "Project Progress",
+        "url": "https://rerait.telangana.gov.in/SearchList/Search"
+      },
+      {
+        "name": "Make a Complaint",
+        "url": "https://rera.telangana.gov.in/complaint/"
+      },
+      {
+        "name": "Orders / Judgements",
+        "url": "https://rera.telangana.gov.in/complaint/"
+      }
+    ],
+    
+    "promoter_services": [
+      {
+        "name": "Guidelines for Promoters",
+        "url": "https://rera.telangana.gov.in/54673hgsjkfdhgsfg-TG-RERA-lfkdbnklh5409u569"
+      },
+      {
+        "name": "Project Registration",
+        "url": "https://rerait.telangana.gov.in/?MenuID=50"
+      },
+      {
+        "name": "Updates (Quarterly/Annual)",
+        "url": "https://rerait.telangana.gov.in/"
+      },
+      {
+        "name": "Project Corrections",
+        "url": "https://rerait.telangana.gov.in/"
+      }
+    ],
+    
+    "agent_services": [
+      {
+        "name": "Guidelines for Real Estate Agent",
+        "url": "https://rera.telangana.gov.in/746983urihsgjhdsvf-TG-RERA-aeau09wu59v8u"
+      },
+      {
+        "name": "Agent Registration",
+        "url": "https://rerait.telangana.gov.in/"
+      },
+      {
+        "name": "Corrections",
+        "url": "https://rerait.telangana.gov.in/"
+      },
+      {
+        "name": "Agent Training and Certification",
+        "url": "https://rerait.telangana.gov.in/"
+      }
+    ]
+  },
+  
+  "important_urls": {
+    "project_search": "https://rerait.telangana.gov.in/SearchList/Search",
+    "project_registration": "https://rerait.telangana.gov.in/?MenuID=50",
+    "agent_registration": "https://rerait.telangana.gov.in/?MenuID=51",
+    "complaint_portal": "https://rera.telangana.gov.in/complaint/",
+    "main_portal": "https://rera.telangana.gov.in/"
+  },
+  
+  "pdf_documents": [
+    {
+      "title": "FAQ",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=BU_261125141232625.pdf",
+      "filename": "BU_261125141232625.pdf",
+      "category": "General Information"
+    },
+    {
+      "title": "RTI",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=BU_170525163405006.pdf",
+      "filename": "BU_170525163405006.pdf",
+      "category": "Right to Information"
+    },
+    {
+      "title": "EOI for PGGC",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=BU_110925164421630.pdf",
+      "filename": "BU_110925164421630.pdf",
+      "category": "Tenders/EOI"
+    },
+    {
+      "title": "Public Notice for the Attention of Promoters of Real Estate Projects",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_150925114238085.pdf",
+      "filename": "DUP_150925114238085.pdf",
+      "category": "Public Notices"
+    },
+    {
+      "title": "Public Notice for Allottees of M/s Sahithi Infratech Ventures India Pvt. Ltd",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_200625174404424.pdf",
+      "filename": "DUP_200625174404424.pdf",
+      "category": "Public Notices"
+    },
+    {
+      "title": "RERA ALERT - Advertisement issued & published in print media (English)",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_261124114620633.pdf",
+      "filename": "DUP_261124114620633.pdf",
+      "category": "Alerts/Warnings"
+    },
+    {
+      "title": "NEW FORM-3 CHARTERED ACCOUNTANT'S CERTIFICATE (On Letter Head)",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_121125174208683.pdf",
+      "filename": "DUP_121125174208683.pdf",
+      "category": "Forms"
+    },
+    {
+      "title": "629/TG RERA/2024 Circular- II Dt.18.03.2025 - TGRERA Instructions - Submission of QPRs",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_210325143214638.pdf",
+      "filename": "DUP_210325143214638.pdf",
+      "category": "Circulars"
+    },
+    {
+      "title": "NALSAR University MOU with TG RERA",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_160824100536956.pdf",
+      "filename": "DUP_160824100536956.pdf",
+      "category": "MOUs/Agreements"
+    }
+  ],
+  
+  "navigation_menu": [
+    {
+      "section": "About Us",
+      "items": [
+        {
+          "name": "Introduction",
+          "url": "https://rera.telangana.gov.in/jkbh47836543u8509-RERA-4352435874hnelfn900g4"
+        },
+        {
+          "name": "Organisation Structure",
+          "url": "https://rera.telangana.gov.in/47358436tujhfkdhg-TG-RERA-4572uthkdsjgh4457835"
+        },
+        {
+          "name": "Our Leadership",
+          "url": "https://rera.telangana.gov.in/ghfjknbvs6243572049t-TG-RERA-fsvnkj438250tjlsk"
+        },
+        {
+          "name": "Hon'ble Chairman's Message",
+          "url": "https://rera.telangana.gov.in/a4385209itkrngjkbv-TG-RERA-4i32954tignkgfbdana"
+        }
+      ]
+    },
+    {
+      "section": "Services",
+      "items": [
+        {
+          "name": "Real Estate Project Registration",
+          "url": "https://rerait.telangana.gov.in/?MenuID=50"
+        },
+        {
+          "name": "Real Estate Agent Registration",
+          "url": "https://rerait.telangana.gov.in/?MenuID=51"
+        },
+        {
+          "name": "Register Complaint",
+          "url": "https://rera.telangana.gov.in/complaint/"
+        }
+      ]
+    },
+    {
+      "section": "Downloads",
+      "items": [
+        {
+          "name": "RE(R&D) Act 2016",
+          "url": "https://rera.telangana.gov.in/8360954urgnksfjdbf-TG-RERA-48957rijgkldjghdhgfhd"
+        },
+        {
+          "name": "Rules and Regulations",
+          "url": "https://rera.telangana.gov.in/sfjkdghryttihrwughdk-TG-RERA-54670erogjfiodgurn0ewgjdsh"
+        },
+        {
+          "name": "Circulars",
+          "url": "https://rera.telangana.gov.in/amavlnjoiu7532845972-TG-RERA-74698ijgsdfjgbi349529"
+        },
+        {
+          "name": "Forms Download",
+          "url": "https://rera.telangana.gov.in/247564irgjsdghfdgfd-TG-RERA-wergsdgvsdhguoiwyr"
+        },
+        {
+          "name": "Orders by TGRERA",
+          "url": "https://rera.telangana.gov.in/247564irgjsdghfdgfd-TG-RERA-98498dsgdgyhdfjbhy43"
+        },
+        {
+          "name": "Proceedings",
+          "url": "https://rera.telangana.gov.in/Proceedings-TG-RERA-15121976Proceedings"
+        }
+      ]
+    },
+    {
+      "section": "Cause List and Orders",
+      "items": [
+        {
+          "name": "Cause list of Authority",
+          "url": "https://rera.telangana.gov.in/vbdjksfhbghg-TG-RERA-35690745iynbwir"
+        },
+        {
+          "name": "Orders of Authority",
+          "url": "https://rera.telangana.gov.in/586784u3y5dsgfg-TG-RERA-45678jklshihnfgsfdg"
+        },
+        {
+          "name": "Cause List of Adjudicating Officer",
+          "url": "https://rera.telangana.gov.in/658421fgkjdffdffy99545-TG-RERA-hjzdsfgjuysdfgmjsvdfhgnhd"
+        },
+        {
+          "name": "Orders of Adjudicating Officer",
+          "url": "https://rera.telangana.gov.in/384798wfybwev9fya62435-TG-RERA-skfjdgky483yunskljghfdgjh"
+        },
+        {
+          "name": "Orders in SUO MOTO Cases by Authority",
+          "url": "https://rera.telangana.gov.in/SUOMOTU-TG-RERA-15121976ORDERS"
+        }
+      ]
+    },
+    {
+      "section": "More",
+      "items": [
+        {
+          "name": "Contact Us",
+          "url": "https://rera.telangana.gov.in/43ujkdalngjkadgadjf-TG-RERA-96klsfgnjkhsgdsfdi4"
+        },
+        {
+          "name": "Search Registered Projects and Agents",
+          "url": "https://rerait.telangana.gov.in/SearchList/Search"
+        },
+        {
+          "name": "Feedback",
+          "url": "https://rera.telangana.gov.in/Dakfhjajhdf/adfhajksdfh"
+        },
+        {
+          "name": "Public Notice",
+          "url": "https://rera.telangana.gov.in/PublicNoticesReports-TG-RERA-15121976PublicNotices_Reports"
+        },
+        {
+          "name": "Annual Report",
+          "url": "https://rera.telangana.gov.in/AnnualReports-TG-RERA-15121976Annual_Reports"
+        }
+      ]
+    }
+  ],
+  
+  "contact_information": {
+    "organization": "Telangana Real Estate Regulatory Authority",
+    "address": "DTCP Building, Ground Floor, 640, A.C.Guards, Masab Tank, Opp. PTI Building, Hyderabad – 500004",
+    "phone": ["040-29394973", "040-29394974"],
+    "email": {
+      "office": "rera-maud@telangana.gov.in",
+      "secretary": "secy-rera-maud@telangana.gov.in"
+    },
+    "office_hours": "Monday to Saturday 10:30 AM to 5:00 PM"
+  },
+  
+  "footer_links": {
+    "quick_links": [
+      {
+        "name": "Disclaimer and Policies",
+        "url": "https://rera.telangana.gov.in/Home/DisclaimerPolicies"
+      },
+      {
+        "name": "Sitemap",
+        "url": "https://rera.telangana.gov.in/Home/Sitemap"
+      },
+      {
+        "name": "Help",
+        "url": "https://rera.telangana.gov.in/Home/Help"
+      },
+      {
+        "name": "Accessibility Statement",
+        "url": "https://rera.telangana.gov.in/Home/AccessibilityStatement"
+      },
+      {
+        "name": "FAQ",
+        "url": "https://rera.telangana.gov.in/sfkdhgshrg98yr-TG-RERA-svhbui4596809368dsggvx"
+      }
+    ],
+    
+    "social_media": [
+      {
+        "name": "Facebook",
+        "url": "https://rera.telangana.gov.in/#"
+      },
+      {
+        "name": "LinkedIn", 
+        "url": "https://rera.telangana.gov.in/#"
+      },
+      {
+        "name": "Twitter",
+        "url": "https://rera.telangana.gov.in/#"
+      },
+      {
+        "name": "Google",
+        "url": "https://rera.telangana.gov.in/#"
+      }
+    ]
+  },
+  
+  "flash_news": [
+    "All the Promoters are directed as per Section 11 (1) (b) to (f) of the Real Estate (R&D) Act, 2016 to upload Quarterly reports (by 15/04, 15/07, 15/10, 15/01) within 15days from expiry of each quarter or else action will be initiated as per RE (R&D) Act, 2016.",
+    "All the Promoters/Agents may send email for any complaints on Online Registrations"
+  ],
+  
+  "latest_updates": [
+    {
+      "title": "NALSAR University MOU",
+      "description": "On July 5th, 2024, NALSAR University of Law, Hyderabad, entered into a Memorandum of Understanding (MOU) with the Telangana Real Estate Regulatory Authority (TG RERA)",
+      "url": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_160824100536956.pdf"
+    }
+  ],
+  
+  "document_url_patterns": {
+    "pdf_base": "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=",
+    "document_base": "https://rera.telangana.gov.in/ViewDocument?DocumentId=",
+    "search_portal": "https://rerait.telangana.gov.in/SearchList/Search"
+  },
+  
+  "metadata": {
+    "scraped_by": "Automated Web Scraper",
+    "scraped_date": "2025-01-02",
+    "total_links_found": 67,
+    "total_pdf_documents": 9,
+    "page_language": "English",
+    "accessibility_compliant": true,
+    "mobile_responsive": true
+  }
+}

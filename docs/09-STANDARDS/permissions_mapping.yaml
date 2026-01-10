@@ -1,0 +1,633 @@
+# Permissions Mapping Module
+# Maps roles to capabilities and resource scopes across domains
+# Expert Review: Based on AWS IAM Policies, Google Cloud IAM, and Azure RBAC
+# This file creates the complete permission matrix for the system
+
+# ==========================================
+# ROLE-CAPABILITY MATRIX
+# ==========================================
+role_capabilities:
+  # ------------------ Core System Roles ------------------
+  guest:
+    global:
+      - "app:browse"
+      - "app:public.read"
+      - "content:public.read"
+    
+  viewer:
+    global:
+      - "app:login"
+      - "app:profile.read"
+      - "app:dashboard.read"
+      - "content:*.read"
+      - "analytics:view"
+    
+  user:
+    global:
+      - "app:profile.*"
+      - "content:create"
+      - "content:own.*"
+      - "comments:create"
+      - "notifications:read"
+    
+  power_user:
+    global:
+      - "app:profile.*"
+      - "content:*"
+      - "integrations:connect"
+      - "integrations:manage"
+      - "api:read"
+      - "api:write"
+      - "webhooks:*"
+      - "analytics:advanced"
+      - "export:bulk"
+    
+  team_member:
+    global:
+      - "team:view"
+      - "team:content.read"
+      - "team:content.write"
+      - "team:collaborate"
+    
+  team_lead:
+    global:
+      - "team:*"
+      - "team:members.invite"
+      - "team:members.remove"
+      - "team:settings.update"
+    
+  moderator:
+    global:
+      - "content:*.moderate"
+      - "users:*.read"
+      - "reports:view"
+      - "reports:action"
+    
+  support:
+    global:
+      - "users:*.assist"
+      - "tickets:*"
+      - "chat:support"
+      - "analytics:support"
+      - "impersonate:view_only"
+    
+  manager:
+    global:
+      - "org:view"
+      - "org:users.read"
+      - "org:reports.view"
+      - "billing:view"
+      - "users:suspend"
+    
+  admin:
+    global:
+      - "*:*"
+    
+  super_admin:
+    global:
+      - "*:*"
+
+# ==========================================
+# ROLE-RESOURCE SCOPE MATRIX
+# ==========================================
+role_scopes:
+  # ------------------ Core System Roles ------------------
+  guest:
+    allowed_scopes:
+      - "content:public/*"
+    denied_scopes:
+      - "user:*"
+      - "admin:*"
+  
+  viewer:
+    allowed_scopes:
+      - "user:self"
+      - "user:self/*"
+      - "content:*"
+      - "analytics:basic"
+    denied_scopes:
+      - "user:*:admin"
+      - "admin:*"
+  
+  user:
+    allowed_scopes:
+      - "user:self/**"
+      - "content:own/**"
+      - "project:own/**"
+    denied_scopes:
+      - "user:*:delete"
+      - "admin:*"
+  
+  power_user:
+    allowed_scopes:
+      - "user:self/**"
+      - "content:own/**"
+      - "project:own/**"
+      - "api_key:own/**"
+      - "webhook:own/**"
+      - "integration:own/**"
+    denied_scopes:
+      - "admin:*"
+      - "billing:admin"
+  
+  team_member:
+    allowed_scopes:
+      - "team:assigned/**"
+      - "workspace:team/**"
+    denied_scopes:
+      - "team:*/settings"
+      - "team:*/admin"
+  
+  team_lead:
+    allowed_scopes:
+      - "team:managed/**"
+      - "workspace:managed/**"
+      - "user:team_members"
+    denied_scopes:
+      - "org:*"
+  
+  moderator:
+    allowed_scopes:
+      - "content:**"
+      - "user:*/profile:read"
+      - "report:**"
+    denied_scopes:
+      - "user:*/delete"
+      - "billing:*"
+  
+  support:
+    allowed_scopes:
+      - "user:*"
+      - "ticket:*"
+      - "session:*:read"
+    denied_scopes:
+      - "user:*/delete"
+      - "billing:admin"
+  
+  manager:
+    allowed_scopes:
+      - "org:assigned/**"
+      - "user:org/**"
+      - "analytics:**"
+      - "billing:*/read"
+    denied_scopes:
+      - "system:*"
+  
+  admin:
+    allowed_scopes:
+      - "*"
+    denied_scopes: []
+  
+  super_admin:
+    allowed_scopes:
+      - "*"
+    denied_scopes: []
+
+# ==========================================
+# DOMAIN-SPECIFIC ROLE PERMISSIONS
+# ==========================================
+domain_role_permissions:
+  # ------------------ Real Estate ------------------
+  realestate:
+    buyer:
+      capabilities:
+        - "properties:search"
+        - "properties:view"
+        - "properties:favorite"
+        - "leads:create"
+        - "viewings:request"
+      scopes:
+        - "property:*:read"
+        - "lead:own/**"
+        - "viewing:own/**"
+        - "favorite:own/**"
+      
+    prop_owner:
+      capabilities:
+        - "properties:create"
+        - "properties:own.manage"
+        - "leads:receive"
+        - "viewings:schedule"
+      scopes:
+        - "property:own/**"
+        - "lead:property_own/**"
+        - "viewing:property_own/**"
+        - "analytics:property_own/**"
+      
+    agent:
+      capabilities:
+        - "properties:manage"
+        - "properties:multiple.manage"
+        - "leads:*.assign"
+        - "clients:manage"
+      scopes:
+        - "property:managed/**"
+        - "lead:assigned/**"
+        - "client:managed/**"
+        - "commission:own/**"
+      
+    builder:
+      capabilities:
+        - "projects:create"
+        - "projects:manage"
+        - "properties:bulk.create"
+        - "inventory:manage"
+      scopes:
+        - "project:own/**"
+        - "property:project_own/**"
+        - "inventory:project_own/**"
+        - "analytics:builder/**"
+
+  # ------------------ Fintech ------------------
+  fintech:
+    investor:
+      capabilities:
+        - "portfolio:view"
+        - "portfolio:manage"
+        - "trading:execute"
+        - "market:view"
+      scopes:
+        - "account:own/**"
+        - "portfolio:own/**"
+        - "transaction:own/**"
+        - "market:*:read"
+      
+    borrower:
+      capabilities:
+        - "loans:apply"
+        - "loans:view"
+        - "loans:repay"
+        - "documents:upload"
+      scopes:
+        - "loan:own/**"
+        - "application:own/**"
+        - "document:own/**"
+      
+    advisor:
+      capabilities:
+        - "clients:manage"
+        - "portfolios:*.view"
+        - "recommendations:create"
+      scopes:
+        - "client:managed/**"
+        - "portfolio:client/**"
+        - "recommendation:own/**"
+
+  # ------------------ Healthcare ------------------
+  healthcare:
+    patient:
+      capabilities:
+        - "appointments:book"
+        - "records:own.view"
+        - "prescriptions:view"
+        - "telehealth:join"
+      scopes:
+        - "patient:self/**"
+        - "appointment:own/**"
+        - "prescription:own/**"
+        - "record:own:read"
+      
+    doctor:
+      capabilities:
+        - "patients:view"
+        - "records:*.read"
+        - "records:*.write"
+        - "prescriptions:create"
+        - "telehealth:host"
+      scopes:
+        - "patient:assigned/**"
+        - "record:patient/**"
+        - "prescription:created/**"
+        - "appointment:doctor/**"
+
+  # ------------------ E-commerce ------------------
+  ecommerce:
+    shopper:
+      capabilities:
+        - "products:browse"
+        - "cart:manage"
+        - "orders:create"
+        - "reviews:create"
+      scopes:
+        - "product:*:read"
+        - "cart:own/**"
+        - "order:own/**"
+        - "review:own/**"
+      
+    merchant:
+      capabilities:
+        - "products:create"
+        - "inventory:manage"
+        - "orders:fulfill"
+        - "analytics:sales"
+      scopes:
+        - "product:own/**"
+        - "inventory:own/**"
+        - "order:merchant/**"
+        - "analytics:merchant/**"
+
+  # ------------------ EdTech ------------------
+  edtech:
+    learner:
+      capabilities:
+        - "courses:browse"
+        - "courses:enroll"
+        - "assignments:submit"
+        - "certificates:download"
+      scopes:
+        - "course:*:read"
+        - "enrollment:own/**"
+        - "assignment:enrolled/**"
+        - "certificate:own/**"
+      
+    educator:
+      capabilities:
+        - "courses:create"
+        - "assignments:create"
+        - "assignments:grade"
+        - "analytics:teaching"
+      scopes:
+        - "course:own/**"
+        - "assignment:course_own/**"
+        - "student:course_own/**"
+        - "analytics:educator/**"
+
+  # ------------------ Logistics ------------------
+  logistics:
+    shipper:
+      capabilities:
+        - "shipments:create"
+        - "shipments:track"
+      scopes:
+        - "shipment:own/**"
+        - "tracking:own/**"
+      
+    carrier:
+      capabilities:
+        - "shipments:accept"
+        - "routes:optimize"
+        - "drivers:manage"
+      scopes:
+        - "shipment:assigned/**"
+        - "route:own/**"
+        - "driver:managed/**"
+      
+    driver:
+      capabilities:
+        - "deliveries:view"
+        - "deliveries:update"
+        - "routes:navigate"
+      scopes:
+        - "delivery:assigned/**"
+        - "route:assigned:read"
+
+  # ------------------ Travel ------------------
+  travel:
+    traveler:
+      capabilities:
+        - "bookings:create"
+        - "itineraries:manage"
+        - "reviews:create"
+      scopes:
+        - "booking:own/**"
+        - "itinerary:own/**"
+        - "review:own/**"
+      
+    travel_agent:
+      capabilities:
+        - "bookings:manage"
+        - "clients:manage"
+        - "commissions:view"
+      scopes:
+        - "booking:client/**"
+        - "client:managed/**"
+        - "commission:own/**"
+
+  # ------------------ SaaS ------------------
+  saas:
+    end_user:
+      capabilities:
+        - "app:use"
+        - "profile:manage"
+      scopes:
+        - "user:self/**"
+        - "project:assigned:read"
+      
+    team_admin:
+      capabilities:
+        - "team:manage"
+        - "users:invite"
+        - "billing:view"
+      scopes:
+        - "team:own/**"
+        - "user:team/**"
+        - "billing:team:read"
+      
+    org_admin:
+      capabilities:
+        - "org:manage"
+        - "users:manage"
+        - "billing:admin"
+      scopes:
+        - "org:own/**"
+        - "user:org/**"
+        - "billing:org/**"
+
+  # ------------------ Gaming ------------------
+  gaming:
+    player:
+      capabilities:
+        - "games:play"
+        - "matches:join"
+        - "chat:use"
+      scopes:
+        - "player:self/**"
+        - "match:participated/**"
+        - "achievement:own/**"
+      
+    moderator:
+      capabilities:
+        - "chat:moderate"
+        - "players:warn"
+        - "reports:handle"
+      scopes:
+        - "chat:**"
+        - "player:*:read"
+        - "report:**"
+      
+    tournament_organizer:
+      capabilities:
+        - "tournaments:create"
+        - "tournaments:manage"
+        - "prizes:distribute"
+      scopes:
+        - "tournament:own/**"
+        - "participant:tournament/**"
+
+  # ------------------ Social Media ------------------
+  social_media:
+    user:
+      capabilities:
+        - "posts:create"
+        - "profiles:view"
+        - "messages:send"
+      scopes:
+        - "post:own/**"
+        - "profile:*:read"
+        - "message:own/**"
+      
+    creator:
+      capabilities:
+        - "content:monetize"
+        - "analytics:view"
+        - "audience:manage"
+      scopes:
+        - "content:own/**"
+        - "analytics:creator/**"
+        - "follower:own/**"
+      
+    moderator:
+      capabilities:
+        - "content:moderate"
+        - "users:suspend"
+        - "reports:review"
+      scopes:
+        - "content:**"
+        - "user:*:moderate"
+        - "report:**"
+
+  # ------------------ Food Delivery ------------------
+  food_delivery:
+    customer:
+      capabilities:
+        - "restaurants:browse"
+        - "orders:place"
+        - "orders:track"
+      scopes:
+        - "restaurant:*:read"
+        - "order:own/**"
+        - "tracking:own/**"
+      
+    restaurant_owner:
+      capabilities:
+        - "menu:manage"
+        - "orders:fulfill"
+        - "analytics:view"
+      scopes:
+        - "restaurant:own/**"
+        - "menu:own/**"
+        - "order:restaurant/**"
+      
+    delivery_partner:
+      capabilities:
+        - "orders:accept"
+        - "deliveries:complete"
+        - "earnings:view"
+      scopes:
+        - "delivery:assigned/**"
+        - "earnings:own/**"
+
+  # ------------------ AgriTech ------------------
+  agritech:
+    farmer:
+      capabilities:
+        - "crops:manage"
+        - "marketplace:sell"
+        - "advisory:receive"
+      scopes:
+        - "farm:own/**"
+        - "crop:own/**"
+        - "listing:own/**"
+      
+    buyer:
+      capabilities:
+        - "products:browse"
+        - "orders:place"
+      scopes:
+        - "product:*:read"
+        - "order:own/**"
+      
+    agronomist:
+      capabilities:
+        - "farmers:advise"
+        - "reports:create"
+      scopes:
+        - "farmer:assigned/**"
+        - "advisory:own/**"
+
+# ==========================================
+# CONDITIONAL PERMISSIONS
+# ==========================================
+conditional_permissions:
+  # Time-based permissions
+  time_based:
+    - condition: "business_hours_only"
+      applies_to: ["support", "moderator"]
+      restriction: "9am-6pm local time"
+    
+    - condition: "after_trial_period"
+      applies_to: ["user", "power_user"]
+      restriction: "account_age > 7 days"
+  
+  # Feature flag based
+  feature_based:
+    - condition: "beta_features_enabled"
+      grants: ["api:beta", "features:experimental"]
+    
+    - condition: "premium_subscription"
+      grants: ["export:unlimited", "analytics:advanced", "api:unlimited"]
+  
+  # Location based
+  location_based:
+    - condition: "within_service_area"
+      applies_to: ["delivery_partner", "driver"]
+      restriction: "geo:service_region"
+  
+  # Verification based
+  verification_based:
+    - condition: "kyc_verified"
+      required_for: ["trading:execute", "loans:apply", "high_value_transactions"]
+    
+    - condition: "email_verified"
+      required_for: ["api:write", "webhooks:create"]
+
+# ==========================================
+# PERMISSION INHERITANCE
+# ==========================================
+permission_inheritance:
+  enable_inheritance: true
+  inheritance_chain:
+    super_admin: []
+    admin: ["manager", "moderator", "support"]
+    manager: ["team_lead", "power_user"]
+    team_lead: ["team_member", "user"]
+    power_user: ["user"]
+    user: ["viewer"]
+    viewer: ["guest"]
+
+# ==========================================
+# PERMISSION CONFLICTS RESOLUTION
+# ==========================================
+conflict_resolution:
+  strategy: "most_restrictive"  # or "most_permissive", "explicit_deny_wins"
+  explicit_deny_precedence: true
+  log_conflicts: true
+
+# ==========================================
+# PERMISSION CACHING
+# ==========================================
+caching:
+  enabled: true
+  ttl_seconds: 300
+  invalidate_on_role_change: true
+  invalidate_on_scope_change: true
+
+# ==========================================
+# PERMISSION EVALUATION ORDER
+# ==========================================
+evaluation_order:
+  - "explicit_deny"
+  - "role_permissions"
+  - "domain_permissions"
+  - "conditional_permissions"
+  - "default_deny"

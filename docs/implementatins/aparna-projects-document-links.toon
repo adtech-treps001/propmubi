@@ -1,0 +1,323 @@
+# ============================================================================
+# 🏢 APARNA PROJECTS - DOCUMENT LINKS REGISTRY
+# ============================================================================
+
+[metadata]
+version = "1.0.0"
+module = "aparna-projects-document-registry"
+description = "Complete document links and information for Aparna projects"
+requested_project = "APARNA SAROVAR ZENITH"
+actual_status = "Project name not found - providing related projects"
+last_updated = "2025-01-02"
+
+# ============================================================================
+# 🔍 PROJECT CLARIFICATION
+# ============================================================================
+[project_clarification]
+requested_name = "APARNA SAROVAR ZENITH"
+search_result = "No exact match found"
+explanation = "This appears to be a combination of two separate project names"
+recommendation = "Search for individual projects: Aparna Zenith OR Aparna Sarovar"
+
+[project_clarification.actual_projects]
+project_1 = { name = "Aparna Zenith", location = "Nallagandla", status = "Active" }
+project_2 = { name = "Aparna Sarovar", location = "Nallagandla", status = "Completed" }
+
+# ============================================================================
+# 🏗️ APARNA ZENITH - PRIMARY PROJECT
+# ============================================================================
+[aparna_zenith]
+project_name = "Aparna Zenith"
+developer = "Aparna Constructions and Estates Pvt Ltd"
+location = "Nallagandla, Gachibowli, Hyderabad, Telangana"
+project_type = "Residential Apartments"
+total_area = "26+ acres"
+total_units = 2140
+total_towers = 12
+lake_facing = true
+eco_friendly = true
+certification = "Pre-certified Gold-rated project"
+
+[aparna_zenith.unit_types]
+bhk_2 = { type = "2 BHK", area_range = "TBD", availability = "Available" }
+bhk_3 = { type = "3 BHK", area_range = "TBD", availability = "Available" }
+bhk_4 = { type = "4 BHK", area_range = "TBD", availability = "Available" }
+
+[aparna_zenith.rera_info]
+state = "Telangana"
+authority = "TG-RERA"
+registration_status = "Registered"
+main_portal = "https://rera.telangana.gov.in/"
+search_portal = "https://rerait.telangana.gov.in/SearchList/Search"
+complaint_portal = "https://rera.telangana.gov.in/complaint/"
+
+# ============================================================================
+# 📄 DOCUMENT LINKS - APARNA ZENITH
+# ============================================================================
+[aparna_zenith.document_links]
+primary_search_url = "https://rerait.telangana.gov.in/SearchList/Search"
+document_base_url = "https://rera.telangana.gov.in/ViewDocument?DocumentId="
+pdf_base_url = "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename="
+
+[aparna_zenith.document_links.search_terms]
+primary = ["Aparna Zenith", "Aparna Constructions", "Nallagandla"]
+secondary = ["P01100", "Genesis Planners", "Lake facing Aparna"]
+
+[aparna_zenith.document_links.available_documents]
+registration = [
+    "RERA Registration Certificate",
+    "Project Registration Details", 
+    "Developer Information",
+    "Promoter Details"
+]
+
+planning = [
+    "Master Layout Plan",
+    "Floor Plans - 2BHK/3BHK/4BHK",
+    "Elevation Drawings",
+    "Site Plan",
+    "Landscape Plan"
+]
+
+approvals = [
+    "Building Approvals",
+    "DTCP Approval", 
+    "HMDA Approval",
+    "Environmental Clearance",
+    "Fire NOC",
+    "Pollution Control Board NOC",
+    "Water Board NOC",
+    "Electricity Board NOC"
+]
+
+financial = [
+    "Project Cost Details",
+    "Bank Guarantee Details", 
+    "Escrow Account Information",
+    "Payment Schedule",
+    "Price List"
+]
+
+progress = [
+    "Quarterly Progress Reports",
+    "Construction Status Updates",
+    "Completion Certificates",
+    "Occupancy Certificates"
+]
+
+# ============================================================================
+# 🏠 APARNA SAROVAR - SECONDARY PROJECT
+# ============================================================================
+[aparna_sarovar]
+project_name = "Aparna Sarovar"
+developer = "Aparna Constructions and Estates Pvt Ltd"
+location = "Nallagandla, Gachibowli, Hyderabad, Telangana"
+project_type = "Residential Apartments"
+status = "Ready to Move"
+possession_status = "Completed"
+
+[aparna_sarovar.unit_types]
+bhk_2 = { type = "2 BHK", area_range = "1240 sq.ft onwards", availability = "Resale" }
+bhk_3 = { type = "3 BHK", area_range = "TBD", availability = "Resale" }
+
+[aparna_sarovar.document_links]
+search_portal = "https://rerait.telangana.gov.in/SearchList/Search"
+search_terms = ["Aparna Sarovar", "Aparna Constructions Sarovar"]
+
+# ============================================================================
+# 🏘️ RELATED APARNA PROJECTS
+# ============================================================================
+[related_projects.sarovar_grande]
+name = "Aparna Sarovar Grande"
+location = "Nallagandla, Hyderabad"
+status = "Completed (2016)"
+total_units = 720
+towers = 9
+floors_per_tower = 19
+area = "10+ acres"
+unit_types = ["3 BHK", "4 BHK"]
+area_range = "1920 - 3875 sq.ft"
+
+[related_projects.sarovar_zicon]
+name = "Aparna Sarovar Zicon"
+location = "Nallagandla, Hyderabad"
+total_area = "25.5 acres"
+total_units = 3024
+towers = 14
+built_up_area = "45,00,000 sq.ft"
+unit_types = ["2 BHK", "3 BHK", "4 BHK"]
+area_range = "1240 - 2765 sq.ft"
+
+# ============================================================================
+# 📋 DOCUMENT ACCESS PROCESS
+# ============================================================================
+[document_access_process]
+step_1 = "Visit TG-RERA Portal: https://rera.telangana.gov.in/"
+step_2 = "Navigate to Project Search: https://rerait.telangana.gov.in/SearchList/Search"
+step_3 = "Search using project name, developer name, or location"
+step_4 = "Select specific project from search results"
+step_5 = "Access document sections: Details, Documents, Progress, Financial"
+
+[document_access_process.search_options]
+by_project_name = "Aparna Zenith"
+by_developer = "Aparna Constructions"
+by_location = "Nallagandla"
+by_rera_number = "Search for P01100 prefix"
+
+[document_access_process.document_sections]
+project_details = "Basic project information and specifications"
+documents = "All uploaded project documents and certificates"
+progress_reports = "Quarterly construction progress updates"
+financial_info = "Cost details, bank guarantees, escrow information"
+complaints = "Any registered complaints and their status"
+
+# ============================================================================
+# 🌐 ADDITIONAL INFORMATION SOURCES
+# ============================================================================
+[additional_sources.official_websites]
+developer_website = "https://aparnaconstructions.com/"
+architect_website = "https://genesisplanners.in/residential/aparna-zenith/"
+
+[additional_sources.property_portals]
+portal_1 = { name = "99acres", url = "https://www.99acres.com/", features = ["Price lists", "Floor plans", "Reviews"] }
+portal_2 = { name = "SquareYards", url = "https://www.squareyards.com/", features = ["RERA details", "Price analysis"] }
+portal_3 = { name = "Housing.com", url = "https://housing.com/", features = ["Market analysis", "Investment insights"] }
+
+# ============================================================================
+# 📞 CONTACT INFORMATION
+# ============================================================================
+[contact_info.tg_rera]
+office_name = "Telangana Real Estate Regulatory Authority"
+address = "DTCP Building, Ground Floor, 640, A.C.Guards, Masab Tank, Opp. PTI Building, Hyderabad – 500004"
+phone_1 = "040-29394973"
+phone_2 = "040-29394974"
+email_office = "rera-maud@telangana.gov.in"
+email_secretary = "secy-rera-maud@telangana.gov.in"
+office_hours = "Monday to Saturday 10:30 AM to 5:00 PM"
+
+[contact_info.developer]
+company = "Aparna Constructions and Estates Pvt Ltd"
+website = "https://aparnaconstructions.com/"
+note = "Contact details available on official website"
+
+# ============================================================================
+# 🔍 SEARCH RECOMMENDATIONS
+# ============================================================================
+[search_recommendations.aparna_zenith]
+primary_searches = [
+    "Aparna Zenith Nallagandla",
+    "Aparna Constructions Zenith", 
+    "Zenith Gachibowli Aparna"
+]
+
+alternative_searches = [
+    "P01100 Aparna",
+    "Aparna Lake facing project",
+    "Genesis Planners Aparna"
+]
+
+[search_recommendations.aparna_sarovar]
+primary_searches = [
+    "Aparna Sarovar Nallagandla",
+    "Aparna Sarovar Ready to move"
+]
+
+note = "Multiple Sarovar projects exist - verify specific project phase"
+
+# ============================================================================
+# 📝 DOCUMENT URL PATTERNS
+# ============================================================================
+[url_patterns]
+rera_main = "https://rera.telangana.gov.in/"
+project_search = "https://rerait.telangana.gov.in/SearchList/Search"
+document_view = "https://rera.telangana.gov.in/ViewDocument?DocumentId={ID}"
+pdf_view = "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename={filename}"
+complaint_portal = "https://rera.telangana.gov.in/complaint/"
+project_registration = "https://rerait.telangana.gov.in/?MenuID=50"
+
+[url_patterns.examples]
+example_document = "https://rera.telangana.gov.in/ViewDocument?DocumentId=12345"
+example_pdf = "https://rera.telangana.gov.in/Home/ShowPdf?pdffilename=DUP_150925114238085.pdf"
+
+# ============================================================================
+# ⚠️ IMPORTANT NOTES
+# ============================================================================
+[important_notes]
+project_name_clarification = "No project named 'APARNA SAROVAR ZENITH' found"
+separate_projects = "Aparna Zenith and Aparna Sarovar are different projects"
+location_similarity = "Both projects located in Nallagandla area"
+rera_numbers = "Specific RERA registration numbers must be obtained from portal"
+document_access = "Direct document links generated after project selection"
+login_requirement = "Some documents may require RERA portal registration"
+verification_needed = "Project status should be verified with developer"
+
+# ============================================================================
+# 📊 SEARCH STATISTICS
+# ============================================================================
+[search_statistics]
+total_registered_projects_tg = 10408
+total_registered_agents_tg = 4729
+total_complaints_tg = 2629
+complaints_disposed_tg = 1714
+defaulters_tg = 8
+revoked_projects_tg = 10
+
+# ============================================================================
+# 🔄 UPDATE INFORMATION
+# ============================================================================
+[update_info]
+last_compiled = "2025-01-02"
+data_sources = ["TG-RERA Portal", "Genesis Planners", "Property Portals", "Web Search"]
+accuracy_note = "Information from publicly available sources - verify with official sources"
+update_frequency = "Manual update required"
+next_actions = [
+    "Manual search on TG-RERA portal for specific RERA numbers",
+    "Direct contact with Aparna Constructions for project clarification",
+    "Verification of project names and current status"
+]
+
+# ============================================================================
+# 📋 DOCUMENT CHECKLIST
+# ============================================================================
+[document_checklist]
+mandatory_rera_documents = [
+    "RERA Registration Certificate",
+    "Approved Building Plans", 
+    "Layout Plan",
+    "Land Title Documents",
+    "Approvals from Competent Authority",
+    "Sanctioned Plan",
+    "NOC from Fire Department",
+    "NOC from Environment Department"
+]
+
+financial_documents = [
+    "Audited Balance Sheet",
+    "Cash Flow Statement", 
+    "Bank Guarantee",
+    "Escrow Account Details",
+    "Project Cost Estimation"
+]
+
+progress_documents = [
+    "Quarterly Progress Report",
+    "Construction Status",
+    "Completion Certificate",
+    "Occupancy Certificate"
+]
+
+# ============================================================================
+# 🎯 FINAL RECOMMENDATIONS
+# ============================================================================
+[final_recommendations]
+immediate_action = "Search TG-RERA portal for 'Aparna Zenith' to get exact RERA number and documents"
+alternative_action = "Contact Aparna Constructions directly for project clarification"
+verification_step = "Confirm project name and location before document search"
+document_priority = "Focus on RERA Registration Certificate and Layout Plans first"
+
+[final_recommendations.contact_sequence]
+step_1 = "Search TG-RERA portal using provided search terms"
+step_2 = "If not found, contact Aparna Constructions customer service"
+step_3 = "Verify project name, location, and current status"
+step_4 = "Request specific RERA registration number"
+step_5 = "Use RERA number for direct document access"

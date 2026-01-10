@@ -1,0 +1,79 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "123e4567-e89b-12d3-a456-426614174000",
+                "name": "My Home Mangala",
+                "type": "PROJECT_BOUNDARY",
+                "status": "PRE_LAUNCH",
+                "trust_score": 92
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            78.345,
+                            17.450
+                        ],
+                        [
+                            78.350,
+                            17.450
+                        ],
+                        [
+                            78.350,
+                            17.455
+                        ],
+                        [
+                            78.345,
+                            17.455
+                        ],
+                        [
+                            78.345,
+                            17.450
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "tower-a",
+                "parent_id": "123e4567-e89b-12d3-a456-426614174000",
+                "name": "Tower A",
+                "type": "TOWER",
+                "height_meters": 120
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            78.346,
+                            17.451
+                        ],
+                        [
+                            78.347,
+                            17.451
+                        ],
+                        [
+                            78.347,
+                            17.452
+                        ],
+                        [
+                            78.346,
+                            17.452
+                        ],
+                        [
+                            78.346,
+                            17.451
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}
