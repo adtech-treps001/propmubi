@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from apps.api.routers import auth, projects, legal, inspections, agent, crm, ingest, content
+from apps.api.routers import auth, projects, legal, inspections, agent, crm, ingest, content, builder_crm, lead_management
 from pydantic import BaseModel
 
 app = FastAPI(title="PropMubi Trust OS API")
@@ -44,3 +44,5 @@ app.include_router(agent.router, prefix="/agent", tags=["Agent Network"])
 app.include_router(crm.router, prefix="/crm", tags=["CRM Governance"])
 app.include_router(ingest.router, prefix="/ingest", tags=["AI Magic"])
 app.include_router(content.router, prefix="/content", tags=["Content Studio"])
+app.include_router(builder_crm.router, prefix="/builder-crm", tags=["Builder CRM"])
+app.include_router(lead_management.router, prefix="/lead-mgmt", tags=["Lead Management"])
